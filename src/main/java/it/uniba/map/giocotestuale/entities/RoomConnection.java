@@ -1,9 +1,7 @@
 package it.uniba.map.giocotestuale.entities;
 
 public class RoomConnection {
-
     private Room reachableRoom;
-
     private boolean isLocked;
 
     public RoomConnection(final Room reachableRoom, final boolean isLocked) {
