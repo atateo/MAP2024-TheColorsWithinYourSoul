@@ -53,4 +53,9 @@ public class Room {
     public RoomConnection getEastRoomConnection() {
         return this.east;
     }
+
+    public String getDescriptionFromDB() {
+        //Placeholder, sarà implementato insieme al DB
+        return null;
+    }
 }
