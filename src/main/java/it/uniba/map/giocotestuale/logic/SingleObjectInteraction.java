@@ -3,10 +3,10 @@ package it.uniba.map.giocotestuale.logic;
 import it.uniba.map.giocotestuale.entities.GameObject;
 import it.uniba.map.giocotestuale.type.Command;
 
-public abstract class SingularGameObjectInteraction extends Interaction {
+public abstract class SingleObjectInteraction extends Interaction {
     private GameObject gameObject;
 
-    public SingularGameObjectInteraction(final GameObject gameObject, final Command interactionType) {
+    public SingleObjectInteraction(final GameObject gameObject, final Command interactionType) {
         super(interactionType);
         this.gameObject = gameObject;
     }
