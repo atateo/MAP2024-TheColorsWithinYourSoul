@@ -43,6 +43,7 @@ public class Room extends GameObject {
         return this.east;
     }
 
+    @Override
     public String getDescriptionFromDB() {
         //Placeholder, sarà implementato insieme al DB
         return null;
