@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
-Build-Jdk-Spec: 17
+Built-By: tateo.antimo
+Build-Jdk: 17.0.3
 Created-By: Maven Integration for Eclipse
 
