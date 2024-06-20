@@ -9,8 +9,8 @@ public class Item extends GameObject {
 
     private Color currentColor;
 
-    public Item(final int id, final String name, final ArrayList<String> aliases) {
-        super(id, name, aliases);
+    public Item(final int id, final String name, final ArrayList<String> aliases, final String status) {
+        super(id, name, aliases, status);
         this.currentColor = Color.NEUTRAL;
     }
 

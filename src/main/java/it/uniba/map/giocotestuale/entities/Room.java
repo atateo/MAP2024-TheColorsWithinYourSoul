@@ -7,8 +7,8 @@ public class Room extends GameObject {
     private RoomConnection west;
     private RoomConnection east;
 
-    public Room(final int id, final String name) {
-        super(id, name, null);
+    public Room(final int id, final String name, final String state) {
+        super(id, name, null, state);
     }
 
     public void setNorthRoomConnection(final Room reachableRoom, final boolean isLocked) {

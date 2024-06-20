@@ -6,11 +6,13 @@ public abstract class GameObject {
     private int id;
     private String name;
     private ArrayList<String> aliases;
+    private String status;
 
-    public GameObject(final int id, final String name, final ArrayList<String> aliases) {
+    public GameObject(final int id, final String name, final ArrayList<String> aliases, final String status) {
         this.id = id;
         this.name = name;
         this.aliases = aliases;
+        this.status = status;
     }
 
     public int getId() {
@@ -35,6 +37,14 @@ public abstract class GameObject {
 
     public void setAliases(final ArrayList<String> aliases) {
         this.aliases = aliases;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(final String status) {
+        this.status = status;
     }
 
     public abstract String getDescriptionFromDB();
