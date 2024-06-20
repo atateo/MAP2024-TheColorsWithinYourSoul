@@ -26,6 +26,6 @@ public class RoomConnection {
     }
 
     public void unlock() {
-        this.isLocked = false;
+        setLocked(false);
     }
 }

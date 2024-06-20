@@ -1,8 +1,6 @@
 package it.uniba.map.giocotestuale.entities;
 
-public class Room {
-    private int id;
-    private String name;
+public class Room extends GameObject {
 
     private RoomConnection north;
     private RoomConnection south;
@@ -10,16 +8,7 @@ public class Room {
     private RoomConnection east;
 
     public Room(final int id, final String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
+        super(id, name, null);
     }
 
     public void setNorthRoomConnection(final Room reachableRoom, final boolean isLocked) {

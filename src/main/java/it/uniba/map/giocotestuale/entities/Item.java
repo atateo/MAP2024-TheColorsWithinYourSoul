@@ -2,17 +2,22 @@ package it.uniba.map.giocotestuale.entities;
 
 import java.util.ArrayList;
 
-public class Item extends Interactable {
+public class Item extends GameObject {
     private boolean isPickable;
     private boolean isPaintable;
+    private boolean isMovable;
 
     private Color currentColor;
 
-    public Item(final int id, final String name, final ArrayList<String> aliases, final boolean isPickable, final boolean isPaintable) {
+    public Item(final int id, final String name, final ArrayList<String> aliases) {
         super(id, name, aliases);
-        this.isPickable = isPickable;
-        this.isPaintable = isPaintable;
         this.currentColor = Color.NEUTRAL;
+    }
+
+    public void initializeProperties (final boolean isPickable, final boolean isPaintable, final boolean isMovable) {
+        setPickable(isPickable);
+        setPaintable(isPaintable);
+        setMovable(isMovable);
     }
 
     public boolean getPickable() {
@@ -21,6 +26,10 @@ public class Item extends Interactable {
 
     public boolean getPaintable() {
         return this.isPaintable;
+    }
+
+    public boolean getMovable() {
+        return this.isMovable;
     }
 
     public Color getCurrentColor() {
@@ -33,6 +42,10 @@ public class Item extends Interactable {
 
     public void setPaintable(final boolean isPaintable) {
         this.isPaintable = isPaintable;
+    }
+
+    public void setMovable(final boolean isMovable) {
+        this.isMovable = isMovable;
     }
 
     public boolean setCurrentColor(final Color currentColor) {
