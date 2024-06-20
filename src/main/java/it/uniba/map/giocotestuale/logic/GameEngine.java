@@ -2,13 +2,15 @@ package it.uniba.map.giocotestuale.logic;
 
 import it.uniba.map.giocotestuale.entities.Item;
 import it.uniba.map.giocotestuale.entities.Room;
+import it.uniba.map.giocotestuale.utility.Timer;
 
 import java.util.ArrayList;
 
 public abstract class GameEngine {
     private ArrayList<Room> rooms;
     private ArrayList<Item> inventory;
-    private ArrayList<GameObjectToGameObjectInteraction> gameInteractions;
+    private ArrayList<Interaction> gameInteractions;
+    private Timer gameTimer;
 
     private String playerName;
     private Room currentRoom;
@@ -17,6 +19,7 @@ public abstract class GameEngine {
         rooms = new ArrayList<>();
         inventory = new ArrayList<>();
         gameInteractions = new ArrayList<>();
+        gameTimer = new Timer();
     }
 
     public void setPlayerName(String playerName) {
@@ -64,8 +67,12 @@ public abstract class GameEngine {
         return this.inventory;
     }
 
-    public ArrayList<GameObjectToGameObjectInteraction> getGameInteractions() {
+    public ArrayList<Interaction> getGameInteractions() {
         return this.gameInteractions;
+    }
+
+    public Timer getGameTimer() {
+        return this.gameTimer;
     }
 
     public abstract void defineGameInteractions();
