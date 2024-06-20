@@ -7,11 +7,8 @@ public class Item extends GameObject {
     private boolean isPaintable;
     private boolean isMovable;
 
-    private Color currentColor;
-
     public Item(final int id, final String name, final ArrayList<String> aliases, final String status) {
         super(id, name, aliases, status);
-        this.currentColor = Color.NEUTRAL;
     }
 
     public void initializeProperties (final boolean isPickable, final boolean isPaintable, final boolean isMovable) {
@@ -32,10 +29,6 @@ public class Item extends GameObject {
         return this.isMovable;
     }
 
-    public Color getCurrentColor() {
-        return this.currentColor;
-    }
-
     public void setPickable(final boolean isPickable) {
         this.isPickable = isPickable;
     }
@@ -46,15 +39,6 @@ public class Item extends GameObject {
 
     public void setMovable(final boolean isMovable) {
         this.isMovable = isMovable;
-    }
-
-    public boolean setCurrentColor(final Color currentColor) {
-        if (getPaintable()) {
-            this.currentColor = currentColor;
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override
