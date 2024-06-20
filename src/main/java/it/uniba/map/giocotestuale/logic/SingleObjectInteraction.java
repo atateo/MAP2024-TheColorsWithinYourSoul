@@ -16,4 +16,6 @@ public abstract class SingleObjectInteraction extends Interaction {
 
         return super.getInteractionType() != interactionType;
     }
+
+    public abstract void executeInteraction();
 }
