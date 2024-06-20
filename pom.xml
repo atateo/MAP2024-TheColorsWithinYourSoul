@@ -6,11 +6,43 @@
   <name>Gioco Testuale</name>
   <description>Applicazione gioco testuale MAP</description>
   <dependencies>
-  	<dependency>
-  		<groupId>com.h2database</groupId>
-  		<artifactId>h2</artifactId>
-  		<version>2.2.224</version>
-  	</dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>2.2.224</version>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>5.3.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>commons-codec</groupId>
+          <artifactId>commons-codec</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.grizzly</groupId>
+      <artifactId>grizzly-http-all</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.grizzly</groupId>
+      <artifactId>grizzly-servlet-webserver</artifactId>
+      <version>1.9.65</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.9</version>
+    </dependency>
   </dependencies>
   <properties>
     <maven.compiler.source>22</maven.compiler.source>
