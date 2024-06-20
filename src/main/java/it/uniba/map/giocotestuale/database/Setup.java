@@ -16,6 +16,7 @@ public class Setup {
 				"id INT AUTO_INCREMENT PRIMARY KEY, " +
 				"label VARCHAR(200), " +
 				"messaggio VARCHAR(4000), " +
+				"isRisposta BOOLEAN, "+
 				"idContenuto INT)";
 		
 		istruzioni.add(creaContenuto);

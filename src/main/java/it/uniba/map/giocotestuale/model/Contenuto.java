@@ -48,7 +48,7 @@ public class Contenuto {
 
 	@Override
     public String toString() {
-        return "Fascicolo{" +
+        return "Contenuto{" +
             "id=" + getId() +
             ", label=" + getLabel() +
             ", messaggio='" + getMessaggio() + "'" +

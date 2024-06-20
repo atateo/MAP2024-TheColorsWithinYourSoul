@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,23 +32,22 @@ public class ContenutoDaoImpl implements ContenutoDao {
 		String query
 		= "insert into contenuto"
 				+ "(label, messaggio, idContenuto, isRisposta) VALUES (?, ?, ?, ?)";
-		PreparedStatement ps = conn.prepareStatement(query);
+		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, contenuto.getLabel());
 		ps.setString(2, contenuto.getMessaggio());
 		ps.setString(3, contenuto.getIdContenuto());
 		ps.setBoolean(4, contenuto.isRisposta());
 		int n = ps.executeUpdate();
+		
 		return n;
 	}
 
 	public void delete(int id) throws SQLException {
 		String query
 		= "delete from contenuto where id =?";
-		PreparedStatement ps
-		= conn.prepareStatement(query);
+		PreparedStatement ps = conn.prepareStatement(query);
 		ps.setInt(1, id);
 		ps.executeUpdate();
-
 	}
 
 	public Contenuto getContenuto(int id) throws SQLException {
@@ -69,7 +69,7 @@ public class ContenutoDaoImpl implements ContenutoDao {
 			contenuto.setRisposta(rs.getBoolean("isRisposta"));
 		}
 
-		return null;
+		return contenuto;
 	}
 
 	public List<Contenuto> getContenuti() throws SQLException {
@@ -93,6 +93,21 @@ public class ContenutoDaoImpl implements ContenutoDao {
 
 	public void update(Contenuto contenuto) throws SQLException {
 		//questo lo devo pensare bene
+		String query = "update contenuto set"
+		+" label = ?"
+		+" messaggio = ?"
+		+" isRisposta = ?"
+		+" idContenuto = ?"
+		+" where id = ?";
+				
+		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		ps.setString(1, contenuto.getLabel());
+		ps.setString(2, contenuto.getMessaggio());
+		ps.setBoolean(3, contenuto.isRisposta());
+		ps.setString(4, contenuto.getIdContenuto());
+		ps.setInt(5, contenuto.getId());
+		
+		ps.executeUpdate();
 	}
 
 }
