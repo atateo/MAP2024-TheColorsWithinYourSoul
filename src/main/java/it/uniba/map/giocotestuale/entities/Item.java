@@ -46,4 +46,11 @@ public class Item extends GameObject {
         //Placeholder, verrà implementata insieme al DB
         return null;
     }
+
+    @Override
+    public void updateStatus(final String newStatus) {
+        super.setStatus(newStatus);
+
+        //Scrivere qui l'implementazione dei vari status
+    }
 }
