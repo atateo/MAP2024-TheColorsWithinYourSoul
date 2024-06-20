@@ -48,4 +48,11 @@ public class Room extends GameObject {
         //Placeholder, sarà implementato insieme al DB
         return null;
     }
+
+    @Override
+    public void updateStatus(final String newStatus) {
+        super.setStatus(newStatus);
+
+        //Scrivere qui l'implementazione dei vari status
+    }
 }
