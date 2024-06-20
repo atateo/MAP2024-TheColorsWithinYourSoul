@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale.logic;
 
+import it.uniba.map.giocotestuale.entities.GameObject;
 import it.uniba.map.giocotestuale.type.Command;
 
 public abstract class Interaction {
@@ -13,6 +14,6 @@ public abstract class Interaction {
         return interactionType;
     }
 
+    public abstract boolean isCorrectInteraction(final GameObject gameObject, final Command interactionType);
     public abstract void executeInteraction();
-    public abstract boolean isCorrectInteraction();
 }
