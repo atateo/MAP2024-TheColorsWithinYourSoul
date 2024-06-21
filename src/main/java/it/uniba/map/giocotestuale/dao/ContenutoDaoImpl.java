@@ -38,7 +38,7 @@ public class ContenutoDaoImpl implements ContenutoDao {
 		ps.setString(3, contenuto.getIdContenuto());
 		ps.setBoolean(4, contenuto.isRisposta());
 		int n = ps.executeUpdate();
-		
+
 		return n;
 	}
 
@@ -65,7 +65,7 @@ public class ContenutoDaoImpl implements ContenutoDao {
 			contenuto.setId(rs.getInt("id"));
 			contenuto.setLabel(rs.getString("label"));
 			contenuto.setMessaggio(rs.getString("messaggio"));
-			contenuto.setIdContenuto(rs.getString("messaggio"));
+			contenuto.setIdContenuto(rs.getString("idContenuto"));
 			contenuto.setRisposta(rs.getBoolean("isRisposta"));
 		}
 
@@ -92,22 +92,21 @@ public class ContenutoDaoImpl implements ContenutoDao {
 	}
 
 	public void update(Contenuto contenuto) throws SQLException {
-		//questo lo devo pensare bene
+		//questo lo devo pensare bene (aggiornare tutto contenuto o solo i campi realmente variati?)
 		String query = "update contenuto set"
-		+" label = ?"
-		+" messaggio = ?"
-		+" isRisposta = ?"
-		+" idContenuto = ?"
-		+" where id = ?";
-				
-		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, contenuto.getLabel());
-		ps.setString(2, contenuto.getMessaggio());
-		ps.setBoolean(3, contenuto.isRisposta());
-		ps.setString(4, contenuto.getIdContenuto());
-		ps.setInt(5, contenuto.getId());
-		
-		ps.executeUpdate();
+				+" label = ?,"
+				+" messaggio = ?,"
+				+" isRisposta = ?,"
+				+" idContenuto = ?"
+				+" where id = ?";
+		PreparedStatement ps = conn.prepareStatement(query);
+			ps.setString(1, contenuto.getLabel());
+			ps.setString(2, contenuto.getMessaggio());
+			ps.setBoolean(3, contenuto.isRisposta());
+			ps.setString(4, contenuto.getIdContenuto());
+			ps.setInt(5, contenuto.getId());
+
+			ps.executeUpdate();
 	}
 
 }
