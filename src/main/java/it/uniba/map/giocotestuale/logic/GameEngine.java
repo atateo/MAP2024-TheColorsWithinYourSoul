@@ -76,4 +76,5 @@ public abstract class GameEngine {
     }
 
     public abstract void defineGameInteractions();
+    public abstract void update();
 }

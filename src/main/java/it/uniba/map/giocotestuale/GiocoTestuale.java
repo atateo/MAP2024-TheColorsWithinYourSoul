@@ -3,6 +3,9 @@ package it.uniba.map.giocotestuale;
 import java.sql.SQLException;
 import java.util.List;
 
+//import it.uniba.map.giocotestuale.entities.*;
+//import it.uniba.map.giocotestuale.logic.*;
+//import it.uniba.map.giocotestuale.type.*;
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 import it.uniba.map.giocotestuale.dao.ContenutoDaoImpl;
 import it.uniba.map.giocotestuale.database.Setup;
@@ -45,6 +48,32 @@ public class GiocoTestuale {
 		catch (SQLException e) {
 			// TODO: handle exception
 		}
-	}
 
+//		Item itemTest = new Item(0, "Test1", null, "0");
+//		Room room = new Room(0, "Test1", "0");
+//
+//		System.out.println(itemTest.getStatus());
+//		System.out.println(room.getStatus());
+//
+//		SingleObjectInteraction testSingleInteraction = new SingleObjectInteraction(
+//				itemTest, Command.USA, "0", "1",
+//				(targetObject, resultObject, targetState, resultState) -> {
+//					if(targetObject.getStatus().equals(targetState))
+//						targetObject.setStatus(resultState);
+//		});
+//
+//		TwoObjectInteraction testTwoInteraction = new TwoObjectInteraction(
+//			itemTest, room, Command.USA, "1", "1",
+//			(targetObject, resultObject, targetState, resultState) -> {
+//				if(targetObject.getStatus().equals(targetState))
+//					targetObject.setStatus(resultState);
+//			}
+//		);
+//
+//		testSingleInteraction.executeInteraction();
+//		testTwoInteraction.executeInteraction();
+//
+//		System.out.println(itemTest.getStatus());
+//		System.out.println(room.getStatus());
+	}
 }
