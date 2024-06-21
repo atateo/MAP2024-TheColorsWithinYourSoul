@@ -28,21 +28,22 @@ public class GiocoTestuale {
 		ContenutoDaoImpl contImpl = new ContenutoDaoImpl();
 		try {
 			contImpl.add(contenuto);
-			Contenuto contenuto1 = contImpl.getContenuto(1);
+			Contenuto contenuto1 = contImpl.getContenuto(5);
 			System.out.println("contenuto1: "+contenuto1.toString());
 			
 			List<Contenuto> lista = contImpl.getContenuti();
 			for (Contenuto contenuto2 : lista) {
 				System.out.println("contenuto2: "+contenuto2.toString());
 			}
-			Contenuto contUp = contImpl.getContenuto(1);
+			Contenuto contUp = contImpl.getContenuto(5);
 			contUp.setMessaggio("prova di aggiornamento tramite DAO");
 			contImpl.update(contUp);
 			
-			contImpl.delete(1);
+			contImpl.delete(5);
 			
 		}
 		catch (SQLException e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		}
 	}
