@@ -3,9 +3,9 @@ package it.uniba.map.giocotestuale.logic;
 import it.uniba.map.giocotestuale.entities.GameObject;
 import it.uniba.map.giocotestuale.type.Command;
 
-public class TwoObjectInteraction extends Interaction {
-    private GameObject firstObject;
-    private GameObject secondObject;
+public abstract class TwoObjectInteraction extends Interaction {
+    private final GameObject firstObject;
+    private final GameObject secondObject;
 
     public TwoObjectInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(interactionType, targetState, resultState, interaction);
@@ -13,18 +13,11 @@ public class TwoObjectInteraction extends Interaction {
         this.secondObject = secondObject;
     }
 
-    @Override
-    public boolean isCorrectInteraction(final GameObject gameObject, final Command interactionType) {
-        if (this.firstObject != gameObject) return false;
-        if (!gameObject.getStatus().equals(super.getTargetState())) return false;
-
-        return super.getInteractionType() != interactionType;
+    protected GameObject getFirstObject() {
+        return this.firstObject;
     }
 
-    @Override
-    public void executeInteraction() {
-        secondObject.setStatus(super.getResultState());
-
-        super.getInteraction().executeInteraction(firstObject, secondObject, super.getTargetState(), super.getResultState());
+    protected GameObject getSecondObject() {
+        return this.secondObject;
     }
 }

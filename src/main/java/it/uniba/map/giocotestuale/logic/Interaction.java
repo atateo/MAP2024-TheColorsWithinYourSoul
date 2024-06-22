@@ -3,21 +3,23 @@ package it.uniba.map.giocotestuale.logic;
 import it.uniba.map.giocotestuale.entities.GameObject;
 import it.uniba.map.giocotestuale.type.Command;
 
-public abstract class Interaction {
-    private String targetState;
-    private String resultState;
-    private Interactable interaction;
-    private Command interactionType;
+import java.util.List;
 
-    public Interaction(final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
+public abstract class Interaction {
+    private final String targetState;
+    private final String resultState;
+    private final Interactable interaction;
+    private final Command interactionCommand;
+
+    public Interaction(final Command interactionCommand, final String targetState, final String resultState, final Interactable interaction) {
         this.interaction = interaction;
         this.targetState = targetState;
         this.resultState = resultState;
-        this.interactionType = interactionType;
+        this.interactionCommand = interactionCommand;
     }
 
-    public Command getInteractionType() {
-        return interactionType;
+    public Command getInteractionCommand() {
+        return interactionCommand;
     }
 
     public String getTargetState() {
@@ -32,6 +34,6 @@ public abstract class Interaction {
         return interaction;
     }
 
-    public abstract boolean isCorrectInteraction(final GameObject gameObject, final Command interactionType);
-    public abstract void executeInteraction();
+    public abstract boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType);
+    public abstract void executeInteraction(final GameEngine game);
 }
