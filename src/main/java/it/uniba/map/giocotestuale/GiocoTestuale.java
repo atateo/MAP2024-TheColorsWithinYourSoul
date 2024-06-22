@@ -8,6 +8,7 @@ import java.util.List;
 //import it.uniba.map.giocotestuale.type.*;
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 import it.uniba.map.giocotestuale.dao.ContenutoDaoImpl;
+import it.uniba.map.giocotestuale.database.DatabaseConnection;
 import it.uniba.map.giocotestuale.database.Setup;
 import it.uniba.map.giocotestuale.model.Contenuto;
 
@@ -27,22 +28,23 @@ public class GiocoTestuale {
 		contenuto.setLabel("PROVA");
 		contenuto.setMessaggio("messaggio di prova");
 		contenuto.setRisposta(false);
+		contenuto.setIdItem(12);
 		
 		ContenutoDaoImpl contImpl = new ContenutoDaoImpl();
 		try {
 			contImpl.add(contenuto);
-			Contenuto contenuto1 = contImpl.getContenuto(5);
+			Contenuto contenuto1 = contImpl.getContenuto(1);
 			System.out.println("contenuto1: "+contenuto1.toString());
 			
 			List<Contenuto> lista = contImpl.getContenuti();
 			for (Contenuto contenuto2 : lista) {
 				System.out.println("contenuto2: "+contenuto2.toString());
 			}
-			Contenuto contUp = contImpl.getContenuto(5);
+			Contenuto contUp = contImpl.getContenuto(1);
 			contUp.setMessaggio("prova di aggiornamento tramite DAO");
 			contImpl.update(contUp);
 			
-			contImpl.delete(5);
+			contImpl.delete(1);
 			
 		}
 		catch (SQLException e) {
@@ -76,5 +78,7 @@ public class GiocoTestuale {
 //
 //		System.out.println(itemTest.getStatus());
 //		System.out.println(room.getStatus());
+		
+		DatabaseConnection.releaseConnection();
 	}
 }

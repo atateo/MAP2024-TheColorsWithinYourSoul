@@ -11,7 +11,7 @@ public class Contenuto {
 	private String label;
 	private String messaggio;
 	private boolean isRisposta;
-	private String idContenuto;
+	private int idItem;
 
 	public Contenuto() {}
 
@@ -39,11 +39,11 @@ public class Contenuto {
 	public void setRisposta(boolean isRisposta) {
 		this.isRisposta = isRisposta;
 	}
-	public String getIdContenuto() {
-		return idContenuto;
+	public int getIdItem() {
+		return idItem;
 	}
-	public void setIdContenuto(String idContenuto) {
-		this.idContenuto = idContenuto;
+	public void setIdItem(int idItem) {
+		this.idItem = idItem;
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class Contenuto {
             ", label=" + getLabel() +
             ", messaggio='" + getMessaggio() + "'" +
             ", isRisposta='" + isRisposta() + "'" +
-            ", idContenuto='" + getIdContenuto() + "'" +
+            ", idTest='" + getIdItem() + "'" +
             "}";
     }
 }
