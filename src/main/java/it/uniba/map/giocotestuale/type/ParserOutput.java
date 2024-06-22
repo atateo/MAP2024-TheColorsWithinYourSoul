@@ -7,6 +7,10 @@ public class ParserOutput {
     private GameObject firstObject;
     private GameObject secondObject;
 
+    public ParserOutput() {
+
+    }
+
     public ParserOutput(Command commandType, GameObject firstObject, GameObject secondObject) {
         this.commandType = commandType;
         this.firstObject = firstObject;
@@ -25,17 +29,29 @@ public class ParserOutput {
         return this.secondObject;
     }
 
+    public void setCommandType(Command commandType) {
+        this.commandType = commandType;
+    }
+
+    public void setFirstObject(GameObject firstObject) {
+        this.firstObject = firstObject;
+    }
+
+    public void setSecondObject(GameObject secondObject) {
+        this.secondObject = secondObject;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof ParserOutput that)) return false;
 
         if (this.getCommandType() != that.getCommandType()) return false;
 
-        if (this.getFirstObject().equals(that.getFirstObject())) return false;
-
         if(this.getSecondObject() == null && that.getSecondObject() != null) return false;
 
         if(this.getSecondObject() != null && that.getSecondObject() == null) return false;
+
+        if (!this.getFirstObject().equals(that.getFirstObject())) return false;
 
         return this.getSecondObject().equals(that.getSecondObject());
     }

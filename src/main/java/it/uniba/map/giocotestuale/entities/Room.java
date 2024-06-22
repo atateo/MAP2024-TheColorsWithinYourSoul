@@ -1,11 +1,15 @@
 package it.uniba.map.giocotestuale.entities;
 
+import java.util.ArrayList;
+
 public class Room extends GameObject {
 
     private RoomConnection north;
     private RoomConnection south;
     private RoomConnection west;
     private RoomConnection east;
+
+    private ArrayList<Item> itemsInRoom;
 
     public Room(final int id, final String name, final String state) {
         super(id, name, null, state);
@@ -27,6 +31,10 @@ public class Room extends GameObject {
         this.east = new RoomConnection(reachableRoom, isLocked);
     }
 
+    public void setItemsInRoom(final ArrayList<Item> itemsInRoom) {
+        this.itemsInRoom = itemsInRoom;
+    }
+
     public RoomConnection getNorthRoomConnection() {
         return this.north;
     }
@@ -41,6 +49,10 @@ public class Room extends GameObject {
 
     public RoomConnection getEastRoomConnection() {
         return this.east;
+    }
+
+    public ArrayList<Item> getItemsInRoom() {
+        return this.itemsInRoom;
     }
 
     @Override
