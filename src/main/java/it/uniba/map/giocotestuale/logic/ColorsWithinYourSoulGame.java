@@ -7,6 +7,11 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     }
 
     @Override
+    public void getWelcomeMessage() {
+        //Scrivere qui il codice che gestirà l'intro di gioco
+    }
+
+    @Override
     public void defineGameInteractions() {
         //Scrivere qui il codice che definirà effettivamente il flow del gioco, nello specifico le interazioni
     }

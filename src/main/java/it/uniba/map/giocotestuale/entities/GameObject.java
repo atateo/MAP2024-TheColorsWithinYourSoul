@@ -48,6 +48,5 @@ public abstract class GameObject {
     }
 
     public abstract String getDescriptionFromDB();
-
     public abstract void updateStatus(final String newStatus);
 }

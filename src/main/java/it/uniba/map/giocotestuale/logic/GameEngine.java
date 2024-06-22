@@ -75,6 +75,7 @@ public abstract class GameEngine {
         return this.gameTimer;
     }
 
+    public abstract void getWelcomeMessage();
     public abstract void defineGameInteractions();
     public abstract void update();
 }
