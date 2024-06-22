@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.logic;
+package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.GameObject;
 import it.uniba.map.giocotestuale.type.Command;
@@ -13,11 +13,11 @@ public abstract class TwoObjectInteraction extends Interaction {
         this.secondObject = secondObject;
     }
 
-    protected GameObject getFirstObject() {
+    public GameObject getFirstObject() {
         return this.firstObject;
     }
 
-    protected GameObject getSecondObject() {
+    public GameObject getSecondObject() {
         return this.secondObject;
     }
 }

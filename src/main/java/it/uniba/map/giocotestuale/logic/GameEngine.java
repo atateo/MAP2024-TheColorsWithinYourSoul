@@ -3,6 +3,7 @@ package it.uniba.map.giocotestuale.logic;
 import it.uniba.map.giocotestuale.entities.CommandClass;
 import it.uniba.map.giocotestuale.entities.Item;
 import it.uniba.map.giocotestuale.entities.Room;
+import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.utility.Timer;
 

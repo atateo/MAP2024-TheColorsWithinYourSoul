@@ -1,23 +1,28 @@
-package it.uniba.map.giocotestuale.logic;
+package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.GameObject;
+import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.List;
 
-public class ChainInteraction extends TwoObjectInteraction {
+public class DirectInteraction extends TwoObjectInteraction {
 
-    public ChainInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
+    public DirectInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(firstObject, secondObject, interactionType, targetState, resultState, interaction);
     }
 
     @Override
     public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
-        if (gameObjects.size() != 1) {
+        if (gameObjects.size() != 2) {
             return false;
-        } else {
-            return super.getFirstObject().equals(gameObjects.getFirst());
         }
+
+        if (!super.getFirstObject().equals(gameObjects.get(0)) || !this.getSecondObject().equals(gameObjects.get(1))){
+            return false;
+        }
+
+        return super.getTargetState() == null || super.getTargetState().equals(gameObjects.getFirst().getStatus());
     }
 
     @Override

@@ -1,6 +1,7 @@
-package it.uniba.map.giocotestuale.logic;
+package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.GameObject;
+import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.List;
