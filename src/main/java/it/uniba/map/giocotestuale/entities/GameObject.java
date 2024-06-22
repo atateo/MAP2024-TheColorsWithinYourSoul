@@ -47,6 +47,14 @@ public abstract class GameObject {
         this.status = status;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof GameObject that)) return false;
+        if (this == o) return true;
+
+        return this.getId() == that.getId();
+    }
+
     public abstract String getDescriptionFromDB();
     public abstract void updateStatus(final String newStatus);
 }

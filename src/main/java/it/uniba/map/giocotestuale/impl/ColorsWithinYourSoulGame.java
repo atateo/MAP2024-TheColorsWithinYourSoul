@@ -1,4 +1,6 @@
-package it.uniba.map.giocotestuale.logic;
+package it.uniba.map.giocotestuale.impl;
+
+import it.uniba.map.giocotestuale.logic.GameEngine;
 
 public class ColorsWithinYourSoulGame extends GameEngine {
 
