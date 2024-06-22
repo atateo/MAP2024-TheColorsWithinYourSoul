@@ -28,20 +28,22 @@ public class ContenutoDaoImpl implements ContenutoDao {
 	}
 	static Connection conn = DatabaseConnection.getConnection();
 
+	@Override
 	public int add(Contenuto contenuto) throws SQLException {
 		String query
 		= "insert into contenuto"
-				+ "(label, messaggio, idContenuto, isRisposta) VALUES (?, ?, ?, ?)";
+				+ "(label, messaggio, idItem, isRisposta) VALUES (?, ?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, contenuto.getLabel());
 		ps.setString(2, contenuto.getMessaggio());
-		ps.setString(3, contenuto.getIdContenuto());
+		ps.setInt(3, contenuto.getIdItem());
 		ps.setBoolean(4, contenuto.isRisposta());
 		int n = ps.executeUpdate();
 
 		return n;
 	}
 
+	@Override
 	public void delete(int id) throws SQLException {
 		String query
 		= "delete from contenuto where id =?";
@@ -50,6 +52,7 @@ public class ContenutoDaoImpl implements ContenutoDao {
 		ps.executeUpdate();
 	}
 
+	@Override
 	public Contenuto getContenuto(int id) throws SQLException {
 		String query
 		= "select * from contenuto where id= ?";
@@ -65,13 +68,14 @@ public class ContenutoDaoImpl implements ContenutoDao {
 			contenuto.setId(rs.getInt("id"));
 			contenuto.setLabel(rs.getString("label"));
 			contenuto.setMessaggio(rs.getString("messaggio"));
-			contenuto.setIdContenuto(rs.getString("idContenuto"));
+			contenuto.setIdItem(rs.getInt("idItem"));
 			contenuto.setRisposta(rs.getBoolean("isRisposta"));
 		}
 
 		return contenuto;
 	}
 
+	@Override
 	public List<Contenuto> getContenuti() throws SQLException {
 		String query = "select * from contenuto";
 		PreparedStatement ps
@@ -85,25 +89,26 @@ public class ContenutoDaoImpl implements ContenutoDao {
 			contenuto.setLabel(rs.getString("label"));
 			contenuto.setMessaggio(rs.getString("messaggio"));
 			contenuto.setRisposta(rs.getBoolean("isRisposta"));
-			contenuto.setIdContenuto(rs.getString("idContenuto"));
+			contenuto.setIdItem(rs.getInt("idItem"));
 			ls.add(contenuto);
 		}
 		return ls;
 	}
 
+	@Override
 	public void update(Contenuto contenuto) throws SQLException {
 		//questo lo devo pensare bene (aggiornare tutto contenuto o solo i campi realmente variati?)
 		String query = "update contenuto set"
 				+" label = ?,"
 				+" messaggio = ?,"
 				+" isRisposta = ?,"
-				+" idContenuto = ?"
+				+" idItem = ?"
 				+" where id = ?";
 		PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, contenuto.getLabel());
 			ps.setString(2, contenuto.getMessaggio());
 			ps.setBoolean(3, contenuto.isRisposta());
-			ps.setString(4, contenuto.getIdContenuto());
+			ps.setInt(4, contenuto.getIdItem());
 			ps.setInt(5, contenuto.getId());
 
 			ps.executeUpdate();
