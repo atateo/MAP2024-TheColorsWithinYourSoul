@@ -13,7 +13,7 @@ public class SingleObjectInteraction extends Interaction {
 
     @Override
     public boolean isCorrectInteraction(final GameObject gameObject, final Command interactionType) {
-        if (this.gameObject != gameObject) return false;
+        if (!this.gameObject.equals(gameObject)) return false;
         if (!gameObject.getStatus().equals(super.getTargetState())) return false;
 
         return super.getInteractionType() != interactionType;

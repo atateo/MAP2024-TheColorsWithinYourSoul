@@ -9,7 +9,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     }
 
     @Override
-    public void getWelcomeMessage() {
+    public void welcomePlayer() {
         //Scrivere qui il codice che gestirà l'intro di gioco
     }
 
@@ -21,5 +21,17 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     @Override
     public void update() {
         //Scrivere qui il codice che scorrerà le varie interactions per eseguire quelle da effettuare
+    }
+
+    @Override
+    public boolean checkIfGameIsOver() {
+        //Scrivere qui il codice che verificherà se il gioco è terminato
+
+        return false;
+    }
+
+    @Override
+    public void goodbyePlayer() {
+        //Scrivere qui il codice che gestirà la fine del gioco
     }
 }
