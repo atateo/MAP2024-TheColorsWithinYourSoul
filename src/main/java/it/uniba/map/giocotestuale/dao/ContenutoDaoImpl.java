@@ -1,6 +1,3 @@
-/**
- * 
- */
 package it.uniba.map.giocotestuale.dao;
 
 import java.sql.Connection;
@@ -15,103 +12,109 @@ import it.uniba.map.giocotestuale.database.DatabaseConnection;
 import it.uniba.map.giocotestuale.model.Contenuto;
 
 /**
- * @author tateo.antimo
- *
+ * Implementazione dell'interfaccia ContenutoDao.
+ * Fornisce i metodi per le operazioni CRUD sull'entità Contenuto nel database.
+ * 
+ * @autor tateo.antimo
  */
 public class ContenutoDaoImpl implements ContenutoDao {
 
-	/**
-	 * 
-	 */
-	public ContenutoDaoImpl() {
-		// TODO Auto-generated constructor stub
-	}
-	static Connection conn = DatabaseConnection.getConnection();
+    /**
+     * Costruttore di default.
+     */
+    public ContenutoDaoImpl() {
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public int add(Contenuto contenuto) throws SQLException {
-		String query
-		= "insert into contenuto"
-				+ "(label, messaggio, idItem, isRisposta) VALUES (?, ?, ?, ?)";
-		PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-		ps.setString(1, contenuto.getLabel());
-		ps.setString(2, contenuto.getMessaggio());
-		ps.setInt(3, contenuto.getIdItem());
-		ps.setBoolean(4, contenuto.isRisposta());
-		int n = ps.executeUpdate();
+    /**
+     * Connessione al database condivisa tra i metodi.
+     */
+    static Connection conn = DatabaseConnection.getConnection();
 
-		return n;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int add(Contenuto contenuto) throws SQLException {
+        String query = "INSERT INTO contenuto (label, messaggio, idItem, isRisposta) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, contenuto.getLabel());
+        ps.setString(2, contenuto.getMessaggio());
+        ps.setInt(3, contenuto.getIdItem());
+        ps.setBoolean(4, contenuto.isRisposta());
+        int n = ps.executeUpdate();
+        return n;
+    }
 
-	@Override
-	public void delete(int id) throws SQLException {
-		String query
-		= "delete from contenuto where id =?";
-		PreparedStatement ps = conn.prepareStatement(query);
-		ps.setInt(1, id);
-		ps.executeUpdate();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void delete(int id) throws SQLException {
+        String query = "DELETE FROM contenuto WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, id);
+        ps.executeUpdate();
+    }
 
-	@Override
-	public Contenuto getContenuto(int id) throws SQLException {
-		String query
-		= "select * from contenuto where id= ?";
-		PreparedStatement ps
-		= conn.prepareStatement(query);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Contenuto getContenuto(int id) throws SQLException {
+        String query = "SELECT * FROM contenuto WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1, id);
+        Contenuto contenuto = null;
+        ResultSet rs = ps.executeQuery();
 
-		ps.setInt(1, id);
-		Contenuto contenuto = null;
-		ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            contenuto = new Contenuto();
+            contenuto.setId(rs.getInt("id"));
+            contenuto.setLabel(rs.getString("label"));
+            contenuto.setMessaggio(rs.getString("messaggio"));
+            contenuto.setIdItem(rs.getInt("idItem"));
+            contenuto.setRisposta(rs.getBoolean("isRisposta"));
+        }
 
-		while (rs.next()) {
-			contenuto = new Contenuto();
-			contenuto.setId(rs.getInt("id"));
-			contenuto.setLabel(rs.getString("label"));
-			contenuto.setMessaggio(rs.getString("messaggio"));
-			contenuto.setIdItem(rs.getInt("idItem"));
-			contenuto.setRisposta(rs.getBoolean("isRisposta"));
-		}
+        return contenuto;
+    }
 
-		return contenuto;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Contenuto> getContenuti() throws SQLException {
+        String query = "SELECT * FROM contenuto";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        List<Contenuto> ls = new ArrayList<>();
 
-	@Override
-	public List<Contenuto> getContenuti() throws SQLException {
-		String query = "select * from contenuto";
-		PreparedStatement ps
-		= conn.prepareStatement(query);
-		ResultSet rs = ps.executeQuery();
-		List<Contenuto> ls = new ArrayList<Contenuto>();
+        while (rs.next()) {
+            Contenuto contenuto = new Contenuto();
+            contenuto.setId(rs.getInt("id"));
+            contenuto.setLabel(rs.getString("label"));
+            contenuto.setMessaggio(rs.getString("messaggio"));
+            contenuto.setRisposta(rs.getBoolean("isRisposta"));
+            contenuto.setIdItem(rs.getInt("idItem"));
+            ls.add(contenuto);
+        }
+        return ls;
+    }
 
-		while (rs.next()) {
-			Contenuto contenuto = new Contenuto();
-			contenuto.setId(rs.getInt("id"));
-			contenuto.setLabel(rs.getString("label"));
-			contenuto.setMessaggio(rs.getString("messaggio"));
-			contenuto.setRisposta(rs.getBoolean("isRisposta"));
-			contenuto.setIdItem(rs.getInt("idItem"));
-			ls.add(contenuto);
-		}
-		return ls;
-	}
-
-	@Override
-	public void update(Contenuto contenuto) throws SQLException {
-		//questo lo devo pensare bene (aggiornare tutto contenuto o solo i campi realmente variati?)
-		String query = "update contenuto set"
-				+" label = ?,"
-				+" messaggio = ?,"
-				+" isRisposta = ?,"
-				+" idItem = ?"
-				+" where id = ?";
-		PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, contenuto.getLabel());
-			ps.setString(2, contenuto.getMessaggio());
-			ps.setBoolean(3, contenuto.isRisposta());
-			ps.setInt(4, contenuto.getIdItem());
-			ps.setInt(5, contenuto.getId());
-
-			ps.executeUpdate();
-	}
-
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(Contenuto contenuto) throws SQLException {
+        // Aggiorna tutto il contenuto o solo i campi realmente variati
+        String query = "UPDATE contenuto SET label = ?, messaggio = ?, isRisposta = ?, idItem = ? WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, contenuto.getLabel());
+        ps.setString(2, contenuto.getMessaggio());
+        ps.setBoolean(3, contenuto.isRisposta());
+        ps.setInt(4, contenuto.getIdItem());
+        ps.setInt(5, contenuto.getId());
+        ps.executeUpdate();
+    }
 }
