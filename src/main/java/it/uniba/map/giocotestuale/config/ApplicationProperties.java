@@ -41,6 +41,21 @@ public class ApplicationProperties {
      * valere true anche se è presente il controllo di esistenza sulla tabella).
      */
     private boolean setup;
+    
+    /**
+     * url del servizio di autenticazione dell'api Artsy.
+     */
+    private String urlToken;
+    
+    /**
+     * clientId utile all'autenticazione in OAuth2 all'api Artsy.
+     */
+    private String clientId;
+    
+    /**
+     * secret utile all'autenticazione in OAuth2 all'api Artsy.
+     */
+    private String secret;    
 
     /**
      * Ritorna l'attributo versione dell'applicazione.
@@ -131,8 +146,62 @@ public class ApplicationProperties {
     public void setSetup(boolean setup) {
         this.setup = setup;
     }
+    
+    /**
+     * Ritorna l'attributo urlToken.
+     * 
+     * @return urlToken (servizio di autenticazione ad Artsy).
+     */
+    public String getUrlToken() {
+		return urlToken;
+	}
 
     /**
+     * Imposta l'attributo urlToken.
+     * 
+     * @param urlToken l'attributo urlToken da impostare per l'autenticazione.
+     */
+	public void setUrlToken(String urlToken) {
+		this.urlToken = urlToken;
+	}
+
+	/**
+     * Ritorna l'attributo clientId.
+     * 
+     * @return clientId (servizio di autenticazione ad Artsy).
+     */
+	public String getClientId() {
+		return clientId;
+	}
+
+	/**
+     * Imposta l'attributo clientId.
+     * 
+     * @param clientId l'attributo clientId da impostare per l'autenticazione ad Artsy.
+     */
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	/**
+     * Ritorna l'attributo secret.
+     * 
+     * @return secret (servizio di autenticazione ad Artsy).
+     */
+	public String getSecret() {
+		return secret;
+	}
+
+	/**
+     * Imposta l'attributo secret.
+     * 
+     * @param secret l'attributo secret da impostare per l'autenticazione ad Artsy.
+     */
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+	/**
      * Singleton instance di ApplicationProperties.
      */
     private static ApplicationProperties instance = null;
@@ -153,6 +222,9 @@ public class ApplicationProperties {
             setUrlDatabase(appProps.getProperty("urlDatabase"));
             setUser(appProps.getProperty("user"));
             setPassword(appProps.getProperty("password"));
+            setUrlToken(appProps.getProperty("urlToken"));
+            setClientId(appProps.getProperty("clientId"));
+            setSecret(appProps.getProperty("secret"));
         } catch (IOException e) {
             logger.error("Errore in fase di caricamento delle proprietà dell'applicazione: {}",e);
         }
