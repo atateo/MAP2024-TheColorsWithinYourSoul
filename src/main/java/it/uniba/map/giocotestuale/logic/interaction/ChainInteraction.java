@@ -1,24 +1,38 @@
 package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.GameObject;
-import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.List;
 
+/**
+ * Classe che gestisce le interazioni a catena tra due oggetti. Queste sono interazioni tra due oggetti
+ * che non sono direttamente controllate da un comando. Un esempio di interazione a catena:
+ * "Se la torcia è accesa, la stanza si illumina."
+ */
 public class ChainInteraction extends TwoObjectInteraction {
 
-    public ChainInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
-        super(firstObject, secondObject, interactionType, targetState, resultState, interaction);
+    /**
+     * Costruttore con parametri della classe ChainInteraction. Inizializza tutti gli attributi della superclasse.
+     * @param firstObject Primo oggetto. Causa dell'interazione.
+     * @param secondObject Secondo oggetto. Subisce la conseguenza dell'interazione.
+     * @param targetState Stato che il primo oggetto deve avere per scaturire l'interazione.
+     * @param resultState Stato che il secondo oggetto assumerà dopo l'interazione.
+     * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
+     */
+    public ChainInteraction(final GameObject firstObject, final GameObject secondObject, final String targetState, final String resultState, final Interactable interaction) {
+        super(firstObject, secondObject, null, targetState, resultState, interaction);
     }
 
+    /**
+     * Metodo che verifica se, sulla base degli oggetti passati come parametro, l'interazione
+     * va effettuata su di essi. Definizione del metodo nella superclasse.
+     * @param gameObjects Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
+     * @param interactionType Comando dell'interazione. Essendo una interazione a catena, non viene analizzato.
+     * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
+     */
     @Override
     public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
-        //Non è un'interazione a due oggetti
-        if (gameObjects.size() != 2) {
-            return false;
-        }
-
         //Il primo oggetto non corrisponde
         if (super.getFirstObject().equals(gameObjects.getFirst())){
             return false;
@@ -30,12 +44,5 @@ public class ChainInteraction extends TwoObjectInteraction {
         //Una reazione a catena dipende esclusivamente dallo stato del primo oggetto e non dal comando.
         //Di conseguenza, non ci sono interazioni a catena da eseguire indipendentemente dal comando.
         //Inoltre, non ha bisogno di fare controlli sul comando e sul secondo oggetto.
-    }
-
-    @Override
-    public void executeInteraction(final GameEngine game) {
-        super.getSecondObject().setStatus(super.getResultState());
-
-        super.getInteraction().executeInteraction(super.getFirstObject(), super.getSecondObject(), super.getTargetState(), super.getResultState(), game);
     }
 }

@@ -1,24 +1,42 @@
 package it.uniba.map.giocotestuale.utility;
 
+/**
+ * Classe che rappresenta il timer di gioco. Tutti i valori temporali sono in ms.
+ */
 public final class Timer {
+    /**
+     * Tempo di partenza del timer.
+     */
     private long startTime;
+    /**
+     * Tempo di fine del timer.
+     */
     private long endTime;
+    /**
+     * Tempo trascorso col timer attivo.
+     */
     private long elapsedTime;
+    /**
+     * Booleano che indica se il timer è attivo o meno.
+     */
     private boolean isRunning;
 
+    /**
+     * Costanti utili per la formattazione del tempo in hh:mm:ss.
+     */
     final static int DIVISOR = 1000;
     final static int FORMAT = 60;
     final static int DAY = 24;
 
     /**
-     * Costruttore privato della classe.
+     * Costruttore senza parametri di Timer. Invoca il metodo reset.
      */
     public Timer() {
         reset();
     }
 
     /**
-     * Il metodo start() inizializza il cronometro.
+     * Inizializza e fa partire il timer.
      */
     public void start() {
         if (!isRunning) {
@@ -28,7 +46,7 @@ public final class Timer {
     }
 
     /**
-     * Il metodo stop() ferma il cronometro.
+     * Ferma il timer e calcola il nuovo valore di elapsedTime.
      */
     public void stop() {
         if (isRunning) {
@@ -39,7 +57,7 @@ public final class Timer {
     }
 
     /**
-     * Il metodo reset() resetta il cronometro.
+     * Resetta il timer, reimpostando tutti gli attributi a 0 e fermandolo.
      */
     public void reset() {
         startTime = 0;
@@ -49,8 +67,8 @@ public final class Timer {
     }
 
     /**
-     * Il metodo getElapsedTime() restituisce il tempo trascorso.
-     * @return tempo trascorso
+     * Metodo getter per il tempo trascorso col timer attivo.
+     * @return Tempo trascorso col timer attivo.
      */
     public long getElapsedTime() {
         if (isRunning) {
@@ -61,16 +79,16 @@ public final class Timer {
     }
 
     /**
-     * Il metodo setElapsedTime() imposta il tempo trascorso.
-     * @param trascorsoTime tempo trascorso
+     * Metodo setter per il tempo trascorso col timer attivo.
+     * @param elapsedTime Nuovo tempo trascorso col timer attivo.
      */
-    public void setElapsedTime(final long trascorsoTime) {
-        this.elapsedTime = trascorsoTime;
+    public void setElapsedTime(final long elapsedTime) {
+        this.elapsedTime = elapsedTime;
     }
 
     /**
-     * Il metodo isRunning() restituisce true se il cronometro è in esecuzione.
-     * @return true se il cronometro è in esecuzione, false altrimenti
+     * Metodo che restituisce lo stato del timer.
+     * @return Booleano che indica se il timer è attivo o meno.
      */
     public boolean isRunning() {
         return this.isRunning;
@@ -85,8 +103,8 @@ public final class Timer {
     }
 
     /**
-     * Il metodo getTimeFormatted() restituisce il tempo formattato in maniera leggibile nel formato hh:mm:ss.
-     * @return tempo formattato
+     * Restituisce una stringa formattata che rappresenta il tempo attuale segnato dal timer.
+     * @return Tempo formattato in hh::mm:ss.
      */
     public String getTimeFormatted() {
         long time = getElapsedTime();
