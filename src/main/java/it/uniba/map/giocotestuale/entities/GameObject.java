@@ -1,14 +1,14 @@
 package it.uniba.map.giocotestuale.entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GameObject {
     private int id;
     private String name;
-    private ArrayList<String> aliases;
+    private List<String> aliases;
     private String status;
 
-    public GameObject(final int id, final String name, final ArrayList<String> aliases, final String status) {
+    public GameObject(final int id, final String name, final List<String> aliases, final String status) {
         this.id = id;
         this.name = name;
         this.aliases = aliases;
@@ -31,11 +31,11 @@ public abstract class GameObject {
         this.name = name;
     }
 
-    public ArrayList<String> getAliases() {
+    public List<String> getAliases() {
         return this.aliases;
     }
 
-    public void setAliases(final ArrayList<String> aliases) {
+    public void setAliases(final List<String> aliases) {
         this.aliases = aliases;
     }
 
