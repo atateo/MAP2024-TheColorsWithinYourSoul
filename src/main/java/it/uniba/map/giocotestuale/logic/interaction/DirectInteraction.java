@@ -14,14 +14,18 @@ public class DirectInteraction extends TwoObjectInteraction {
 
     @Override
     public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
+        //Non è un'interazione a due oggetti
         if (gameObjects.size() != 2) {
             return false;
         }
 
+        //Il primo o il secondo oggetto non corrispondono
         if (!super.getFirstObject().equals(gameObjects.get(0)) || !this.getSecondObject().equals(gameObjects.get(1))){
             return false;
         }
 
+        //Se il targetState è nullo, allora il comando va eseguito indipendentemente dallo stato, quindi ritorna true.
+        //Se il targetState corrisponde allo stato del primo oggetto attualmente, ritorna true.
         return super.getTargetState() == null || super.getTargetState().equals(gameObjects.getFirst().getStatus());
     }
 

@@ -14,15 +14,22 @@ public class ChainInteraction extends TwoObjectInteraction {
 
     @Override
     public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
-        if (gameObjects.size() != 1) {
+        //Non è un'interazione a due oggetti
+        if (gameObjects.size() != 2) {
             return false;
         }
 
+        //Il primo oggetto non corrisponde
         if (super.getFirstObject().equals(gameObjects.getFirst())){
             return false;
         }
 
-        return super.getTargetState() == null || super.getTargetState().equals(gameObjects.getFirst().getStatus());
+        //Se il targetState corrisponde allo stato del primo oggetto attualmente, ritorna true.
+        return super.getTargetState().equals(gameObjects.getFirst().getStatus());
+
+        //Una reazione a catena dipende esclusivamente dallo stato del primo oggetto e non dal comando.
+        //Di conseguenza, non ci sono interazioni a catena da eseguire indipendentemente dal comando.
+        //Inoltre, non ha bisogno di fare controlli sul comando e sul secondo oggetto.
     }
 
     @Override

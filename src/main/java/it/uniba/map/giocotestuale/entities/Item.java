@@ -1,13 +1,13 @@
 package it.uniba.map.giocotestuale.entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Item extends GameObject {
     private boolean isPickable;
     private boolean isPaintable;
     private boolean isMovable;
 
-    public Item(final int id, final String name, final ArrayList<String> aliases, final String status) {
+    public Item(final int id, final String name, final List<String> aliases, final String status) {
         super(id, name, aliases, status);
     }
 

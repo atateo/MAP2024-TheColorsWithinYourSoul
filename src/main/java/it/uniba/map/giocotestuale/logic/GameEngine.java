@@ -5,6 +5,7 @@ import it.uniba.map.giocotestuale.entities.GameObject;
 import it.uniba.map.giocotestuale.entities.Item;
 import it.uniba.map.giocotestuale.entities.Room;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
+import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Timer;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public abstract class GameEngine {
         this.rooms.add(room);
     }
 
-    public void addItem(Item item) {
+    public void addItemToInventory(Item item) {
         this.inventory.add(item);
     }
 
@@ -88,9 +89,11 @@ public abstract class GameEngine {
     }
 
     public abstract void welcomePlayer();
+    public abstract void help();
     public abstract Set<CommandClass> getAllCommands();
     public abstract void defineGameInteractions();
-    public abstract void update();
+    public abstract void update(ParserOutput output);
+    public abstract void invalidCommandOutput();
     public abstract boolean checkIfGameIsOver();
     public abstract void goodbyePlayer();
 }
