@@ -198,7 +198,7 @@ public abstract class GameEngine {
     public abstract void update(ParserOutput output);
 
     /**
-     * Metodo astratto che notifica l'utente che il comando è invalido.
+     * Metodo astratto che notifica l'utente che il comando generico è invalido.
      */
     public abstract void invalidCommandOutput();
 

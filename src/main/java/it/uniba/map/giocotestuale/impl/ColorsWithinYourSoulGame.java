@@ -88,14 +88,19 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void update(ParserOutput output) {
-        //Scrivere qui il codice che scorrerà le varie interactions per eseguire quelle da effettuare
-        //ed eventualmente gestirà i comandi a 0 parametri
+        //Si è preferito implementare direttamente i casi più generici che non dipendono da interazioni. Ovvero:
+        // 1. AIUTO
+        // 2. INVENTARIO
+        // 3. Casi di errore di USA, SPINGI, PRENDI, COLORA e LASCIA
+        // 4. Parte di LASCIA (il drop di un item potrebbe essere legato a un'interazione a catena)
+        // 5. Parte di PRENDI (prendere un item può essere legato a un'interazione a catena)
 
-        //Si è preferito implementare direttamente i casi più generici che non dipendono da interazioni,
-        //come il comando AIUTO, INVENTARIO
-        //I comandi di movimento, invece, vengono trattati come interactions.
+        //I comandi di movimento vengono trattati come interactions sulla stanza corrente.
         //Così, è possibile definire azioni particolari come ChainInteractions che vengono scatenate
         //quando un player si muove in una determinata stanza.
+
+        //OSSERVA è trattato come un'interaction sulla stanza corrente, così da poter definire
+        //comportamenti diversi del comando sulla base dello stato della stanza.
 
         List<Command> movementCommands = List.of(Command.NORD, Command.SUD, Command.OVEST, Command.EST);
         boolean didSomething = false;
@@ -132,7 +137,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         //Verifica che per il comando spingi, prendi e colora l'oggetto sia nella stanza
-        //e che l'oggetto ammetta quell'azione su di esso
+        //e che l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
         if (command == Command.SPINGI || command == Command.PRENDI || command == Command.COLORA) {
             if (!getCurrentRoom().getItemsInRoom().contains( (Item) output.getFirstObject())){
                 invalidCommandOutput();
@@ -142,12 +147,37 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             if (output.getCommandType() == Command.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
                 System.out.println("Provi a spingerlo, ma l'oggetto non si muove.");
                 return;
-            } else if (output.getCommandType() == Command.PRENDI && !((Item) output.getFirstObject()).getPickable()) {
-                System.out.println("Non puoi mettere una cosa del genere nell'inventario!!");
-                return;
+            } else if (output.getCommandType() == Command.PRENDI) {
+                if ( !((Item) output.getFirstObject()).getPickable()) {
+                    System.out.println("Non puoi mettere una cosa del genere nell'inventario!!");
+                    return;
+                } else {
+                    //Aggiunge l'oggetto nell'inventario e lo rimuove dalla stanza
+                    addItemToInventory((Item) output.getFirstObject());
+                    getCurrentRoom().removeItem((Item) output.getFirstObject());
+                    System.out.println(output.getFirstObject().getName() + ": aggiunto nell'inventario.");
+
+                    //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player prende un item
+                }
             } else if (output.getCommandType() == Command.COLORA && !((Item) output.getFirstObject()).getPaintable()) {
                 System.out.println("Sembra che la pittura non abbia effetto su questo oggetto.");
                 return;
+            }
+
+
+        }
+
+        //Implementa il comando LASCIA
+        if (command == Command.LASCIA) {
+            if (output.getFirstObject() == null) {
+                System.out.println("Non stai lasciando nulla!!");
+            } else {
+                //Rimuove l'oggetto nell'inventario e lo aggiunge dalla stanza
+                removeItem((Item) output.getFirstObject());
+                getCurrentRoom().addItem((Item) output.getFirstObject());
+                System.out.println(output.getFirstObject().getName() + ": rimosso dall'inventario.");
+
+                //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player lascia un item
             }
         }
 
@@ -173,7 +203,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         for (Interaction interaction : super.getGameInteractions()) {
-            if (interaction.isCorrectInteraction(gameObjects, output.getCommandType())){
+            if (interaction.isCorrectInteraction(gameObjects, command)){
                 interaction.executeInteraction(this);
                 didSomething = true;
             }
@@ -186,7 +216,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     }
 
     /**
-     * Metodo che notifica l'utente che il comando è invalido. Definizione del metodo di GameEngine.
+     * Metodo che notifica l'utente che il comando generico è invalido. Definizione del metodo di GameEngine.
      */
     @Override
     public void invalidCommandOutput() {

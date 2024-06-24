@@ -98,6 +98,14 @@ public class Room extends GameObject {
     }
 
     /**
+     * Metodo che rimuove l'item passato come parametro alla lista di item nella stanza.
+     * @param item Item da rimuovere nella stanza.
+     */
+    public void removeItem(final Item item) {
+        this.itemsInRoom.remove(item);
+    }
+
+    /**
      * Metodo getter per il collegamento a nord della stanza.
      * @return Collegamento a nord della stanza.
      */
