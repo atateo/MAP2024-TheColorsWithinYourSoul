@@ -2,6 +2,7 @@ package it.uniba.map.giocotestuale.impl;
 
 import it.uniba.map.giocotestuale.entities.CommandClass;
 import it.uniba.map.giocotestuale.entities.GameObject;
+import it.uniba.map.giocotestuale.entities.Item;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.Command;
@@ -75,21 +76,24 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     @Override
     public void defineGameInteractions() {
         //Scrivere qui il codice che definirà effettivamente il flow del gioco, nello specifico le interazioni
+
+        //NOTA BENE: Le interazioni dirette devono essere inserite nella lista PRIMA delle interazioni a catena.
+        //Altrimenti se un'interazione diretta ne scatena una a catena, quella a catena non verrà eseguita subito.
     }
 
     /**
      * Metodo che si occuperà di aggiornare il gioco quando l'utente inserisce un comando.
      * A tutti gli effetti è il metodo che esegue i comandi del gioco. Definizione del metodo in GameEngine.
-     * @param output Oggetto di tipo ParserOutput ostruito sull'input dell'utente dalla classe Parser.
+     * @param output Oggetto di tipo ParserOutput costruito sull'input dell'utente dalla classe Parser.
      */
     @Override
     public void update(ParserOutput output) {
         //Scrivere qui il codice che scorrerà le varie interactions per eseguire quelle da effettuare
         //ed eventualmente gestirà i comandi a 0 parametri
 
-        //Si è preferito implementare qui i comandi Aiuto e Inventario, in quanto sono abbastanza generici,
-        //ovvero fanno sempre la stampa dei comandi disponibili nel caso di aiuto e la stampa dell'inventario
-        //nel caso di inventario. I comandi di movimento, invece, vengono trattati come interactions.
+        //Si è preferito implementare direttamente i casi più generici che non dipendono da interazioni,
+        //come il comando AIUTO, INVENTARIO
+        //I comandi di movimento, invece, vengono trattati come interactions.
         //Così, è possibile definire azioni particolari come ChainInteractions che vengono scatenate
         //quando un player si muove in una determinata stanza.
 
@@ -97,11 +101,14 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         boolean didSomething = false;
 
         if (output == null) {
+            invalidCommandOutput();
             return;
         }
 
+        Command command = output.getCommandType();
+
         //Comando aiuto
-        if (output.getCommandType() == Command.AIUTO) {
+        if (command == Command.AIUTO) {
             if (output.getFirstObject() != null || output.getSecondObject() != null) {
                 invalidCommandOutput();
             } else {
@@ -111,13 +118,42 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         //Comando inventario
-        if (output.getCommandType() == Command.INVENTARIO) {
+        if (command == Command.INVENTARIO) {
             //Scrivere qui la stampa dell'inventario
             return;
         }
 
-        //Imposta il comando di movimento come interaction
-        if (movementCommands.contains(output.getCommandType())) {
+        //Verifica che per il comando usa l'oggetto sia nell'inventario
+        if (command == Command.USA) {
+            if (!getInventory().contains( (Item) output.getFirstObject())) {
+                invalidCommandOutput();
+                return;
+            }
+        }
+
+        //Verifica che per il comando spingi, prendi e colora l'oggetto sia nella stanza
+        //e che l'oggetto ammetta quell'azione su di esso
+        if (command == Command.SPINGI || command == Command.PRENDI || command == Command.COLORA) {
+            if (!getCurrentRoom().getItemsInRoom().contains( (Item) output.getFirstObject())){
+                invalidCommandOutput();
+                return;
+            }
+
+            if (output.getCommandType() == Command.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
+                System.out.println("Provi a spingerlo, ma l'oggetto non si muove.");
+                return;
+            } else if (output.getCommandType() == Command.PRENDI && !((Item) output.getFirstObject()).getPickable()) {
+                System.out.println("Non puoi mettere una cosa del genere nell'inventario!!");
+                return;
+            } else if (output.getCommandType() == Command.COLORA && !((Item) output.getFirstObject()).getPaintable()) {
+                System.out.println("Sembra che la pittura non abbia effetto su questo oggetto.");
+                return;
+            }
+        }
+
+        //Se è un comando di movimento, imposta la stanza corrente come primo oggetto dell'output,
+        //così da poter eseguire il movimento come un'interazione sulla stanza
+        if (movementCommands.contains(command)) {
             if (output.getFirstObject() != null || output.getSecondObject() != null) {
                 invalidCommandOutput();
                 return;
@@ -136,10 +172,6 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             gameObjects = List.of(output.getFirstObject(), output.getSecondObject());
         }
 
-        /*
-        TODO: Il gioco deve prima eseguire le interazioni dirette e poi, sulla base di quelle, verificare quelle
-        a catena da effettuare sulla base del cambiamento degli oggetti modificati dalle interazioni dirette.
-        */
         for (Interaction interaction : super.getGameInteractions()) {
             if (interaction.isCorrectInteraction(gameObjects, output.getCommandType())){
                 interaction.executeInteraction(this);
