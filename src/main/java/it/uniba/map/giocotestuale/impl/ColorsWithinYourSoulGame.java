@@ -95,6 +95,10 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         // 4. Parte di LASCIA (il drop di un item potrebbe essere legato a un'interazione a catena)
         // 5. Parte di PRENDI (prendere un item può essere legato a un'interazione a catena)
 
+        //Tutti gli altri comando saranno trattati come interactions. Alla fine del metodo ci sarà un for
+        //che itererà tutti gli oggetti di tipo Interaction per eseguire quelle interessate dall'output.
+        //Le Interaction vengono istanziate all'avvio del gioco richiamando il metodo defineGameInteractions.
+
         //I comandi di movimento vengono trattati come interactions sulla stanza corrente.
         //Così, è possibile definire azioni particolari come ChainInteractions che vengono scatenate
         //quando un player si muove in una determinata stanza.
