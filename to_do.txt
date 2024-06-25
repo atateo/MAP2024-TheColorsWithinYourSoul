@@ -24,3 +24,44 @@ IMPORTANTE:
 -   ricordarsi di scrivere codice pulito e con complessità bassa (valutare la possibilità di utilizzare un plugin sonarqube o simile)
 -   ricordarsi di seguire quanto qui scritto da subito per evitare di dover mettere mano al codice in più fasi successive
 -   eseguire tanti ma tanti test
+
+
+
+APPUNTI SERVIZIO API ARTSY DA NON PERDERE:
+//recupero le opere dell'artista
+		//picasso 4d8b928b4eb68a1b2c0001f2
+		//van gogh 4d8b92944eb68a1b2c000264
+		//sandro botticelli 4eaeec71bddaf7000100681b
+		//michelangelo buonarroti 4d8b92834eb68a1b2c00019e
+		//neruda 0 opere
+		//salvador dali 4dadcce67129f059240009df 0 opere
+
+		/*String urlGetArtworksByArtistId= appProps.getUrlEndpoint()+"artworks?artist_id=4eaeec71bddaf7000100681b";
+		String opereVanGogh= executeGet(urlGetArtworksByArtistId,token);
+		Gson gsonOpere = new Gson();
+		ArtworksResponse artworksResponse = gsonOpere.fromJson(opereVanGogh, ArtworksResponse.class);
+		List<Artwork> opere = artworksResponse.get_embedded().getArtworks();
+
+		Desktop desk=Desktop.getDesktop();
+		for (Artwork artwork : opere) {
+
+			String idImmagine = artwork.getId();
+			logger.info("Identificativo dell'opera: {}",idImmagine);
+
+			Links links = artwork.getLinks();
+
+			String urlImmagine = links.getImage().getHref();
+			String nome = artwork.getTitle();
+			urlImmagine = urlImmagine.replace("{image_version}", "large");
+
+			//byte[] operaDArte = getImage(urlImmagine);
+
+			logger.info("Opera d'arte recuperata: {} - url {}",nome,urlImmagine);
+			//byte[] operaDArte = recuperaImmagine(urlImmagine); 
+			try {
+				desk.browse(new URI(urlImmagine));
+			} catch (IOException | URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
