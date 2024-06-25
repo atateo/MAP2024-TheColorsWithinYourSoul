@@ -43,9 +43,9 @@ public class ApplicationProperties {
     private boolean setup;
     
     /**
-     * url del servizio di autenticazione dell'api Artsy.
+     * url delle api del servizio Artsy.
      */
-    private String urlToken;
+    private String urlEndpoint;
     
     /**
      * clientId utile all'autenticazione in OAuth2 all'api Artsy.
@@ -148,21 +148,21 @@ public class ApplicationProperties {
     }
     
     /**
-     * Ritorna l'attributo urlToken.
+     * Ritorna l'attributo urlEndpoint.
      * 
-     * @return urlToken (servizio di autenticazione ad Artsy).
+     * @return urlEndpoint (servizio Artsy).
      */
-    public String getUrlToken() {
-		return urlToken;
+    public String getUrlEndpoint() {
+		return urlEndpoint;
 	}
 
     /**
-     * Imposta l'attributo urlToken.
+     * Imposta l'attributo urlEndpoint.
      * 
-     * @param urlToken l'attributo urlToken da impostare per l'autenticazione.
+     * @param urlEndpoint l'attributo urlEndpoint da impostare per l'autenticazione.
      */
-	public void setUrlToken(String urlToken) {
-		this.urlToken = urlToken;
+	public void setUrlEndpoint(String urlEndpoint) {
+		this.urlEndpoint = urlEndpoint;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class ApplicationProperties {
             setUrlDatabase(appProps.getProperty("urlDatabase"));
             setUser(appProps.getProperty("user"));
             setPassword(appProps.getProperty("password"));
-            setUrlToken(appProps.getProperty("urlToken"));
+            setUrlEndpoint(appProps.getProperty("urlEndpoint"));
             setClientId(appProps.getProperty("clientId"));
             setSecret(appProps.getProperty("secret"));
         } catch (IOException e) {
