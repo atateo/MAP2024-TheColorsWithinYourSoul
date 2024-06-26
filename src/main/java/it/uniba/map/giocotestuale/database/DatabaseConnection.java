@@ -2,33 +2,56 @@ package it.uniba.map.giocotestuale.database;
 
 import java.sql.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
+
+/**
+ * Gestisce la connessione al database utilizzando le proprietà dell'applicazione.
+ * La connessione viene aperta una volta e riutilizzata fino a quando non viene rilasciata.
+ */
 public class DatabaseConnection {
-	private static Connection conn = null;
-	
-	static
-    {
-		ApplicationProperties appProps = ApplicationProperties.getInstance();
-        
+    
+    /**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
+
+    /**
+     * Oggetto Connection utilizzato per connettersi al database.
+     */
+    private static Connection conn = null;
+
+    // Blocco statico per inizializzare la connessione al database all'avvio della classe.
+    static {
+        ApplicationProperties appProps = ApplicationProperties.getInstance();
+
         try {
-			conn = DriverManager.getConnection(appProps.getUrlDatabase(),appProps.getUser(),appProps.getPassword());
-			System.out.println("Connessione aperta");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            conn = DriverManager.getConnection(appProps.getUrlDatabase(), appProps.getUser(), appProps.getPassword());
+            logger.info("Connessione aperta");
+        } catch (SQLException e) {
+            logger.error("Eccezione in fase di apertura della connessione al database: {}", e);
+        }
     }
-    public static Connection getConnection()
-    {
+
+    /**
+     * Restituisce la connessione al database.
+     * 
+     * @return l'oggetto Connection corrente.
+     */
+    public static Connection getConnection() {
         return conn;
     }
-    public static void releaseConnection()
-    {
+
+    /**
+     * Rilascia la connessione al database chiudendola.
+     */
+    public static void releaseConnection() {
         try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            conn.close();
+        } catch (SQLException e) {
+            logger.error("Eccezione in fase di chiusura della connessione al database: {}", e);
+        }
     }
 }
