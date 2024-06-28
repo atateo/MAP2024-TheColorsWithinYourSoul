@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.entities;
+package it.uniba.map.giocotestuale.entities.artwork;
 
 import com.google.gson.annotations.SerializedName;
 

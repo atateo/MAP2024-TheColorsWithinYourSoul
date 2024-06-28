@@ -20,8 +20,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
-import it.uniba.map.giocotestuale.entities.Artwork;
-import it.uniba.map.giocotestuale.entities.Links;
+import it.uniba.map.giocotestuale.entities.artwork.Artwork;
+import it.uniba.map.giocotestuale.entities.artwork.Links;
 
 public class ClientRest {
 	static ApplicationProperties appProps = ApplicationProperties.getInstance();

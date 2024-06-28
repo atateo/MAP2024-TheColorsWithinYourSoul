@@ -39,5 +39,4 @@ public class HandlerGUI extends JFrame {
         this.add(cards);
         this.setVisible(true);
     }
-    }
-
+}

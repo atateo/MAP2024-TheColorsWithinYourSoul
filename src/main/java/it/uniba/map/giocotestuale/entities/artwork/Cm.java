@@ -1,6 +1,6 @@
-package it.uniba.map.giocotestuale.entities;
+package it.uniba.map.giocotestuale.entities.artwork;
 
-public class In {
+public class Cm {
     private String text;
     private double height;
     private double width;

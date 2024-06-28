@@ -1,7 +1,6 @@
-package it.uniba.map.giocotestuale.entities;
+package it.uniba.map.giocotestuale.entities.artwork;
 
 import java.util.List;
-import java.util.Map;
 
 public class ArtworksResponse {
     private Integer total_count;

@@ -13,8 +13,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.CardLayout;
 
-
-
 public class MenuGUI extends JPanel {
 
     private JPanel background;
@@ -35,23 +33,23 @@ public class MenuGUI extends JPanel {
         initComponents();
 
     }
+
     private void initComponents() {
 
-        background = new JPanel()
-        {
+        background = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon img = new ImageIcon("src/main/resources/backgroundBN.jpg");
+                ImageIcon img = new ImageIcon("src/main/resources/img/backgroundBN.jpg");
                 Image image = img.getImage();
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         };
 
-        this.setSize(1000,700);
+        this.setSize(1000, 700);
 
 
-        background.setSize(1000,700);
+        background.setSize(1000, 700);
         background.setRequestFocusEnabled(false);
 
 
@@ -84,7 +82,7 @@ public class MenuGUI extends JPanel {
         credits.addActionListener(this::CreditsActionPerformed);
 
 
-        audio = new JButton( new ImageIcon("src/main/resources/audio_icon.png"));
+        audio = new JButton(new ImageIcon("src/main/resources/img/audio_icon.png"));
         audio.setFocusPainted(false);
         audio.setForeground(Color.black);
         audio.setBackground(Color.lightGray);
@@ -92,7 +90,7 @@ public class MenuGUI extends JPanel {
         audio.addActionListener(this::AudioActionPerformed);
 
 
-        site = new JButton(new ImageIcon("src/main/resources/tavolozza_bn.png"));
+        site = new JButton(new ImageIcon("src/main/resources/img/tavolozza_bn.png"));
         site.setFocusPainted(false);
         site.setForeground(Color.black);
         site.setBackground(Color.lightGray);
@@ -110,10 +108,10 @@ public class MenuGUI extends JPanel {
                         .addGroup(backgroundLayout.createSequentialGroup()
                                 .addGap(400)
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(start, 200,200,200)
-                                        .addComponent(load, 200,200,200)
-                                        .addComponent(commands, 200,200,200)
-                                        .addComponent(credits, 200,200,200))
+                                        .addComponent(start, 200, 200, 200)
+                                        .addComponent(load, 200, 200, 200)
+                                        .addComponent(commands, 200, 200, 200)
+                                        .addComponent(credits, 200, 200, 200))
                                 .addContainerGap(600, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
@@ -122,17 +120,17 @@ public class MenuGUI extends JPanel {
                                 .addGap(25)
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(backgroundLayout.createSequentialGroup()
-                                                .addComponent(audio, 64,64,64)
+                                                .addComponent(audio, 64, 64, 64)
                                                 .addGap(12)
-                                                .addComponent(site, 60,60,60)))
+                                                .addComponent(site, 60, 60, 60)))
                                 .addPreferredGap(ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
-                                .addComponent(start, 64,64,64)
+                                .addComponent(start, 64, 64, 64)
                                 .addGap(32)
-                                .addComponent(load, 64,64,64)
+                                .addComponent(load, 64, 64, 64)
                                 .addGap(32)
-                                .addComponent(commands, 64,64,64)
+                                .addComponent(commands, 64, 64, 64)
                                 .addGap(32)
-                                .addComponent(credits, 64,64,64)
+                                .addComponent(credits, 64, 64, 64)
                                 .addGap(90))
         );
 
@@ -151,7 +149,6 @@ public class MenuGUI extends JPanel {
 
 
     }
-
 
 
     private void StartActionPerformed(ActionEvent evt) {
@@ -180,5 +177,4 @@ public class MenuGUI extends JPanel {
     private void SiteActionPerformed(ActionEvent evt) {
         //placeholder
     }
-
-
+}

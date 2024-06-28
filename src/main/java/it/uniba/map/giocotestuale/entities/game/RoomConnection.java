@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.entities;
+package it.uniba.map.giocotestuale.entities.game;
 
 /**
  * Classe che rappresenta il collegamento unilaterale da una stanza all'altra.

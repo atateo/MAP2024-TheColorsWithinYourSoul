@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.dao;
+package it.uniba.map.giocotestuale.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import it.uniba.map.giocotestuale.database.DatabaseConnection;
-import it.uniba.map.giocotestuale.model.Contenuto;
 
 /**
  * Implementazione dell'interfaccia ContenutoDao.

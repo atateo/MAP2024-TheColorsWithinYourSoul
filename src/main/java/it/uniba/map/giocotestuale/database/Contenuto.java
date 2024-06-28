@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.model;
+package it.uniba.map.giocotestuale.database;
 
 /**
  * Classe che rappresenta il modello di un Contenuto.

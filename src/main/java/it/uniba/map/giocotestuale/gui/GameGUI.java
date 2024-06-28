@@ -289,7 +289,4 @@ public class GameGUI extends JPanel {
         CommandsGUI help = CommandsGUI.getIstance();
         help.setVisible(true);
     }
-
-
-
 }

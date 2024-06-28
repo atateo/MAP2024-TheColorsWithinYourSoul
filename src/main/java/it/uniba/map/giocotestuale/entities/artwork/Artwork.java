@@ -1,10 +1,11 @@
-package it.uniba.map.giocotestuale.entities;
+package it.uniba.map.giocotestuale.entities.artwork;
 
 /**
  * @author tateo.antimo
  *
  */
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Artwork {

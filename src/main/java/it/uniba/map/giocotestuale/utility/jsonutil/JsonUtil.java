@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.utility;
+package it.uniba.map.giocotestuale.utility.jsonutil;
 
 import java.io.FileReader;
 import java.io.FileWriter;

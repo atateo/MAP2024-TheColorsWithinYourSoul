@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale;
 
+import it.uniba.map.giocotestuale.gui.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,5 +25,8 @@ public class GiocoTestuale {
 
 		logger.debug("Connessione rilasciata");
 		DatabaseConnection.releaseConnection();
+
+		HandlerGUI handlerGUI = new HandlerGUI();
+		handlerGUI.setVisible(true);
 	}
 }

@@ -3,8 +3,10 @@ package it.uniba.map.giocotestuale.utility;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.uniba.map.giocotestuale.entities.Item;
-import it.uniba.map.giocotestuale.entities.Room;
+import it.uniba.map.giocotestuale.entities.game.Item;
+import it.uniba.map.giocotestuale.entities.game.Room;
+import it.uniba.map.giocotestuale.utility.jsonutil.GameToJson;
+import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 public class TestJson {
 

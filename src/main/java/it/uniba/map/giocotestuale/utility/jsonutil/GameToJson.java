@@ -1,9 +1,9 @@
-package it.uniba.map.giocotestuale.utility;
+package it.uniba.map.giocotestuale.utility.jsonutil;
 
 import java.util.List;
 
-import it.uniba.map.giocotestuale.entities.Item;
-import it.uniba.map.giocotestuale.entities.Room;
+import it.uniba.map.giocotestuale.entities.game.Item;
+import it.uniba.map.giocotestuale.entities.game.Room;
 
 public class GameToJson {
 	private String player;

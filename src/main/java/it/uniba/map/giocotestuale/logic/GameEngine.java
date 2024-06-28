@@ -1,9 +1,9 @@
 package it.uniba.map.giocotestuale.logic;
 
-import it.uniba.map.giocotestuale.entities.CommandClass;
-import it.uniba.map.giocotestuale.entities.GameObject;
-import it.uniba.map.giocotestuale.entities.Item;
-import it.uniba.map.giocotestuale.entities.Room;
+import it.uniba.map.giocotestuale.entities.artwork.CommandClass;
+import it.uniba.map.giocotestuale.entities.game.GameObject;
+import it.uniba.map.giocotestuale.entities.game.Item;
+import it.uniba.map.giocotestuale.entities.game.Room;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Timer;

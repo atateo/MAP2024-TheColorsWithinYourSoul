@@ -1,9 +1,7 @@
-package it.uniba.map.giocotestuale.dao;
+package it.uniba.map.giocotestuale.database;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import it.uniba.map.giocotestuale.model.Contenuto;
 
 /**
  * Interfaccia per le operazioni di accesso ai dati per l'entità Contenuto.

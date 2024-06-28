@@ -1,6 +1,6 @@
 package it.uniba.map.giocotestuale.type;
 
-import it.uniba.map.giocotestuale.entities.GameObject;
+import it.uniba.map.giocotestuale.entities.game.GameObject;
 
 /**
  * Classe che rappresenta l'output fornito dal Parser.
