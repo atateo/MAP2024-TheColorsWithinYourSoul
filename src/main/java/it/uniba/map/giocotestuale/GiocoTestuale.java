@@ -4,9 +4,9 @@ import it.uniba.map.giocotestuale.gui.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import it.uniba.map.giocotestuale.config.ApplicationProperties;
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
 import it.uniba.map.giocotestuale.database.Setup;
+import it.uniba.map.giocotestuale.config.ApplicationProperties;
 
 public class GiocoTestuale {
 	

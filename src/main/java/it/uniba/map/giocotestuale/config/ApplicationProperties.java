@@ -234,8 +234,7 @@ public class ApplicationProperties {
      * Costruttorre privato che carica le proprietà dell'applicazione da file.
      */
     private ApplicationProperties() {
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String appConfigPath = rootPath + "application.properties";
+        String appConfigPath = "src/main/resources/application.properties";
 
         Properties appProps = new Properties();
         try {
