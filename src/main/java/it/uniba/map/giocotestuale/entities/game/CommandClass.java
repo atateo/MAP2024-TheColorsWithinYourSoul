@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.entities.artwork;
+package it.uniba.map.giocotestuale.entities.game;
 
 import it.uniba.map.giocotestuale.type.Command;
 

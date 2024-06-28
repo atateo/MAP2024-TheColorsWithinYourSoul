@@ -1,6 +1,6 @@
 package it.uniba.map.giocotestuale.impl;
 
-import it.uniba.map.giocotestuale.entities.artwork.CommandClass;
+import it.uniba.map.giocotestuale.entities.game.CommandClass;
 import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.logic.GameEngine;
