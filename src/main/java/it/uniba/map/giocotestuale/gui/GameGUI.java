@@ -201,9 +201,10 @@ public class GameGUI extends JPanel {
 
         userInputField = new JTextField();
         userInputField.setOpaque(false);
-        userInputField.setBorder(null);
         userInputField.setSize(400,107);
         userInputField.setBounds(0, 0, 400, 107);
+        userInputField.setBorder(BorderFactory.createLineBorder(new Color(168, 129, 50), 5));
+        userInputField.addActionListener(this::UserInputActionPerformed);
 
 
         JPanel userInputFieldPanel = new JPanel()
@@ -214,7 +215,7 @@ public class GameGUI extends JPanel {
                 g.drawImage(img.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
-        userInputFieldPanel.setOpaque(false);
+        userInputFieldPanel.setLayout(null);
         userInputFieldPanel.setSize(400,107);
         userInputFieldPanel.setBorder(BorderFactory.createLineBorder(new Color(168,129,50),7));
         userInputFieldPanel.add(userInputField);
@@ -288,5 +289,11 @@ public class GameGUI extends JPanel {
     private void HelpActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getIstance();
         help.setVisible(true);
+    }
+    private  void UserInputActionPerformed (ActionEvent evt)
+    {
+        String text = userInputField.getText();
+        userInputField.setText("");
+
     }
 }
