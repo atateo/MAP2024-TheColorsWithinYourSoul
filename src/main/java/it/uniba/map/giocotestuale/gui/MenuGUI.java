@@ -1,19 +1,23 @@
 package it.uniba.map.giocotestuale.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
 import javax.swing.BorderFactory;
-
-
-import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.CardLayout;
 
-public class MenuGUI extends JFrame {
 
 
-    private JLabel background;
+public class MenuGUI extends JPanel {
+
+    private JPanel background;
 
     private JButton start;
 
@@ -27,18 +31,31 @@ public class MenuGUI extends JFrame {
 
     private JButton site;
 
-
     public MenuGUI() {
         initComponents();
 
     }
-
-
     private void initComponents() {
 
+        background = new JPanel()
+        {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon img = new ImageIcon("src/main/resources/backgroundBN.jpg");
+                Image image = img.getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        this.setSize(1000,700);
+
+
+        background.setSize(1000,700);
+        background.setRequestFocusEnabled(false);
+
+
         start = new JButton("Nuova Partita");
-        start.setBounds(400, 250, 200, 64);
-        start.setSize(200, 64);
         start.setFocusPainted(false);
         start.setForeground(Color.black);
         start.setBackground(Color.lightGray);
@@ -46,8 +63,6 @@ public class MenuGUI extends JFrame {
         start.addActionListener(this::StartActionPerformed);
 
         load = new JButton("Carica Partita");
-        load.setBounds(400, 350, 200, 64);
-        load.setSize(200, 64);
         load.setFocusPainted(false);
         load.setForeground(Color.black);
         load.setBackground(Color.lightGray);
@@ -55,8 +70,6 @@ public class MenuGUI extends JFrame {
         load.addActionListener(this::LoadActionPerformed);
 
         commands = new JButton("Comandi di Gioco");
-        commands.setBounds(400, 450, 200, 64);
-        commands.setSize(200, 64);
         commands.setFocusPainted(false);
         commands.setForeground(Color.black);
         commands.setBackground(Color.lightGray);
@@ -64,18 +77,14 @@ public class MenuGUI extends JFrame {
         commands.addActionListener(this::CommandsActionPerformed);
 
         credits = new JButton("Crediti");
-        credits.setBounds(400, 550, 200, 64);
-        credits.setSize(200, 64);
         credits.setFocusPainted(false);
         credits.setForeground(Color.black);
         credits.setBackground(Color.lightGray);
         credits.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         credits.addActionListener(this::CreditsActionPerformed);
 
-        ImageIcon img2 = new ImageIcon("src/main/resources/audio_icon.png");
-        audio = new JButton(img2);
-        audio.setBounds(800, 250, 200, 64);
-        audio.setSize(64, 64);
+
+        audio = new JButton( new ImageIcon("src/main/resources/audio_icon.png"));
         audio.setFocusPainted(false);
         audio.setForeground(Color.black);
         audio.setBackground(Color.lightGray);
@@ -83,43 +92,71 @@ public class MenuGUI extends JFrame {
         audio.addActionListener(this::AudioActionPerformed);
 
 
-        ImageIcon img3 = new ImageIcon("src/main/resources/tavolozza_bn.png");
-        site = new JButton(img3);
-        site.setBounds(800, 350, 200, 50);
-        site.setSize(64, 64);
+        site = new JButton(new ImageIcon("src/main/resources/tavolozza_bn.png"));
         site.setFocusPainted(false);
         site.setForeground(Color.black);
         site.setBackground(Color.lightGray);
         site.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         site.addActionListener(this::SiteActionPerformed);
 
+        GroupLayout backgroundLayout = new GroupLayout(background);
+        backgroundLayout.setHorizontalGroup(
+                backgroundLayout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(25)
+                                .addGroup(backgroundLayout.createParallelGroup(Alignment.TRAILING)
+                                        .addComponent(audio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(400)
+                                .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(start, 200,200,200)
+                                        .addComponent(load, 200,200,200)
+                                        .addComponent(commands, 200,200,200)
+                                        .addComponent(credits, 200,200,200))
+                                .addContainerGap(600, Short.MAX_VALUE))
+        );
+        backgroundLayout.setVerticalGroup(
+                backgroundLayout.createParallelGroup(Alignment.TRAILING)
+                        .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(25)
+                                .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
+                                        .addGroup(backgroundLayout.createSequentialGroup()
+                                                .addComponent(audio, 64,64,64)
+                                                .addGap(12)
+                                                .addComponent(site, 60,60,60)))
+                                .addPreferredGap(ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
+                                .addComponent(start, 64,64,64)
+                                .addGap(32)
+                                .addComponent(load, 64,64,64)
+                                .addGap(32)
+                                .addComponent(commands, 64,64,64)
+                                .addGap(32)
+                                .addComponent(credits, 64,64,64)
+                                .addGap(90))
+        );
 
-        ImageIcon img4 = new ImageIcon("src/main/resources/backgroundBN.jpg");
-        background = new JLabel(img4);
-        background.setHorizontalAlignment(JLabel.CENTER);
-        background.setVerticalAlignment(JLabel.CENTER);
+        background.setLayout(backgroundLayout);
 
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(background, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(background, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-        ImageIcon img1 = new ImageIcon("src/main/resources/icona_pennello_bn.jpg");
-        this.setTitle("The colors within your soul");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setSize(1000, 700);
-        this.setVisible(true);
-        this.setIconImage(img1.getImage());
-        this.add(start);
-        this.add(load);
-        this.add(commands);
-        this.add(credits);
-        this.add(audio);
-        this.add(site);
-        this.add(background);
 
     }
 
-    private void StartActionPerformed(ActionEvent evt) {
 
-        //placeholder
+
+    private void StartActionPerformed(ActionEvent evt) {
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "GameGUI");
     }
 
     private void LoadActionPerformed(ActionEvent evt) {
@@ -127,11 +164,13 @@ public class MenuGUI extends JFrame {
     }
 
     private void CommandsActionPerformed(ActionEvent evt) {
-        //placeholder
+        CommandsGUI help = CommandsGUI.getIstance();
+        help.setVisible(true);
     }
 
     private void CreditsActionPerformed(ActionEvent evt) {
-        //placeholder
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "CreditsGUI");
     }
 
     private void AudioActionPerformed(ActionEvent evt) {
@@ -142,6 +181,4 @@ public class MenuGUI extends JFrame {
         //placeholder
     }
 
-
-}
 
