@@ -2,6 +2,7 @@ package it.uniba.map.giocotestuale.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
@@ -56,6 +57,11 @@ public class ApplicationProperties {
      * secret utile all'autenticazione in OAuth2 all'api Artsy.
      */
     private String secret;    
+    
+    /**
+     * array degli id delle opere d'arte gestie dal servizo rest ArtSy.
+     */
+    private String[] idArtwork;
 
     /**
      * Ritorna l'attributo versione dell'applicazione.
@@ -200,6 +206,24 @@ public class ApplicationProperties {
 	public void setSecret(String secret) {
 		this.secret = secret;
 	}
+	
+	/**
+     * Ritorna l'attributo idArtwork.
+     * 
+     * @return idArtwork (array delle opere d'arte gestite dal servizio di Artsy).
+     */
+	public String[] getIdArtwork() {
+		return idArtwork;
+	}
+
+	/**
+     * Imposta l'attributo idArtwork.
+     * 
+     * @param idArtwork (array delle opere d'arte gestite dal servizio di Artsy).
+     */
+	public void setIdArtwork(String[] idArtwork) {
+		this.idArtwork = idArtwork;
+	}
 
 	/**
      * Singleton instance di ApplicationProperties.
@@ -225,6 +249,12 @@ public class ApplicationProperties {
             setUrlEndpoint(appProps.getProperty("urlEndpoint"));
             setClientId(appProps.getProperty("clientId"));
             setSecret(appProps.getProperty("secret"));
+            
+            /*inserisco nell'array gli id delle opere d'arte mediante lambda function 
+            che divide la proprietà letta dal file e usando il carattere ':' come delimitatore
+            */
+            setIdArtwork(Arrays.stream(appProps.getProperty("artworks").split(":"))
+                    .toArray(String[]::new));
         } catch (IOException e) {
             logger.error("Errore in fase di caricamento delle proprietà dell'applicazione: {}",e);
         }

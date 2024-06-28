@@ -1,22 +1,16 @@
 package it.uniba.map.giocotestuale.rest;
 
-import java.awt.Desktop;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
-
-import javax.imageio.ImageIO;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +21,6 @@ import com.google.gson.JsonParser;
 
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 import it.uniba.map.giocotestuale.entities.Artwork;
-import it.uniba.map.giocotestuale.entities.ArtworksResponse;
 import it.uniba.map.giocotestuale.entities.Links;
 
 public class ClientRest {
@@ -40,10 +33,12 @@ public class ClientRest {
 
 	private static final String USER_AGENT = "Mozilla/5.0";
 	private static final String URL_TOKEN = "tokens/xapp_token";
+	private static final String URL_ARTWORK = "artworks/";
+	private static final String TOKEN = "token";
 
-	public static void main(String[] args) {
-		//String url = "https://api.artsy.net/api/tokens/xapp_token";
-
+	public static byte[] getArtwork() {
+		byte[] operaDArte = null;
+		
 		//effettuo la chiamata in post verso il servizio di autenticazione
 		String url = appProps.getUrlEndpoint()+URL_TOKEN;
 		String clientID=appProps.getClientId();
@@ -51,58 +46,37 @@ public class ClientRest {
 
 		String jsonResponse = executePost(url+"?client_id="+clientID+"&client_secret="+secret);
 
+		//estraggo il token che mi servirà per poter utilizzare il servizio get
 		JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-		String token = jsonObject.get("token").getAsString();
+		String token = jsonObject.get(TOKEN).getAsString();
 
+		//estraggo randomicamente l'id dell'opera d'arte da un elenco recuperato in precedenza
+		Random random = new Random();
+		
+		int n = appProps.getIdArtwork().length-1;
+		int nRandom = random.nextInt(n + 1);
+		
+		String idArtwork = appProps.getIdArtwork()[nRandom];
+		logger.info("opera d'arte restituita randomicamente n. {} :: {}",nRandom, idArtwork);
+		
+		//String urlOpere="https://api.artsy.net/api/artworks/"+idArtwork;
+		String urlOpere=appProps.getUrlEndpoint()+URL_ARTWORK+idArtwork;
+		String jsonOpera= executeGet(urlOpere,token);
 
-		//recupero le opere dell'artista
-		//picasso 4d8b928b4eb68a1b2c0001f2
-		//van gogh 4d8b92944eb68a1b2c000264
-		//sandro botticelli 4eaeec71bddaf7000100681b
-		//michelangelo buonarroti 4d8b92834eb68a1b2c00019e
-		//neruda 0 opere
-		//salvador dali 4dadcce67129f059240009df 0 opere
-
-		String urlGetArtworksByArtistId= appProps.getUrlEndpoint()+"artworks?artist_id=4d8b92944eb68a1b2c000264";
-		String opereVanGogh= executeGet(urlGetArtworksByArtistId,token);
-		Gson gsonOpere = new Gson();
-		ArtworksResponse artworksResponse = gsonOpere.fromJson(opereVanGogh, ArtworksResponse.class);
-		List<Artwork> opere = artworksResponse.get_embedded().getArtworks();
-
-		Desktop desk=Desktop.getDesktop();
-		for (Artwork artwork : opere) {
-
-			String idImmagine = artwork.getId();
-			logger.info("Identificativo dell'opera: {}",idImmagine);
-
-			Links links = artwork.getLinks();
-
-			String urlImmagine = links.getImage().getHref();
-			String nome = artwork.getTitle();
-			urlImmagine = urlImmagine.replace("{image_version}", "large");
-			
-			byte[] operaDArte = getImage(urlImmagine);
-			
-			logger.info("Opera d'arte recuperata: {} - url {}",nome,urlImmagine);
-			//byte[] operaDArte = recuperaImmagine(urlImmagine); 
-			/*try {
-				desk.browse(new URI(urlImmagine));
-			} catch (IOException | URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+		if(jsonOpera!=null && !"".equals(jsonOpera)) {
+			Gson gson = new Gson(); 
+			Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
+			if(artwork!=null) {
+				
+				Links links = artwork.getLinks();
+				if(links!=null && links.getImage()!=null && links.getImage().getHref()!=null) {
+					String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
+					//urlImmagine = urlImmagine.replace("{image_version}", "large");
+					operaDArte = getImage(urlImmagine);
+				}
+			}
 		}
-
-		/*
-		 * String
-		 * urlOpere="https://api.artsy.net/api/artworks/4eb077c25fb415000100dd91";
-		 * String opereVG= executeGet(urlOpere,token);
-		 * 
-		 * String json = opereVG; Gson gson = new Gson(); Artwork artwork =
-		 * gson.fromJson(json, Artwork.class); System.out.println(artwork.toString());
-		 */
-
-
+		return operaDArte;
 	}
 	public static String executePost(String targetURL) {
 		HttpURLConnection connection = null;
@@ -119,9 +93,9 @@ public class ClientRest {
 			connection.setRequestMethod("POST");
 
 			int responseCode = connection.getResponseCode();
-			logger.info("POST Response Code :: " + responseCode);
+			logger.info("Response Code metodo POST:: " + responseCode);
 
-			if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) { //success
+			if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
 				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 				String inputLine;
 				StringBuffer output = new StringBuffer();
@@ -132,9 +106,9 @@ public class ClientRest {
 				in.close();
 
 				response= output.toString();
-				logger.info("Response: {}",response);
+				logger.info("Response ottenuta con successo: {}",response.substring(0,40)+"************}");
 			} else {
-				logger.info("POST request did not work.");
+				logger.info("Chiamata POST errata.");
 			}
 		} catch (Exception e) {
 			logger.error("Eccezione in fase di invocazione del servizio Artsy:: {}",e);
@@ -165,7 +139,7 @@ public class ClientRest {
 			connection.setDoOutput(true);
 
 			int responseCode = connection.getResponseCode();
-			logger.info("POST Response Code :: " + responseCode);
+			logger.info("Response Code metodo GET:: " + responseCode);
 
 			if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
 				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -178,9 +152,9 @@ public class ClientRest {
 				in.close();
 
 				response= output.toString();
-				logger.info("Response: {}",response);
+				logger.info("Response ottenuta con successo: {}",response.substring(0,40)+"************}");
 			} else {
-				logger.info("POST request did not work.");
+				logger.info("Chiamata GET errata.");
 			}
 		} catch (Exception e) {
 			logger.error("Eccezione in fase di invocazione del servizio Artsy:: {}",e);
@@ -213,29 +187,10 @@ public class ClientRest {
 				}
 			}
 			image = output.toByteArray();
-			//ByteBuffer imageBytes = ByteBuffer.wrap(img);
 		} catch (URISyntaxException | IOException e) {
-			// TODO Auto-generated catch block
+			logger.error("Eccezione in fase di recupero del file dell'opera d'arte: {}",e);
 			e.printStackTrace();
 		}
 		return image;
 	}
-
-
-	/*public static byte[] recuperaImmagine(String url) {
-		byte [] data = null;
-		BufferedImage bImage;
-		try {
-			bImage = ImageIO.read(new File(url));
-			ByteArrayOutputStream bos = new ByteArrayOutputStream();
-			ImageIO.write(bImage, "jpg", bos );
-			data = bos.toByteArray();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return data;
-	}*/
-
 }

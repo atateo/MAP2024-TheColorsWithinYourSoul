@@ -6,10 +6,12 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 public class MenuGUI extends JFrame {
+
 
     private JLabel background;
 
@@ -25,9 +27,12 @@ public class MenuGUI extends JFrame {
 
     private JButton site;
 
+
     public MenuGUI() {
         initComponents();
+
     }
+
 
     private void initComponents() {
 
@@ -67,7 +72,7 @@ public class MenuGUI extends JFrame {
         credits.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         credits.addActionListener(this::CreditsActionPerformed);
 
-        ImageIcon img2 = new ImageIcon("src/main/resources/img/audio_icon.png");
+        ImageIcon img2 = new ImageIcon("src/main/resources/audio_icon.png");
         audio = new JButton(img2);
         audio.setBounds(800, 250, 200, 64);
         audio.setSize(64, 64);
@@ -77,7 +82,8 @@ public class MenuGUI extends JFrame {
         audio.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         audio.addActionListener(this::AudioActionPerformed);
 
-        ImageIcon img3 = new ImageIcon("src/main/resources/img/tavolozza_bn.png");
+
+        ImageIcon img3 = new ImageIcon("src/main/resources/tavolozza_bn.png");
         site = new JButton(img3);
         site.setBounds(800, 350, 200, 50);
         site.setSize(64, 64);
@@ -87,12 +93,14 @@ public class MenuGUI extends JFrame {
         site.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         site.addActionListener(this::SiteActionPerformed);
 
-        ImageIcon img4 = new ImageIcon("src/main/resources/img/backgroundBN.jpg");
+
+        ImageIcon img4 = new ImageIcon("src/main/resources/backgroundBN.jpg");
         background = new JLabel(img4);
         background.setHorizontalAlignment(JLabel.CENTER);
         background.setVerticalAlignment(JLabel.CENTER);
 
-        ImageIcon img1 = new ImageIcon("src/main/resources/img/icona_pennello_bn.jpg");
+
+        ImageIcon img1 = new ImageIcon("src/main/resources/icona_pennello_bn.jpg");
         this.setTitle("The colors within your soul");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -106,9 +114,11 @@ public class MenuGUI extends JFrame {
         this.add(audio);
         this.add(site);
         this.add(background);
+
     }
 
     private void StartActionPerformed(ActionEvent evt) {
+
         //placeholder
     }
 
@@ -131,4 +141,7 @@ public class MenuGUI extends JFrame {
     private void SiteActionPerformed(ActionEvent evt) {
         //placeholder
     }
+
+
 }
+
