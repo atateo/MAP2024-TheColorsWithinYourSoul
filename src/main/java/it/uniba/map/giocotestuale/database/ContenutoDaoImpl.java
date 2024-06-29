@@ -20,7 +20,6 @@ public class ContenutoDaoImpl implements ContenutoDao {
      * Costruttore di default.
      */
     public ContenutoDaoImpl() {
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -85,7 +84,7 @@ public class ContenutoDaoImpl implements ContenutoDao {
         String query = "SELECT * FROM contenuto";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<Contenuto> ls = new ArrayList<>();
+        List<Contenuto> ls = new ArrayList<Contenuto>();
 
         while (rs.next()) {
             Contenuto contenuto = new Contenuto();

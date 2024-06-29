@@ -34,7 +34,15 @@ public class Setup {
                 "isRisposta BOOLEAN, " +
                 "idItem INT)";
         
+     // Creazione della tabella score
+        String creaScore = "CREATE TABLE IF NOT EXISTS score (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                "player VARCHAR(100), " +
+                "score INT, " +
+                "time VARCHAR(10))";
+        
         istruzioni.add(creaContenuto);
+        istruzioni.add(creaScore);
         
         for (String istruzione : istruzioni) {
             boolean eseguito = eseguiIstruzione(istruzione);
