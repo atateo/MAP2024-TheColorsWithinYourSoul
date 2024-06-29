@@ -23,174 +23,196 @@ import it.uniba.map.giocotestuale.config.ApplicationProperties;
 import it.uniba.map.giocotestuale.entities.artwork.Artwork;
 import it.uniba.map.giocotestuale.entities.artwork.Links;
 
+/**
+ * La classe ClientRest fornisce metodi per interagire con servizi RESTful.
+ */
 public class ClientRest {
-	static ApplicationProperties appProps = ApplicationProperties.getInstance();
+    static ApplicationProperties appProps = ApplicationProperties.getInstance();
 
-	/**
-	 * Logger per la registrazione degli eventi.
-	 */
-	protected static final Logger logger = LogManager.getLogger();
+    /**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
 
-	private static final String USER_AGENT = "Mozilla/5.0";
-	private static final String URL_TOKEN = "tokens/xapp_token";
-	private static final String URL_ARTWORK = "artworks/";
-	private static final String TOKEN = "token";
+    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String URL_TOKEN = "tokens/xapp_token";
+    private static final String URL_ARTWORK = "artworks/";
+    private static final String TOKEN = "token";
 
-	public static byte[] getArtwork() {
-		byte[] operaDArte = null;
-		
-		//effettuo la chiamata in post verso il servizio di autenticazione
-		String url = appProps.getUrlEndpoint()+URL_TOKEN;
-		String clientID=appProps.getClientId();
-		String secret=appProps.getSecret();
+    /**
+     * Recupera un'opera d'arte come array di byte.
+     *
+     * @return l'opera d'arte come array di byte
+     */
+    public static byte[] getArtwork() {
+        byte[] operaDArte = null;
 
-		String jsonResponse = executePost(url+"?client_id="+clientID+"&client_secret="+secret);
+        // Predispone l'endPoint per l'api di autenticazione
+        String url = appProps.getUrlEndpoint() + URL_TOKEN;
+        String clientID = appProps.getClientId();
+        String secret = appProps.getSecret();
 
-		//estraggo il token che mi servirà per poter utilizzare il servizio get
-		JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-		String token = jsonObject.get(TOKEN).getAsString();
+        //esegue la chiamata in POST verso il servizio di autenticazione
+        String jsonResponse = executePost(url + "?client_id=" + clientID + "&client_secret=" + secret);
 
-		//estraggo randomicamente l'id dell'opera d'arte da un elenco recuperato in precedenza
-		Random random = new Random();
-		
-		int n = appProps.getIdArtwork().length-1;
-		int nRandom = random.nextInt(n + 1);
-		
-		String idArtwork = appProps.getIdArtwork()[nRandom];
-		logger.info("opera d'arte restituita randomicamente n. {} :: {}",nRandom, idArtwork);
-		
-		//String urlOpere="https://api.artsy.net/api/artworks/"+idArtwork;
-		String urlOpere=appProps.getUrlEndpoint()+URL_ARTWORK+idArtwork;
-		String jsonOpera= executeGet(urlOpere,token);
+        // Estrae il token che sarà utilizzato per il servizio GET
+        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+        String token = jsonObject.get(TOKEN).getAsString();
 
-		if(jsonOpera!=null && !"".equals(jsonOpera)) {
-			Gson gson = new Gson(); 
-			Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
-			if(artwork!=null) {
-				
-				Links links = artwork.getLinks();
-				if(links!=null && links.getImage()!=null && links.getImage().getHref()!=null) {
-					String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
-					//urlImmagine = urlImmagine.replace("{image_version}", "large");
-					operaDArte = getImage(urlImmagine);
-				}
-			}
-		}
-		return operaDArte;
-	}
-	public static String executePost(String targetURL) {
-		HttpURLConnection connection = null;
-		String response=null;
+        // Estrae randomicamente l'id dell'opera d'arte da un elenco predefinito
+        Random random = new Random();
+        int n = appProps.getIdArtwork().length - 1;
+        int nRandom = random.nextInt(n + 1);
 
-		try {
-			//Create connection
-			URI uri = new URI(targetURL);
-			URL url = uri.toURL();
-			connection = (HttpURLConnection) url.openConnection();
+        String idArtwork = appProps.getIdArtwork()[nRandom];
+        logger.info("Opera d'arte restituita randomicamente n. {} :: {}", nRandom, idArtwork);
 
+        String urlOpere = appProps.getUrlEndpoint() + URL_ARTWORK + idArtwork;
+        String jsonOpera = executeGet(urlOpere, token);
 
-			connection.setRequestProperty("User-Agent", USER_AGENT);
-			connection.setRequestMethod("POST");
+        if (jsonOpera != null && !"".equals(jsonOpera)) {
+            Gson gson = new Gson();
+            Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
+            if (artwork != null) {
+                Links links = artwork.getLinks();
+                if (links != null && links.getImage() != null && links.getImage().getHref() != null) {
+                    String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
+                    operaDArte = getImage(urlImmagine);
+                }
+            }
+        }
+        //ritorna l'opera d'arte
+        return operaDArte;
+    }
 
-			int responseCode = connection.getResponseCode();
-			logger.info("Response Code metodo POST:: " + responseCode);
+    /**
+     * Esegue una richiesta POST verso l'URL specificato.
+     *
+     * @param targetURL l'URL di destinazione
+     * @return la risposta come stringa
+     */
+    public static String executePost(String targetURL) {
+        HttpURLConnection connection = null;
+        String response = null;
 
-			if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				String inputLine;
-				StringBuffer output = new StringBuffer();
+        try {
+            // Crea la connessione
+            URI uri = new URI(targetURL);
+            URL url = uri.toURL();
+            connection = (HttpURLConnection) url.openConnection();
 
-				while ((inputLine = in.readLine()) != null) {
-					output.append(inputLine);
-				}
-				in.close();
+            connection.setRequestProperty("User-Agent", USER_AGENT);
+            connection.setRequestMethod("POST");
 
-				response= output.toString();
-				logger.info("Response ottenuta con successo: {}",response.substring(0,40)+"************}");
-			} else {
-				logger.info("Chiamata POST errata.");
-			}
-		} catch (Exception e) {
-			logger.error("Eccezione in fase di invocazione del servizio Artsy:: {}",e);
-			return null;
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
-		}
-		return response;
-	}
+            int responseCode = connection.getResponseCode();
+            logger.info("Response Code metodo POST: " + responseCode);
 
-	public static String executeGet(String targetURL, String token) {
-		HttpURLConnection connection = null;
-		String response=null;
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuffer output = new StringBuffer();
 
-		try {
-			//Create connection
-			URI uri = new URI(targetURL);
-			URL url = uri.toURL();
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Accept-Charset", "application/vnd.artsy-v2+json");
-			connection.setRequestProperty("Content-Type", "application/json");
-			connection.setRequestProperty("X-XAPP-Token", token);
+                while ((inputLine = in.readLine()) != null) {
+                    output.append(inputLine);
+                }
+                in.close();
 
+                response = output.toString();
+                logger.info("Response ottenuta con successo: {}", response.substring(0, 40) + "************}");
+            } else {
+                logger.info("Chiamata POST errata.");
+            }
+        } catch (Exception e) {
+            logger.error("Eccezione in fase di invocazione del servizio: {}", e);
+            return null;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+        return response;
+    }
 
-			connection.setDoOutput(true);
+    /**
+     * Esegue una richiesta GET verso l'URL specificato con il token fornito.
+     *
+     * @param targetURL l'URL di destinazione
+     * @param token     il token di autenticazione
+     * @return la risposta come stringa
+     */
+    public static String executeGet(String targetURL, String token) {
+        HttpURLConnection connection = null;
+        String response = null;
 
-			int responseCode = connection.getResponseCode();
-			logger.info("Response Code metodo GET:: " + responseCode);
+        try {
+            // Crea la connessione
+            URI uri = new URI(targetURL);
+            URL url = uri.toURL();
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept-Charset", "application/vnd.artsy-v2+json");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("X-XAPP-Token", token);
 
-			if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
-				BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-				String inputLine;
-				StringBuffer output = new StringBuffer();
+            connection.setDoOutput(true);
 
-				while ((inputLine = in.readLine()) != null) {
-					output.append(inputLine);
-				}
-				in.close();
+            int responseCode = connection.getResponseCode();
+            logger.info("Response Code metodo GET: " + responseCode);
 
-				response= output.toString();
-				logger.info("Response ottenuta con successo: {}",response.substring(0,40)+"************}");
-			} else {
-				logger.info("Chiamata GET errata.");
-			}
-		} catch (Exception e) {
-			logger.error("Eccezione in fase di invocazione del servizio Artsy:: {}",e);
-			return null;
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
-		}
-		return response;
-	}
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuffer output = new StringBuffer();
 
-	private static byte[] getImage(String imageLink) {
-		byte[] image = null;
-		try {
-			URI uri = new URI(imageLink);
-			URL url;
+                while ((inputLine = in.readLine()) != null) {
+                    output.append(inputLine);
+                }
+                in.close();
 
-			url = uri.toURL();
+                response = output.toString();
+                logger.info("Response ottenuta con successo: {}", response.substring(0, 40) + "************}");
+            } else {
+                logger.info("Chiamata GET errata.");
+            }
+        } catch (Exception e) {
+            logger.error("Eccezione in fase di invocazione del servizio: {}", e);
+            return null;
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+        return response;
+    }
 
-			ByteArrayOutputStream output = new ByteArrayOutputStream();
-			URLConnection conn = url.openConnection();
-			conn.setRequestProperty("User-Agent", "Firefox");
+    /**
+     * Recupera un'immagine da un URL specificato.
+     *
+     * @param imageLink il link dell'immagine
+     * @return l'immagine come array di byte
+     */
+    private static byte[] getImage(String imageLink) {
+        byte[] image = null;
+        try {
+            URI uri = new URI(imageLink);
+            URL url = uri.toURL();
 
-			try (InputStream inputStream = conn.getInputStream()) {
-				int n = 0;
-				byte[] buffer = new byte[1024];
-				while (-1 != (n = inputStream.read(buffer))) {
-					output.write(buffer, 0, n);
-				}
-			}
-			image = output.toByteArray();
-		} catch (URISyntaxException | IOException e) {
-			logger.error("Eccezione in fase di recupero del file dell'opera d'arte: {}",e);
-			e.printStackTrace();
-		}
-		return image;
-	}
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            URLConnection conn = url.openConnection();
+            conn.setRequestProperty("User-Agent", "Firefox");
+
+            try (InputStream inputStream = conn.getInputStream()) {
+                int n = 0;
+                byte[] buffer = new byte[1024];
+                while (-1 != (n = inputStream.read(buffer))) {
+                    output.write(buffer, 0, n);
+                }
+            }
+            image = output.toByteArray();
+        } catch (URISyntaxException | IOException e) {
+            logger.error("Eccezione in fase di recupero del file dell'immagine: {}", e);
+            e.printStackTrace();
+        }
+        return image;
+    }
 }

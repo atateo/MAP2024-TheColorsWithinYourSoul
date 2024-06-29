@@ -1,24 +1,48 @@
 package it.uniba.map.giocotestuale.entities.artwork;
 
+/**
+* Classe per la gestione delle dimensioni espresse in pollici in e centimetri cm di Artwork (opera d'arte).
+*/
 public class Dimensions {
-    private In in;
-    private Cm cm;
+	/**
+     * esprime le dimensioni in centimetri.
+     */
+    private Dimension in;
+    
+    /**
+     * esprime le dimensioni in pollici.
+     */
+    private Dimension cm;
 
-    // Getters and setters
-
-    public In getIn() {
+    /**
+     * Metodo getter per l'oggetto dimensioni espresse in pollici.
+     * @return l'oggetto dimensioni espresse in pollici.
+     */
+    public Dimension getIn() {
         return in;
     }
 
-    public void setIn(In in) {
+    /**
+     * Metodo setter per l'oggetto dimensioni espresse in pollici.
+     * @param l'oggetto dimensioni espresse in pollici.
+     */
+    public void setIn(Dimension in) {
         this.in = in;
     }
 
-    public Cm getCm() {
+    /**
+     * Metodo getter per l'oggetto dimensioni espresse in centimetri.
+     * @return l'oggetto dimensioni espresse in centimetri.
+     */
+    public Dimension getCm() {
         return cm;
     }
 
-    public void setCm(Cm cm) {
+    /**
+     * Metodo setter per l'oggetto dimensioni espresse in centimetri.
+     * @param l'oggetto dimensioni espresse in centimetri.
+     */
+    public void setCm(Dimension cm) {
         this.cm = cm;
     }
 }

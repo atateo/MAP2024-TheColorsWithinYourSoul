@@ -234,11 +234,11 @@ public class ApplicationProperties {
      * Costruttorre privato che carica le proprietà dell'applicazione da file.
      */
     private ApplicationProperties() {
-        String appConfigPath = "src/main/resources/application.properties";
+        String appConfigPath = "application.properties";
 
         Properties appProps = new Properties();
         try {
-            appProps.load(new FileInputStream(appConfigPath));
+            appProps.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(appConfigPath));
             logger.info("Proprietà dell'applicazione caricate correttamente.");
             setVersion(appProps.getProperty("version"));
             setSetup(Boolean.parseBoolean(appProps.getProperty("setup")));
