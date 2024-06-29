@@ -3,24 +3,44 @@ package it.uniba.map.giocotestuale.logic;
 import it.uniba.map.giocotestuale.gui.HandlerGUI;
 
 /**
- * Classe che gestisce la comunicazione tra la GUI di gioco e il gioco stesso.
+ * Classe che gestisce la comunicazione tra la GUI di gioco e il gioco stesso. È una classe singleton.
  */
 public class GameToGUICommunication {
     /**
+     * Singola istanza della classe GameToGUICommunication.
+     */
+    private static GameToGUICommunication instance;
+    /**
      * Istanza della GUI di gioco.
      */
-    private final HandlerGUI gameGUI;
+    private HandlerGUI gameGUI;
     /**
      * Istanza del gioco vero e proprio.
      */
-    private final GameEngine gameEngine;
+    private GameEngine gameEngine;
 
     /**
-     * Costruttore con parametri della classe. Istanzia tutti gli attributi.
-     * @param gameGUI Istanza della GUI di gioco.
-     * @param gameEngine Istanza del gioco.
+     * Costruttore base della classe. Non ha parametri ed è privato.
      */
-    public GameToGUICommunication(HandlerGUI gameGUI, GameEngine gameEngine) {
+    private GameToGUICommunication() {}
+
+    /**
+     * Restituisce la singola istanza di questa classe.
+     * @return L'istanza della classe.
+     */
+    public static GameToGUICommunication getInstance() {
+        if (instance == null) {
+            instance = new GameToGUICommunication();
+        }
+        return instance;
+    }
+
+    /**
+     * Serve per inizializzare gli attributi dell'istanza della classe.
+     * @param gameGUI GUI di gioco su cui bisogna operare.
+     * @param gameEngine Istanza del gioco in esecuzione.
+     */
+    public void setAttributes(HandlerGUI gameGUI, GameEngine gameEngine) {
         this.gameGUI = gameGUI;
         this.gameEngine = gameEngine;
     }
