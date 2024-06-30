@@ -11,7 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.CardLayout;
 
-
+// Classe che gestisce la schermata dei crediti
 public class CreditsGUI extends JPanel {
 
     private JButton back;
@@ -26,6 +26,9 @@ public class CreditsGUI extends JPanel {
 
     private JLabel content2;
 
+    /**
+    * Costruttore pubbico che si occupa di istanziare e settare i vari componenti sullo schermo
+    */
     public CreditsGUI() {
 
         this.setSize(1000,700);
@@ -107,7 +110,11 @@ public class CreditsGUI extends JPanel {
 
 
     }
-
+    /**
+    * Metodo che definisce il comportamento del pulsante back quando viene cliccato.
+    * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
+    * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void backActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
