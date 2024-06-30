@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.logic.GameToGUICommunication;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
@@ -17,9 +19,7 @@ import javax.swing.GroupLayout;
 import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 
@@ -256,8 +256,7 @@ public class GameGUI extends JPanel {
 
     }
 
-    public void initCurrentImage()
-    {
+    public void initCurrentImage() {
 
         cardLayout = new CardLayout();
         cardLayout.setVgap(0);
@@ -277,11 +276,9 @@ public class GameGUI extends JPanel {
         }, "Placeholder");
 
         imagePanel.setLayout(cardLayout);
-
     }
 
-    private void BackActionPerformed(ActionEvent evt)
-    {
+    private void BackActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
     }
@@ -290,10 +287,40 @@ public class GameGUI extends JPanel {
         CommandsGUI help = CommandsGUI.getIstance();
         help.setVisible(true);
     }
-    private  void UserInputActionPerformed (ActionEvent evt)
-    {
+
+    private void UserInputActionPerformed(ActionEvent evt) {
         String text = userInputField.getText();
         userInputField.setText("");
+        GameToGUICommunication.getInstance().toGame(text);
+    }
 
+    /**
+     * Metodo utilizzato per scrivere sul panel di output displayTextPane.
+     * @param text Stringa da scrivere sul panel.
+     */
+    public static void writeOnPanel(final String text) {
+        if (displayTextPane.getText().isEmpty()) {
+            displayTextPane.setText(text);
+        } else {
+            displayTextPane.setText(displayTextPane.getText() + "\n\n" + text);
+        }
+        displayTextPane.setCaretPosition(displayTextPane.getDocument().getLength());
+    }
+
+    /**
+     * Metodo che ritorna la lunghezza in caratteri di displayTextPane.
+     * @return Lunghezza in caratteri di displayTextPane.
+     */
+    public static int getTextPaneWidth() {
+        return displayTextPane.getWidth();
+    }
+
+    /**
+     * Metodo che ritorna l'oggetto FontMetrics legato al font di displayTextPane.
+     * Questo oggetto contiene alcune caratteristiche utili al rendering del testo sul panel.
+     * @return Istanza di FontMetrics di displayTextPane.
+     */
+    public static FontMetrics getTextPaneFontMetrics() {
+        return displayTextPane.getFontMetrics(displayTextPane.getFont());
     }
 }

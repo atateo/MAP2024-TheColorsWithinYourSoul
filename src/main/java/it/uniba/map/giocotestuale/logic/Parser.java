@@ -89,7 +89,12 @@ public class Parser {
                     return null;
                 }
 
-                if (tokens.length > 2) {
+                if (tokens.length == 2) {
+                    output.setSecondObject(null);
+                    return output;
+                }
+
+                if (tokens.length == 3) {
                     //In questo ramo ci vanno i comandi che prendono due parametri
                     output.setSecondObject(checkForObjects(tokens[2]));
 
@@ -98,7 +103,6 @@ public class Parser {
                         return null;
                     }
                 } else {
-                    //Il comando ha troppi parametri, restituisci null
                     return null;
                 }
             } else {
