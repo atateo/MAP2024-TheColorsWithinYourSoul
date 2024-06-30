@@ -169,6 +169,22 @@ public abstract class GameEngine {
     }
 
     /**
+     * Dato un ID passato come parametro, restituisce l'item con quell'ID.
+     * @param searchedId ID da cercare.
+     * @return Oggetto con l'ID cercato. Se non esiste, restituisce null.
+     */
+    public Item getItemById(final int searchedId) {
+        for (Room room : rooms) {
+            for(Item item : room.getItemsInRoom()) {
+                if(item.getId() == searchedId) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Metodo astratto che si occuperà di gestire l'intro del gioco.
      */
     public abstract void welcomePlayer();

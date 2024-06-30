@@ -3,8 +3,12 @@ package it.uniba.map.giocotestuale.impl;
 import it.uniba.map.giocotestuale.entities.game.CommandClass;
 import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.entities.game.Item;
+import it.uniba.map.giocotestuale.entities.game.Room;
 import it.uniba.map.giocotestuale.logic.GameEngine;
+import it.uniba.map.giocotestuale.logic.GameToGUICommunication;
+import it.uniba.map.giocotestuale.logic.interaction.DirectInteraction;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
+import it.uniba.map.giocotestuale.logic.interaction.SingleObjectInteraction;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 
@@ -26,6 +30,9 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     public ColorsWithinYourSoulGame() {
         super();
+
+        //Scrivere qui il codice che caricherà stanze e item di gioco
+
         defineGameInteractions();
     }
 
@@ -132,39 +139,31 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             return;
         }
 
-        //Verifica che per il comando usa l'oggetto sia nell'inventario
-        if (command == Command.USA) {
-            if (!getInventory().contains( (Item) output.getFirstObject())) {
-                invalidCommandOutput();
-                return;
-            }
-        }
-
-        //Verifica che per il comando spingi, prendi e colora l'oggetto sia nella stanza
-        //e che l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
-        if (command == Command.SPINGI || command == Command.PRENDI || command == Command.COLORA) {
+        //Verifica che per il comando spingi e prendi l'oggetto sia nella stanza e che
+        //l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
+        if (command == Command.SPINGI || command == Command.PRENDI) {
             if (!getCurrentRoom().getItemsInRoom().contains( (Item) output.getFirstObject())){
                 invalidCommandOutput();
                 return;
             }
 
             if (output.getCommandType() == Command.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
-                System.out.println("Provi a spingerlo, ma l'oggetto non si muove.");
+                GameToGUICommunication.getInstance().toGUI("Provi a spingerlo, ma l'oggetto non si muove.");
                 return;
             } else if (output.getCommandType() == Command.PRENDI) {
                 if ( !((Item) output.getFirstObject()).getPickable()) {
-                    System.out.println("Non puoi mettere una cosa del genere nell'inventario!!");
+                    GameToGUICommunication.getInstance().toGUI("Non puoi mettere una cosa del genere nell'inventario!!");
                     return;
                 } else {
                     //Aggiunge l'oggetto nell'inventario e lo rimuove dalla stanza
                     addItemToInventory((Item) output.getFirstObject());
                     getCurrentRoom().removeItem((Item) output.getFirstObject());
-                    System.out.println(output.getFirstObject().getName() + ": aggiunto nell'inventario.");
+                    GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getName() + ": aggiunto nell'inventario.");
 
                     //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player prende un item
                 }
             } else if (output.getCommandType() == Command.COLORA && !((Item) output.getFirstObject()).getPaintable()) {
-                System.out.println("Sembra che la pittura non abbia effetto su questo oggetto.");
+                GameToGUICommunication.getInstance().toGUI("Sembra che la pittura non abbia effetto su questo oggetto.");
                 return;
             }
 
@@ -174,14 +173,31 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Implementa il comando LASCIA
         if (command == Command.LASCIA) {
             if (output.getFirstObject() == null) {
-                System.out.println("Non stai lasciando nulla!!");
+                GameToGUICommunication.getInstance().toGUI("Non stai lasciando nulla!!");
             } else {
                 //Rimuove l'oggetto nell'inventario e lo aggiunge dalla stanza
                 removeItem((Item) output.getFirstObject());
                 getCurrentRoom().addItem((Item) output.getFirstObject());
-                System.out.println(output.getFirstObject().getName() + ": rimosso dall'inventario.");
+                GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getName() + ": rimosso dall'inventario.");
 
                 //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player lascia un item
+            }
+        }
+
+        //Verifica che per il comando usa l'oggetto sia nell'inventario
+        if (command == Command.USA) {
+            if (!getInventory().contains( (Item) output.getFirstObject())) {
+                invalidCommandOutput();
+                return;
+            }
+        }
+
+        //Verifica che per il comando colora l'oggetto sia o nella stanza o nell'inventario
+        if (command == Command.COLORA) {
+            if (!getCurrentRoom().getItemsInRoom().contains( (Item) output.getFirstObject()) &&
+            !super.getInventory().contains( (Item) output.getFirstObject())) {
+                invalidCommandOutput();
+                return;
             }
         }
 
@@ -215,7 +231,9 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Se nessuna interaction è stata effettuata, notifica l'utente
         if (!didSomething) {
-            System.out.println("Non è successo niente.");
+            if (command != Command.PRENDI) {
+                GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+            }
         }
     }
 
@@ -224,8 +242,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void invalidCommandOutput() {
-        System.out.println("Non ho capito cosa mi vuoi dire...");
-        System.out.println("Il comando potrebbe essere sbagliato o non ho trovato l'oggetto che hai chiesto.");
+        GameToGUICommunication.getInstance().toGUI("Non ho capito cosa mi vuoi dire...\n" +
+                "Il comando potrebbe essere sbagliato o non ho trovato l'oggetto che hai chiesto.");
     }
 
     /**
