@@ -7,10 +7,17 @@ import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
 import java.awt.Color;
 
+// Classe singleton per la visualizzazione dei comandi di gioco
+
 public class CommandsGUI extends JFrame {
 
     private static CommandsGUI instance;
 
+    /**
+    * Metodo getter per ottenre la singola istanza della classe.
+    * se la classe non è stata ancora istanziata, la istanzia.
+    * @return instance istanza di CommandsGUI.
+    */
     public static CommandsGUI getIstance()
     {
         if(instance == null){
@@ -19,7 +26,10 @@ public class CommandsGUI extends JFrame {
         return instance;
     }
 
-    private CommandsGUI()
+    /**
+    * Costruttore privato per l'impostazione del frame
+    */
+    private  CommandsGUI()
     {
         this.setTitle("Comandi di gioco");
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
