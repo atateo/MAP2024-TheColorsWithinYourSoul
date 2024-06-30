@@ -31,13 +31,17 @@ public class MenuGUI extends JPanel {
 
     private JButton site; // pulsante che rimanda al sito del progetto
 
-    // costruttore pubblico che chiama il metodo per istanziare i componenti a schermo
+    /**
+    * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
+    */
     public MenuGUI() {
         initComponents();
 
     }
 
-    // istanzia e setta i componenti sullo schermo
+    /**
+    * Metodo che istanzia e setta i componenti sullo schermo.
+    */
     private void initComponents() {
 
         // disegna l'immagine di sfondo
