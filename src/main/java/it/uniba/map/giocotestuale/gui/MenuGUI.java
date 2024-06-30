@@ -13,29 +13,34 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.CardLayout;
 
+// Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita
+
 public class MenuGUI extends JPanel {
 
-    private JPanel background;
+    private JPanel background; // pannello per il background
 
-    private JButton start;
+    private JButton start; // pulsante di avvio di una nuova partita
 
-    private JButton load;
+    private JButton load;  // pulsante per caricare una partita già iniziata
 
-    private JButton commands;
+    private JButton commands; // pulsante per la visualizzazione dei comandi di gioco
 
-    private JButton credits;
+    private JButton credits;  // pulsante per la visualizzazione dei crediti
 
-    private static JButton audio;
+    private static JButton audio; // pulsante per attivare o disattivare l'audio del gioco
 
-    private JButton site;
+    private JButton site; // pulsante che rimanda al sito del progetto
 
+    // costruttore pubblico che chiama il metodo per istanziare i componenti a schermo
     public MenuGUI() {
         initComponents();
 
     }
 
+    // istanzia e setta i componenti sullo schermo
     private void initComponents() {
 
+        // disegna l'immagine di sfondo
         background = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -46,12 +51,15 @@ public class MenuGUI extends JPanel {
             }
         };
 
+        // setta le dimensioni del pannello menu e dello sfondo
+
         this.setSize(1000, 700);
 
 
         background.setSize(1000, 700);
         background.setRequestFocusEnabled(false);
 
+        // configurazione del pulsante start
 
         start = new JButton("Nuova Partita");
         start.setFocusPainted(false);
@@ -60,6 +68,8 @@ public class MenuGUI extends JPanel {
         start.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         start.addActionListener(this::StartActionPerformed);
 
+        // configurazione del pulsante load
+
         load = new JButton("Carica Partita");
         load.setFocusPainted(false);
         load.setForeground(Color.black);
@@ -67,6 +77,7 @@ public class MenuGUI extends JPanel {
         load.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         load.addActionListener(this::LoadActionPerformed);
 
+        // configurazione del pulsante commands
         commands = new JButton("Comandi di Gioco");
         commands.setFocusPainted(false);
         commands.setForeground(Color.black);
@@ -74,6 +85,7 @@ public class MenuGUI extends JPanel {
         commands.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         commands.addActionListener(this::CommandsActionPerformed);
 
+        // confiurazione del pulsante credits
         credits = new JButton("Crediti");
         credits.setFocusPainted(false);
         credits.setForeground(Color.black);
@@ -81,7 +93,7 @@ public class MenuGUI extends JPanel {
         credits.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         credits.addActionListener(this::CreditsActionPerformed);
 
-
+        // configurazione del pulsante audio
         audio = new JButton(new ImageIcon("src/main/resources/img/audio_icon.png"));
         audio.setFocusPainted(false);
         audio.setForeground(Color.black);
@@ -89,7 +101,7 @@ public class MenuGUI extends JPanel {
         audio.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         audio.addActionListener(this::AudioActionPerformed);
 
-
+        // configurazione del pulsante site
         site = new JButton(new ImageIcon("src/main/resources/img/tavolozza_bn.png"));
         site.setFocusPainted(false);
         site.setForeground(Color.black);
@@ -97,6 +109,7 @@ public class MenuGUI extends JPanel {
         site.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         site.addActionListener(this::SiteActionPerformed);
 
+        // impostazione del Group Layout per il posizionamento dei vari componenti sullo sfondo
         GroupLayout backgroundLayout = new GroupLayout(background);
         backgroundLayout.setHorizontalGroup(
                 backgroundLayout.createParallelGroup(Alignment.LEADING)
@@ -136,6 +149,7 @@ public class MenuGUI extends JPanel {
 
         background.setLayout(backgroundLayout);
 
+         // impostazione del Group Layout per il posizionamento dello sfondo
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,30 +164,57 @@ public class MenuGUI extends JPanel {
 
     }
 
-
+    /**  
+    * Metodo che definisce il comportamento del pulsante start quando viene cliccato.
+    * Inizia una nuova partita selezionando la GameGUI attraverso il CardLayout.
+    * @param evt rappresenta l'evento del click sul pulsante.
+    */
     private void StartActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "GameGUI");
     }
 
+    /**  
+    * Metodo che definisce il comportamento del pulsante load quando viene cliccato.
+    * Carica il salvataggio di una partita.
+    * @param evt rappresenta l'evento del click sul pulsante.
+    */
     private void LoadActionPerformed(ActionEvent evt) {
         //placeholder
     }
 
+    /**
+    * Metodo che definisce il comportamento del pulsante commands quando viene cliccato.
+    * Apre la finestra comandi chiamando il metodo getIstance di CommandsGUI.
+    * @param evt rappresenta l'evento del click sul pulsante.
+    */
     private void CommandsActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getIstance();
         help.setVisible(true);
     }
 
+    /**
+    * Metodo che definisce il comportamento del pulsante credits quando viene cliccato.
+    * Passa alla schermata crediti selezionando la CreditsGUI attraverso il CardLayout.
+    * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void CreditsActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "CreditsGUI");
     }
-
+    /**
+    * Metodo che definisce il comportamento del pulsante audio quando viene cliccato.
+    * Attiva o disattiva l'audio di gioco.
+    * @param evt rappresenta l'evento del click sul pulsante.
+    */
     private void AudioActionPerformed(ActionEvent evt) {
         //placeholder
     }
-
+    /**
+    * Metodo che definisce il comportamento del pulsante site quando viene cliccato.
+    * Rimanda al sito del progetto.
+    * @param evt rappresenta l'evento del click sul pulsante.
+    */
     private void SiteActionPerformed(ActionEvent evt) {
         //placeholder
     }
