@@ -46,7 +46,7 @@ public static void main(String[] args) {
 		
 		
 		
-		jUtil.readJsonFromToFile("c:\\\\test.json", GameToJson.class);
+		jUtil.readJsonFromFile("c:\\\\test.json", GameToJson.class);
 		System.out.println("test");
 	}
 

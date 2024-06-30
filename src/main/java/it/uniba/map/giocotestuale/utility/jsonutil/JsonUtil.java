@@ -9,13 +9,10 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
-import it.uniba.map.giocotestuale.config.ApplicationProperties;
-
 /**
  * La classe JsonUtil fornisce metodi di utilità per la serializzazione e deserializzazione di oggetti in formato JSON.
  */
 public class JsonUtil {
-    static ApplicationProperties appProps = ApplicationProperties.getInstance();
 
     /**
      * Logger per la registrazione degli eventi.
@@ -47,7 +44,7 @@ public class JsonUtil {
      * @param filePath il percorso del file da cui leggere il JSON
      * @param obj      l'oggetto in cui deserializzare i dati
      */
-    public static void readJsonFromToFile(String filePath, Object obj) {
+    public static void readJsonFromFile(String filePath, Object obj) {
         Gson gson = new Gson();
 
         // Legge il file JSON e deserializza l'oggetto
@@ -57,5 +54,33 @@ public class JsonUtil {
         } catch (IOException e) {
             logger.info("Eccezione in fase di deserializzazione: {}", e);
         }
+    }
+    
+    /**
+     * Legge un oggetto in formato JSON da un file specificato.
+     *
+     * @param filePath il percorso del file da cui leggere il JSON
+     * @return obj l'oggetto in cui deserializzare i dati
+     */
+    public static Object getObjectFromJsonString(String jsonString, Object obj) {
+        Gson gson = new Gson();
+
+        obj = gson.fromJson(jsonString, Object.class);
+        logger.info("Deserializzazione oggetto avvenuta con successo!");
+        return obj;
+    }
+    
+    /**
+     * Restituisce una stringa in formato JSON a partire da un oggetto.
+     *
+     * @param obj l'oggetto da cui ricavare la stringa JSON
+     * @return jsonString la stringa JSON derivata dall'oggetto
+     */
+    public static String getJsonStringFromObject(Object obj) {
+        Gson gson = new Gson();
+
+        String jsonString = gson.toJson(obj);
+        logger.info("Deserializzazione oggetto avvenuta con successo!");
+        return jsonString;
     }
 }

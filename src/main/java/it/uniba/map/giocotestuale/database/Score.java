@@ -1,9 +1,28 @@
 package it.uniba.map.giocotestuale.database;
 
+import java.io.Serializable;
+
 /**
  * Classe che rappresenta il modello di Score (punteggio).
  */
-public class Score {
+public class Score implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+     * Metodo costruttore della classe Score
+     * @param id
+     * @param player
+     * @param time
+     */
+    public Score(int id, String player, String time) {
+        this.id = id;
+        this.player = player;
+        this.time = time;
+    }
     
     /**
      * Identificativo del punteggio.
