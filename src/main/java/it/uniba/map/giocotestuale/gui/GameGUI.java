@@ -124,7 +124,7 @@ public class GameGUI extends JPanel {
         toolBar.add(help);
 
         // aggiunta del gap per il posizionamento
-        toolBar.add(Box.createHorizontalStrut(20);
+        toolBar.add(Box.createHorizontalStrut(20));
         
         // configurazione del pulsante audio
         audio = new JButton(new ImageIcon("src/main/resources/img/audio_icon_game.png"));
