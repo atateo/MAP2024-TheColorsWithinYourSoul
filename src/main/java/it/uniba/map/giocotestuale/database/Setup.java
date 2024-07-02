@@ -26,14 +26,29 @@ public class Setup {
     public static void costruisciDatabase() {
         List<String> istruzioni = new ArrayList<>();
         
-        // Creazione della tabella contenuto
-        String creaContenuto = "CREATE TABLE IF NOT EXISTS contenuto (" +
+        // Creazione della tabella room
+        String creaRoom = "CREATE TABLE IF NOT EXISTS room (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                "label VARCHAR(200), " +
-                "messaggio VARCHAR(4000), " +
-                "isRisposta BOOLEAN, " +
-                "idItem INT)";
+                "stato VARCHAR(20), " +
+                "descrizione VARCHAR(150), " +
+                "id_room INT)";
+     // Creazione della tabella item
+        String creaItem = "CREATE TABLE IF NOT EXISTS item (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                "stato VARCHAR(20), " +
+                "descrizione VARCHAR(75), " +
+                "id_item INT)";
         
+     // Creazione della tabella color
+        String creaColor = "CREATE TABLE IF NOT EXISTS color (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                "descrizione VARCHAR(75))";
+        
+     // Creazione della tabella dialog
+        String creaDialog = "CREATE TABLE IF NOT EXISTS dialog (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                "testo VARCHAR(500))";
+                
      // Creazione della tabella score
         String creaScore = "CREATE TABLE IF NOT EXISTS score (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -41,7 +56,10 @@ public class Setup {
                 "score INT, " +
                 "time VARCHAR(10))";
         
-        istruzioni.add(creaContenuto);
+        istruzioni.add(creaRoom);
+        istruzioni.add(creaItem);
+        istruzioni.add(creaColor);
+        istruzioni.add(creaDialog);
         istruzioni.add(creaScore);
         
         for (String istruzione : istruzioni) {

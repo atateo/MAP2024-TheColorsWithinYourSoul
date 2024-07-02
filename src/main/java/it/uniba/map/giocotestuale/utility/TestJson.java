@@ -37,7 +37,7 @@ public static void main(String[] args) {
 		stanze.add(room2);
 		stanze.add(room3);
 		gioco.setRooms(stanze);
-		gioco.setPlayer("Antimo");
+		//gioco.setPlayer("Antimo");
 		gioco.setRoom(new Room(3,"studio","actual"));
 		List<Item> inventario = new ArrayList<Item>();
 		
