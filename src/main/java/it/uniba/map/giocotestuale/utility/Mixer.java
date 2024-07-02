@@ -58,6 +58,7 @@ public class Mixer extends Thread {
         loadTrack(6, "src/main/resources/music/ZeldaMajorasMask_StoneTowerTemple.wav");
         loadTrack(7, "src/main/resources/music/Heartbound_SpaceLasers.wav");
         loadTrack(8, "src/main/resources/music/Celeste_Prologue.wav");
+        loadTrack(9, "src/main/resources/music/SuperMario64_Credits.wav");
 
         roomNameToTrackIndex.put("Menu", 0);
         roomNameToTrackIndex.put("AtticoCentrale", 1);
@@ -70,6 +71,7 @@ public class Mixer extends Thread {
         roomNameToTrackIndex.put("StanzaMarrone", 6);
         roomNameToTrackIndex.put("StanzaViola", 7);
         roomNameToTrackIndex.put("StanzaFinale", 8);
+        roomNameToTrackIndex.put("Credits", 9);
 
         //Scrivere qui il codice che associa l'indice della musica alle stanze
     }
