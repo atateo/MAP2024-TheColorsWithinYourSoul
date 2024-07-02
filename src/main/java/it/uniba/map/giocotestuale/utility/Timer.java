@@ -3,7 +3,7 @@ package it.uniba.map.giocotestuale.utility;
 /**
  * Classe che rappresenta il timer di gioco. Tutti i valori temporali sono in ms.
  */
-public final class Timer {
+public class Timer {
     /**
      * Tempo di partenza del timer.
      */

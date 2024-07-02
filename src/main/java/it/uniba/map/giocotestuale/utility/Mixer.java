@@ -132,7 +132,7 @@ public class Mixer extends Thread {
     /**
      * Ferma l'esecuzione della track corrente.
      */
-    public void stopClip() {
+    public void stopTrack() {
         if (tracks[currentTrack] != null) {
             isRunning = false;
             tracks[currentTrack].stop();
