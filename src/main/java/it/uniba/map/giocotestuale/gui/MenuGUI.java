@@ -33,7 +33,6 @@ public class MenuGUI extends JPanel {
     */
     public MenuGUI() {
         initComponents();
-        Mixer.getInstance().start();
     }
 
     /**
@@ -175,6 +174,7 @@ public class MenuGUI extends JPanel {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "GameGUI");
         Mixer.getInstance().changRoomMusic("AtticoCentrale");
+        Mixer.getInstance().startTrack();
     }
 
     /**  

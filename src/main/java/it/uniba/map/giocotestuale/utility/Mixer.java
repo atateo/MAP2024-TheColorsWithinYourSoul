@@ -43,7 +43,7 @@ public class Mixer extends Thread {
      * Costruttore della classe Mixer. Carica i file e inserisce le coppie in roomNameToTrackIndex. È privato.
      */
     private Mixer() {
-        final int numberOfTracks = 9;
+        final int numberOfTracks = 10;
 
         this.tracks = new Clip[numberOfTracks];
         roomNameToTrackIndex = new HashMap<>();
@@ -125,6 +125,7 @@ public class Mixer extends Thread {
     public void startTrack() {
         if (tracks[currentTrack] != null) {
             isRunning = true;
+            tracks[currentTrack].setMicrosecondPosition(0);
             tracks[currentTrack].start();
         }
     }

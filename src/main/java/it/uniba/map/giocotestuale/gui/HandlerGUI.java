@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.utility.Mixer;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -48,5 +50,7 @@ public class HandlerGUI extends JFrame {
         // aggiunta delle carte al frame
         this.add(cards);
         this.setVisible(true); //  imposta il frame come visibile
+
+        Mixer.getInstance().start();
     }
 }
