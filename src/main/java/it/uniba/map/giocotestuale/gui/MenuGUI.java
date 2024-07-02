@@ -204,6 +204,8 @@ public class MenuGUI extends JPanel {
     private void CreditsActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "CreditsGUI");
+        Mixer.getInstance().changRoomMusic("Credits");
+        Mixer.getInstance().startTrack();
     }
     /**
     * Metodo che definisce il comportamento del pulsante audio quando viene cliccato.
