@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.utility.Mixer;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,6 +32,7 @@ public class CreditsGUI extends JPanel {
     * Costruttore pubbico che si occupa di istanziare e settare i vari componenti sullo schermo
     */
     public CreditsGUI() {
+
 
         this.setSize(1000,700);
 
@@ -118,6 +121,8 @@ public class CreditsGUI extends JPanel {
     private void backActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
+        Mixer.getInstance().changRoomMusic("Menu");
+        Mixer.getInstance().startTrack();
 
     }
 
