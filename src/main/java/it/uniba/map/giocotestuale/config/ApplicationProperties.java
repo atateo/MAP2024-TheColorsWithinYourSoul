@@ -255,7 +255,7 @@ public class ApplicationProperties {
             setIdArtwork(Arrays.stream(appProps.getProperty("artworks").split(":"))
                     .toArray(String[]::new));
         } catch (IOException e) {
-            logger.error("Errore in fase di caricamento delle proprietà dell'applicazione: {}",e);
+            logger.error("Errore in fase di caricamento delle proprietà dell'applicazione: ",e);
         }
     }
     

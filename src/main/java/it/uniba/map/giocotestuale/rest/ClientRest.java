@@ -55,32 +55,35 @@ public class ClientRest {
         //esegue la chiamata in POST verso il servizio di autenticazione
         String jsonResponse = executePost(url + "?client_id=" + clientID + "&client_secret=" + secret);
 
-        // Estrae il token che sarà utilizzato per il servizio GET
-        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-        String token = jsonObject.get(TOKEN).getAsString();
+        if(jsonResponse!=null && !jsonResponse.isEmpty()){
+            // Estrae il token che sarà utilizzato per il servizio GET
+            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+            String token = jsonObject.get(TOKEN).getAsString();
 
-        // Estrae randomicamente l'id dell'opera d'arte da un elenco predefinito
-        Random random = new Random();
-        int n = appProps.getIdArtwork().length - 1;
-        int nRandom = random.nextInt(n + 1);
+            // Estrae randomicamente l'id dell'opera d'arte da un elenco predefinito
+            Random random = new Random();
+            int n = appProps.getIdArtwork().length - 1;
+            int nRandom = random.nextInt(n + 1);
 
-        String idArtwork = appProps.getIdArtwork()[nRandom];
-        logger.info("Opera d'arte restituita randomicamente n. {} :: {}", nRandom, idArtwork);
+            String idArtwork = appProps.getIdArtwork()[nRandom];
+            logger.info("Opera d'arte restituita randomicamente n. {} :: {}", nRandom, idArtwork);
 
-        String urlOpere = appProps.getUrlEndpoint() + URL_ARTWORK + idArtwork;
-        String jsonOpera = executeGet(urlOpere, token);
+            String urlOpere = appProps.getUrlEndpoint() + URL_ARTWORK + idArtwork;
+            String jsonOpera = executeGet(urlOpere, token);
 
-        if (jsonOpera != null && !"".equals(jsonOpera)) {
-            Gson gson = new Gson();
-            Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
-            if (artwork != null) {
-                Links links = artwork.getLinks();
-                if (links != null && links.getImage() != null && links.getImage().getHref() != null) {
-                    String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
-                    operaDArte = getImage(urlImmagine);
+            if (jsonOpera != null && !jsonOpera.isEmpty()) {
+                Gson gson = new Gson();
+                Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
+                if (artwork != null) {
+                    Links links = artwork.getLinks();
+                    if (links != null && links.getImage() != null && links.getImage().getHref() != null) {
+                        String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
+                        operaDArte = getImage(urlImmagine);
+                    }
                 }
             }
         }
+
         //ritorna l'opera d'arte
         return operaDArte;
     }
@@ -105,12 +108,13 @@ public class ClientRest {
             connection.setRequestMethod("POST");
 
             int responseCode = connection.getResponseCode();
-            logger.info("Response Code metodo POST: " + responseCode);
+            logger.info("Response Code metodo POST: {}", responseCode);
 
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String inputLine;
-                StringBuffer output = new StringBuffer();
+                //StringBuffer output = new StringBuffer();
+                StringBuilder output = new StringBuilder();
 
                 while ((inputLine = in.readLine()) != null) {
                     output.append(inputLine);
@@ -123,7 +127,7 @@ public class ClientRest {
                 logger.info("Chiamata POST errata.");
             }
         } catch (Exception e) {
-            logger.error("Eccezione in fase di invocazione del servizio: {}", e);
+            logger.error("Eccezione in fase di invocazione del servizio: ", e);
             return null;
         } finally {
             if (connection != null) {
@@ -162,7 +166,7 @@ public class ClientRest {
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String inputLine;
-                StringBuffer output = new StringBuffer();
+                StringBuilder output = new StringBuilder();
 
                 while ((inputLine = in.readLine()) != null) {
                     output.append(inputLine);
@@ -175,7 +179,7 @@ public class ClientRest {
                 logger.info("Chiamata GET errata.");
             }
         } catch (Exception e) {
-            logger.error("Eccezione in fase di invocazione del servizio: {}", e);
+            logger.error("Eccezione in fase di invocazione del servizio: ", e);
             return null;
         } finally {
             if (connection != null) {
@@ -210,8 +214,7 @@ public class ClientRest {
             }
             image = output.toByteArray();
         } catch (URISyntaxException | IOException e) {
-            logger.error("Eccezione in fase di recupero del file dell'immagine: {}", e);
-            e.printStackTrace();
+            logger.error("Eccezione in fase di recupero del file dell'immagine: ", e);
         }
         return image;
     }

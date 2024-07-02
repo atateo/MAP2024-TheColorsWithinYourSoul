@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import it.uniba.map.giocotestuale.database.score.Score;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * GameClient, classe client che gestisce la connessione con il server del gioco,
@@ -19,6 +21,10 @@ public class GameClient {
     private Socket clientSocket;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    /**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
 
     /**
      * Avvia la connessione al server specificato.
@@ -43,9 +49,9 @@ public class GameClient {
             out.writeObject("POST");
             out.writeObject(score);
             String resp = (String) in.readObject();
-            System.out.println("Risposta del server: " + resp);
+            logger.info("Risposta del server: {}", resp);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Eccezione nel metodo sendScore (invio punteggio): ", e);
         }
     }
 
@@ -65,7 +71,7 @@ public class GameClient {
                 punteggi.add(score);
             }
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Eccezione nel metodo getScores (recupero dei punteggi): ", e);
         }
         punteggi.sort((a, b) -> fromatTimeFromStringToInt(a.getTime()) - fromatTimeFromStringToInt(b.getTime()));
         return punteggi;
@@ -81,7 +87,7 @@ public class GameClient {
             String resp = (String) in.readObject();
             System.out.println("Risposta del server: " + resp);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Eccezione nel metodo end (chiusura della comunicazione con il server): ", e);
         }
     }
 
@@ -92,7 +98,7 @@ public class GameClient {
         try {
             clientSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Eccezione nel metodo stopConnection(): ", e);
         }
     }
 

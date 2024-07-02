@@ -34,7 +34,7 @@ public class JsonUtil {
             fileWriter.write(jsonString);
             logger.info("Serializzazione su file avvenuta con successo!");
         } catch (IOException e) {
-            logger.info("Eccezione in fase di scrittura del file Json: {}", e);
+            logger.info("Eccezione in fase di scrittura del file Json: ", e);
         }
     }
 
@@ -52,7 +52,7 @@ public class JsonUtil {
             obj = gson.fromJson(fileReader, Object.class);
             logger.info("Deserializzazione oggetto avvenuta con successo!");
         } catch (IOException e) {
-            logger.info("Eccezione in fase di deserializzazione: {}", e);
+            logger.info("Eccezione in fase di deserializzazione: ", e);
         }
     }
     
