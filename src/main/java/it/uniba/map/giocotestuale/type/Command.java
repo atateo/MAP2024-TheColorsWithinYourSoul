@@ -3,7 +3,7 @@ package it.uniba.map.giocotestuale.type;
 /**
  * Enum che rappresenta i possibili tipi dei comandi di gioco.
  */
-public enum CommandEnum {
+public enum Command {
     AIUTO,
     NORD,
     SUD,

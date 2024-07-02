@@ -1,6 +1,6 @@
 package it.uniba.map.giocotestuale.entities.game;
 
-import it.uniba.map.giocotestuale.type.CommandEnum;
+import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class CommandClass {
     /**
      * Tipo del comando relativamente all'enum Command.
      */
-    private final CommandEnum commandType;
+    private final Command commandType;
 
     /**
      * Lista contenente gli alias del comando.
@@ -29,7 +29,7 @@ public class CommandClass {
      * @param commandType Tipo dell'istanza di questo comando.
      * @param commandAliases Aliases dell'istanza di questo comando.
      */
-    public CommandClass(final String commandName, final CommandEnum commandType, final List<String> commandAliases) {
+    public CommandClass(final String commandName, final Command commandType, final List<String> commandAliases) {
         this.commandName = commandName;
         this.commandType = commandType;
         this.commandAliases = commandAliases;
@@ -47,7 +47,7 @@ public class CommandClass {
      * Metodo getter per il tipo del comando.
      * @return Tipo dell'istanza di questo comando.
      */
-    public CommandEnum getCommandType() {
+    public Command getCommandType() {
         return this.commandType;
     }
 

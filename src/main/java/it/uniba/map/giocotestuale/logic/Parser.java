@@ -2,7 +2,7 @@ package it.uniba.map.giocotestuale.logic;
 
 import it.uniba.map.giocotestuale.entities.game.CommandClass;
 import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.type.CommandEnum;
+import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 
 import org.apache.logging.log4j.LogManager;
@@ -121,7 +121,7 @@ public class Parser {
      * @param token Token da analizzare.
      * @return Tipo di comando corrispondente. Se non riconosce il comando, restituisce null.
      */
-    private CommandEnum checkForCommands(final String token) {
+    private Command checkForCommands(final String token) {
         for (CommandClass availableCommand : availableCommands) {
             if (availableCommand.getCommandName().equalsIgnoreCase(token) || availableCommand.getCommandAliases().contains(token.toLowerCase())) {
                 return availableCommand.getCommandType();

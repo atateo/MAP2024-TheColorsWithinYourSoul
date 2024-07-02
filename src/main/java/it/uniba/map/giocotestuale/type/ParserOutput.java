@@ -9,7 +9,7 @@ public class ParserOutput {
     /**
      * Tipo di comando dell'output.
      */
-    private CommandEnum commandType;
+    private Command commandType;
     /**
      * Primo parametro dell'output.
      */
@@ -30,7 +30,7 @@ public class ParserOutput {
      * @param firstObject Primo parametro dell'output.
      * @param secondObject Secondo parametro dell'output.
      */
-    public ParserOutput(CommandEnum commandType, GameObject firstObject, GameObject secondObject) {
+    public ParserOutput(Command commandType, GameObject firstObject, GameObject secondObject) {
         this.commandType = commandType;
         this.firstObject = firstObject;
         this.secondObject = secondObject;
@@ -40,7 +40,7 @@ public class ParserOutput {
      * Metodo getter per il tipo di comando.
      * @return Tipo di comando.
      */
-    public CommandEnum getCommandType() {
+    public Command getCommandType() {
         return this.commandType;
     }
 
@@ -64,7 +64,7 @@ public class ParserOutput {
      * Metodo setter per il tipo di comando.
      * @param commandType Tipo di comando da impostare.
      */
-    public void setCommandType(CommandEnum commandType) {
+    public void setCommandType(Command commandType) {
         this.commandType = commandType;
     }
 

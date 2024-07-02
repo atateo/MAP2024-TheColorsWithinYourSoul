@@ -1,6 +1,6 @@
 package it.uniba.map.giocotestuale.entities.game;
 
-import it.uniba.map.giocotestuale.type.CommandEnum;
+import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,12 +144,12 @@ public class Room extends GameObject {
      * @param command Direzione della RoomConnection da restituire.
      * @return L'oggetto RoomConnection trovato nella direzione richiesta.
      */
-    public RoomConnection getRoomConnection(CommandEnum command) {
+    public RoomConnection getRoomConnection(Command command) {
         return switch (command) {
-            case CommandEnum.NORD -> getNorthRoomConnection();
-            case CommandEnum.SUD -> getSouthRoomConnection();
-            case CommandEnum.OVEST -> getWestRoomConnection();
-            case CommandEnum.EST -> getEastRoomConnection();
+            case Command.NORD -> getNorthRoomConnection();
+            case Command.SUD -> getSouthRoomConnection();
+            case Command.OVEST -> getWestRoomConnection();
+            case Command.EST -> getEastRoomConnection();
             default -> null;
         };
     }

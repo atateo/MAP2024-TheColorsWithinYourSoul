@@ -1,7 +1,7 @@
 package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.type.CommandEnum;
+import it.uniba.map.giocotestuale.type.Command;
 
 /**
  * Classe Factory che permette la creazione facilitata delle Interaction.
@@ -21,7 +21,7 @@ public class InteractionFactory {
      * @param interaction Comportamento dell'interazione.
      * @return Oggetto SingleObjectInteraction creato con gli attributi passati sopra.
      */
-    public static Interaction buildInteraction(final GameObject gameObject, final CommandEnum interactionType, final String targetState, final String resultState, final Interactable interaction) {
+    public static Interaction buildInteraction(final GameObject gameObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         return new SingleObjectInteraction(gameObject, interactionType, targetState, resultState, interaction);
     }
 
@@ -36,7 +36,7 @@ public class InteractionFactory {
      * @param type Determina se l'interazione è diretta o a catena (true per diretta, false per a catena).
      * @return Oggetto TwoObjectInteraction (Direct o Chain) creato con gli attributi passati sopra.
      */
-    public static Interaction buildInteraction(final GameObject firstObject, final GameObject secondObject, final CommandEnum interactionType, final String targetState, final String resultState, final Interactable interaction, final boolean type) {
+    public static Interaction buildInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction, final boolean type) {
         if (type) {
             return new DirectInteraction(firstObject, secondObject, interactionType, targetState, resultState, interaction);
         } else {

@@ -1,7 +1,7 @@
 package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.type.CommandEnum;
+import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class DirectInteraction extends TwoObjectInteraction {
      * @param resultState Stato che il secondo oggetto avrà dopo l'interazione.
      * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
-    public DirectInteraction(final GameObject firstObject, final GameObject secondObject, final CommandEnum interactionType, final String targetState, final String resultState, final Interactable interaction) {
+    public DirectInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(firstObject, secondObject, interactionType, targetState, resultState, interaction);
     }
 
@@ -32,7 +32,7 @@ public class DirectInteraction extends TwoObjectInteraction {
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
     @Override
-    public boolean isCorrectInteraction(final List<GameObject> gameObjects, final CommandEnum interactionType) {
+    public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
         //Non è un'interazione a due oggetti
         if (gameObjects.size() != 2) {
             return false;

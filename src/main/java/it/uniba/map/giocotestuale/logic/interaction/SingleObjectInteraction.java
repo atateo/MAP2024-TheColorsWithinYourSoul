@@ -2,7 +2,7 @@ package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.logic.GameEngine;
-import it.uniba.map.giocotestuale.type.CommandEnum;
+import it.uniba.map.giocotestuale.type.Command;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class SingleObjectInteraction extends Interaction {
      * @param resultState Stato che l'oggetto avrà alla fine dell'interazione.
      * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
-    public SingleObjectInteraction(final GameObject gameObject, final CommandEnum interactionType, final String targetState, final String resultState, final Interactable interaction) {
+    public SingleObjectInteraction(final GameObject gameObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(interactionType, targetState, resultState, interaction);
         this.gameObject = gameObject;
     }
@@ -45,7 +45,7 @@ public class SingleObjectInteraction extends Interaction {
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
     @Override
-    public boolean isCorrectInteraction(final List<GameObject> gameObjects, final CommandEnum interactionType) {
+    public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
         //Il comando non corrisponde
         if (super.getInteractionCommand() != interactionType) {
             return false;
