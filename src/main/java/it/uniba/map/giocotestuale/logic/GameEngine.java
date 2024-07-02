@@ -170,12 +170,15 @@ public abstract class GameEngine {
      * Scorre quindi tutte le stanze per ricavarne gli item.
      * @return Lista contenente tutti gli item del gioco.
      */
-    public ArrayList<GameObject> getAllGameItems() {
-        ArrayList<GameObject> gameItems = new ArrayList<>();
+    public ArrayList<GameObject> getAllObjects() {
+        ArrayList<GameObject> gameObjects = new ArrayList<>();
         for (Room room : rooms) {
-            gameItems.addAll(room.getItemsInRoom());
+            gameObjects.addAll(room.getItemsInRoom());
         }
-        return gameItems;
+
+        gameObjects.addAll(colors);
+
+        return gameObjects;
     }
 
     /**

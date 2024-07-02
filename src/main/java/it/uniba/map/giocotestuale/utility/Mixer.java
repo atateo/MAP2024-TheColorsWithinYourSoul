@@ -1,5 +1,8 @@
 package it.uniba.map.giocotestuale.utility;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -7,6 +10,7 @@ import javax.sound.sampled.Clip;
 import java.util.HashMap;
 
 public class Mixer extends Thread {
+    private static final Logger logger = LogManager.getLogger(Mixer.class);
     public static Mixer instance;
 
     private Clip[] tracks;
@@ -39,7 +43,7 @@ public class Mixer extends Thread {
             tracks[index] = AudioSystem.getClip();
             tracks[index].open(audioStream);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("Errore nella lettura e caricamento del file musicale.");
         }
     }
 
