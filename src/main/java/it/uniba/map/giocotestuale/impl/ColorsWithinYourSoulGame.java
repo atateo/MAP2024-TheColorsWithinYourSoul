@@ -75,6 +75,19 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         super.getColors().add(new ColorClass(0, "Marrone", List.of("brown"), false));
         super.getColors().add(new ColorClass(0, "Viola", List.of("purple"), false));
 
+        room0.addItem(new Item(0, "torcia", List.of("tizzone"), "spento"));
+
+        super.addRoom(room0);
+        super.addRoom(room1);
+        super.addRoom(room2);
+        super.addRoom(room3);
+        super.addRoom(room4);
+        super.addRoom(room5);
+        super.addRoom(room6);
+        super.addRoom(room7);
+        super.addRoom(room8);
+        super.addRoom(room9);
+
         //Imposta la stanza iniziale
         super.setCurrentRoom(room0);
 
@@ -145,6 +158,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //NOTA BENE: Le interazioni dirette devono essere inserite nella lista PRIMA delle interazioni a catena.
         //Altrimenti se un'interazione diretta ne scatena una a catena, quella a catena non verrà eseguita subito.
+
+        //Interazioni di movimento
     }
 
     /**
@@ -201,7 +216,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Verifica che per il comando spingi e prendi l'oggetto sia nella stanza e che
         //l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
         if (command == Command.SPINGI || command == Command.PRENDI) {
-            if (!getCurrentRoom().getItemsInRoom().contains( (Item) output.getFirstObject())){
+            if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject())){
                 invalidCommandOutput();
                 return;
             }
@@ -221,12 +236,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
                     //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player prende un item
                 }
-            } else if (output.getCommandType() == Command.COLORA && !((Item) output.getFirstObject()).getPaintable()) {
-                GameToGUICommunication.getInstance().toGUI("Sembra che la pittura non abbia effetto su questo oggetto.");
-                return;
             }
-
-
         }
 
         //Implementa il comando LASCIA
@@ -245,29 +255,61 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Verifica che per il comando usa l'oggetto sia nell'inventario
         if (command == Command.USA) {
-            if (!getInventory().contains( (Item) output.getFirstObject())) {
+            if (!getInventory().contains((Item) output.getFirstObject())) {
                 invalidCommandOutput();
                 return;
             }
         }
 
         //Verifica che per il comando colora l'oggetto sia o nella stanza o nell'inventario
+        //Verifica che l'oggetto colorabile sia nell'inventario
         if (command == Command.COLORA) {
-            if (!getCurrentRoom().getItemsInRoom().contains( (Item) output.getFirstObject()) &&
-            !super.getInventory().contains( (Item) output.getFirstObject())) {
+            if (output.getFirstObject() == null || output.getSecondObject() == null) {
                 invalidCommandOutput();
+                return;
+            }
+
+            if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject()) &&
+            !super.getInventory().contains((Item) output.getFirstObject())) {
+                invalidCommandOutput();
+                return;
+            }
+
+            if (!(output.getSecondObject() instanceof ColorClass)) {
+                invalidCommandOutput();
+                return;
+            }
+
+            if (!((ColorClass) output.getSecondObject()).isUnlocked()) {
+                GameToGUICommunication.getInstance().toGUI("Non hai ancora ritrovato questo colore...");
+                return;
+            }
+
+            if (!((Item) output.getFirstObject()).getPaintable()) {
+                GameToGUICommunication.getInstance().toGUI("Sembra che la pittura non abbia effetto su questo oggetto.");
                 return;
             }
         }
 
         //Se è un comando di movimento, imposta la stanza corrente come primo oggetto dell'output,
-        //così da poter eseguire il movimento come un'interazione sulla stanza
+        //così da poter eseguire il movimento come un'interazione sulla stanza se ce ne fosse bisogno
         if (movementCommands.contains(command)) {
             if (output.getFirstObject() != null || output.getSecondObject() != null) {
                 invalidCommandOutput();
                 return;
             } else {
                 output.setFirstObject(this.getCurrentRoom());
+
+                RoomConnection destination = super.getCurrentRoom().getRoomConnection(command);
+
+                //Verifica ed esegue il comando di movimento
+                if (destination == null) {
+                    GameToGUICommunication.getInstance().toGUI("Non c'è nulla in quella direzione.");
+                } else if (destination.isLocked()) {
+                    GameToGUICommunication.getInstance().toGUI("La porta è chiusa.");
+                } else {
+                    setCurrentRoom(destination.getReachableRoom());
+                }
             }
         }
 
@@ -290,7 +332,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Se nessuna interaction è stata effettuata, notifica l'utente
         if (!didSomething) {
-            if (command != Command.PRENDI) {
+            if (command != Command.PRENDI && !movementCommands.contains(command)) {
                 GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
             }
         }

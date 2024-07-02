@@ -43,7 +43,7 @@ public class Parser {
      */
     public Parser(final GameEngine game) {
         availableCommands = game.getAllCommands();
-        availableObjects = game.getAllGameItems();
+        availableObjects = game.getAllObjects();
 
         try {
             setupUselessWords();
