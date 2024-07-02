@@ -10,7 +10,6 @@ import it.uniba.map.giocotestuale.entities.game.Room;
  * La classe GameToJson costituisce un'utility per la conversione delle informazioni di gioco in formato JSON.
  */
 public class GameToJson {
-    private String player;
     private List<ColorClass> colors;
     private List<Room> rooms;
     private Room room;
@@ -19,15 +18,13 @@ public class GameToJson {
     /**
      * Costruisce un nuovo oggetto GameToJson con i dettagli del gioco specificati.
      *
-     * @param player    il nome del giocatore
      * @param colors    la lista dei colori del gioco
      * @param rooms     la lista delle stanze nel gioco
      * @param room      la stanza corrente del giocatore
      * @param inventario la lista degli oggetti nell'inventario del giocatore
      */
-    public GameToJson(String player, List<ColorClass> colors, List<Room> rooms, Room room, List<Item> inventario) {
+    public GameToJson(List<ColorClass> colors, List<Room> rooms, Room room, List<Item> inventario) {
         super();
-        this.player = player;
         this.colors = colors;
         this.rooms = rooms;
         this.room = room;
@@ -38,24 +35,6 @@ public class GameToJson {
      * Costruisce un nuovo oggetto GameToJson vuoto.
      */
     public GameToJson() {
-    }
-
-    /**
-     * Restituisce il nome del player.
-     *
-     * @return il nome del player
-     */
-    public String getPlayer() {
-        return player;
-    }
-
-    /**
-     * Imposta il nome del player.
-     *
-     * @param player il nome del player
-     */
-    public void setPlayer(String player) {
-        this.player = player;
     }
 
     /**
