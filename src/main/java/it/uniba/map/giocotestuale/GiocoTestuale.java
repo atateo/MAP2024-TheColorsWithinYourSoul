@@ -34,5 +34,6 @@ public class GiocoTestuale {
 		handlerGUI.setVisible(true);
 
 		GameToGUICommunication.getInstance().setAttributes(handlerGUI, game);
+		GameToGUICommunication.getInstance().start();
 	}
 }

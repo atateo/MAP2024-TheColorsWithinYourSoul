@@ -1,4 +1,6 @@
-package it.uniba.map.giocotestuale.database;
+package it.uniba.map.giocotestuale.database.contenuto;
+
+import it.uniba.map.giocotestuale.database.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +14,7 @@ import java.util.List;
  * Implementazione dell'interfaccia ContenutoDao.
  * Fornisce i metodi per le operazioni CRUD sull'entità Contenuto nel database.
  * 
- * @autor tateo.antimo
+ * @author tateo.antimo
  */
 public class ContenutoDaoImpl implements ContenutoDao {
 

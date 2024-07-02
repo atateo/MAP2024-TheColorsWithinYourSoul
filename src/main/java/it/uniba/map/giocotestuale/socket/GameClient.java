@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import it.uniba.map.giocotestuale.database.Score;
+import it.uniba.map.giocotestuale.database.score.Score;
 
 /**
  * GameClient, classe client che gestisce la connessione con il server del gioco,

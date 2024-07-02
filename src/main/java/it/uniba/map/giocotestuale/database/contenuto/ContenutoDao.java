@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database;
+package it.uniba.map.giocotestuale.database.contenuto;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database;
+package it.uniba.map.giocotestuale.database.score;
 
 import java.io.Serializable;
 
@@ -70,7 +70,7 @@ public class Score implements Serializable{
 
     /**
      * Imposta il player.
-     * @param player.
+     * @param player player da impostare.
      */
     public void setPlayer(String player) {
         this.player = player;
@@ -86,7 +86,7 @@ public class Score implements Serializable{
 
     /**
      * Imposta il tempo impiegato da un player.
-     * @param il tempo impiegato da un player.
+     * @param time tempo impiegato da un player.
      */
     public void setTime(String time) {
         this.time = time;

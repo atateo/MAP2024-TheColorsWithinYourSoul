@@ -7,8 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 
-import it.uniba.map.giocotestuale.database.Score;
-import it.uniba.map.giocotestuale.database.ScoreDaoImpl;
+import it.uniba.map.giocotestuale.database.score.Score;
+import it.uniba.map.giocotestuale.database.score.ScoreDaoImpl;
 
 /**
  * La classe GameServer gestisce le connessioni dei client per un gioco testuale,

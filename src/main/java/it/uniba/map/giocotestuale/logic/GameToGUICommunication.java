@@ -76,7 +76,7 @@ public class GameToGUICommunication {
      * @param input Stringa di input dell'utente.
      */
     public void toGame(final String input) {
-        toGUI("> " + input);
+        GameGUI.writeOnPanel("□ " + input);
         gameEngine.update(parser.parse(input));
     }
 
@@ -86,7 +86,14 @@ public class GameToGUICommunication {
      * @param output Stringa di output da stampare sulla GUI.
      */
     public void toGUI(final String output) {
-        GameGUI.writeOnPanel(formatText(output));
+        GameGUI.writeOnPanel(formatText("> " + output));
+    }
+
+    /**
+     * Metodo che farà partire l'intro di gioco.
+     */
+    public void start() {
+        gameEngine.welcomePlayer();
     }
 
     /**
@@ -103,6 +110,7 @@ public class GameToGUICommunication {
         StringBuilder result = new StringBuilder();
         String[] words = text.split(" ");
 
+        //Se una parola supera la lunghezza del panel, la spezza e va a capo
         for (String word : words) {
             StringBuilder line = new StringBuilder();
             for (char c : word.toCharArray()) {

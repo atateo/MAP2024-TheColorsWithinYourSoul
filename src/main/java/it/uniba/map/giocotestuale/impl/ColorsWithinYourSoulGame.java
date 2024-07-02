@@ -3,12 +3,9 @@ package it.uniba.map.giocotestuale.impl;
 import it.uniba.map.giocotestuale.entities.game.CommandClass;
 import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.entities.game.Item;
-import it.uniba.map.giocotestuale.entities.game.Room;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.GameToGUICommunication;
-import it.uniba.map.giocotestuale.logic.interaction.DirectInteraction;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
-import it.uniba.map.giocotestuale.logic.interaction.SingleObjectInteraction;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 
@@ -41,7 +38,21 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void welcomePlayer() {
-        //Scrivere qui il codice che gestirà l'intro di gioco
+        GameToGUICommunication.getInstance().toGUI("Sono passati ormai diversi anni da quando ti sei trasferito a " +
+                "New York. Ormai hai fatto carriera, eppure senti di aver perso qualcosa per strada, forse proprio te stesso. " +
+                "Un giorno, però, ricevi una lettera da Vieste. Il tuo caro nonno, con il quale sei cresciuto, è passato a" +
+                "miglior vita e ti ha lasciato in eredità la sua amata villa di famiglia. La notizia ti ha lasciato scosso, " +
+                "ma allo stesso tempo forse questa è l'opportunità di cui avevi bisogno per ritrovare i colori nella tua anima...");
+
+        GameToGUICommunication.getInstance().toGUI("Decidi quindi di partire per tornare nella villa di tuo nonno. Al tuo " +
+                "arrivo, decidi di fare un giro per la villa per rivivere qualche ricordo d'infanzia. Ti ricordi, però, che tuo " +
+                "nonno ti aveva sempre impedito di salire all'ultimo piano della villa. La curiosità prende il meglio di te e " +
+                "decidi di andare a controllarlo. Forse tuo nonno ti ha lasciato la villa perché ti ritiene pronto per essa?");
+
+        GameToGUICommunication.getInstance().toGUI("Salite le scale, ti ritrovi davanti al portone d'ingresso della stanza " +
+                "principale del piano. Lo apri e ti ritrovi in un'enorme stanza che ti pare un misto tra un attico e una serra. La " +
+                "porta si chiude alle tue spalle e su di essa vedi scritto \"Potrai uscire solo quando avrai recuperato te stesso\". " +
+                "La tua avventura comincia qui.");
     }
 
     /**
