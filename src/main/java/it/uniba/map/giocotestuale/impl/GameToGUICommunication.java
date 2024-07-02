@@ -1,7 +1,9 @@
-package it.uniba.map.giocotestuale.logic;
+package it.uniba.map.giocotestuale.impl;
 
 import it.uniba.map.giocotestuale.gui.GameGUI;
 import it.uniba.map.giocotestuale.gui.HandlerGUI;
+import it.uniba.map.giocotestuale.logic.GameEngine;
+import it.uniba.map.giocotestuale.logic.Parser;
 
 import java.awt.*;
 

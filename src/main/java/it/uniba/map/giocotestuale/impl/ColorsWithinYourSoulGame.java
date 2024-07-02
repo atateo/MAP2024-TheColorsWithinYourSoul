@@ -1,10 +1,7 @@
 package it.uniba.map.giocotestuale.impl;
 
-import it.uniba.map.giocotestuale.entities.game.CommandClass;
-import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.entities.game.Item;
+import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.GameEngine;
-import it.uniba.map.giocotestuale.logic.GameToGUICommunication;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
@@ -28,7 +25,58 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     public ColorsWithinYourSoulGame() {
         super();
 
-        //Scrivere qui il codice che caricherà stanze e item di gioco
+        //Scrivere qui il codice che caricherà le stanze e gli item di gioco
+        Room room0 = new Room(0, "AtticoCentrale", "Neutro");
+        Room room1 = new Room(1, "StanzaColoriPrimari", "Neutro");
+        Room room2 = new Room(2, "StanzaColoriSecondari", "Neutro");
+        Room room3 = new Room(3, "StanzaFinale", "Neutro");
+        Room room4 = new Room(4, "StanzaRosso", "Neutro");
+        Room room5 = new Room(5, "StanzaBlu", "Neutro");
+        Room room6 = new Room(6, "StanzaGiallo", "Neutro");
+        Room room7 = new Room(7, "StanzaVerde", "Neutro");
+        Room room8 = new Room(8, "StanzaMarrone", "Neutro");
+        Room room9 = new Room(9, "StanzaViola", "Neutro");
+
+        //Collegamenti stanza centrale
+        room0.setNorthRoomConnection(room3, true);
+        room3.setSouthRoomConnection(room0, true);
+
+        room0.setWestRoomConnection(room1, false);
+        room1.setEastRoomConnection(room0, false);
+
+        room0.setEastRoomConnection(room2, false);
+        room2.setWestRoomConnection(room0, false);
+
+        //Collegamenti stanza colori primari
+        room1.setNorthRoomConnection(room4, false);
+        room0.setSouthRoomConnection(room1, false);
+
+        room1.setWestRoomConnection(room5, true);
+        room5.setEastRoomConnection(room1, true);
+
+        room1.setSouthRoomConnection(room6, true);
+        room6.setNorthRoomConnection(room1, true);
+
+        //Collegamenti stanza colori secondari
+        room2.setNorthRoomConnection(room7, true);
+        room7.setSouthRoomConnection(room2, true);
+
+        room2.setEastRoomConnection(room8, true);
+        room8.setWestRoomConnection(room2, true);
+
+        room2.setSouthRoomConnection(room9, true);
+        room9.setNorthRoomConnection(room2, true);
+
+        //Colori
+        super.getColors().add(new ColorClass(0, "Rosso", List.of("red"), false));
+        super.getColors().add(new ColorClass(0, "Blu", List.of("blue"), false));
+        super.getColors().add(new ColorClass(0, "Giallo", List.of("yellow"), false));
+        super.getColors().add(new ColorClass(0, "Verde", List.of("green"), false));
+        super.getColors().add(new ColorClass(0, "Marrone", List.of("brown"), false));
+        super.getColors().add(new ColorClass(0, "Viola", List.of("purple"), false));
+
+        //Imposta la stanza iniziale
+        super.setCurrentRoom(room0);
 
         defineGameInteractions();
     }
@@ -51,8 +99,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         GameToGUICommunication.getInstance().toGUI("Salite le scale, ti ritrovi davanti al portone d'ingresso della stanza " +
                 "principale del piano. Lo apri e ti ritrovi in un'enorme stanza che ti pare un misto tra un attico e una serra. La " +
-                "porta si chiude alle tue spalle e su di essa vedi scritto \"Potrai uscire solo quando avrai recuperato te stesso\". " +
-                "La tua avventura comincia qui.");
+                "porta si chiude alle tue spalle e su di essa vedi scritto \"Potrai uscire solo quando avrai recuperato i 6 colori " +
+                "che ormai la tua anima ha perduto\". La tua avventura comincia qui.");
     }
 
     /**
@@ -81,7 +129,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         commands.add(new CommandClass("Lascia", Command.LASCIA, List.of("drop", "abbandona", "lancia", "butta", "scarta", "rimuovi")));
         commands.add(new CommandClass("Usa", Command.USA, List.of("u", "use", "utilizza")));
         commands.add(new CommandClass("Spingi", Command.SPINGI, List.of("sposta", "muovi", "push")));
-        commands.add(new CommandClass("Colora", Command.COLORA, List.of("pittura", "paint", "tinteggia")));
+        commands.add(new CommandClass("Colora", Command.COLORA, List.of("co", "pittura", "paint", "tinteggia")));
 
         return commands;
     }

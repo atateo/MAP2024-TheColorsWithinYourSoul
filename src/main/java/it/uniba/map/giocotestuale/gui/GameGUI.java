@@ -1,6 +1,6 @@
 package it.uniba.map.giocotestuale.gui;
 
-import it.uniba.map.giocotestuale.logic.GameToGUICommunication;
+import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;

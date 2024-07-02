@@ -1,9 +1,6 @@
 package it.uniba.map.giocotestuale.logic;
 
-import it.uniba.map.giocotestuale.entities.game.CommandClass;
-import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.entities.game.Item;
-import it.uniba.map.giocotestuale.entities.game.Room;
+import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Timer;
@@ -25,6 +22,10 @@ public abstract class GameEngine {
      * Lista che rappresenta l'inventario del player.
      */
     private ArrayList<Item> inventory;
+    /**
+     * Lista contenente tutti i colori del gioco.
+     */
+    private ArrayList<ColorClass> colors;
     /**
      * Lista che contiene tutte le interazioni di gioco.
      */
@@ -48,6 +49,7 @@ public abstract class GameEngine {
     public GameEngine() {
         rooms = new ArrayList<>();
         inventory = new ArrayList<>();
+        colors = new ArrayList<>();
         gameInteractions = new ArrayList<>();
         gameTimer = new Timer();
     }
@@ -137,6 +139,14 @@ public abstract class GameEngine {
      */
     public ArrayList<Item> getInventory() {
         return this.inventory;
+    }
+
+    /**
+     * Metodo getter per la lista dei colori del gioco.
+     * @return Lista dei colori del gioco.
+     */
+    public ArrayList<ColorClass> getColors() {
+        return this.colors;
     }
 
     /**
