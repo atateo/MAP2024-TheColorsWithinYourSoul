@@ -2,18 +2,13 @@ package it.uniba.map.giocotestuale.gui;
 
 import it.uniba.map.giocotestuale.utility.Mixer;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout;
-import javax.swing.BorderFactory;
+import it.uniba.map.giocotestuale.utility.Mixer;
+
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.CardLayout;
 
 // Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita
 
@@ -170,6 +165,7 @@ public class MenuGUI extends JPanel {
 
     }
 
+
     /**  
     * Metodo che definisce il comportamento del pulsante start quando viene cliccato.
     * Inizia una nuova partita selezionando la GameGUI attraverso il CardLayout.
@@ -215,7 +211,18 @@ public class MenuGUI extends JPanel {
     * @param evt rappresenta l'evento del click sul pulsante.
     */
     private void AudioActionPerformed(ActionEvent evt) {
-        //placeholder
+
+      ImageIcon off = new ImageIcon("src/main/resources/img/audio_off.png");
+      ImageIcon on = new ImageIcon("src/main/resources/img/audio_icon.png");
+
+     if (audio.getIcon().toString().equals(on.toString())) {
+         audio.setIcon(off);
+         Mixer.getInstance().stopTrack();
+     } else {
+         audio.setIcon(on);
+         Mixer.getInstance().startTrack();
+     }
+
     }
     /**
     * Metodo che definisce il comportamento del pulsante site quando viene cliccato.

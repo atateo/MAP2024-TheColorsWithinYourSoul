@@ -131,6 +131,7 @@ public class GameGUI extends JPanel {
         audio.setBackground(new Color(166, 15, 15));
         audio.setForeground(Color.BLACK);
         audio.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        audio.addActionListener(this::AudioActionPerformed);
         toolBar.add(audio);
 
         // aggiunta del gap per il posizionamento
@@ -316,6 +317,25 @@ public class GameGUI extends JPanel {
     private void HelpActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getIstance();
         help.setVisible(true);
+    }
+    /**
+     * Metodo che definisce il comportamento del pulsante audio quando viene cliccato.
+     * Attiva o disattiva l'audio di gioco.
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
+    private void AudioActionPerformed(ActionEvent evt) {
+
+        ImageIcon off = new ImageIcon("src/main/resources/img/audio_off_game.png");
+        ImageIcon on = new ImageIcon("src/main/resources/img/audio_icon_game.png");
+
+        if (audio.getIcon().toString().equals(on.toString())) {
+            audio.setIcon(off);
+            Mixer.getInstance().stopTrack();
+        } else {
+            audio.setIcon(on);
+            Mixer.getInstance().startTrack();
+        }
+
     }
     /**
     * Metodo che gestisce l'input dell'utente.
