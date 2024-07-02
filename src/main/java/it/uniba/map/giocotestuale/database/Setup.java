@@ -65,8 +65,7 @@ public class Setup {
             statement.execute(istruzione);
             successo = true;
         } catch (SQLException e) {
-            logger.error("Eccezione in fase di esecuzione dell'istruzione: {} - {}",istruzione, e);
-            e.printStackTrace();
+            logger.error("Eccezione in fase di esecuzione dell'istruzione: {} - ",istruzione, e);
         }
         return successo;
     }

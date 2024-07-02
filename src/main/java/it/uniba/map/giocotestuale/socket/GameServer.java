@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 import it.uniba.map.giocotestuale.database.score.Score;
 import it.uniba.map.giocotestuale.database.score.ScoreDaoImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * La classe GameServer gestisce le connessioni dei client per un gioco testuale,
@@ -16,6 +18,10 @@ import it.uniba.map.giocotestuale.database.score.ScoreDaoImpl;
  */
 public class GameServer {
     private ServerSocket serverSocket;
+    /**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
 
     /**
      * Costruttore per la creazione del server sulla porta specificata.
@@ -25,9 +31,9 @@ public class GameServer {
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            System.err.println("Errore durante la creazione del server: " + e.getMessage());
+            logger.error("Errore durante la creazione del server: ", e);
         }
-        System.out.println("Server creato");
+        logger.info("Server creato");
     }
 
     /**
@@ -50,7 +56,6 @@ public class GameServer {
                             out.writeObject("Operazione di inserimento eseguita correttamente.");
                         } catch (SQLException e) {
                             out.writeObject("Operazione di inserimento fallita");
-                            e.printStackTrace();
                         }
                     }
                     case "GET" -> {
@@ -81,6 +86,7 @@ public class GameServer {
      * @throws IOException eccezione sollevata se si dovesse verificare un errore di I/O durante la chiusura del ServerSocket.
      */
     public void stop() throws IOException {
+        logger.info("Server arrestato");
         serverSocket.close();
     }
 
@@ -93,7 +99,7 @@ public class GameServer {
         try {
             server.start();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error("Errore durante la creazione del server: ", e);
         }
     }
 }

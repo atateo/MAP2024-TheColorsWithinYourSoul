@@ -31,7 +31,7 @@ public class DatabaseConnection {
             conn = DriverManager.getConnection(appProps.getUrlDatabase(), appProps.getUser(), appProps.getPassword());
             logger.info("Connessione aperta");
         } catch (SQLException e) {
-            logger.error("Eccezione in fase di apertura della connessione al database: {}", e);
+            logger.error("Eccezione in fase di apertura della connessione al database: ", e);
         }
     }
 
@@ -51,7 +51,7 @@ public class DatabaseConnection {
         try {
             conn.close();
         } catch (SQLException e) {
-            logger.error("Eccezione in fase di chiusura della connessione al database: {}", e);
+            logger.error("Eccezione in fase di chiusura della connessione al database: ", e);
         }
     }
 }
