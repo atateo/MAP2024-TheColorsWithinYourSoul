@@ -1,7 +1,7 @@
 package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.type.Command;
+import it.uniba.map.giocotestuale.type.CommandEnum;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class ChainInteraction extends TwoObjectInteraction {
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
     @Override
-    public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
+    public boolean isCorrectInteraction(final List<GameObject> gameObjects, final CommandEnum interactionType) {
         //Il primo oggetto non corrisponde
         if (super.getFirstObject().equals(gameObjects.getFirst())){
             return false;

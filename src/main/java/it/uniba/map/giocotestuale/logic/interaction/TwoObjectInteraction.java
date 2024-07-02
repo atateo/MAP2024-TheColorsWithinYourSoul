@@ -2,7 +2,7 @@ package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.logic.GameEngine;
-import it.uniba.map.giocotestuale.type.Command;
+import it.uniba.map.giocotestuale.type.CommandEnum;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public abstract class TwoObjectInteraction extends Interaction {
      * @param resultState Stato che il secondo oggetto avrò dopo l'interazione.
      * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
-    public TwoObjectInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
+    public TwoObjectInteraction(final GameObject firstObject, final GameObject secondObject, final CommandEnum interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(interactionType, targetState, resultState, interaction);
         this.firstObject = firstObject;
         this.secondObject = secondObject;

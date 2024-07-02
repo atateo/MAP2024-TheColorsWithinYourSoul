@@ -3,7 +3,7 @@ package it.uniba.map.giocotestuale.impl;
 import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
-import it.uniba.map.giocotestuale.type.Command;
+import it.uniba.map.giocotestuale.type.CommandEnum;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
@@ -132,18 +132,18 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     public Set<CommandClass> getAllCommands() {
         Set<CommandClass> commands = new HashSet<>();
 
-        commands.add(new CommandClass("Aiuto", Command.AIUTO, List.of("h", "help", "comandi", "comando", "guida")));
-        commands.add(new CommandClass("Nord", Command.NORD, List.of("n", "north", "avanti", "vaiAvanti")));
-        commands.add(new CommandClass("Sud", Command.SUD, List.of("s", "south", "indietro", "vaiIndietro")));
-        commands.add(new CommandClass("Ovest", Command.OVEST, List.of("o", "west", "sinistra", "vaiSinistra", "vaiASinistra")));
-        commands.add(new CommandClass("Est", Command.EST, List.of("e", "east", "destra", "vaiDestra", "vaiADestra")));
-        commands.add(new CommandClass("Osserva", Command.OSSERVA, List.of("g", "l", "look", "vedi", "esamina", "osserva", "ammira", "ispeziona")));
-        commands.add(new CommandClass("Inventario", Command.INVENTARIO, List.of("i", "inventory", "borsa", "zaino", "inv")));
-        commands.add(new CommandClass("Prendi", Command.PRENDI, List.of("p", "t", "take", "raccogli", "recupera", "intasca")));
-        commands.add(new CommandClass("Lascia", Command.LASCIA, List.of("drop", "abbandona", "lancia", "butta", "scarta", "rimuovi")));
-        commands.add(new CommandClass("Usa", Command.USA, List.of("u", "use", "utilizza")));
-        commands.add(new CommandClass("Spingi", Command.SPINGI, List.of("sposta", "muovi", "push")));
-        commands.add(new CommandClass("Colora", Command.COLORA, List.of("co", "pittura", "paint", "tinteggia")));
+        commands.add(new CommandClass("Aiuto", CommandEnum.AIUTO, List.of("h", "help", "comandi", "comando", "guida")));
+        commands.add(new CommandClass("Nord", CommandEnum.NORD, List.of("n", "north", "avanti", "vaiAvanti")));
+        commands.add(new CommandClass("Sud", CommandEnum.SUD, List.of("s", "south", "indietro", "vaiIndietro")));
+        commands.add(new CommandClass("Ovest", CommandEnum.OVEST, List.of("o", "west", "sinistra", "vaiSinistra", "vaiASinistra")));
+        commands.add(new CommandClass("Est", CommandEnum.EST, List.of("e", "east", "destra", "vaiDestra", "vaiADestra")));
+        commands.add(new CommandClass("Osserva", CommandEnum.OSSERVA, List.of("g", "l", "look", "vedi", "esamina", "osserva", "ammira", "ispeziona")));
+        commands.add(new CommandClass("Inventario", CommandEnum.INVENTARIO, List.of("i", "inventory", "borsa", "zaino", "inv")));
+        commands.add(new CommandClass("Prendi", CommandEnum.PRENDI, List.of("p", "t", "take", "raccogli", "recupera", "intasca")));
+        commands.add(new CommandClass("Lascia", CommandEnum.LASCIA, List.of("drop", "abbandona", "lancia", "butta", "scarta", "rimuovi")));
+        commands.add(new CommandClass("Usa", CommandEnum.USA, List.of("u", "use", "utilizza")));
+        commands.add(new CommandClass("Spingi", CommandEnum.SPINGI, List.of("sposta", "muovi", "push")));
+        commands.add(new CommandClass("Colora", CommandEnum.COLORA, List.of("co", "pittura", "paint", "tinteggia")));
 
         return commands;
     }
@@ -188,7 +188,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //OSSERVA è trattato come un'interaction sulla stanza corrente, così da poter definire
         //comportamenti diversi del comando sulla base dello stato della stanza.
 
-        List<Command> movementCommands = List.of(Command.NORD, Command.SUD, Command.OVEST, Command.EST);
+        List<CommandEnum> movementCommands = List.of(CommandEnum.NORD, CommandEnum.SUD, CommandEnum.OVEST, CommandEnum.EST);
         boolean didSomething = false;
 
         if (output == null) {
@@ -196,10 +196,10 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             return;
         }
 
-        Command command = output.getCommandType();
+        CommandEnum command = output.getCommandType();
 
         //Comando aiuto
-        if (command == Command.AIUTO) {
+        if (command == CommandEnum.AIUTO) {
             if (output.getFirstObject() != null || output.getSecondObject() != null) {
                 invalidCommandOutput();
             } else {
@@ -209,23 +209,23 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         //Comando inventario
-        if (command == Command.INVENTARIO) {
+        if (command == CommandEnum.INVENTARIO) {
             //Scrivere qui la stampa dell'inventario
             return;
         }
 
         //Verifica che per il comando spingi e prendi l'oggetto sia nella stanza e che
         //l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
-        if (command == Command.SPINGI || command == Command.PRENDI) {
+        if (command == CommandEnum.SPINGI || command == CommandEnum.PRENDI) {
             if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject())){
                 invalidCommandOutput();
                 return;
             }
 
-            if (output.getCommandType() == Command.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
+            if (output.getCommandType() == CommandEnum.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
                 GameToGUICommunication.getInstance().toGUI("Provi a spingerlo, ma l'oggetto non si muove.");
                 return;
-            } else if (output.getCommandType() == Command.PRENDI) {
+            } else if (output.getCommandType() == CommandEnum.PRENDI) {
                 if ( !((Item) output.getFirstObject()).getPickable()) {
                     GameToGUICommunication.getInstance().toGUI("Non puoi mettere una cosa del genere nell'inventario!!");
                     return;
@@ -241,7 +241,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         //Implementa il comando LASCIA
-        if (command == Command.LASCIA) {
+        if (command == CommandEnum.LASCIA) {
             if (output.getFirstObject() == null) {
                 GameToGUICommunication.getInstance().toGUI("Non stai lasciando nulla!!");
             } else {
@@ -255,7 +255,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         //Verifica che per il comando usa l'oggetto sia nell'inventario
-        if (command == Command.USA) {
+        if (command == CommandEnum.USA) {
             if (!getInventory().contains((Item) output.getFirstObject())) {
                 invalidCommandOutput();
                 return;
@@ -264,7 +264,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Verifica che per il comando colora l'oggetto sia o nella stanza o nell'inventario
         //Verifica che l'oggetto colorabile sia nell'inventario
-        if (command == Command.COLORA) {
+        if (command == CommandEnum.COLORA) {
             if (output.getFirstObject() == null || output.getSecondObject() == null) {
                 invalidCommandOutput();
                 return;
@@ -334,7 +334,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Se nessuna interaction è stata effettuata, notifica l'utente
         if (!didSomething) {
-            if (command != Command.PRENDI && !movementCommands.contains(command)) {
+            if (command != CommandEnum.PRENDI && !movementCommands.contains(command)) {
                 GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
             }
         }

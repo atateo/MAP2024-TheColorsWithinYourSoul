@@ -70,7 +70,7 @@ public class GameToJson {
     /**
      * Imposta la lista dei colori del gioco.
      *
-     * @param rooms la lista dei colori
+     * @param colors la lista dei colori
      */
     public void setColors(List<ColorClass> colors) {
         this.colors = colors;

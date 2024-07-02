@@ -2,7 +2,7 @@ package it.uniba.map.giocotestuale.logic.interaction;
 
 import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.logic.GameEngine;
-import it.uniba.map.giocotestuale.type.Command;
+import it.uniba.map.giocotestuale.type.CommandEnum;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public abstract class Interaction {
     /**
      * Tipo del comando che scaturisce l'interazione.
      */
-    private final Command interactionCommand;
+    private final CommandEnum interactionCommand;
 
     /**
      * Costruttore con parametri della classe Interaction. Inizializza tutti i parametri.
@@ -34,7 +34,7 @@ public abstract class Interaction {
      * @param resultState Tipo del comando che scaturisce l'interazione.
      * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
-    public Interaction(final Command interactionCommand, final String targetState, final String resultState, final Interactable interaction) {
+    public Interaction(final CommandEnum interactionCommand, final String targetState, final String resultState, final Interactable interaction) {
         this.interaction = interaction;
         this.targetState = targetState;
         this.resultState = resultState;
@@ -45,7 +45,7 @@ public abstract class Interaction {
      * Metodo getter per il tipo di comando.
      * @return Tipo del comando dell'interazione.
      */
-    public Command getInteractionCommand() {
+    public CommandEnum getInteractionCommand() {
         return interactionCommand;
     }
 
@@ -80,7 +80,7 @@ public abstract class Interaction {
      * @param interactionType Comando dell'interazione.
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
-    public abstract boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType);
+    public abstract boolean isCorrectInteraction(final List<GameObject> gameObjects, final CommandEnum interactionType);
 
     /**
      * Metodo astratto che esegue l'interazione tra gli oggetti nell'istanza di gioco passata come parametro.
