@@ -1,6 +1,7 @@
 package it.uniba.map.giocotestuale.gui;
 
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
+import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
@@ -40,6 +41,18 @@ public class GameGUI extends JPanel {
     private JLabel timerImgLabel1; // label per l'icona sinistra del timer
 
     private JLabel timerImgLabel2; // label per l'icona destra del timer
+
+    private JLabel redColorLabel;  // label che segna l'acquisizione del colore rosso
+
+    private JLabel blueColorLabel; // label che segna l'acquisizione del colore blu
+
+    private JLabel yellowColorLabel; // label che segna l'acquisizione del colore giallo
+
+    private JLabel greenColorLabel; // label che segna l'acquisizione del colore verde
+
+    private JLabel brownColorLabel; // label che segna l'acquisizione del colore marrone
+
+    private JLabel purpleColorLabel; // label che segna l'acquisizione del colore viola
 
     private JLabel inventoryLabel; // label per l'inventario 
 
@@ -154,6 +167,33 @@ public class GameGUI extends JPanel {
         toolBar.add(timerLabel);
         toolBar.add(Box.createHorizontalStrut(20));
         toolBar.add(timerImgLabel2);
+
+        // configurazione delle label per l'acquisizione dei colori
+
+        toolBar.add(Box.createHorizontalStrut(100));
+        redColorLabel = new JLabel(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        toolBar.add(redColorLabel);
+
+        toolBar.add(Box.createHorizontalStrut(10));
+        blueColorLabel = new JLabel(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        toolBar.add(blueColorLabel);
+
+        toolBar.add(Box.createHorizontalStrut(10));
+        yellowColorLabel = new JLabel(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        toolBar.add(yellowColorLabel);
+
+        toolBar.add(Box.createHorizontalStrut(10));
+        greenColorLabel = new JLabel(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        toolBar.add(greenColorLabel);
+
+        toolBar.add(Box.createHorizontalStrut(10));
+        brownColorLabel = new JLabel(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        toolBar.add(brownColorLabel);
+
+        toolBar.add(Box.createHorizontalStrut(10));
+        purpleColorLabel = new JLabel(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        toolBar.add(purpleColorLabel);
+
 
         // aggiunta dello sfondo dell'inventario
         ImageIcon inventoryImg = new ImageIcon("src/main/resources/img/sfondoInventario.jpg");
@@ -336,6 +376,35 @@ public class GameGUI extends JPanel {
         } else {
             audio.setIcon(on);
             Mixer.getInstance().startTrack();
+        }
+
+    }
+
+    /**
+     * Metodo che colora un quadro della toolbar quando l'utente sblocca un colore.
+     * @param color colore da sbloccare nella barra dei colori.
+     */
+    private void UnlockColor(ColorEnum color)
+    {
+        switch(color) {
+            case ColorEnum.RED:
+                redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroRosso.png"));
+                break;
+            case ColorEnum.BLUE:
+                 blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroBlu.png"));
+                break;
+            case ColorEnum.YELLOW:
+                yellowColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGiallo.png"));
+                break;
+            case ColorEnum.GREEN:
+                greenColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroVerde.png"));
+                break;
+            case ColorEnum.BROWN:
+                brownColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroMarrone.png"));
+                break;
+            case ColorEnum.PURPLE:
+                purpleColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroViola.png"));
+                break;
         }
 
     }
