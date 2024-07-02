@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.score;
+package it.uniba.map.giocotestuale.database.domain.scoredao;
 
 import java.sql.SQLException;
 import java.util.List;

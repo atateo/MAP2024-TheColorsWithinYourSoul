@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.roomdao;
 
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
 
@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementazione dell'interfaccia ItemDao.
- * Fornisce i metodi per le operazioni CRUD sull'entità Item nel database.
+ * Implementazione dell'interfaccia RoomDao.
+ * Fornisce i metodi per le operazioni CRUD sull'entità Room nel database.
  * 
  */
-public class ItemDaoImpl implements ItemDao {
+public class RoomDaoImpl implements RoomDao {
 
     /**
      * Costruttore di default.
      */
-    public ItemDaoImpl() {
+    public RoomDaoImpl() {
     }
 
     /**
@@ -32,14 +32,14 @@ public class ItemDaoImpl implements ItemDao {
      * {@inheritDoc}
      */
     @Override
-    public int add(ItemRecord item) throws SQLException {
+    public int add(RoomRecord room) throws SQLException {
     	
-        String query = "INSERT INTO item (stato, descrizione, id_item) VALUES (?, ?, ?)";
+        String query = "INSERT INTO room (stato, descrizione, id_room) VALUES (?, ?, ?)";
         
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, item.getStato());
-        ps.setString(2, item.getDescrizione());
-        ps.setInt(3, item.getIdItem());
+        ps.setString(1, room.getStato());
+        ps.setString(2, room.getDescrizione());
+        ps.setInt(3, room.getIdRoom());
         
         int n = ps.executeUpdate();
         return n;
@@ -50,7 +50,7 @@ public class ItemDaoImpl implements ItemDao {
      */
     @Override
     public void delete(int id) throws SQLException {
-        String query = "DELETE FROM item WHERE id = ?";
+        String query = "DELETE FROM room WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
         ps.executeUpdate();
@@ -60,41 +60,41 @@ public class ItemDaoImpl implements ItemDao {
      * {@inheritDoc}
      */
     @Override
-    public ItemRecord getItem(int id) throws SQLException {
-        String query = "SELECT * FROM item WHERE id = ?";
+    public RoomRecord getRoom(int id) throws SQLException {
+        String query = "SELECT * FROM room WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
-        ItemRecord item = null;
+        RoomRecord room = null;
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	item = new ItemRecord();
-        	item.setId(rs.getInt("id"));
-        	item.setStato(rs.getString("stato"));
-        	item.setDescrizione(rs.getString("descrizione"));
-        	item.setIdItem(rs.getInt("id_item"));
+        	room = new RoomRecord();
+        	room.setId(rs.getInt("id"));
+        	room.setStato(rs.getString("stato"));
+        	room.setDescrizione(rs.getString("descrizione"));
+        	room.setIdRoom(rs.getInt("id_room"));
         }
 
-        return item;
+        return room;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<ItemRecord> getItems() throws SQLException {
-        String query = "SELECT * FROM item";
+    public List<RoomRecord> getRooms() throws SQLException {
+        String query = "SELECT * FROM room";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<ItemRecord> ls = new ArrayList<ItemRecord>();
+        List<RoomRecord> ls = new ArrayList<RoomRecord>();
 
         while (rs.next()) {
-        	ItemRecord item = new ItemRecord();
-        	item.setId(rs.getInt("id"));
-        	item.setStato(rs.getString("stato"));
-        	item.setDescrizione(rs.getString("descrizione"));
-        	item.setIdItem(rs.getInt("id_item"));
-            ls.add(item);
+            RoomRecord room = new RoomRecord();
+            room.setId(rs.getInt("id"));
+            room.setStato(rs.getString("stato"));
+            room.setDescrizione(rs.getString("descrizione"));
+            room.setIdRoom(rs.getInt("id_room"));
+            ls.add(room);
         }
         return ls;
     }
@@ -103,14 +103,14 @@ public class ItemDaoImpl implements ItemDao {
      * {@inheritDoc}
      */
     @Override
-    public void update(ItemRecord item) throws SQLException {
+    public void update(RoomRecord room) throws SQLException {
         // Aggiorna tutto il contenuto o solo i campi realmente variati
-        String query = "UPDATE item SET stato = ?, descrizione = ?, id_item = ? WHERE id = ?";
+        String query = "UPDATE room SET stato = ?, descrizione = ?, id_room = ? WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, item.getStato());
-        ps.setString(2, item.getDescrizione());
-        ps.setInt(3, item.getIdItem());
-        ps.setInt(4, item.getId());
+        ps.setString(1, room.getStato());
+        ps.setString(2, room.getDescrizione());
+        ps.setInt(3, room.getIdRoom());
+        ps.setInt(4, room.getId());
         ps.executeUpdate();
     }
     
@@ -118,11 +118,11 @@ public class ItemDaoImpl implements ItemDao {
      * {@inheritDoc}
      */
     @Override
-    public String getDescrizioneByIdItemAndStato(int id, String stato) throws SQLException {
+    public String getDescrizioneByIdRoomAndStato(int id, String stato) throws SQLException {
     	
     	String descrizione = null;
     	//id_room e stato sono alternate key in tabella
-        String query = "SELECT descrizione FROM item WHERE id_item = ? and lower(stato) = ? ";
+        String query = "SELECT descrizione FROM room WHERE id_room = ? and lower(stato) = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
         ps.setString(2, stato.toLowerCase());

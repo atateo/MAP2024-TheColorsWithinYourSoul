@@ -2,7 +2,7 @@ package it.uniba.map.giocotestuale.socket;
 
 import java.io.IOException;
 
-import it.uniba.map.giocotestuale.database.score.Score;
+import it.uniba.map.giocotestuale.database.domain.scoredao.Score;
 
 public class TestSocket {
 

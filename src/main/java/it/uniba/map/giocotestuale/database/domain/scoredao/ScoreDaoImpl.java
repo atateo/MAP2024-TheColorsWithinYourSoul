@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.score;
+package it.uniba.map.giocotestuale.database.domain.scoredao;
 
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
 

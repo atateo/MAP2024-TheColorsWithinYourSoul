@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.dialogdao;
 
 /**
  * Classe che rappresenta il modello dell'entity Dialog (dialogo).
@@ -50,7 +50,7 @@ public class Dialog {
     /**
      * Imposta il testo del dialogo.
      * 
-     * @param il testo del dialogo.
+     * @param testo il testo del dialogo.
      */
     public void setTesto(String testo) {
         this.testo = testo;

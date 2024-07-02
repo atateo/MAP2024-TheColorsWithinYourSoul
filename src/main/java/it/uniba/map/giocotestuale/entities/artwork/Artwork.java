@@ -210,7 +210,7 @@ public class Artwork {
 
     /**
      * Metodo setter per lo slug dell'opera d'arte.
-     * @param id dello slug dell'opera d'arte.
+     * @param slug id dello slug dell'opera d'arte.
      */
     public void setSlug(String slug) {
         this.slug = slug;
@@ -226,7 +226,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la data creazione dell'opera d'arte.
-     * @param la data creazione dell'opera d'arte.
+     * @param createdAt la data creazione dell'opera d'arte.
      */
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
@@ -242,7 +242,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la data di aggiornamento dell'opera d'arte.
-     * @param la data di aggiornamento dell'opera d'arte.
+     * @param updatedAt data di aggiornamento dell'opera d'arte.
      */
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
@@ -258,7 +258,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il titolo dell'opera d'arte.
-     * @param  il titolo dell'opera d'arte.
+     * @param title il titolo dell'opera d'arte.
      */
     public void setTitle(String title) {
         this.title = title;
@@ -274,7 +274,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la categoria dell'opera d'arte.
-     * @param  la categoria  dell'opera d'arte.
+     * @param category la categoria dell'opera d'arte.
      */
     public void setCategory(String category) {
         this.category = category;
@@ -290,7 +290,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il tipo dell'opera d'arte.
-     * @param il tipo dell'opera d'arte.
+     * @param medium il tipo dell'opera d'arte.
      */
     public void setMedium(String medium) {
         this.medium = medium;
@@ -306,7 +306,7 @@ public class Artwork {
 
     /**
      * Metodo setter per l'anno di realizzazione dell'opera d'arte.
-     * @param l'anno di realizzazione dell'opera d'arte.
+     * @param date l'anno di realizzazione dell'opera d'arte.
      */
     public void setDate(String date) {
         this.date = date;
@@ -322,7 +322,7 @@ public class Artwork {
 
     /**
      * Metodo setter per l'oggetto Dimensione dell'opera d'arte.
-     * @param l'oggetto Dimensione dell'opera d'arte.
+     * @param dimensions l'oggetto Dimensione dell'opera d'arte.
      */
     public void setDimensions(Dimensions dimensions) {
         this.dimensions = dimensions;
@@ -338,7 +338,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il booleano isPublished
-     * @param l'attributo booleano isPublished,  true se l'opera è pubblicata, false altrimenti.
+     * @param published l'attributo booleano isPublished,  true se l'opera è pubblicata, false altrimenti.
      */
     public void setPublished(boolean published) {
         this.published = published;
@@ -354,7 +354,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il sito web di riferimento dell'opera d'arte.
-     * @param il sito web di riferimento dell'opera d'arte.
+     * @param website il sito web di riferimento dell'opera d'arte.
      */
     public void setWebsite(String website) {
         this.website = website;
@@ -370,7 +370,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la firma dell'opera d'arte.
-     * @param la firma dell'opera d'arte.
+     * @param signature la firma dell'opera d'arte.
      */
     public void setSignature(String signature) {
         this.signature = signature;
@@ -386,7 +386,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la serie dell'opera d'arte.
-     * @param la serie dell'opera d'arte.
+     * @param series la serie dell'opera d'arte.
      */
     public void setSeries(String series) {
         this.series = series;
@@ -402,7 +402,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la provenienza dell'opera d'arte.
-     * @param la provenienza dell'opera d'arte.
+     * @param provenance la provenienza dell'opera d'arte.
      */
     public void setProvenance(String provenance) {
         this.provenance = provenance;
@@ -418,7 +418,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il genere(literature) dell'opera d'arte.
-     * @param la provenienza dell'opera d'arte.
+     * @param literature la provenienza dell'opera d'arte.
      */
     public void setLiterature(String literature) {
         this.literature = literature;
@@ -434,7 +434,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la storia delle esposizioni dell'opera d'arte.
-     * @param la storia delle esposizioni dell'opera d'arte.
+     * @param exhibitionHistory la storia delle esposizioni dell'opera d'arte.
      */
     public void setExhibitionHistory(String exhibitionHistory) {
         this.exhibitionHistory = exhibitionHistory;
@@ -450,7 +450,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la struttura presso cui è esposta l'opera d'arte.
-     * @param la struttura presso cui è esposta l'opera d'arte.
+     * @param collectingInstitution la struttura presso cui è esposta l'opera d'arte.
      */
     public void setCollectingInstitution(String collectingInstitution) {
         this.collectingInstitution = collectingInstitution;
@@ -466,7 +466,7 @@ public class Artwork {
 
     /**
      * Metodo setter per le informazioni aggiuntive dell'opera d'arte.
-     * @param le informazioni aggiuntive dell'opera d'arte.
+     * @param additionalInformation le informazioni aggiuntive dell'opera d'arte.
      */
     public void setAdditionalInformation(String additionalInformation) {
         this.additionalInformation = additionalInformation;
@@ -482,7 +482,7 @@ public class Artwork {
 
     /**
      * Metodo setter per i diritti di immagine dell'opera d'arte.
-     * @param i diritti di immagine dell'opera d'arte.
+     * @param imageRights i diritti di immagine dell'opera d'arte.
      */
     public void setImageRights(String imageRights) {
         this.imageRights = imageRights;
@@ -498,7 +498,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la recensione dell'opera d'arte.
-     * @param la recensione dell'opera d'arte.
+     * @param blurb la recensione dell'opera d'arte.
      */
     public void setBlurb(String blurb) {
         this.blurb = blurb;
@@ -514,7 +514,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il booleano isUnique
-     * @param l'attributo booleano isUnique,  true se l'opera è unica, false altrimenti.
+     * @param unique l'attributo booleano isUnique,  true se l'opera è unica, false altrimenti.
      */
     public void setUnique(boolean unique) {
         this.unique = unique;
@@ -530,7 +530,7 @@ public class Artwork {
 
     /**
      * Metodo setter per l'attributo cultural maker.
-     * @param l'attributo cultural maker.
+     * @param culturalMaker l'attributo cultural maker.
      */
     public void setCulturalMaker(String culturalMaker) {
         this.culturalMaker = culturalMaker;
@@ -546,7 +546,7 @@ public class Artwork {
 
     /**
      * Metodo setter per l'iconicità dell'opera d'arte.
-     * @param l'iconicità dell'opera d'arte.
+     * @param iconicity l'iconicità dell'opera d'arte.
      */
     public void setIconicity(double iconicity) {
         this.iconicity = iconicity;
@@ -562,7 +562,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il booleano isCanInquire
-     * @param l'attributo booleano isCanInquire.
+     * @param canInquire l'attributo booleano isCanInquire.
      */
     public void setCanInquire(boolean canInquire) {
         this.canInquire = canInquire;
@@ -578,7 +578,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il booleano isCanAcquire
-     * @param l'attributo booleano isCanAcquire.
+     * @param canAcquire l'attributo booleano isCanAcquire.
      */
     public void setCanAcquire(boolean canAcquire) {
         this.canAcquire = canAcquire;
@@ -594,7 +594,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il booleano isCanShare
-     * @param l'attributo booleano isCanShare.
+     * @param canShare l'attributo booleano isCanShare.
      */
     public void setCanShare(boolean canShare) {
         this.canShare = canShare;
@@ -610,7 +610,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il messaggio promozionale.
-     * @param il messaggio promozionale.
+     * @param saleMessage il messaggio promozionale.
      */
     public void setSaleMessage(String saleMessage) {
         this.saleMessage = saleMessage;
@@ -626,7 +626,7 @@ public class Artwork {
     
     /**
      * Metodo setter per il booleano isSold
-     * @param l'attributo booleano isSold.
+     * @param sold l'attributo booleano isSold.
      */
     public void setSold(boolean sold) {
         this.sold = sold;
@@ -642,7 +642,7 @@ public class Artwork {
 
     /**
      * Metodo setter per il livello di visibilità.
-     * @param il livello di visibilità.
+     * @param visibilityLevel il livello di visibilità.
      */
     public void setVisibilityLevel(String visibilityLevel) {
         this.visibilityLevel = visibilityLevel;
@@ -658,7 +658,7 @@ public class Artwork {
 
     /**
      * Metodo setter per la lista dei formati immagine.
-     * @param la lista in formato stringa dei formati gestiti per l'immagine.
+     * @param imageVersions la lista in formato stringa dei formati gestiti per l'immagine.
      */
     public void setImageVersions(List<String> imageVersions) {
         this.imageVersions = imageVersions;
@@ -674,7 +674,7 @@ public class Artwork {
 
     /**
      * Metodo setter per l'oggetto Links.
-     * @param la lista dei link di riferimento dell'opera d'arte strutturata secondo l'oggetto Links.
+     * @param links la lista dei link di riferimento dell'opera d'arte strutturata secondo l'oggetto Links.
      */
     public void setLinks(Links links) {
         this.links = links;
@@ -690,7 +690,7 @@ public class Artwork {
 
     /**
      * Metodo setter per l'oggetto Embedded.
-     * @param l'oggetto Embedded (eventuali informazioni circa l'edizione dell'opera d'arte). .
+     * @param embedded l'oggetto Embedded (eventuali informazioni circa l'edizione dell'opera d'arte). .
      */
     public void setEmbedded(Embedded embedded) {
         this.embedded = embedded;
@@ -717,7 +717,7 @@ class Embedded {
 
     /**
      * Metodo setter per la lista degli oggetti che definiscono le edizioni.
-     * @param la lista in formato stringa dei formati gestiti per l'immagine.
+     * @param editions la lista in formato stringa dei formati gestiti per l'immagine.
      */
     public void setEditions(List<Object> editions) {
         this.editions = editions;

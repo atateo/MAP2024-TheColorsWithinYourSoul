@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.roomdao;
 
 /**
  * Classe che rappresenta il modello dell'entity Room (stanza).
@@ -60,7 +60,7 @@ public class RoomRecord {
     /**
      * Imposta lo stato della stanza.
      * 
-     * @param lo stato della stanza.
+     * @param stato lo stato della stanza.
      */
     public void setStato(String stato) {
         this.stato = stato;
@@ -78,7 +78,7 @@ public class RoomRecord {
     /**
      * Imposta la descrizione della stanza.
      * 
-     * @param la descrizione della stanza.
+     * @param descrizione la descrizione della stanza.
      */
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;

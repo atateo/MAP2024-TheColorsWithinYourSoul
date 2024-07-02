@@ -7,8 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 
-import it.uniba.map.giocotestuale.database.score.Score;
-import it.uniba.map.giocotestuale.database.score.ScoreDaoImpl;
+import it.uniba.map.giocotestuale.database.domain.scoredao.Score;
+import it.uniba.map.giocotestuale.database.domain.scoredao.ScoreDaoImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

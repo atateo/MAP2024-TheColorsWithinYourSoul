@@ -24,7 +24,7 @@ public class Dimensions {
 
     /**
      * Metodo setter per l'oggetto dimensioni espresse in pollici.
-     * @param l'oggetto dimensioni espresse in pollici.
+     * @param in l'oggetto dimensioni espresse in pollici.
      */
     public void setIn(Dimension in) {
         this.in = in;
@@ -40,7 +40,7 @@ public class Dimensions {
 
     /**
      * Metodo setter per l'oggetto dimensioni espresse in centimetri.
-     * @param l'oggetto dimensioni espresse in centimetri.
+     * @param cm l'oggetto dimensioni espresse in centimetri.
      */
     public void setCm(Dimension cm) {
         this.cm = cm;

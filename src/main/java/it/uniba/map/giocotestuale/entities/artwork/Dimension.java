@@ -39,7 +39,7 @@ public class Dimension {
 
     /**
      * Metodo setter per il testo.
-     * @param testo.
+     * @param text testo da impostare.
      */
     public void setText(String text) {
         this.text = text;
@@ -55,7 +55,7 @@ public class Dimension {
 
     /**
      * Metodo setter per l'altezza dell'opera d'arte.
-     * @param l'altezza dell'opera d'arte.
+     * @param height l'altezza dell'opera d'arte.
      */
     public void setHeight(double height) {
         this.height = height;
@@ -71,7 +71,7 @@ public class Dimension {
 
     /**
      * Metodo setter per la larghezza dell'opera d'arte.
-     * @param la larghezza dell'opera d'arte.
+     * @param width la larghezza dell'opera d'arte.
      */
     public void setWidth(double width) {
         this.width = width;
@@ -87,7 +87,7 @@ public class Dimension {
 
     /**
      * Metodo setter per la profondità dell'opera d'arte.
-     * @param la profondità dell'opera d'arte.
+     * @param depth la profondità dell'opera d'arte.
      */
     public void setDepth(String depth) {
         this.depth = depth;
@@ -103,7 +103,7 @@ public class Dimension {
 
     /**
      * Metodo setter per il diametro dell'opera d'arte.
-     * @param il diametro dell'opera d'arte.
+     * @param diameter il diametro dell'opera d'arte.
      */
     public void setDiameter(String diameter) {
         this.diameter = diameter;

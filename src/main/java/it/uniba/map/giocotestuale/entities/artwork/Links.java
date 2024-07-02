@@ -70,7 +70,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link di tipo thumbnail.
-     * @param Link di tipo thumbnail.
+     * @param thumbnail Link di tipo thumbnail.
      */
 	public void setThumbnail(Link thumbnail) {
 		this.thumbnail = thumbnail;
@@ -86,7 +86,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link dell'immagine.
-     * @param Link dell'immagine.
+     * @param image Link dell'immagine.
      */
 	public void setImage(Link image) {
 		String immagine = image.getHref().replace("{image_version}", "large");
@@ -104,7 +104,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link dei partner.
-     * @param Link dei partner.
+     * @param partner Link dei partner.
      */
 	public void setPartner(Link partner) {
 		this.partner = partner;
@@ -120,7 +120,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link all'api di origine.
-     * @param Link all'api di origine.
+     * @param self Link all'api di origine.
      */
 	public void setSelf(Link self) {
 		this.self = self;
@@ -136,7 +136,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link di tipo Permalink.
-     * @param Link di tipo Permalink.
+     * @param permalink Link di tipo Permalink.
      */
 	public void setPermalink(Link permalink) {
 		this.permalink = permalink;
@@ -152,7 +152,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link al genere.
-     * @param Link al genere.
+     * @param genes Link al genere.
      */
 	public void setGenes(Link genes) {
 		this.genes = genes;
@@ -168,7 +168,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link degli agli artisti.
-     * @param Link degli agli artisti.
+     * @param artists Link degli agli artisti.
      */
 	public void setArtists(Link artists) {
 		this.artists = artists;
@@ -184,7 +184,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link opere simili.
-     * @param Link opere simili.
+     * @param similarArtworks Link opere simili.
      */
 	public void setSimilarArtworks(Link similarArtworks) {
 		this.similarArtworks = similarArtworks;
@@ -200,7 +200,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link delle collezioni.
-     * @param Link delle collezioni.
+     * @param collectionUsers Link delle collezioni.
      */
 	public void setCollectionUsers(Link collectionUsers) {
 		this.collectionUsers = collectionUsers;
@@ -216,7 +216,7 @@ public class Links {
 
 	/**
      * Metodo setter per Link della vendita.
-     * @param Link della vendita.
+     * @param saleArtworks Link della vendita.
      */
 	public void setSaleArtworks(Link saleArtworks) {
 		this.saleArtworks = saleArtworks;

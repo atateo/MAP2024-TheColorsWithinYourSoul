@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.colordao;
 
 /**
  * Classe che rappresenta il modello dell'entity Color (colore).
@@ -50,7 +50,7 @@ public class ColorRecord {
     /**
      * Imposta la descrizione del colore.
      * 
-     * @param la descrizione del colore.
+     * @param descrizione la descrizione del colore.
      */
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;

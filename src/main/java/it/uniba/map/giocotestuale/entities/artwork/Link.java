@@ -24,7 +24,7 @@ public class Link {
 
 	/**
      * Metodo setter per il link dell'immagine.
-     * @param il link dell'immagine.
+     * @param href il link dell'immagine.
      */
 	public void setHref(String href) {
 		this.href = href;
@@ -40,7 +40,7 @@ public class Link {
 
 	/**
      * Metodo setter per il boolean isTemplated.
-     * @param true se l'immagine è provvista di template, false altrimenti.
+     * @param templated true se l'immagine è provvista di template, false altrimenti.
      */
 	public void setTemplated(boolean templated) {
 		this.templated = templated;

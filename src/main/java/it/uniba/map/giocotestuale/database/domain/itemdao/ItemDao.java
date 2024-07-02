@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.itemdao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,7 +45,7 @@ public interface ItemDao {
     /**
      * Aggiorna un oggetto item esistente nel database.
      *
-     * @param item l'oggetto Item con i dati aggiornati.
+     * @param room l'oggetto Item con i dati aggiornati.
      * @throws SQLException se si verifica un errore durante l'operazione di aggiornamento.
      */
     public void update(ItemRecord room) throws SQLException;

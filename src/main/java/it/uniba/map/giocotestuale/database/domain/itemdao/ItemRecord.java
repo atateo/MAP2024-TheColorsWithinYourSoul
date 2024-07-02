@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.itemdao;
 
 /**
  * Classe che rappresenta il modello dell'entity Item (oggetto).
@@ -60,7 +60,7 @@ public class ItemRecord {
     /**
      * Imposta lo stato dell'item.
      * 
-     * @param lo stato dell'item.
+     * @param stato lo stato dell'item.
      */
     public void setStato(String stato) {
         this.stato = stato;
@@ -78,7 +78,7 @@ public class ItemRecord {
     /**
      * Imposta la descrizione dell'item.
      * 
-     * @param la descrizione dell'item.
+     * @param descrizione la descrizione dell'item.
      */
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
@@ -96,7 +96,7 @@ public class ItemRecord {
     /**
      * Imposta l'identificativo dell'item nel gioco.
      * 
-     * @param idRoom l'identificativo dell'item nel gioco.
+     * @param idItem l'identificativo dell'item nel gioco.
      */
     public void setIdItem(int idItem) {
         this.idItem = idItem;

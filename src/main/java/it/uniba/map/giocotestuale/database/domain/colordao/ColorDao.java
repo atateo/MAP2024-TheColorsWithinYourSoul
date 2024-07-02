@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain;
+package it.uniba.map.giocotestuale.database.domain.colordao;
 
 import java.sql.SQLException;
 import java.util.List;
