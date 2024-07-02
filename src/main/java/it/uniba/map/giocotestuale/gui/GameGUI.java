@@ -1,6 +1,7 @@
 package it.uniba.map.giocotestuale.gui;
 
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
+import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -62,8 +63,7 @@ public class GameGUI extends JPanel {
     * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
     * per settare i componenti a video e l'immagine di gioco corrente.
     */
-    public GameGUI()
-    {
+    public GameGUI() {
         UIManager.put("ScrollBar.width", 0);
         SwingUtilities.updateComponentTreeUI(this);
         initComponents();
@@ -73,8 +73,7 @@ public class GameGUI extends JPanel {
     /**
     * Metodo che si occupa di configurare e posizionare tutte le componenti sullo schermo.
     */
-    private void initComponents()
-    {
+    private void initComponents() {
         // configurazione del pannello
         this.setVisible(true);
         this.setSize(1000,700);
@@ -272,10 +271,6 @@ public class GameGUI extends JPanel {
                                                 .addComponent(userInputFieldPanel,107,107,107)))
                         )
         );
-
-
-
-
     }
 
     /**

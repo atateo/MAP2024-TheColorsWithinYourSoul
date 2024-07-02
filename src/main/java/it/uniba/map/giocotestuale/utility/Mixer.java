@@ -125,7 +125,6 @@ public class Mixer extends Thread {
     public void startTrack() {
         if (tracks[currentTrack] != null) {
             isRunning = true;
-            //reverseIcons();
             tracks[currentTrack].start();
         }
     }
@@ -136,7 +135,6 @@ public class Mixer extends Thread {
     public void stopClip() {
         if (tracks[currentTrack] != null) {
             isRunning = false;
-            //reverseIcons();
             tracks[currentTrack].stop();
         }
     }
@@ -152,6 +150,9 @@ public class Mixer extends Thread {
             }
 
             if (tracks[index] != null) {
+                if (currentTrack != index) {
+                    tracks[index].setMicrosecondPosition(0);
+                }
                 tracks[index].start();
                 tracks[index].loop(Clip.LOOP_CONTINUOUSLY);
             }

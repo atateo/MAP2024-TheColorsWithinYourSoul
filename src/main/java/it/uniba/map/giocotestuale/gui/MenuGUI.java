@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.utility.Mixer;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -36,7 +38,7 @@ public class MenuGUI extends JPanel {
     */
     public MenuGUI() {
         initComponents();
-
+        Mixer.getInstance().start();
     }
 
     /**
@@ -176,6 +178,7 @@ public class MenuGUI extends JPanel {
     private void StartActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "GameGUI");
+        Mixer.getInstance().changRoomMusic("AtticoCentrale");
     }
 
     /**  

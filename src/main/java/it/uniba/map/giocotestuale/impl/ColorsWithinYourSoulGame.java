@@ -5,6 +5,7 @@ import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
+import it.uniba.map.giocotestuale.utility.Mixer;
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +50,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Collegamenti stanza colori primari
         room1.setNorthRoomConnection(room4, false);
-        room0.setSouthRoomConnection(room1, false);
+        room4.setSouthRoomConnection(room1, false);
 
         room1.setWestRoomConnection(room5, true);
         room5.setEastRoomConnection(room1, true);
@@ -309,6 +310,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                     GameToGUICommunication.getInstance().toGUI("La porta è chiusa.");
                 } else {
                     setCurrentRoom(destination.getReachableRoom());
+                    Mixer.getInstance().changRoomMusic(getCurrentRoom().getName());
                 }
             }
         }
