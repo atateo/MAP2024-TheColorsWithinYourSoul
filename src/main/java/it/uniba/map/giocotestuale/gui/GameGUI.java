@@ -24,7 +24,9 @@ import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-// Classe che mostra la GUI del gioco 
+ /**
+ * Classe che mostra la GUI del gioco.
+ */
 
 public class GameGUI extends JPanel {
 

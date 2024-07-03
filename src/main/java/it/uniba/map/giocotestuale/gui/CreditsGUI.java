@@ -13,7 +13,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.CardLayout;
 
-// Classe che gestisce la schermata dei crediti
+ /**
+ * Classe che gestisce la schermata dei crediti.
+ */
 public class CreditsGUI extends JPanel {
 
     private JButton back;

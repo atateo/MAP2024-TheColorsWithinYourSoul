@@ -7,8 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
 
-// Classe che si occupa di coordinare tutte le GUI del gioco
-
+ /**
+ * Classe che si occupa di coordinare tutte le GUI del gioco.
+ */
 public class HandlerGUI extends JFrame {
 
     
