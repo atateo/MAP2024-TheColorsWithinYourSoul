@@ -3,7 +3,7 @@ package it.uniba.map.giocotestuale.logic;
 import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.ParserOutput;
-import it.uniba.map.giocotestuale.utility.Timer;
+import it.uniba.map.giocotestuale.utility.GameTimer;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -33,7 +33,7 @@ public abstract class GameEngine {
     /**
      * Timer di gioco.
      */
-    private final Timer gameTimer;
+    private final GameTimer gameTimer;
     /**
      * Nome del player.
      */
@@ -51,7 +51,7 @@ public abstract class GameEngine {
         inventory = new ArrayList<>();
         colors = new ArrayList<>();
         gameInteractions = new ArrayList<>();
-        gameTimer = new Timer();
+        gameTimer = new GameTimer();
     }
 
     /**
@@ -161,7 +161,7 @@ public abstract class GameEngine {
      * Metodo getter per il timer di gioco.
      * @return Istanza del timer del gioco.
      */
-    public Timer getGameTimer() {
+    public GameTimer getGameTimer() {
         return this.gameTimer;
     }
 

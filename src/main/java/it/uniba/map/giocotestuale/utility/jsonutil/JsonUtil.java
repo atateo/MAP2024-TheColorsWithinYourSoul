@@ -59,7 +59,7 @@ public class JsonUtil {
     /**
      * Legge un oggetto in formato JSON da un file specificato.
      *
-     * @param filePath il percorso del file da cui leggere il JSON
+     * @param jsonString il percorso del file da cui leggere il JSON
      * @return obj l'oggetto in cui deserializzare i dati
      */
     public static Object getObjectFromJsonString(String jsonString, Object obj) {

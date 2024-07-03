@@ -1,6 +1,7 @@
 package it.uniba.map.giocotestuale.impl;
 
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
+import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.gui.GameGUI;
 import it.uniba.map.giocotestuale.gui.HandlerGUI;
 import it.uniba.map.giocotestuale.logic.GameEngine;
@@ -8,6 +9,7 @@ import it.uniba.map.giocotestuale.logic.Parser;
 import it.uniba.map.giocotestuale.type.ColorEnum;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Classe che gestisce la comunicazione tra la GUI di gioco e il gioco stesso. È una classe singleton.
@@ -124,6 +126,30 @@ public class GameToGUICommunication {
             case "viola" -> ColorEnum.PURPLE;
             default -> ColorEnum.NEUTRAL;
         };
+    }
+
+    /**
+     * Restituisce il tempo di gioco formattato.
+     * @return Stringa contenente il tempo di gioco formattato.
+     */
+    public String getTime() {
+        return gameEngine.getGameTimer().getTimeFormatted();
+    }
+
+    /**
+     * Restituisce una stringa che rappresenta l'inventario del player.
+     * @return Stringa che rappresenta l'inventario del player.
+     */
+    public String inventoryToString() {
+        ArrayList<Item> inventory = gameEngine.getInventory();
+        StringBuilder stringInventory = new StringBuilder();
+
+        for (Item item: inventory) {
+            stringInventory.append(item.getName());
+            stringInventory.append(" ");
+        }
+
+        return stringInventory.toString();
     }
 
     /**
