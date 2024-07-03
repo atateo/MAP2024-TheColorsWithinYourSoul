@@ -349,6 +349,7 @@ public class GameGUI extends JPanel {
     private void BackActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
+        displayTextPane.setText("");
         Mixer.getInstance().changRoomMusic("Menu");
         Mixer.getInstance().startTrack();
     }

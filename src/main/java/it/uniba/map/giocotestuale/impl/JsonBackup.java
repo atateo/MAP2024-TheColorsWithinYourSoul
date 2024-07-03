@@ -1,13 +1,10 @@
 package it.uniba.map.giocotestuale.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.entities.game.Room;
-import it.uniba.map.giocotestuale.utility.jsonutil.GameToJson;
-import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 public class JsonBackup {
 
@@ -30,8 +27,8 @@ public class JsonBackup {
 		room0.setNorthRoomConnection(room3, true);
 		room3.setSouthRoomConnection(room0, true);
 
-		room0.setWestRoomConnection(room1, false);
-		room1.setEastRoomConnection(room0, false);
+		room0.setWestRoomConnection(room1, true);
+		room1.setEastRoomConnection(room0, true);
 
 		room0.setEastRoomConnection(room2, false);
 		room2.setWestRoomConnection(room0, false);
@@ -65,16 +62,55 @@ public class JsonBackup {
 		game.getColors().add(new ColorClass(0, "Viola", List.of("purple"), false));
 
 		//Item AtticoCentrale
+		Item torcia = new Item(0, "Torcia", List.of("torch"), "Spento");
+		torcia.initializeProperties(true, true, false);
+		Item macerie = new Item(1, "Macerie", List.of("massi"), "NonSpostato");
+		macerie.initializeProperties(false, false, true);
 
-		//Item StanzaColoriPrimari
+		room0.addItem(torcia);
+		room0.addItem(macerie);
 
 		//Item StanzaRosso
+		Item caminoDestro = new Item(2, "CaminoDestro", List.of("CaminoDX"), "Spento");
+		caminoDestro.initializeProperties(false, true, false);
+		Item caminoSinistro = new Item(3, "CaminoSinistro", List.of("CaminoSX"), "SenzaLegna");
+		caminoSinistro.initializeProperties(false, true, false);
+		Item legnetti = new Item(4, "Legnetti", List.of("wood"), "Neutro");
+		legnetti.initializeProperties(true, false, false);
+		Item pennelloRosso = new Item(5, "PennelloRosso", List.of("RedBrush"), "Neutro");
+		pennelloRosso.initializeProperties(true, false, false);
+
+		room4.addItem(caminoDestro);
+		room4.addItem(caminoSinistro);
+		room4.addItem(legnetti);
+		room4.addItem(pennelloRosso);
 
 		//Item StanzaBlu
+		Item ascia = new Item(6, "Ascia", List.of("Accetta", "Axe"), "Neutro");
+		ascia.initializeProperties(true, false, false);
+		Item albero = new Item(7, "Albero", List.of("Pianta", "Alberello"), "NonCresciuto");
+		albero.initializeProperties(false, true, false);
+		Item statuaDrago = new Item(8, "StatuaDrago", List.of("TestaDrago"), "SenzaAcqua");
+		statuaDrago.initializeProperties(false, true, false);
+		Item pennelloBlu = new Item(9, "PennelloBlu", List.of("BlueBrush"), "Neutro");
+		pennelloBlu.initializeProperties(true, false, false);
+
+		room5.addItem(ascia);
+		room5.addItem(albero);
+		room5.addItem(statuaDrago);
+		room5.addItem(pennelloBlu);
 
 		//Item StanzaGiallo
+		Item interruttore = new Item(10, "Interruttore", List.of("Bottone"), "Acceso");
+		interruttore.initializeProperties(false, true, false);
+		Item bloccoDiFerro = new Item(11, "BloccoDiFerro", List.of("Lamina"), "NonSpostatoAcceso");
+		bloccoDiFerro.initializeProperties(false, false, true);
+		Item pennelloGiallo = new Item(9, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
+		pennelloGiallo.initializeProperties(true, false, false);
 
-		//Item StanzaColoriSecondari
+		room5.addItem(interruttore);
+		room5.addItem(bloccoDiFerro);
+		room5.addItem(pennelloGiallo);
 
 		//Item StanzaVerde
 
