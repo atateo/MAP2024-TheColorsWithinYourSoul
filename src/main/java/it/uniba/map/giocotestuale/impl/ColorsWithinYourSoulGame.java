@@ -94,17 +94,17 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //NOTA BENE: Le interazioni dirette devono essere inserite nella lista PRIMA delle interazioni a catena.
         //Altrimenti se un'interazione diretta ne scatena una a catena, quella a catena non verrà eseguita subito.
-        super.getGameInteractions().add(InteractionFactory.buildInteraction(
-            getItemById(1), super.getColors().getFirst(), "neutro", "neutro",
-            (gameObjects, targetStates, gameEngine) -> {
-                ((ColorClass) gameObjects.get(1)).setUnlocked(true);
-                GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                        "però senti qualcosa di diverso in te...");
-
-                GameToGUICommunication.getInstance().toGUI("Hai sbloccato il colore rosso!");
-                GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-            }
-        ));
+//        super.getGameInteractions().add(InteractionFactory.buildInteraction(
+//            getItemById(1), super.getColors().getFirst(), "neutro", "neutro",
+//            (gameObjects, targetStates, gameEngine) -> {
+//                ((ColorClass) gameObjects.get(1)).setUnlocked(true);
+//                GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+//                        "però senti qualcosa di diverso in te...");
+//
+//                GameToGUICommunication.getInstance().toGUI("Hai sbloccato il colore rosso!");
+//                GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+//            }
+//        ));
     }
 
     /**
