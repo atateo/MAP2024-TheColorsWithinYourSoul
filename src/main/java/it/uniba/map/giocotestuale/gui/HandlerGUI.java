@@ -53,4 +53,12 @@ public class HandlerGUI extends JFrame {
 
         Mixer.getInstance().start();
     }
+
+    /**
+     * Ritorna l'istanza della GUI di gioco.
+     * @return Istanza della GUI di gioco.
+     */
+    public static GameGUI getGameGUI() {
+        return game;
+    }
 }

@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import it.uniba.map.giocotestuale.utility.Mixer;
@@ -175,6 +176,7 @@ public class MenuGUI extends JPanel {
         cl.show(getParent(), "GameGUI");
         Mixer.getInstance().changRoomMusic("AtticoCentrale");
         Mixer.getInstance().startTrack();
+        GameToGUICommunication.getInstance().start();
     }
 
     /**  

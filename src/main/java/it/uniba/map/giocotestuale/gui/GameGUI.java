@@ -384,8 +384,7 @@ public class GameGUI extends JPanel {
      * Metodo che colora un quadro della toolbar quando l'utente sblocca un colore.
      * @param color colore da sbloccare nella barra dei colori.
      */
-    private void UnlockColor(ColorEnum color)
-    {
+    public void UnlockColor(ColorEnum color) {
         switch(color) {
             case ColorEnum.RED:
                 redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroRosso.png"));

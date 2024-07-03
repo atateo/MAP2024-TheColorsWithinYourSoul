@@ -34,7 +34,7 @@ public class ChainInteraction extends TwoObjectInteraction {
     @Override
     public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
         //Il primo oggetto non corrisponde
-        if (super.getFirstObject().equals(gameObjects.getFirst())){
+        if (!super.getFirstObject().equals(gameObjects.getFirst())){
             return false;
         }
 

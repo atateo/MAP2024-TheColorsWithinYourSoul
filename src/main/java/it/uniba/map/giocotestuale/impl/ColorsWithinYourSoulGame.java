@@ -3,6 +3,7 @@ package it.uniba.map.giocotestuale.impl;
 import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
+import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Mixer;
@@ -77,6 +78,9 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         super.getColors().add(new ColorClass(0, "Viola", List.of("purple"), false));
 
         room0.addItem(new Item(0, "torcia", List.of("tizzone"), "spento"));
+        Item pennelloRosso = new Item(1, "PennelloRosso", List.of("redbrush"), "neutro");
+        pennelloRosso.initializeProperties(true, false, false);
+        room0.addItem(pennelloRosso);
 
         super.addRoom(room0);
         super.addRoom(room1);
@@ -159,8 +163,17 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //NOTA BENE: Le interazioni dirette devono essere inserite nella lista PRIMA delle interazioni a catena.
         //Altrimenti se un'interazione diretta ne scatena una a catena, quella a catena non verrà eseguita subito.
+        super.getGameInteractions().add(InteractionFactory.buildInteraction(
+            getItemById(1), super.getColors().getFirst(), "neutro", "neutro",
+            (gameObjects, targetStates, gameEngine) -> {
+                ((ColorClass) gameObjects.get(1)).setUnlocked(true);
+                GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+                        "però senti qualcosa di diverso in te...");
 
-        //Interazioni di movimento
+                GameToGUICommunication.getInstance().toGUI("Hai sbloccato il colore rosso!");
+                GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+            }
+        ));
     }
 
     /**

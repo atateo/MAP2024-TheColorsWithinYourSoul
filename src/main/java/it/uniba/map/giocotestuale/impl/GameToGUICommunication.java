@@ -1,9 +1,11 @@
 package it.uniba.map.giocotestuale.impl;
 
+import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.gui.GameGUI;
 import it.uniba.map.giocotestuale.gui.HandlerGUI;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.Parser;
+import it.uniba.map.giocotestuale.type.ColorEnum;
 
 import java.awt.*;
 
@@ -92,10 +94,36 @@ public class GameToGUICommunication {
     }
 
     /**
-     * Metodo che farà partire l'intro di gioco.
+     * Metodo che farà partire l'intro di gioco e metterà il player nella stanza iniziale.
      */
     public void start() {
+        gameEngine.setCurrentRoom(gameEngine.getRooms().getFirst());
         gameEngine.welcomePlayer();
+    }
+
+    /**
+     * Comunica alla GUI che il player ha sbloccato il colore passato come parametro.
+     * @param toUnlock Colore da sbloccare.
+     */
+    public void unlockColor(final ColorClass toUnlock) {
+        HandlerGUI.getGameGUI().UnlockColor(getColorEnumFromColorClass(toUnlock));
+    }
+
+    /**
+     * Metodo di utility che dato una ColorClass ne restituisce l'equivalente ColorEnum.
+     * @param color Oggetto ColorClass da convertire in ColorEnum.
+     * @return ColorEnum relativo all'oggetto passato come parametro.
+     */
+    public ColorEnum getColorEnumFromColorClass(final ColorClass color) {
+        return switch (color.getName().toLowerCase()) {
+            case "rosso" -> ColorEnum.RED;
+            case "blu" -> ColorEnum.BLUE;
+            case "giallo" -> ColorEnum.YELLOW;
+            case "verde" -> ColorEnum.GREEN;
+            case "marrone" -> ColorEnum.BROWN;
+            case "viola" -> ColorEnum.PURPLE;
+            default -> ColorEnum.NEUTRAL;
+        };
     }
 
     /**

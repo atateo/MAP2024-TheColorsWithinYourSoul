@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import it.uniba.map.giocotestuale.type.ColorEnum;
+
 import java.util.List;
 
 /**

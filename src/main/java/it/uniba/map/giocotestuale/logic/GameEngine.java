@@ -188,10 +188,40 @@ public abstract class GameEngine {
      */
     public Item getItemById(final int searchedId) {
         for (Room room : rooms) {
-            for(Item item : room.getItemsInRoom()) {
-                if(item.getId() == searchedId) {
+            for (Item item : room.getItemsInRoom()) {
+                if (item.getId() == searchedId) {
                     return item;
                 }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Dato un nome passato come parametro, restituisce l'item con quel nome.
+     * @param searchedName Nome da cercare.
+     * @return Oggetto con il nome cercato. Se non esiste, restituisce null.
+     */
+    public Item getItemByName(final String searchedName) {
+        for (Room room : rooms) {
+            for (Item item : room.getItemsInRoom()) {
+                if (item.getName().equalsIgnoreCase(searchedName)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Dato un nome passato come parametro, restituisce il colore con quel nome.
+     * @param searchedName Nome da cercare.
+     * @return Colore con il nome cercato. Se non esiste, restituisce null.
+     */
+    public ColorClass getColorByName(final String searchedName) {
+        for (ColorClass color: colors) {
+            if (color.getName().equalsIgnoreCase(searchedName)) {
+                return color;
             }
         }
         return null;
