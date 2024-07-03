@@ -99,7 +99,7 @@ public class GameToGUICommunication {
      * Metodo che farà partire l'intro di gioco e metterà il player nella stanza iniziale.
      */
     public void start() {
-        gameEngine.setCurrentRoom(gameEngine.getRooms().getFirst());
+        //gameEngine.setCurrentRoom(gameEngine.getRooms().getFirst());
         gameEngine.welcomePlayer();
     }
 
