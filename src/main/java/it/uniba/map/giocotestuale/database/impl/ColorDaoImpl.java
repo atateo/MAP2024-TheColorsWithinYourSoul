@@ -1,6 +1,8 @@
-package it.uniba.map.giocotestuale.database.domain.roomdao;
+package it.uniba.map.giocotestuale.database.impl;
 
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
+import it.uniba.map.giocotestuale.database.dao.ColorDao;
+import it.uniba.map.giocotestuale.database.domain.ColorRecord;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,16 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementazione dell'interfaccia RoomDao.
- * Fornisce i metodi per le operazioni CRUD sull'entità Room nel database.
+ * Implementazione dell'interfaccia ColorDao.
+ * Fornisce i metodi per le operazioni CRUD sull'entità Color nel database.
  * 
  */
-public class RoomDaoImpl implements RoomDao {
+public class ColorDaoImpl implements ColorDao {
 
     /**
      * Costruttore di default.
      */
-    public RoomDaoImpl() {
+    public ColorDaoImpl() {
     }
 
     /**
@@ -32,14 +34,12 @@ public class RoomDaoImpl implements RoomDao {
      * {@inheritDoc}
      */
     @Override
-    public int add(RoomRecord room) throws SQLException {
+    public int add(ColorRecord color) throws SQLException {
     	
-        String query = "INSERT INTO room (stato, descrizione, id_room) VALUES (?, ?, ?)";
+        String query = "INSERT INTO color (descrizione) VALUES (?)";
         
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, room.getStato());
-        ps.setString(2, room.getDescrizione());
-        ps.setInt(3, room.getIdRoom());
+        ps.setString(1, color.getDescrizione());
         
         int n = ps.executeUpdate();
         return n;
@@ -50,7 +50,7 @@ public class RoomDaoImpl implements RoomDao {
      */
     @Override
     public void delete(int id) throws SQLException {
-        String query = "DELETE FROM room WHERE id = ?";
+        String query = "DELETE FROM color WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
         ps.executeUpdate();
@@ -60,41 +60,37 @@ public class RoomDaoImpl implements RoomDao {
      * {@inheritDoc}
      */
     @Override
-    public RoomRecord getRoom(int id) throws SQLException {
-        String query = "SELECT * FROM room WHERE id = ?";
+    public ColorRecord getColor(int id) throws SQLException {
+        String query = "SELECT * FROM color WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
-        RoomRecord room = null;
+        ColorRecord color = null;
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	room = new RoomRecord();
-        	room.setId(rs.getInt("id"));
-        	room.setStato(rs.getString("stato"));
-        	room.setDescrizione(rs.getString("descrizione"));
-        	room.setIdRoom(rs.getInt("id_room"));
+        	color = new ColorRecord();
+        	color.setId(rs.getInt("id"));
+        	color.setDescrizione(rs.getString("descrizione"));
         }
 
-        return room;
+        return color;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<RoomRecord> getRooms() throws SQLException {
-        String query = "SELECT * FROM room";
+    public List<ColorRecord> getColors() throws SQLException {
+        String query = "SELECT * FROM color";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<RoomRecord> ls = new ArrayList<RoomRecord>();
+        List<ColorRecord> ls = new ArrayList<ColorRecord>();
 
         while (rs.next()) {
-            RoomRecord room = new RoomRecord();
-            room.setId(rs.getInt("id"));
-            room.setStato(rs.getString("stato"));
-            room.setDescrizione(rs.getString("descrizione"));
-            room.setIdRoom(rs.getInt("id_room"));
-            ls.add(room);
+        	ColorRecord item = new ColorRecord();
+        	item.setId(rs.getInt("id"));
+        	item.setDescrizione(rs.getString("descrizione"));
+            ls.add(item);
         }
         return ls;
     }
@@ -103,14 +99,12 @@ public class RoomDaoImpl implements RoomDao {
      * {@inheritDoc}
      */
     @Override
-    public void update(RoomRecord room) throws SQLException {
+    public void update(ColorRecord color) throws SQLException {
         // Aggiorna tutto il contenuto o solo i campi realmente variati
-        String query = "UPDATE room SET stato = ?, descrizione = ?, id_room = ? WHERE id = ?";
+        String query = "UPDATE color SET descrizione = ? WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, room.getStato());
-        ps.setString(2, room.getDescrizione());
-        ps.setInt(3, room.getIdRoom());
-        ps.setInt(4, room.getId());
+        ps.setString(1, color.getDescrizione());
+        ps.setInt(2, color.getId());
         ps.executeUpdate();
     }
     
@@ -118,14 +112,13 @@ public class RoomDaoImpl implements RoomDao {
      * {@inheritDoc}
      */
     @Override
-    public String getDescrizioneByIdRoomAndStato(int id, String stato) throws SQLException {
+    public String getDescrizioneById(int id) throws SQLException {
     	
     	String descrizione = null;
     	//id_room e stato sono alternate key in tabella
-        String query = "SELECT descrizione FROM room WHERE id_room = ? and lower(stato) = ? ";
+        String query = "SELECT descrizione FROM color WHERE id = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
-        ps.setString(2, stato.toLowerCase());
 
         ResultSet rs = ps.executeQuery();
 

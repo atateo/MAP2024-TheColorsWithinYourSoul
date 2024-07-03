@@ -1,6 +1,8 @@
-package it.uniba.map.giocotestuale.database.domain.dialogdao;
+package it.uniba.map.giocotestuale.database.impl;
 
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
+import it.uniba.map.giocotestuale.database.dao.DialogDao;
+import it.uniba.map.giocotestuale.database.domain.Dialog;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,6 +1,8 @@
-package it.uniba.map.giocotestuale.database.domain.colordao;
+package it.uniba.map.giocotestuale.database.impl;
 
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
+import it.uniba.map.giocotestuale.database.dao.ItemDao;
+import it.uniba.map.giocotestuale.database.domain.ItemRecord;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,16 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementazione dell'interfaccia ColorDao.
- * Fornisce i metodi per le operazioni CRUD sull'entità Color nel database.
+ * Implementazione dell'interfaccia ItemDao.
+ * Fornisce i metodi per le operazioni CRUD sull'entità Item nel database.
  * 
  */
-public class ColorDaoImpl implements ColorDao {
+public class ItemDaoImpl implements ItemDao {
 
     /**
      * Costruttore di default.
      */
-    public ColorDaoImpl() {
+    public ItemDaoImpl() {
     }
 
     /**
@@ -32,12 +34,14 @@ public class ColorDaoImpl implements ColorDao {
      * {@inheritDoc}
      */
     @Override
-    public int add(ColorRecord color) throws SQLException {
+    public int add(ItemRecord item) throws SQLException {
     	
-        String query = "INSERT INTO color (descrizione) VALUES (?)";
+        String query = "INSERT INTO item (stato, descrizione, id_item) VALUES (?, ?, ?)";
         
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, color.getDescrizione());
+        ps.setString(1, item.getStato());
+        ps.setString(2, item.getDescrizione());
+        ps.setInt(3, item.getIdItem());
         
         int n = ps.executeUpdate();
         return n;
@@ -48,7 +52,7 @@ public class ColorDaoImpl implements ColorDao {
      */
     @Override
     public void delete(int id) throws SQLException {
-        String query = "DELETE FROM color WHERE id = ?";
+        String query = "DELETE FROM item WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
         ps.executeUpdate();
@@ -58,36 +62,40 @@ public class ColorDaoImpl implements ColorDao {
      * {@inheritDoc}
      */
     @Override
-    public ColorRecord getColor(int id) throws SQLException {
-        String query = "SELECT * FROM color WHERE id = ?";
+    public ItemRecord getItem(int id) throws SQLException {
+        String query = "SELECT * FROM item WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
-        ColorRecord color = null;
+        ItemRecord item = null;
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	color = new ColorRecord();
-        	color.setId(rs.getInt("id"));
-        	color.setDescrizione(rs.getString("descrizione"));
+        	item = new ItemRecord();
+        	item.setId(rs.getInt("id"));
+        	item.setStato(rs.getString("stato"));
+        	item.setDescrizione(rs.getString("descrizione"));
+        	item.setIdItem(rs.getInt("id_item"));
         }
 
-        return color;
+        return item;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public List<ColorRecord> getColors() throws SQLException {
-        String query = "SELECT * FROM color";
+    public List<ItemRecord> getItems() throws SQLException {
+        String query = "SELECT * FROM item";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<ColorRecord> ls = new ArrayList<ColorRecord>();
+        List<ItemRecord> ls = new ArrayList<ItemRecord>();
 
         while (rs.next()) {
-        	ColorRecord item = new ColorRecord();
+        	ItemRecord item = new ItemRecord();
         	item.setId(rs.getInt("id"));
+        	item.setStato(rs.getString("stato"));
         	item.setDescrizione(rs.getString("descrizione"));
+        	item.setIdItem(rs.getInt("id_item"));
             ls.add(item);
         }
         return ls;
@@ -97,12 +105,14 @@ public class ColorDaoImpl implements ColorDao {
      * {@inheritDoc}
      */
     @Override
-    public void update(ColorRecord color) throws SQLException {
+    public void update(ItemRecord item) throws SQLException {
         // Aggiorna tutto il contenuto o solo i campi realmente variati
-        String query = "UPDATE color SET descrizione = ? WHERE id = ?";
+        String query = "UPDATE item SET stato = ?, descrizione = ?, id_item = ? WHERE id = ?";
         PreparedStatement ps = conn.prepareStatement(query);
-        ps.setString(1, color.getDescrizione());
-        ps.setInt(2, color.getId());
+        ps.setString(1, item.getStato());
+        ps.setString(2, item.getDescrizione());
+        ps.setInt(3, item.getIdItem());
+        ps.setInt(4, item.getId());
         ps.executeUpdate();
     }
     
@@ -110,13 +120,14 @@ public class ColorDaoImpl implements ColorDao {
      * {@inheritDoc}
      */
     @Override
-    public String getDescrizioneById(int id) throws SQLException {
+    public String getDescrizioneByIdItemAndStato(int id, String stato) throws SQLException {
     	
     	String descrizione = null;
     	//id_room e stato sono alternate key in tabella
-        String query = "SELECT descrizione FROM color WHERE id = ? ";
+        String query = "SELECT descrizione FROM item WHERE id_item = ? and lower(stato) = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
+        ps.setString(2, stato.toLowerCase());
 
         ResultSet rs = ps.executeQuery();
 

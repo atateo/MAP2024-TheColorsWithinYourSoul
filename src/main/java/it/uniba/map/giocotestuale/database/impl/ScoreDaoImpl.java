@@ -1,6 +1,8 @@
-package it.uniba.map.giocotestuale.database.domain.scoredao;
+package it.uniba.map.giocotestuale.database.impl;
 
 import it.uniba.map.giocotestuale.database.DatabaseConnection;
+import it.uniba.map.giocotestuale.database.dao.ScoreDao;
+import it.uniba.map.giocotestuale.database.domain.Score;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

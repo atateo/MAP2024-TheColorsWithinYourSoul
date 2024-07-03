@@ -1,7 +1,9 @@
-package it.uniba.map.giocotestuale.database.domain.roomdao;
+package it.uniba.map.giocotestuale.database.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import it.uniba.map.giocotestuale.database.domain.RoomRecord;
 
 /**
  * Interfaccia per le operazioni di accesso ai dati per l'entità Room(stanza).

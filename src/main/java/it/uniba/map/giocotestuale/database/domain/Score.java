@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain.scoredao;
+package it.uniba.map.giocotestuale.database.domain;
 
 import java.io.Serializable;
 

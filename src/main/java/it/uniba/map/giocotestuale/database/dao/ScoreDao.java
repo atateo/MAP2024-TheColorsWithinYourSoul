@@ -1,7 +1,9 @@
-package it.uniba.map.giocotestuale.database.domain.scoredao;
+package it.uniba.map.giocotestuale.database.dao;
 
 import java.sql.SQLException;
 import java.util.List;
+
+import it.uniba.map.giocotestuale.database.domain.Score;
 
 /**
  * Interfaccia per le operazioni di accesso ai dati per l'entità Score.

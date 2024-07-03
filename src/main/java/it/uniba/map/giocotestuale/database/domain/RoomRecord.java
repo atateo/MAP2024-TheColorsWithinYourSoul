@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain.roomdao;
+package it.uniba.map.giocotestuale.database.domain;
 
 /**
  * Classe che rappresenta il modello dell'entity Room (stanza).

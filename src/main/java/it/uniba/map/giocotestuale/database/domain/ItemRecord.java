@@ -1,4 +1,4 @@
-package it.uniba.map.giocotestuale.database.domain.itemdao;
+package it.uniba.map.giocotestuale.database.domain;
 
 /**
  * Classe che rappresenta il modello dell'entity Item (oggetto).
