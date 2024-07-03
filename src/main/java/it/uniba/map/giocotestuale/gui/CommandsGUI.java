@@ -7,8 +7,9 @@ import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
 import java.awt.Color;
 
-// Classe singleton per la visualizzazione dei comandi di gioco
-
+ /**
+ * Classe singleton per la visualizzazione dei comandi di gioco.
+ */
 public class CommandsGUI extends JFrame {
 
     private static CommandsGUI instance;

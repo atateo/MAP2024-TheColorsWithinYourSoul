@@ -11,8 +11,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-// Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita
-
+ /**
+ * Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita.
+ */
 public class MenuGUI extends JPanel {
 
     private JPanel background; // pannello per il background
