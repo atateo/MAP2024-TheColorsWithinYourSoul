@@ -1,15 +1,26 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.entities.game.GameObject;
+import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
+import it.uniba.map.giocotestuale.impl.JsonBackup;
+import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.utility.Mixer;
-
+import it.uniba.map.giocotestuale.utility.jsonutil.GameToJson;
+import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.net.URL;
 
  /**
  * Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita.
@@ -187,6 +198,30 @@ public class MenuGUI extends JPanel {
     */
     private void LoadActionPerformed(ActionEvent evt) {
         //placeholder
+    	ColorsWithinYourSoulGame game = null;
+    	String pathJsonStart = "start.json";
+    	//creo un oggetto di tipo File che punti il file json di avvio del gioco
+    	File fileStart = new File(pathJsonStart);
+    	//se il file esiste
+    	if(fileStart.exists())
+    	{
+    		//lo deserializzo nell'istanza game dell'oggetto ColorsWithinYourSoulGame
+    		JsonUtil.readJsonFromFile(pathJsonStart, game);
+    		//se l'oggetto è nullo
+    		if(game==null)
+        	{
+    			//ricreo il file dal mock
+    			JsonBackup start = new JsonBackup();
+        		start.createJsonBackup();
+        	}
+    	}
+    	else //se il file non esiste
+    	{
+    		//ricreo il file json dal mock
+			JsonBackup start = new JsonBackup();
+    		start.createJsonBackup();
+    	}
+    	/////*****assicurarsi di gestire la scrittura del file in JsonBackup******///////
     }
 
     /**
