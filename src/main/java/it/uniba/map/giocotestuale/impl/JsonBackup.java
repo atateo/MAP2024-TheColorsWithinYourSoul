@@ -12,46 +12,46 @@ public class JsonBackup {
 		ColorsWithinYourSoulGame game = new ColorsWithinYourSoulGame();
 
 		//Crea le stanze di gioco
-		Room room0 = new Room(0, "AtticoCentrale", "Neutro");
-		Room room1 = new Room(1, "StanzaColoriPrimari", "Neutro");
-		Room room2 = new Room(2, "StanzaColoriSecondari", "Neutro");
-		Room room3 = new Room(3, "StanzaFinale", "Neutro");
-		Room room4 = new Room(4, "StanzaRosso", "Neutro");
-		Room room5 = new Room(5, "StanzaBlu", "Neutro");
-		Room room6 = new Room(6, "StanzaGiallo", "Neutro");
-		Room room7 = new Room(7, "StanzaVerde", "Neutro");
-		Room room8 = new Room(8, "StanzaMarrone", "Neutro");
-		Room room9 = new Room(9, "StanzaViola", "Neutro");
+		Room roomCentrale = new Room(0, "AtticoCentrale", "Neutro");
+		Room roomColoriPrimari = new Room(1, "StanzaColoriPrimari", "Neutro");
+		Room roomColoriSecondari = new Room(2, "StanzaColoriSecondari", "Neutro");
+		Room roomFinale = new Room(3, "StanzaFinale", "Neutro");
+		Room roomRosso = new Room(4, "StanzaRosso", "Neutro");
+		Room roomBlu = new Room(5, "StanzaBlu", "Neutro");
+		Room roomGiallo = new Room(6, "StanzaGiallo", "Neutro");
+		Room roomVerde = new Room(7, "StanzaVerde", "Neutro");
+		Room roomMarrone = new Room(8, "StanzaMarrone", "Neutro");
+		Room roomViola = new Room(9, "StanzaViola", "Neutro");
 
 		//Collegamenti stanza centrale
-		room0.setNorthRoomConnection(room3, true);
-		room3.setSouthRoomConnection(room0, true);
+		roomCentrale.setNorthRoomConnection(roomFinale, true);
+		roomFinale.setSouthRoomConnection(roomCentrale, true);
 
-		room0.setWestRoomConnection(room1, true);
-		room1.setEastRoomConnection(room0, true);
+		roomCentrale.setWestRoomConnection(roomColoriPrimari, true);
+		roomColoriPrimari.setEastRoomConnection(roomCentrale, false);
 
-		room0.setEastRoomConnection(room2, false);
-		room2.setWestRoomConnection(room0, false);
+		roomCentrale.setEastRoomConnection(roomColoriSecondari, false);
+		roomColoriSecondari.setWestRoomConnection(roomCentrale, false);
 
 		//Collegamenti stanza colori primari
-		room1.setNorthRoomConnection(room4, false);
-		room4.setSouthRoomConnection(room1, false);
+		roomColoriPrimari.setNorthRoomConnection(roomRosso, false);
+		roomRosso.setSouthRoomConnection(roomColoriPrimari, false);
 
-		room1.setWestRoomConnection(room5, true);
-		room5.setEastRoomConnection(room1, true);
+		roomColoriPrimari.setWestRoomConnection(roomBlu, true);
+		roomBlu.setEastRoomConnection(roomColoriPrimari, true);
 
-		room1.setSouthRoomConnection(room6, true);
-		room6.setNorthRoomConnection(room1, true);
+		roomColoriPrimari.setSouthRoomConnection(roomGiallo, true);
+		roomGiallo.setNorthRoomConnection(roomColoriPrimari, true);
 
 		//Collegamenti stanza colori secondari
-		room2.setNorthRoomConnection(room7, true);
-		room7.setSouthRoomConnection(room2, true);
+		roomColoriSecondari.setNorthRoomConnection(roomVerde, true);
+		roomVerde.setSouthRoomConnection(roomColoriSecondari, true);
 
-		room2.setEastRoomConnection(room8, true);
-		room8.setWestRoomConnection(room2, true);
+		roomColoriSecondari.setEastRoomConnection(roomMarrone, true);
+		roomMarrone.setWestRoomConnection(roomColoriSecondari, true);
 
-		room2.setSouthRoomConnection(room9, true);
-		room9.setNorthRoomConnection(room2, true);
+		roomColoriSecondari.setSouthRoomConnection(roomViola, true);
+		roomViola.setNorthRoomConnection(roomColoriSecondari, true);
 
 		//Colori
 		game.getColors().add(new ColorClass(0, "Rosso", List.of("red"), false));
@@ -67,8 +67,8 @@ public class JsonBackup {
 		Item macerie = new Item(1, "Macerie", List.of("massi"), "NonSpostato");
 		macerie.initializeProperties(false, false, true);
 
-		room0.addItem(torcia);
-		room0.addItem(macerie);
+		roomCentrale.addItem(torcia);
+		roomCentrale.addItem(macerie);
 
 		//Item StanzaRosso
 		Item caminoDestro = new Item(2, "CaminoDestro", List.of("CaminoDX"), "Spento");
@@ -80,10 +80,10 @@ public class JsonBackup {
 		Item pennelloRosso = new Item(5, "PennelloRosso", List.of("RedBrush"), "Neutro");
 		pennelloRosso.initializeProperties(true, false, false);
 
-		room4.addItem(caminoDestro);
-		room4.addItem(caminoSinistro);
-		room4.addItem(legnetti);
-		room4.addItem(pennelloRosso);
+		roomRosso.addItem(caminoDestro);
+		roomRosso.addItem(caminoSinistro);
+		roomRosso.addItem(legnetti);
+		roomRosso.addItem(pennelloRosso);
 
 		//Item StanzaBlu
 		Item ascia = new Item(6, "Ascia", List.of("Accetta", "Axe"), "Neutro");
@@ -95,42 +95,80 @@ public class JsonBackup {
 		Item pennelloBlu = new Item(9, "PennelloBlu", List.of("BlueBrush"), "Neutro");
 		pennelloBlu.initializeProperties(true, false, false);
 
-		room5.addItem(ascia);
-		room5.addItem(albero);
-		room5.addItem(statuaDrago);
-		room5.addItem(pennelloBlu);
+		roomBlu.addItem(ascia);
+		roomBlu.addItem(albero);
+		roomBlu.addItem(statuaDrago);
+		roomBlu.addItem(pennelloBlu);
 
 		//Item StanzaGiallo
-		Item interruttore = new Item(10, "Interruttore", List.of("Bottone"), "Acceso");
+		Item interruttore = new Item(11, "Interruttore", List.of("Bottone"), "Acceso");
 		interruttore.initializeProperties(false, true, false);
-		Item bloccoDiFerro = new Item(11, "BloccoDiFerro", List.of("Lamina"), "NonSpostatoAcceso");
+		Item bloccoDiFerro = new Item(12, "BloccoDiFerro", List.of("Lamina"), "NonSpostatoAcceso");
 		bloccoDiFerro.initializeProperties(false, false, true);
-		Item pennelloGiallo = new Item(9, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
+		Item pennelloGiallo = new Item(13, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
 		pennelloGiallo.initializeProperties(true, false, false);
 
-		room5.addItem(interruttore);
-		room5.addItem(bloccoDiFerro);
-		room5.addItem(pennelloGiallo);
+		roomGiallo.addItem(interruttore);
+		roomGiallo.addItem(bloccoDiFerro);
+		roomGiallo.addItem(pennelloGiallo);
 
 		//Item StanzaVerde
+		Item vaso = new Item(14, "Vaso", List.of("Brocca", "Pot"), "NonCresciuto");
+		vaso.initializeProperties(false, true, false);
+		Item aiuola = new Item(15, "Aiuola", List.of("Aiola"), "NonCresciuto");
+		aiuola.initializeProperties(false, true, false);
+		Item pennelloVerde = new Item(16, "PennelloVerde", List.of("GreenBrush"), "Neutro");
+		pennelloGiallo.initializeProperties(true, false, false);
+
+		roomVerde.addItem(vaso);
+		roomVerde.addItem(aiuola);
+		roomVerde.addItem(pennelloVerde);
 
 		//Item StanzaMarrone
+		Item statua = new Item(17, "Statua", List.of("Statue"), "NonSpostato");
+		statua.initializeProperties(false, false, true);
+		Item piedistallo = new Item(18, "Piedistallo", List.of("Sostegno"), "NonSpostatoNonColorato");
+		piedistallo.initializeProperties(false, true, true);
+		Item pedana = new Item(19, "PedanaAPressione", List.of("Pedana", "PressurePlate"), "NonPremuto1NonPremuto2");
+		pedana.initializeProperties(false, false, false);
+		Item pennelloMarrone = new Item(20, "PennelloMarrone", List.of("BrownBrush"), "Neutro");
+		pennelloMarrone.initializeProperties(true, false, false);
+
+		roomMarrone.addItem(statua);
+		roomMarrone.addItem(piedistallo);
+		roomMarrone.addItem(pedana);
+		roomMarrone.addItem(pennelloMarrone);
 
 		//Item StanzaViola
+		Item scala = new Item(21, "Scala", List.of("Ladder, Stepladder"), "Rotto");
+		scala.initializeProperties(false, true, false);
+		Item orologio = new Item(22, "Orologio", List.of("Dispositivo", "Clock"), "Rotto");
+		orologio.initializeProperties(false, false, false);
+		Item incavo = new Item(23, "Incavo", List.of(""), "Vuoto");
+		incavo.initializeProperties(false, false, false);
+		Item pennelloViola = new Item(24, "PennelloViola", List.of("PurpleBrush"), "Neutro");
+		pennelloViola.initializeProperties(true, false, false);
+
+		roomViola.addItem(scala);
+		roomViola.addItem(orologio);
+		roomViola.addItem(incavo);
+		roomViola.addItem(pennelloViola);
+
+		//Item StanzaFinale
 
 		//Aggiunge le stanze al gioco
-		game.addRoom(room0);
-		game.addRoom(room1);
-		game.addRoom(room2);
-		game.addRoom(room3);
-		game.addRoom(room4);
-		game.addRoom(room5);
-		game.addRoom(room6);
-		game.addRoom(room7);
-		game.addRoom(room8);
-		game.addRoom(room9);
+		game.addRoom(roomCentrale);
+		game.addRoom(roomColoriPrimari);
+		game.addRoom(roomColoriSecondari);
+		game.addRoom(roomFinale);
+		game.addRoom(roomRosso);
+		game.addRoom(roomBlu);
+		game.addRoom(roomGiallo);
+		game.addRoom(roomVerde);
+		game.addRoom(roomMarrone);
+		game.addRoom(roomViola);
 
 		//Imposta la stanza iniziale
-		game.setCurrentRoom(room0);
+		game.setCurrentRoom(roomCentrale);
 	}
 }
