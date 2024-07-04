@@ -26,8 +26,6 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     public ColorsWithinYourSoulGame() {
         super();
-
-        defineGameInteractions();
     }
 
     /**
