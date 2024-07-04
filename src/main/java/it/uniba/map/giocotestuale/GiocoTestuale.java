@@ -30,5 +30,7 @@ public class GiocoTestuale {
 
 		HandlerGUI handlerGUI = new HandlerGUI();
 		handlerGUI.setVisible(true);
+		GameToGUICommunication.getInstance().setHandlerGUI(handlerGUI);
+		GameToGUICommunication.getInstance().toGUI("Test");
 	}
 }

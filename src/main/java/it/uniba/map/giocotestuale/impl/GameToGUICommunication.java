@@ -95,7 +95,7 @@ public class GameToGUICommunication {
      * @param input Stringa di input dell'utente.
      */
     public void toGame(final String input) {
-        GameGUI.writeOnPanel("□ " + input);
+        GameGUI.writeOnPanel("➤ " + input);
         gameEngine.update(parser.parse(input));
     }
 
@@ -105,14 +105,13 @@ public class GameToGUICommunication {
      * @param output Stringa di output da stampare sulla GUI.
      */
     public void toGUI(final String output) {
-        GameGUI.writeOnPanel(formatText("> " + output));
+        GameGUI.writeOnPanel(formatText("\uD83C\uDFA8 ➤ " + output));
     }
 
     /**
      * Metodo che farà partire l'intro di gioco e metterà il player nella stanza iniziale.
      */
     public void start() {
-        //gameEngine.setCurrentRoom(gameEngine.getRooms().getFirst());
         gameEngine.welcomePlayer();
     }
 
