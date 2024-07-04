@@ -214,13 +214,13 @@ public class MenuGUI extends JPanel {
             if (evt1.getPropertyName().equals("isFinished")) {
                 cl.show(getParent(), "GameGUI");
                 resetAudio();
+                GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
+                GameToGUICommunication.getInstance().start();
                 Mixer.getInstance().changRoomMusic("AtticoCentrale");
                 Mixer.getInstance().startTrack();
             }
         });
         progressBar.startProgressBar();
-        GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
-        GameToGUICommunication.getInstance().start();
     }
 
     /**  
