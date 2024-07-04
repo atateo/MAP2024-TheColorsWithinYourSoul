@@ -175,7 +175,7 @@ import java.awt.event.ActionEvent;
         save.setBackground(new Color(166, 15, 15));
         save.setForeground(Color.BLACK);
         save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        back.addActionListener(this::SaveActionPerformed);
+        save.addActionListener(this::SaveActionPerformed);
         toolBar.add(save);
 
         // aggiunta del gap per il posizionamento
@@ -400,9 +400,9 @@ import java.awt.event.ActionEvent;
     * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void SaveActionPerformed(ActionEvent evt) {
-        CardLayout cl = (CardLayout) getParent().getLayout();
-        cl.show(getParent(), "MenuGUI");
-        GameToGUICommunication.getInstance().saveGame();
+        /*CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "MenuGUI");*/
+        GameToGUICommunication.getInstance().saveGame(null);
                 
         displayTextPane.setText("");
     }

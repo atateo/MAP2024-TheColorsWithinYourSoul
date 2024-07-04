@@ -7,9 +7,12 @@ import it.uniba.map.giocotestuale.gui.HandlerGUI;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.Parser;
 import it.uniba.map.giocotestuale.type.ColorEnum;
+import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Classe che gestisce la comunicazione tra la GUI di gioco e il gioco stesso. È una classe singleton.
@@ -84,8 +87,13 @@ public class GameToGUICommunication {
     /**
      * Metodo che salverà su file l'istanza di gioco corrente.
      */
-    public void saveGame() {
-        //Scrivere qui il salvataggio dell'oggetto di gioco gameEngine, attributo di classe
+    public void saveGame(String nomeFile) {
+    	if(nomeFile==null || nomeFile.isEmpty()) {
+    		Date dataSalvataggio = new Date();
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
+        	nomeFile = sdf.format(dataSalvataggio)+".dat";
+    	}
+    	JsonUtil.writeJsonToFile(nomeFile, getInstance());
     }
 
     /**
@@ -112,7 +120,7 @@ public class GameToGUICommunication {
      * Metodo che farà partire l'intro di gioco.
      */
     public void start() {
-        gameEngine.welcomePlayer();
+        //gameEngine.welcomePlayer();
     }
 
     /**

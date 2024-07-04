@@ -30,7 +30,7 @@ public class JsonUtil {
         String jsonString = gson.toJson(obj);
 
         // Scrive la stringa JSON su file
-        try (FileWriter fileWriter = new FileWriter(filePath)) {
+        try (FileWriter fileWriter = new FileWriter(filePath, false)) {
             fileWriter.write(jsonString);
             logger.info("Serializzazione su file avvenuta con successo!");
         } catch (IOException e) {
