@@ -49,12 +49,18 @@ public class GameToGUICommunication {
     }
 
     /**
-     * Serve per inizializzare gli attributi dell'istanza della classe.
-     * @param gameGUI GUI di gioco su cui bisogna operare.
-     * @param gameEngine Istanza del gioco in esecuzione.
+     * Metodo setter per l'HandlerGUI utilizzata dalla classe.
+     * @param handlerGUI La GUI con la quale comunicare.
      */
-    public void setAttributes(HandlerGUI gameGUI, GameEngine gameEngine) {
-        this.gameGUI = gameGUI;
+    public void setHandlerGUI(HandlerGUI handlerGUI) {
+        this.gameGUI = handlerGUI;
+    }
+
+    /**
+     * Metodo setter per l'istanza di gioco utilizzata dalla classe.
+     * @param gameEngine L'istanza di gioco.
+     */
+    public void setGameEngine(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
         this.parser = new Parser(gameEngine);
     }
@@ -73,6 +79,13 @@ public class GameToGUICommunication {
      */
     public GameEngine getGameEngine() {
         return this.gameEngine;
+    }
+
+    /**
+     * Metodo che salverà su file l'istanza di gioco corrente.
+     */
+    public void saveGame() {
+        //Scrivere qui il salvataggio dell'oggetto di gioco gameEngine, attributo di classe
     }
 
     /**

@@ -5,6 +5,7 @@ import java.util.List;
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.entities.game.Room;
+import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 public class JsonBackup {
 
@@ -155,6 +156,10 @@ public class JsonBackup {
 		roomViola.addItem(pennelloViola);
 
 		//Item StanzaFinale
+		Item cerchioDiMattonelle = new Item(25, "Mattonelle", List.of("Vivaio", "Cerchio"), "Ghiacciato");
+		cerchioDiMattonelle.initializeProperties(false, true, false);
+
+		roomFinale.addItem(cerchioDiMattonelle);
 
 		//Aggiunge le stanze al gioco
 		game.addRoom(roomCentrale);
@@ -170,5 +175,7 @@ public class JsonBackup {
 
 		//Imposta la stanza iniziale
 		game.setCurrentRoom(roomCentrale);
+
+		JsonUtil.writeJsonToFile("src/main/resources/static/start.json", game);
 	}
 }

@@ -28,11 +28,7 @@ public class GiocoTestuale {
 		logger.debug("Connessione rilasciata");
 		DatabaseConnection.releaseConnection();
 
-		ColorsWithinYourSoulGame game = new ColorsWithinYourSoulGame();
-
 		HandlerGUI handlerGUI = new HandlerGUI();
 		handlerGUI.setVisible(true);
-
-		GameToGUICommunication.getInstance().setAttributes(handlerGUI, game);
 	}
 }
