@@ -49,12 +49,18 @@ public class GameToGUICommunication {
     }
 
     /**
-     * Serve per inizializzare gli attributi dell'istanza della classe.
-     * @param gameGUI GUI di gioco su cui bisogna operare.
-     * @param gameEngine Istanza del gioco in esecuzione.
+     * Metodo setter per l'HandlerGUI utilizzata dalla classe.
+     * @param handlerGUI La GUI con la quale comunicare.
      */
-    public void setAttributes(HandlerGUI gameGUI, GameEngine gameEngine) {
-        this.gameGUI = gameGUI;
+    public void setHandlerGUI(HandlerGUI handlerGUI) {
+        this.gameGUI = handlerGUI;
+    }
+
+    /**
+     * Metodo setter per l'istanza di gioco utilizzata dalla classe.
+     * @param gameEngine L'istanza di gioco.
+     */
+    public void setGameEngine(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
         this.parser = new Parser(gameEngine);
     }
@@ -76,13 +82,20 @@ public class GameToGUICommunication {
     }
 
     /**
+     * Metodo che salverà su file l'istanza di gioco corrente.
+     */
+    public void saveGame() {
+        //Scrivere qui il salvataggio dell'oggetto di gioco gameEngine, attributo di classe
+    }
+
+    /**
      * Metodo che gestirà l'input ricevuto dall'utente tramite GUI.
      * In parole povere, chiamerà il Parser sull'input dell'utente preso dalla GUI
      * e ne comunicherà il risultato all'istanza di gioco affinché possa gestirlo.
      * @param input Stringa di input dell'utente.
      */
     public void toGame(final String input) {
-        GameGUI.writeOnPanel("□ " + input);
+        GameGUI.writeOnPanel("➤ " + input);
         gameEngine.update(parser.parse(input));
     }
 
@@ -92,14 +105,13 @@ public class GameToGUICommunication {
      * @param output Stringa di output da stampare sulla GUI.
      */
     public void toGUI(final String output) {
-        GameGUI.writeOnPanel(formatText("> " + output));
+        GameGUI.writeOnPanel(formatText("\uD83C\uDFA8 ➤ " + output));
     }
 
     /**
-     * Metodo che farà partire l'intro di gioco e metterà il player nella stanza iniziale.
+     * Metodo che farà partire l'intro di gioco.
      */
     public void start() {
-        //gameEngine.setCurrentRoom(gameEngine.getRooms().getFirst());
         gameEngine.welcomePlayer();
     }
 

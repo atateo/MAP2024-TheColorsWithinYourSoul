@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JFrame;
@@ -70,6 +71,7 @@ public class HandlerGUI extends JFrame {
         this.add(cards);
         this.setVisible(true); //  imposta il frame come visibile
 
+        GameToGUICommunication.getInstance().setHandlerGUI(this);
         Mixer.getInstance().start();
     }
 
