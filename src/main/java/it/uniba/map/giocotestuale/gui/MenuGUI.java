@@ -54,10 +54,21 @@ public class MenuGUI extends JPanel {
      private JButton site;
 
      /**
+      * Immagine audio spento
+      */
+     final ImageIcon audio_off = new ImageIcon("src/main/resources/img/audio_off.png");
+     /**
+      * Immagine audio acceso
+      */
+     final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon.png");
+
+
+     /**
       * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
       */
      public MenuGUI() {
-        initComponents();
+         initComponents();
+
      }
 
      /**
@@ -119,7 +130,7 @@ public class MenuGUI extends JPanel {
         credits.addActionListener(this::CreditsActionPerformed);
 
         // configurazione del pulsante audio
-        audio = new JButton(new ImageIcon("src/main/resources/img/audio_icon.png"));
+        audio = new JButton(audio_on);
         audio.setFocusPainted(false);
         audio.setForeground(Color.black);
         audio.setBackground(Color.lightGray);
@@ -202,12 +213,16 @@ public class MenuGUI extends JPanel {
         progressBar.addPropertyChangeListener(evt1 -> {
             if (evt1.getPropertyName().equals("isFinished")) {
                 cl.show(getParent(), "GameGUI");
+                resetAudio();
                 Mixer.getInstance().changRoomMusic("AtticoCentrale");
                 Mixer.getInstance().startTrack();
             }
         });
-        progressBar.startProgressBar();;
+        progressBar.startProgressBar();
         GameToGUICommunication.getInstance().start();
+
+
+
     }
 
     /**  
@@ -247,14 +262,11 @@ public class MenuGUI extends JPanel {
     */
     private void AudioActionPerformed(ActionEvent evt) {
 
-      ImageIcon off = new ImageIcon("src/main/resources/img/audio_off.png");
-      ImageIcon on = new ImageIcon("src/main/resources/img/audio_icon.png");
-
-     if (audio.getIcon().toString().equals(on.toString())) {
-         audio.setIcon(off);
+     if (audio.getIcon().toString().equals(audio_on.toString())) {
+         audio.setIcon(audio_off);
          Mixer.getInstance().stopTrack();
      } else {
-         audio.setIcon(on);
+         audio.setIcon(audio_on);
          Mixer.getInstance().startTrack();
      }
 
@@ -267,4 +279,15 @@ public class MenuGUI extends JPanel {
     private void SiteActionPerformed(ActionEvent evt) {
         //placeholder
     }
+
+     /**
+      * Metodo che accende l'audio se era stato spento in precedenza,
+      * usato per ripristinare l'audio quando si cambia schermata
+      */
+     public void resetAudio()
+     {
+         if (audio.getIcon().toString().equals(audio_off.toString())) {
+             audio.setIcon(audio_on);
+         }
+     }
 }

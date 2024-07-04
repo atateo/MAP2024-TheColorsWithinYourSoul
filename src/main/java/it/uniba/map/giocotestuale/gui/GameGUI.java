@@ -126,11 +126,22 @@ import java.awt.event.ActionEvent;
       */
     private static CardLayout cardLayout;
 
+     /**
+      * Immagine audio spento
+      */
+    final ImageIcon audio_off = new ImageIcon("src/main/resources/img/audio_off_game.png");
+     /**
+      * Immagine audio acceso
+      */
+    final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon_game.png");
+
+
     /**
     * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
     * per settare i componenti a video e l'immagine di gioco corrente.
     */
     public GameGUI() {
+
         UIManager.put("ScrollBar.width", 0);
         SwingUtilities.updateComponentTreeUI(this);
         initComponents();
@@ -194,7 +205,7 @@ import java.awt.event.ActionEvent;
         toolBar.add(Box.createHorizontalStrut(20));
         
         // configurazione del pulsante audio
-        audio = new JButton(new ImageIcon("src/main/resources/img/audio_icon_game.png"));
+        audio = new JButton(audio_on);
         audio.setFocusPainted(false);
         audio.setBackground(new Color(166, 15, 15));
         audio.setForeground(Color.BLACK);
@@ -416,6 +427,8 @@ import java.awt.event.ActionEvent;
          CardLayout cl = (CardLayout) getParent().getLayout();
          cl.show(getParent(), "MenuGUI");
          displayTextPane.setText("");
+         resetAudio();
+
          Mixer.getInstance().changRoomMusic("Menu");
          Mixer.getInstance().startTrack();
      }
@@ -435,15 +448,11 @@ import java.awt.event.ActionEvent;
      * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void AudioActionPerformed(ActionEvent evt) {
-
-        ImageIcon off = new ImageIcon("src/main/resources/img/audio_off_game.png");
-        ImageIcon on = new ImageIcon("src/main/resources/img/audio_icon_game.png");
-
-        if (audio.getIcon().toString().equals(on.toString())) {
-            audio.setIcon(off);
+        if (audio.getIcon().toString().equals(audio_on.toString())) {
+            audio.setIcon(audio_off);
             Mixer.getInstance().stopTrack();
         } else {
-            audio.setIcon(on);
+            audio.setIcon(audio_on);
             Mixer.getInstance().startTrack();
         }
 
@@ -516,5 +525,16 @@ import java.awt.event.ActionEvent;
      */
     public static FontMetrics getTextPaneFontMetrics() {
         return displayTextPane.getFontMetrics(displayTextPane.getFont());
+    }
+     /**
+      * Metodo che accende l'audio se era stato spento in precedenza,
+      * usato per ripristinare l'audio quando si cambia schermata
+      */
+    public void resetAudio()
+    {
+
+        if (audio.getIcon().toString().equals(audio_off.toString())) {
+            audio.setIcon(audio_on);
+        }
     }
 }
