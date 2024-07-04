@@ -10,6 +10,7 @@ import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 import java.awt.*;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,6 +70,28 @@ public class GameToGUICommunication {
     }
 
     /**
+     * Metodo che usa le classi apposite per caricare una partita dal percorso file specificato.
+     * @param filename Nome del file da cui caricare la partita.
+     */
+    public void setGameEngineFromFile(String filename) {
+        this.gameEngine = null;
+        File file = new File(filename);
+
+        if (file.exists()) {
+            JsonUtil.readJsonFromFile(filename, this.gameEngine);
+            if (this.gameEngine == null) {
+                JsonBackup backup = new JsonBackup();
+                backup.createJsonBackup();
+            }
+        } else {
+            JsonBackup backup = new JsonBackup();
+            backup.createJsonBackup();
+        }
+
+        Parser parser = new Parser(this.gameEngine);
+    }
+
+    /**
      * Metodo getter per l'istanza della GUI di gioco.
      * @return Istanza della GUI di gioco.
      */
@@ -88,7 +111,7 @@ public class GameToGUICommunication {
      * Metodo che salverà su file l'istanza di gioco corrente.
      */
     public void saveGame(String nomeFile) {
-    	if(nomeFile==null || nomeFile.isEmpty()) {
+    	if(nomeFile == null || nomeFile.isEmpty()) {
     		Date dataSalvataggio = new Date();
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
         	nomeFile = sdf.format(dataSalvataggio)+".dat";
@@ -120,7 +143,7 @@ public class GameToGUICommunication {
      * Metodo che farà partire l'intro di gioco.
      */
     public void start() {
-        //gameEngine.welcomePlayer();
+        gameEngine.welcomePlayer();
     }
 
     /**

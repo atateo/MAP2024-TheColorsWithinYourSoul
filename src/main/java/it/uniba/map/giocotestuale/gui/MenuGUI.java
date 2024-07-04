@@ -219,10 +219,8 @@ public class MenuGUI extends JPanel {
             }
         });
         progressBar.startProgressBar();
+        GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
         GameToGUICommunication.getInstance().start();
-
-
-
     }
 
     /**  
@@ -261,15 +259,13 @@ public class MenuGUI extends JPanel {
     * @param evt rappresenta l'evento del click sul pulsante.
     */
     private void AudioActionPerformed(ActionEvent evt) {
-
-     if (audio.getIcon().toString().equals(audio_on.toString())) {
-         audio.setIcon(audio_off);
-         Mixer.getInstance().stopTrack();
-     } else {
-         audio.setIcon(audio_on);
-         Mixer.getInstance().startTrack();
-     }
-
+         if (audio.getIcon().toString().equals(audio_on.toString())) {
+             audio.setIcon(audio_off);
+             Mixer.getInstance().stopTrack();
+         } else {
+             audio.setIcon(audio_on);
+             Mixer.getInstance().startTrack();
+         }
     }
     /**
     * Metodo che definisce il comportamento del pulsante site quando viene cliccato.
@@ -284,8 +280,7 @@ public class MenuGUI extends JPanel {
       * Metodo che accende l'audio se era stato spento in precedenza,
       * usato per ripristinare l'audio quando si cambia schermata
       */
-     public void resetAudio()
-     {
+     public void resetAudio() {
          if (audio.getIcon().toString().equals(audio_off.toString())) {
              audio.setIcon(audio_on);
          }

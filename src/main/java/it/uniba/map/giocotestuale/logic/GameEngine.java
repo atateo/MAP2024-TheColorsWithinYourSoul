@@ -35,10 +35,6 @@ public abstract class GameEngine {
      */
     private final GameTimer gameTimer;
     /**
-     * Nome del player.
-     */
-    private String playerName;
-    /**
      * Stanza in cui si trova attualmente il player.
      */
     private Room currentRoom;
@@ -52,22 +48,6 @@ public abstract class GameEngine {
         colors = new ArrayList<>();
         gameInteractions = new ArrayList<>();
         gameTimer = new GameTimer();
-    }
-
-    /**
-     * Metodo setter per il nome del player.
-     * @param playerName Nome del player da impostare.
-     */
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    /**
-     * Metodo getter per il nome del player.
-     * @return Nome del player.
-     */
-    public String getPlayerName() {
-        return this.playerName;
     }
 
     /**
@@ -166,8 +146,8 @@ public abstract class GameEngine {
     }
 
     /**
-     * Restituisce la lista di tutti gli item presenti nel gioco.
-     * Scorre quindi tutte le stanze per ricavarne gli item.
+     * Restituisce la lista di tutti gli item e colori presenti nel gioco.
+     * Scorre quindi tutte le stanze e l'inventario del player per ricavarne gli item.
      * @return Lista contenente tutti gli item del gioco.
      */
     public ArrayList<GameObject> getAllObjects() {
@@ -177,6 +157,7 @@ public abstract class GameEngine {
         }
 
         gameObjects.addAll(colors);
+        gameObjects.addAll(inventory);
 
         return gameObjects;
     }
