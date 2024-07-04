@@ -71,7 +71,7 @@ public class JsonBackup {
 		roomCentrale.addItem(torcia);
 		roomCentrale.addItem(macerie);
 
-		//Item StanzaRosso
+		//Item StanzaRossoPenne
 		Item caminoDestro = new Item(2, "CaminoDestro", List.of("CaminoDX"), "Spento");
 		caminoDestro.initializeProperties(false, true, false);
 		Item caminoSinistro = new Item(3, "CaminoSinistro", List.of("CaminoSX"), "SenzaLegna");
@@ -102,11 +102,11 @@ public class JsonBackup {
 		roomBlu.addItem(pennelloBlu);
 
 		//Item StanzaGiallo
-		Item interruttore = new Item(11, "Interruttore", List.of("Bottone"), "Acceso");
+		Item interruttore = new Item(10, "Interruttore", List.of("Bottone"), "Acceso");
 		interruttore.initializeProperties(false, true, false);
-		Item bloccoDiFerro = new Item(12, "BloccoDiFerro", List.of("Lamina"), "NonSpostatoAcceso");
+		Item bloccoDiFerro = new Item(11, "BloccoDiFerro", List.of("Lamina"), "NonSpostatoAcceso");
 		bloccoDiFerro.initializeProperties(false, false, true);
-		Item pennelloGiallo = new Item(13, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
+		Item pennelloGiallo = new Item(12, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
 		pennelloGiallo.initializeProperties(true, false, false);
 
 		roomGiallo.addItem(interruttore);
@@ -114,11 +114,11 @@ public class JsonBackup {
 		roomGiallo.addItem(pennelloGiallo);
 
 		//Item StanzaVerde
-		Item vaso = new Item(14, "Vaso", List.of("Brocca", "Pot"), "NonCresciuto");
+		Item vaso = new Item(13, "Liana", List.of("Rampicante"), "NonCresciuto");
 		vaso.initializeProperties(false, true, false);
-		Item aiuola = new Item(15, "Aiuola", List.of("Aiola"), "NonCresciuto");
+		Item aiuola = new Item(14, "Aiuola", List.of("Aiola"), "NonCresciuto");
 		aiuola.initializeProperties(false, true, false);
-		Item pennelloVerde = new Item(16, "PennelloVerde", List.of("GreenBrush"), "Neutro");
+		Item pennelloVerde = new Item(15, "PennelloVerde", List.of("GreenBrush"), "Neutro");
 		pennelloGiallo.initializeProperties(true, false, false);
 
 		roomVerde.addItem(vaso);
@@ -126,28 +126,28 @@ public class JsonBackup {
 		roomVerde.addItem(pennelloVerde);
 
 		//Item StanzaMarrone
-		Item statua = new Item(17, "Statua", List.of("Statue"), "NonSpostato");
-		statua.initializeProperties(false, false, true);
-		Item piedistallo = new Item(18, "Piedistallo", List.of("Sostegno"), "NonSpostatoNonColorato");
+		Item piedistallo = new Item(16, "Piedistallo", List.of("Sostegno"), "NonColorato");
 		piedistallo.initializeProperties(false, true, true);
-		Item pedana = new Item(19, "PedanaAPressione", List.of("Pedana", "PressurePlate"), "NonPremuto1NonPremuto2");
+		Item scalpello = new Item(17, "Scalpello", List.of("Scalpellino", "Subbia"), "Neutro");
+		scalpello.initializeProperties(true, false, false);
+		Item pedana = new Item(18, "PedanaAPressione", List.of("Pedana", "PressurePlate"), "NonPremuta");
 		pedana.initializeProperties(false, false, false);
-		Item pennelloMarrone = new Item(20, "PennelloMarrone", List.of("BrownBrush"), "Neutro");
+		Item pennelloMarrone = new Item(19, "PennelloMarrone", List.of("BrownBrush"), "Neutro");
 		pennelloMarrone.initializeProperties(true, false, false);
 
-		roomMarrone.addItem(statua);
 		roomMarrone.addItem(piedistallo);
+		roomMarrone.addItem(scalpello);
 		roomMarrone.addItem(pedana);
 		roomMarrone.addItem(pennelloMarrone);
 
 		//Item StanzaViola
-		Item scala = new Item(21, "Scala", List.of("Ladder, Stepladder"), "Rotto");
+		Item scala = new Item(20, "Scala", List.of("Ladder, Stepladder"), "Rotto");
 		scala.initializeProperties(false, true, false);
-		Item orologio = new Item(22, "Orologio", List.of("Dispositivo", "Clock"), "Rotto");
+		Item orologio = new Item(21, "Orologio", List.of("Dispositivo", "Clock"), "Rotto");
 		orologio.initializeProperties(false, false, false);
-		Item incavo = new Item(23, "Incavo", List.of(""), "Vuoto");
+		Item incavo = new Item(22, "Incavo", List.of("Incavatura"), "Vuoto");
 		incavo.initializeProperties(false, false, false);
-		Item pennelloViola = new Item(24, "PennelloViola", List.of("PurpleBrush"), "Neutro");
+		Item pennelloViola = new Item(23, "PennelloViola", List.of("PurpleBrush"), "Neutro");
 		pennelloViola.initializeProperties(true, false, false);
 
 		roomViola.addItem(scala);
@@ -156,7 +156,7 @@ public class JsonBackup {
 		roomViola.addItem(pennelloViola);
 
 		//Item StanzaFinale
-		Item cerchioDiMattonelle = new Item(25, "Mattonelle", List.of("Vivaio", "Cerchio"), "Ghiacciato");
+		Item cerchioDiMattonelle = new Item(24, "Vivaio", List.of("Mattonelle", "Cerchio"), "Ghiacciato");
 		cerchioDiMattonelle.initializeProperties(false, true, false);
 
 		roomFinale.addItem(cerchioDiMattonelle);

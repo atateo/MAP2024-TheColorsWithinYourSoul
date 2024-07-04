@@ -46,8 +46,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         GameToGUICommunication.getInstance().toGUI("Salite le scale, ti ritrovi davanti al portone d'ingresso della stanza " +
                 "principale del piano. Lo apri e ti ritrovi in un'enorme stanza che ti pare un misto tra un attico e una serra. La " +
-                "porta si chiude alle tue spalle e su di essa vedi scritto \"Potrai uscire solo quando avrai recuperato i 6 colori " +
-                "che ormai la tua anima ha perduto\". La tua avventura comincia qui.");
+                "porta si chiude alle tue spalle e su di essa vedi scritto \"Recupera i 6 colori che ormai la tua anima ha perduto. " +
+                "Dovrai poi abbattere l'albero maestro. Solo allora potrai uscire\". La tua avventura comincia qui.");
     }
 
     /**
