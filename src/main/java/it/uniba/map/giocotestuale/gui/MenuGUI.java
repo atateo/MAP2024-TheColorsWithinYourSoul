@@ -1,57 +1,69 @@
 package it.uniba.map.giocotestuale.gui;
 
-import it.uniba.map.giocotestuale.entities.game.GameObject;
-import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
-import it.uniba.map.giocotestuale.impl.JsonBackup;
-import it.uniba.map.giocotestuale.logic.GameEngine;
-import it.uniba.map.giocotestuale.utility.Mixer;
-import it.uniba.map.giocotestuale.utility.jsonutil.GameToJson;
-import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.io.File;
-import java.net.URL;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.CardLayout;
+
 
  /**
  * Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita.
  */
 public class MenuGUI extends JPanel {
 
-    private JPanel background; // pannello per il background
+     /**
+      * Pannello per il background
+      */
+     private JPanel background;
 
-    private JButton start; // pulsante di avvio di una nuova partita
+     /**
+      * Pulsante di avvio di una nuova partita
+      */
+     private JButton start;
+     /**
+      *  Pulsante per caricare una partita già iniziata
+      */
+     private JButton load;
+     /**
+      * Pulsante per la visualizzazione dei comandi di gioco
+      */
+     private JButton commands;
+     /**
+      * Pulsante per la visualizzazione dei crediti
+      */
+     private JButton credits;
+     /**
+      * Pulsante per attivare o disattivare l'audio del gioco
+      */
+     private static JButton audio;
 
-    private JButton load;  // pulsante per caricare una partita già iniziata
+     /**
+      * Pulsante che rimanda al sito del progetto
+      */
+     private JButton site;
 
-    private JButton commands; // pulsante per la visualizzazione dei comandi di gioco
-
-    private JButton credits;  // pulsante per la visualizzazione dei crediti
-
-    private static JButton audio; // pulsante per attivare o disattivare l'audio del gioco
-
-    private JButton site; // pulsante che rimanda al sito del progetto
-
-    /**
-    * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
-    */
-    public MenuGUI() {
+     /**
+      * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
+      */
+     public MenuGUI() {
         initComponents();
-    }
+     }
 
-    /**
-    * Metodo che istanzia e setta i componenti sullo schermo.
-    */
-    private void initComponents() {
+     /**
+      * Metodo che istanzia e setta i componenti sullo schermo.
+      */
+     private void initComponents() {
 
         // disegna l'immagine di sfondo
         background = new JPanel() {
@@ -185,9 +197,16 @@ public class MenuGUI extends JPanel {
     */
     private void StartActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
-        cl.show(getParent(), "GameGUI");
-        Mixer.getInstance().changRoomMusic("AtticoCentrale");
-        Mixer.getInstance().startTrack();
+        ProgressBarGUI progressBar = (ProgressBarGUI) this.getParent().getComponent(2);
+        cl.show(getParent(), "ProgressBarGUI");
+        progressBar.addPropertyChangeListener(evt1 -> {
+            if (evt1.getPropertyName().equals("isFinished")) {
+                cl.show(getParent(), "GameGUI");
+                Mixer.getInstance().changRoomMusic("AtticoCentrale");
+                Mixer.getInstance().startTrack();
+            }
+        });
+        progressBar.startProgressBar();;
         GameToGUICommunication.getInstance().start();
     }
 
@@ -198,30 +217,6 @@ public class MenuGUI extends JPanel {
     */
     private void LoadActionPerformed(ActionEvent evt) {
         //placeholder
-    	ColorsWithinYourSoulGame game = null;
-    	String pathJsonStart = "start.json";
-    	//creo un oggetto di tipo File che punti il file json di avvio del gioco
-    	File fileStart = new File(pathJsonStart);
-    	//se il file esiste
-    	if(fileStart.exists())
-    	{
-    		//lo deserializzo nell'istanza game dell'oggetto ColorsWithinYourSoulGame
-    		JsonUtil.readJsonFromFile(pathJsonStart, game);
-    		//se l'oggetto è nullo
-    		if(game==null)
-        	{
-    			//ricreo il file dal mock
-    			JsonBackup start = new JsonBackup();
-        		start.createJsonBackup();
-        	}
-    	}
-    	else //se il file non esiste
-    	{
-    		//ricreo il file json dal mock
-			JsonBackup start = new JsonBackup();
-    		start.createJsonBackup();
-    	}
-    	/////*****assicurarsi di gestire la scrittura del file in JsonBackup******///////
     }
 
     /**

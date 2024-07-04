@@ -12,11 +12,27 @@ import java.awt.CardLayout;
  */
 public class HandlerGUI extends JFrame {
 
-    
+     /**
+      * La GUI del gioco
+      */
     private static GameGUI game;
+     /**
+      * La GUI del menu
+      */
     private static MenuGUI menu;
+     /**
+      * La GUI dei crediti
+      */
     private static CreditsGUI credits;
+     /**
+      * La GUI della progress bar
+      */
+    private static ProgressBarGUI bar;
+     /**
+      * Il CardLayout usato per gestire i pannelli
+      */
     private static CardLayout layout;
+
 
     /**
     * Costruttore pubblico che si occupa di definire le impostazioni del frame principale
@@ -37,6 +53,7 @@ public class HandlerGUI extends JFrame {
         // inizializzazione delle GUI
         menu = new MenuGUI();
         game = new GameGUI();
+        bar = new ProgressBarGUI();
         credits = new CreditsGUI();
 
         // creazione del CardLayout e del Panel per il passaggio fra le varie GUI
@@ -46,6 +63,7 @@ public class HandlerGUI extends JFrame {
         // aggiunta delle carte al pannello
         cards.add(menu, "MenuGUI");
         cards.add(game, "GameGUI");
+        cards.add(bar, "ProgressBarGUI");
         cards.add(credits, "CreditsGUI");
 
         // aggiunta delle carte al frame

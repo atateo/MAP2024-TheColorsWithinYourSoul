@@ -2,6 +2,7 @@ package it.uniba.map.giocotestuale.gui;
 
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.type.ColorEnum;
+import it.uniba.map.giocotestuale.utility.GameTimer;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
@@ -27,52 +28,103 @@ import java.awt.event.ActionEvent;
  /**
  * Classe che mostra la GUI del gioco.
  */
+ public class GameGUI extends JPanel {
 
-public class GameGUI extends JPanel {
+     /**
+      *  Pulsante per tornare indietro al menu principale
+      */
+     private JButton back;
+     /**
+      * Pulsante per salvare il gioco
+      */
+     private JButton save;
+     /**
+      * Pulsante di aiuto, mostra la finestra dei comandi di gioco
+      */
+     private JButton help;
+     /**
+      * Pulsante per attivare o disattivare l'audio del gioco
+      */
+     private static JButton audio;
+     /**
+      * Label per posizionare il timer
+      */
+    private static JLabel timerLabel;
 
-    private JButton back;  // pulsante per tornare indietro al menu principale
+     /**
+      * Label per l'icona sinistra del timer
+      */
+    private JLabel timerImgLabel1;
 
-    private JButton save; // pulsante per salvare il gioco
+     /**
+      * Label per l'icona destra del timer
+      */
+    private JLabel timerImgLabel2;
+     /**
+      * Label che segna l'acquisizione del colore rosso
+      */
+    private JLabel redColorLabel;
+     /**
+      * Label che segna l'acquisizione del colore blu
+      */
+    private JLabel blueColorLabel;
 
-    private JButton help; // pulsante di aiuto, mostra la finestra dei comandi di gioco
+     /**
+      * label che segna l'acquisizione del colore giallo
+      */
+    private JLabel yellowColorLabel;
+     /**
+      * Label che segna l'acquisizione del colore verde
+      */
+    private JLabel greenColorLabel;
 
-    private static JButton audio; // pulsante per attivare o disattivare l'audio del gioco
+     /**
+      * Label che segna l'acquisizione del colore marrone
+      */
+    private JLabel brownColorLabel;
 
-    private static JLabel timerLabel; // label per posizionare il timer
+     /**
+      * Label che segna l'acquisizione del colore viola
+      */
+    private JLabel purpleColorLabel;
+     /**
+      * Label per l'inventario
+      */
+    private JLabel inventoryLabel;
 
-    private JLabel timerImgLabel1; // label per l'icona sinistra del timer
+     /**
+      * Pannello che mostra l'immagine di gioco corrente
+      */
+    private static JPanel imagePanel;
 
-    private JLabel timerImgLabel2; // label per l'icona destra del timer
-
-    private JLabel redColorLabel;  // label che segna l'acquisizione del colore rosso
-
-    private JLabel blueColorLabel; // label che segna l'acquisizione del colore blu
-
-    private JLabel yellowColorLabel; // label che segna l'acquisizione del colore giallo
-
-    private JLabel greenColorLabel; // label che segna l'acquisizione del colore verde
-
-    private JLabel brownColorLabel; // label che segna l'acquisizione del colore marrone
-
-    private JLabel purpleColorLabel; // label che segna l'acquisizione del colore viola
-
-    private JLabel inventoryLabel; // label per l'inventario 
-
-    private static JPanel imagePanel; // pannello che mostra l'immagine di gioco corrente
-
-    private static JTextPane displayTextPane; // TextPane che mostra il testo del gioco
-
-    private JScrollPane scrollPaneDisplayText; // ScrollPane per il testo del gioco
-
-    private static JTextArea inventoryTextArea; // TextArea che mostra il testo dell'inventario
-
-    private JScrollPane scrollPaneInventoryText; // ScrollPAne per l'inventario 
-
-    private JTextField userInputField; // TextField che riceve in input i comandi dell'utente
-
-    private JToolBar toolBar; // ToolBar che comprende il timer e i vari pulsanti
-
-    private static CardLayout cardLayout; // CardLayout che consente di cambiare GUI
+     /**
+      * TextPane che mostra il testo del gioco
+      */
+    private static JTextPane displayTextPane;
+     /**
+      * ScrollPane per il testo del gioco
+      */
+    private JScrollPane scrollPaneDisplayText;
+     /**
+      * TextArea che mostra il testo dell'inventario
+      */
+    private static JTextArea inventoryTextArea;
+     /**
+      *  ScrollPAne per l'inventario
+      */
+    private JScrollPane scrollPaneInventoryText;
+     /**
+      * TextField che riceve in input i comandi dell'utente
+      */
+    private JTextField userInputField;
+     /**
+      * ToolBar che comprende il timer e i vari pulsanti
+      */
+    private JToolBar toolBar;
+     /**
+      * CardLayout che consente di cambiare GUI
+      */
+    private static CardLayout cardLayout;
 
     /**
     * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
@@ -156,7 +208,7 @@ public class GameGUI extends JPanel {
         timerLabel = new JLabel();
         timerLabel.setHorizontalTextPosition(SwingConstants.CENTER);
         timerLabel.setVerticalTextPosition(SwingConstants.CENTER);
-        timerLabel.setText(" 00:00:00 ");
+        timerLabel.setText("00:00:00");
         timerLabel.setForeground(Color.BLACK);
         timerLabel.setOpaque(true);
         timerLabel.setBackground(new Color(168, 129, 50));
@@ -387,7 +439,8 @@ public class GameGUI extends JPanel {
      * Metodo che colora un quadro della toolbar quando l'utente sblocca un colore.
      * @param color colore da sbloccare nella barra dei colori.
      */
-    public void UnlockColor(ColorEnum color) {
+    public void UnlockColor(ColorEnum color)
+    {
         switch(color) {
             case ColorEnum.RED:
                 redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroRosso.png"));
@@ -410,6 +463,7 @@ public class GameGUI extends JPanel {
         }
 
     }
+
     /**
     * Metodo che gestisce l'input dell'utente.
     * @param evt rappresenta l'evento dell'input dell'utente.
