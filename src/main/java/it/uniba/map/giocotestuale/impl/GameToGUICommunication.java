@@ -109,7 +109,7 @@ public class GameToGUICommunication {
     }
 
     /**
-     * Metodo che farà partire l'intro di gioco e metterà il player nella stanza iniziale.
+     * Metodo che farà partire l'intro di gioco.
      */
     public void start() {
         gameEngine.welcomePlayer();
