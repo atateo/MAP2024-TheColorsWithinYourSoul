@@ -123,6 +123,7 @@ public class GameGUI extends JPanel {
         save.setBackground(new Color(166, 15, 15));
         save.setForeground(Color.BLACK);
         save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        back.addActionListener(this::SaveActionPerformed);
         toolBar.add(save);
 
         // aggiunta del gap per il posizionamento
@@ -342,17 +343,30 @@ public class GameGUI extends JPanel {
     }
 
     /**
-    * Metodo che definisce il comportamento del pulsante back quando viene cliccato.
+    * Metodo che definisce il comportamento del pulsante save quando viene cliccato.
     * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
     * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void BackActionPerformed(ActionEvent evt) {
+    private void SaveActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
+        GameToGUICommunication.getInstance().saveGame();
+                
         displayTextPane.setText("");
-        Mixer.getInstance().changRoomMusic("Menu");
-        Mixer.getInstance().startTrack();
     }
+    
+    /**
+     * Metodo che definisce il comportamento del pulsante back quando viene cliccato.
+     * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
+     * @param evt rappresenta l'evento del click sul pulsante.
+      */
+     private void BackActionPerformed(ActionEvent evt) {
+         CardLayout cl = (CardLayout) getParent().getLayout();
+         cl.show(getParent(), "MenuGUI");
+         displayTextPane.setText("");
+         Mixer.getInstance().changRoomMusic("Menu");
+         Mixer.getInstance().startTrack();
+     }
 
     /**
     * Metodo che definisce il comportamento del pulsante help quando viene cliccato.
