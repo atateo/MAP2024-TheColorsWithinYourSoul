@@ -233,8 +233,6 @@ public class MenuGUI extends JPanel {
     * @param evt rappresenta l'evento del click sul pulsante.
     */
     private void LoadActionPerformed(ActionEvent evt) {
-    	// Using this process to invoke the constructor,
-    	// JFileChooser points to the mentioned path
     	JFileChooser j = new JFileChooser("saves");
     	 
     	// Open the save dialog
