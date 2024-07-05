@@ -5,7 +5,6 @@ import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.GameTimer;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -34,7 +33,7 @@ public abstract class GameEngine {
     /**
      * Timer di gioco.
      */
-    private final GameTimer gameTimer;
+    private GameTimer gameTimer;
     /**
      * Stanza in cui si trova attualmente il player.
      */
@@ -144,6 +143,14 @@ public abstract class GameEngine {
      */
     public GameTimer getGameTimer() {
         return this.gameTimer;
+    }
+
+    /**
+     * Metodo setter per il timer di gioco.
+     * @param gameTimer Istanza del timer da impostare come nuovo timer.
+     */
+    public void setGameTimer(GameTimer gameTimer) {
+        this.gameTimer = gameTimer;
     }
 
     /**
