@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.database;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,7 +25,7 @@ public class Setup {
      * Viene utilizzata una lista di istruzioni SQL per creare le tabelle 
      * e caricare eventuali dati di configurazione
      */
-    public static void costruisciDatabase() {
+    public static void setup() {
         List<String> istruzioni = new ArrayList<>();
         
         String dropRoom = "drop table room if exists";
@@ -154,6 +156,12 @@ public class Setup {
             boolean eseguito = eseguiIstruzione(istruzione);
             logger.info(eseguito?"Istruzione :{} eseguita con successo.":"Errore di esecuzione dell'istruzione: {}", istruzione);
         }
+        
+        try {
+			getDir();
+		} catch (IOException e) {
+			logger.info("Cartella saves non creata, i file saranno salvati nella dir principale: ",e.getMessage());
+		}
     }
 
     /**
@@ -174,5 +182,14 @@ public class Setup {
             logger.error("Eccezione in fase di esecuzione dell'istruzione: {} - ",istruzione, e);
         }
         return successo;
+    }
+    
+    private static void getDir() throws IOException{
+    	File saves = new File("saves");
+    	if(!saves.exists()) {
+    		boolean md = saves.mkdir();
+    		if(!md)throw new IOException();
+    	}
+    	
     }
 }
