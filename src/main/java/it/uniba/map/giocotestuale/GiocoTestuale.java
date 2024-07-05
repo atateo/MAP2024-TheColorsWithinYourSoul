@@ -22,7 +22,7 @@ public class GiocoTestuale {
 		if(properties.isSetup())
 		{
 			logger.info("Costruisco il database");
-			Setup.costruisciDatabase();
+			Setup.setup();
 		}
 
 		HandlerGUI handlerGUI = new HandlerGUI();
