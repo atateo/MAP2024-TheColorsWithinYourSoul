@@ -11,6 +11,7 @@ import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -114,10 +115,17 @@ public class GameToGUICommunication {
      */
     public String saveGame(String nomeFile) {
     	if(nomeFile == null || nomeFile.isEmpty()) {
-    		nomeFile = "/saves/";
+    		try {
+    			getDir();
+    			nomeFile = "saves"+File.separator;
+    		}
+    		catch (IOException e) {
+				
+			}
+    		
     		Date dataSalvataggio = new Date();
-        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
-        	nomeFile = sdf.format(dataSalvataggio)+".dat";
+        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        	nomeFile += sdf.format(dataSalvataggio)+".dat";
     	}
     	JsonUtil.writeJsonToFile(nomeFile, this.gameEngine);
     	return nomeFile;
@@ -227,5 +235,13 @@ public class GameToGUICommunication {
         }
 
         return result.toString();
+    }
+    private void getDir() throws IOException{
+    	File saves = new File("saves");
+    	if(!saves.exists()) {
+    		boolean md = saves.mkdir();
+    		if(!md)throw new IOException();
+    	}
+    	
     }
 }

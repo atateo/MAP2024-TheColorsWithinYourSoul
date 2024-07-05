@@ -47,7 +47,7 @@ public class Setup {
      // Creazione della tabella color
         String creaColor = "CREATE TABLE IF NOT EXISTS color (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                "descrizione VARCHAR(75))";
+                "descrizione VARCHAR(300))";
         
      // Creazione della tabella dialog
         String creaDialog = "CREATE TABLE IF NOT EXISTS dialog (" +
@@ -129,6 +129,14 @@ public class Setup {
         		+ "(24,'SenzaInsetti', 'Vivaio situato al centro della stanza. Col tempo, l''alberello al centro crescerà forte e vigoroso.'),"
         		+ "(24,'Cresciuto', 'Vivaio situato al centro della stanza. Grazie alla tua maestria con i colori, ora al centro cresce un albero forte e maestoso. Resta solo una cosa da fare ora.')";
         
+        String popolaColors = "insert into color (id, descrizione) values "
+        		+ "(0, 'Colore rosso. Si dice che rappresenti la passione, come una fiamma che brucia. Permette di dare fuoco a ciò che tinteggi con questo colore.'),"
+        		+ "(1, 'Colore blu. Si dice che rappresenti la pace interiore, come il mare calmo. Permette di annacquare ciò che tinteggi con questo colore, oltre ad attivare alcuni oggetti che generano acqua.'),"
+        		+ "(2, 'Colore giallo. Si dice che rappresenti la stravaganza, è un colore eccentrico e attivo come l''elettricità. Permette di scaricare corrente su ciò che tinteggi con questo colore, oltre ad attivare alcuni marchingegni che non puoi normalmente attivare.'),"
+        		+ "(3, 'Colore verde. Si dice che rappresenti la vitalità, come una pianta rigogliosa. Permette di far germogliare delle piante e rinvigorisce ciò che tinteggi con questo colore.'),"
+        		+ "(4, 'Colore marrone. Si dice che rappresenti la stabilità e la costanza, come le montagne. Fa apparire dei blocchi di terra nei punti che tinteggi con questo colore.'),"
+        		+ "(5, 'Colore viola. Si dice che rappresenti la nostalgia e lo scorrere del tempo. Permette o di accelerare lo scorrere del tempo o di far ritornare indietro nel tempo ciò che tinteggi con questo colore.')";
+        
         istruzioni.add(dropRoom);
         istruzioni.add(dropItem);
         istruzioni.add(dropColor);
@@ -140,6 +148,7 @@ public class Setup {
         istruzioni.add(creaScore);
         istruzioni.add(popolaRoom);
         istruzioni.add(popolaItem);
+        istruzioni.add(popolaColors);
         
         for (String istruzione : istruzioni) {
             boolean eseguito = eseguiIstruzione(istruzione);
