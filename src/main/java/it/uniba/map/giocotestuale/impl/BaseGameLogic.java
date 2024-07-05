@@ -175,8 +175,8 @@ public class BaseGameLogic {
 		bloccoDiFerro.initializeProperties(false, false, true);
 		Item pennelloGiallo = new Item(12, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
 		pennelloGiallo.initializeProperties(true, false, false);
-		Item vaso = new Item(13, "Liana", List.of("Rampicante"), "NonCresciuto");
-		vaso.initializeProperties(false, true, false);
+		Item liana = new Item(13, "Liana", List.of("Rampicante"), "NonCresciuto");
+		liana.initializeProperties(false, true, false);
 		Item aiuola = new Item(14, "Aiuola", List.of("Aiola"), "NonCresciuto");
 		aiuola.initializeProperties(false, true, false);
 		Item pennelloVerde = new Item(15, "PennelloVerde", List.of("GreenBrush"), "Neutro");
@@ -197,8 +197,34 @@ public class BaseGameLogic {
 		incavo.initializeProperties(false, false, false);
 		Item pennelloViola = new Item(23, "PennelloViola", List.of("PurpleBrush"), "Neutro");
 		pennelloViola.initializeProperties(true, false, false);
-		Item cerchioDiMattonelle = new Item(24, "Vivaio", List.of("Mattonelle", "Cerchio"), "Ghiacciato");
-		cerchioDiMattonelle.initializeProperties(false, true, false);
+		Item vivaio = new Item(24, "Vivaio", List.of("Mattonelle", "Cerchio"), "Ghiacciato");
+		vivaio.initializeProperties(false, true, false);
+
+		baseGameItems.add(torcia);
+		baseGameItems.add(macerie);
+		baseGameItems.add(caminoDestro);
+		baseGameItems.add(caminoSinistro);
+		baseGameItems.add(legnetti);
+		baseGameItems.add(pennelloRosso);
+		baseGameItems.add(ascia);
+		baseGameItems.add(albero);
+		baseGameItems.add(statuaDrago);
+		baseGameItems.add(pennelloBlu);
+		baseGameItems.add(interruttore);
+		baseGameItems.add(bloccoDiFerro);
+		baseGameItems.add(pennelloGiallo);
+		baseGameItems.add(liana);
+		baseGameItems.add(aiuola);
+		baseGameItems.add(pennelloVerde);
+		baseGameItems.add(piedistallo);
+		baseGameItems.add(scalpello);
+		baseGameItems.add(pedana);
+		baseGameItems.add(pennelloMarrone);
+		baseGameItems.add(scala);
+		baseGameItems.add(orologio);
+		baseGameItems.add(incavo);
+		baseGameItems.add(pennelloViola);
+		baseGameItems.add(vivaio);
 
 		return baseGameItems;
 	}
