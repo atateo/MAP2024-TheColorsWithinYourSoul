@@ -5,6 +5,7 @@ import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
 import javax.swing.BorderFactory;
@@ -232,7 +233,31 @@ public class MenuGUI extends JPanel {
     * @param evt rappresenta l'evento del click sul pulsante.
     */
     private void LoadActionPerformed(ActionEvent evt) {
-        //placeholder
+    	// Using this process to invoke the constructor,
+    	// JFileChooser points to the mentioned path
+    	JFileChooser j = new JFileChooser("saves");
+    	 
+    	// Open the save dialog
+    	int r = j.showOpenDialog(null);
+    	if (r == JFileChooser.APPROVE_OPTION)
+    		 
+        {
+    		CardLayout cl = (CardLayout) getParent().getLayout();
+            ProgressBarGUI progressBar = (ProgressBarGUI) this.getParent().getComponent(2);
+            cl.show(getParent(), "ProgressBarGUI");
+            progressBar.addPropertyChangeListener(evt1 -> {
+                if (evt1.getPropertyName().equals("isFinished")) {
+                    cl.show(getParent(), "GameGUI");
+                    //GameGUI.UpdateTimerLabel();
+                    resetAudio();
+                    Mixer.getInstance().changRoomMusic("AtticoCentrale");
+                    Mixer.getInstance().startTrack();
+                }
+            });
+            progressBar.startProgressBar();
+    		GameToGUICommunication.getInstance().setGameEngineFromFile(j.getSelectedFile().getAbsolutePath());
+            GameToGUICommunication.getInstance().start();           
+        }
     }
 
     /**
