@@ -289,7 +289,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                 } else if (destination.isLocked()) {
                     GameToGUICommunication.getInstance().toGUI("La porta è chiusa.");
                 } else {
-                    setCurrentRoom(destination.getReachableRoom());
+                    setCurrentRoom(destination.getReachableRoom(this));
                     Mixer.getInstance().changRoomMusic(getCurrentRoom().getName());
                 }
             }

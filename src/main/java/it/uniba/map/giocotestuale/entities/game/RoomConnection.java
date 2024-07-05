@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import it.uniba.map.giocotestuale.logic.GameEngine;
+
 import java.io.Serializable;
 
 /**
@@ -9,11 +11,11 @@ import java.io.Serializable;
  * dei collegamenti che vadano bene da una stanza all'altra ma non viceversa, cioè a una via.
  * Nel nostro gioco, ogni RoomConnection è quindi specchiata tra le due stanze.
  */
-public class RoomConnection implements Serializable  {
+public class RoomConnection implements Serializable {
     /**
-     * Stanza raggiungibile.
+     * ID della stanza raggiungibile.
      */
-    private Room reachableRoom;
+    private int IDReachableRoom;
     /**
      * Booleano che definisce se il collegamento è bloccato o meno.
      */
@@ -25,16 +27,21 @@ public class RoomConnection implements Serializable  {
      * @param isLocked Booleano che definisce se il collegamento è bloccato o meno.
      */
     public RoomConnection(final Room reachableRoom, final boolean isLocked) {
-        this.reachableRoom = reachableRoom;
+        this.IDReachableRoom = reachableRoom.getId();
         this.isLocked = isLocked;
     }
 
     /**
-     * Metodo getter per la stanza raggiungibile.
-     * @return Stanza raggiungibile
+     * Metodo getter per la stanza raggiungibile. Prende l'istanza di gioco e restituisce la stanza con l'ID cercato.
+     * @return Stanza raggiungibile. Se non esiste, restituisce null.
      */
-    public Room getReachableRoom() {
-        return reachableRoom;
+    public Room getReachableRoom(final GameEngine gameEngine) {
+        for (Room room : gameEngine.getRooms()) {
+            if (room.getId() == IDReachableRoom) {
+                return room;
+            }
+        }
+        return null;
     }
 
     /**
@@ -42,7 +49,7 @@ public class RoomConnection implements Serializable  {
      * @param reachableRoom Nuova stanza raggiungibile.
      */
     public void setReachableRoom(final Room reachableRoom) {
-        this.reachableRoom = reachableRoom;
+        this.IDReachableRoom = reachableRoom.getId();
     }
 
     /**

@@ -88,6 +88,8 @@ public class GameToGUICommunication {
             backup.createJsonBackup();
         }
 
+        JsonUtil.readJsonFromFile(filename, this.gameEngine);
+
         Parser parser = new Parser(this.gameEngine);
     }
 
