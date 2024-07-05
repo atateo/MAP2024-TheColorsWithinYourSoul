@@ -24,8 +24,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Timer;
+import java.util.TimerTask;
 
- /**
+/**
  * Classe che mostra la GUI del gioco.
  */
  public class GameGUI extends JPanel {
@@ -146,6 +148,7 @@ import java.awt.event.ActionEvent;
         SwingUtilities.updateComponentTreeUI(this);
         initComponents();
         initCurrentImage();
+
     }
 
     /**
@@ -378,10 +381,11 @@ import java.awt.event.ActionEvent;
                                                 .addComponent(userInputFieldPanel,107,107,107)))
                         )
         );
+
     }
 
     /**
-    * Metodo che si occupa di impostare l'immagine di gioco corrente
+    * Metodo che si occupa di aggiungere le immagini al layout
     */
     public void initCurrentImage() {
 
@@ -389,10 +393,13 @@ import java.awt.event.ActionEvent;
         cardLayout.setVgap(0);
         cardLayout.setVgap(0);
         cardLayout.setHgap(0);
-        cardLayout.minimumLayoutSize(this);
-        cardLayout.maximumLayoutSize(this);
-        cardLayout.preferredLayoutSize(this);
+        cardLayout.minimumLayoutSize(imagePanel);
+        cardLayout.maximumLayoutSize(imagePanel);
+        cardLayout.preferredLayoutSize(imagePanel);
 
+        imagePanel.setLayout(cardLayout);
+
+        // immagine iniziale
         imagePanel.add(new JPanel(null) {
             @Override
             public void paintComponent(Graphics g) {
@@ -402,8 +409,48 @@ import java.awt.event.ActionEvent;
             }
         }, "Placeholder");
 
-        imagePanel.setLayout(cardLayout);
     }
+
+    /**
+     * Metodo che aggiunge un immagine all'imagePanel
+     * @param RoomName nome della stanza, usato per trovare il path della stessa
+     */
+    public static void addImage(String RoomName)
+    {
+        imagePanel.add(new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon image = new ImageIcon("src/main/resources/img/"+RoomName+".jpg");
+                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        }, RoomName);
+    }
+
+    /**
+     * Metodo che cambia l'immagine di gioco
+     * @param RoomName nome della stanza che si vuole impostare
+     */
+    public static void setRoomImage(String RoomName)
+    {
+       cardLayout.show(imagePanel, RoomName);
+
+    }
+    /**
+     * Metodo che aggiorna il timer nella label
+     */
+    public static void UpdateTimerLabel()
+     {
+         Timer timer = new Timer();
+         TimerTask updateTimerTask = new TimerTask(){
+             @Override
+             public void run() {
+                 //timerLabel.setText(GameToGUICommunication.getInstance().getTime());
+             }
+         };
+
+         timer.scheduleAtFixedRate(updateTimerTask, 1000, 1000);
+     }
 
     /**
     * Metodo che definisce il comportamento del pulsante save quando viene cliccato.

@@ -150,11 +150,11 @@ public class ProgressBarGUI extends JPanel{
 
         }
 
-    /**
-     * Metodo che si occupa di configurare la proprietà isFinished della progress bar.
-     * @param isFinished true se la progress bar è arrivata al 100%, false altrimenti.
-     */
-    public void setFinished(boolean isFinished) {
+       /**
+       * Metodo che si occupa di configurare la proprietà isFinished della progress bar.
+       * @param isFinished true se la progress bar è arrivata al 100%, false altrimenti.
+       */
+        public void setFinished(boolean isFinished) {
 
             support.firePropertyChange("isFinished", null, isFinished);
         }

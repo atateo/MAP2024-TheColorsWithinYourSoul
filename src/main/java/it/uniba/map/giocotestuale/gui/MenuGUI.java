@@ -213,6 +213,7 @@ public class MenuGUI extends JPanel {
         progressBar.addPropertyChangeListener(evt1 -> {
             if (evt1.getPropertyName().equals("isFinished")) {
                 cl.show(getParent(), "GameGUI");
+                //GameGUI.UpdateTimerLabel();
                 resetAudio();
                 Mixer.getInstance().changRoomMusic("AtticoCentrale");
                 Mixer.getInstance().startTrack();
@@ -222,6 +223,8 @@ public class MenuGUI extends JPanel {
         GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
         GameToGUICommunication.getInstance().start();
     }
+
+
 
     /**  
     * Metodo che definisce il comportamento del pulsante load quando viene cliccato.
