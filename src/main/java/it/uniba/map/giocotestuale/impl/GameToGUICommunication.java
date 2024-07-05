@@ -80,11 +80,11 @@ public class GameToGUICommunication {
         if (file.exists()) {
             JsonUtil.readJsonFromFile(filename, this.gameEngine);
             if (this.gameEngine == null) {
-                JsonBackup backup = new JsonBackup();
+                BaseGameLogic backup = new BaseGameLogic();
                 backup.createJsonBackup();
             }
         } else {
-            JsonBackup backup = new JsonBackup();
+            BaseGameLogic backup = new BaseGameLogic();
             backup.createJsonBackup();
         }
 

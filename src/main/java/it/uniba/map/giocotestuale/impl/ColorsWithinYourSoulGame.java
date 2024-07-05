@@ -7,6 +7,7 @@ import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Mixer;
+import org.glassfish.grizzly.compression.lzma.impl.Base;
 
 import java.util.HashSet;
 import java.util.List;
@@ -95,17 +96,11 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //NOTA BENE: Le interazioni dirette devono essere inserite nella lista PRIMA delle interazioni a catena.
         //Altrimenti se un'interazione diretta ne scatena una a catena, quella a catena non verrà eseguita subito.
-//        super.getGameInteractions().add(InteractionFactory.buildInteraction(
-//            getItemById(1), super.getColors().getFirst(), "neutro", "neutro",
-//            (gameObjects, targetStates, gameEngine) -> {
-//                ((ColorClass) gameObjects.get(1)).setUnlocked(true);
-//                GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-//                        "però senti qualcosa di diverso in te...");
-//
-//                GameToGUICommunication.getInstance().toGUI("Hai sbloccato il colore rosso!");
-//                GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-//            }
-//        ));
+
+        //Per comodità, si è deciso di scrivere la logica di gioco nell'apposita classe BaseGameLogic.
+        BaseGameLogic logic = new BaseGameLogic();
+
+        super.getGameInteractions().addAll(logic.getGameLogic());
     }
 
     /**
@@ -159,6 +154,41 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             return;
         }
 
+        //Comando osserva
+        if (command == Command.OSSERVA) {
+            //Se il secondo oggetto non è nullo, il comando è invalido
+            if (output.getSecondObject() != null) {
+                invalidCommandOutput();
+                return;
+            }
+
+            //Se il primo oggetto è nullo, osserva la stanza
+            if (output.getFirstObject() == null) {
+                GameToGUICommunication.getInstance().toGUI(getCurrentRoom().getDescriptionFromDB());
+            } else {
+                //Se l'oggetto è un item nella stanza, stampane la descrizione a video
+                if (getCurrentRoom().getItemsInRoom().contains(output.getFirstObject())) {
+                    GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getDescriptionFromDB());
+                    return;
+                }
+
+                //Se l'oggetto è un item nell'inventario, stampane la descrizione a video
+                if (getInventory().contains(output.getFirstObject())) {
+                    GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getDescriptionFromDB());
+                    return;
+                }
+
+                //Se l'oggetto è un colore sbloccato, stampane la descrizione a video
+                if(output.getFirstObject() instanceof ColorClass && ((ColorClass) output.getFirstObject()).isUnlocked()){
+                    GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getDescriptionFromDB());
+                    return;
+                }
+
+                invalidCommandOutput();
+                return;
+            }
+        }
+
         //Verifica che per il comando spingi e prendi l'oggetto sia nella stanza e che
         //l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
         if (command == Command.SPINGI || command == Command.PRENDI) {
@@ -168,19 +198,23 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             }
 
             if (output.getCommandType() == Command.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
-                GameToGUICommunication.getInstance().toGUI("Provi a spingerlo, ma l'oggetto non si muove.");
+                GameToGUICommunication.getInstance().toGUI("Non vale la pena spostare questo oggetto.");
                 return;
             } else if (output.getCommandType() == Command.PRENDI) {
                 if ( !((Item) output.getFirstObject()).getPickable()) {
                     GameToGUICommunication.getInstance().toGUI("Non puoi mettere una cosa del genere nell'inventario!!");
                     return;
-                } else {
+                } else if (!output.getFirstObject().getName().contains("Pennello")) {
                     //Aggiunge l'oggetto nell'inventario e lo rimuove dalla stanza
                     addItemToInventory((Item) output.getFirstObject());
                     getCurrentRoom().removeItem((Item) output.getFirstObject());
                     GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getName() + ": aggiunto nell'inventario.");
 
                     //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player prende un item
+                    //Inoltre non mette i pennelli nell'inventario perché sbloccano direttamente i colori
+                } else {
+                    //Rimuove il pennello dalla stanza
+                    getCurrentRoom().removeItem((Item) output.getFirstObject());
                 }
             }
         }

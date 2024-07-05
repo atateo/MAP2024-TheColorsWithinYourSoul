@@ -5,6 +5,7 @@ import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.GameTimer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 
