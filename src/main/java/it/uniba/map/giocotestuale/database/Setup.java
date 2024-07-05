@@ -26,6 +26,11 @@ public class Setup {
     public static void costruisciDatabase() {
         List<String> istruzioni = new ArrayList<>();
         
+        String dropRoom = "drop table room if exists";
+        String dropItem = "drop table item if exists";
+        String dropColor = "drop table color if exists";
+        String dropDialog = "drop table dialog if exists";
+        
         // Creazione della tabella room
         String creaRoom = "CREATE TABLE IF NOT EXISTS room (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -124,6 +129,10 @@ public class Setup {
         		+ "(24,'SenzaInsetti', 'Vivaio situato al centro della stanza. Col tempo, l''alberello al centro crescerà forte e vigoroso.'),"
         		+ "(24,'Cresciuto', 'Vivaio situato al centro della stanza. Grazie alla tua maestria con i colori, ora al centro cresce un albero forte e maestoso. Resta solo una cosa da fare ora.')";
         
+        istruzioni.add(dropRoom);
+        istruzioni.add(dropItem);
+        istruzioni.add(dropColor);
+        istruzioni.add(dropDialog);
         istruzioni.add(creaRoom);
         istruzioni.add(creaItem);
         istruzioni.add(creaColor);

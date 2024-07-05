@@ -112,13 +112,15 @@ public class GameToGUICommunication {
     /**
      * Metodo che salverà su file l'istanza di gioco corrente.
      */
-    public void saveGame(String nomeFile) {
+    public String saveGame(String nomeFile) {
     	if(nomeFile == null || nomeFile.isEmpty()) {
+    		nomeFile = "/saves/";
     		Date dataSalvataggio = new Date();
         	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm");
         	nomeFile = sdf.format(dataSalvataggio)+".dat";
     	}
-    	JsonUtil.writeJsonToFile(nomeFile, getInstance());
+    	JsonUtil.writeJsonToFile(nomeFile, this.gameEngine);
+    	return nomeFile;
     }
 
     /**

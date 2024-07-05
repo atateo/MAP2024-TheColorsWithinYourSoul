@@ -460,9 +460,11 @@ import java.util.TimerTask;
     private void SaveActionPerformed(ActionEvent evt) {
         /*CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");*/
-        GameToGUICommunication.getInstance().saveGame(null);
+        String nomeFile = GameToGUICommunication.getInstance().saveGame(null);
+        
+        GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: "+nomeFile);
                 
-        displayTextPane.setText("");
+        //displayTextPane.setText("");
     }
     
     /**
