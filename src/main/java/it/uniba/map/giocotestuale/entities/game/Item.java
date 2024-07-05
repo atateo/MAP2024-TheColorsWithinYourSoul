@@ -1,12 +1,13 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Classe che rappresenta i vari item di gioco. Questa classe include gli oggetti che si trovano nelle stanze
  * e, nel caso specifico del gioco The Colors Within Your Soul, anche i colori.
  */
-public class Item extends GameObject {
+public class Item extends GameObject implements Serializable  {
     /**
      * Booleano che indica se l'item può essere raccolto e messo nell'inventario.
      */

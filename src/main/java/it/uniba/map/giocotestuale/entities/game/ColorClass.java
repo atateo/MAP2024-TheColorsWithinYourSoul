@@ -2,12 +2,13 @@ package it.uniba.map.giocotestuale.entities.game;
 
 import it.uniba.map.giocotestuale.type.ColorEnum;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Classe che rappresenta i possibili colori del gioco.
  */
-public class ColorClass extends GameObject {
+public class ColorClass extends GameObject implements Serializable {
     /**
      * Booleano che indica se il player ha sbloccato o meno questo colore.
      */

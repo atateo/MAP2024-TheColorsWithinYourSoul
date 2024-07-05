@@ -1,15 +1,17 @@
 package it.uniba.map.giocotestuale.utility.jsonutil;
 
+import java.io.Serializable;
 import java.util.List;
 
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.entities.game.Room;
+import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
 
 /**
  * La classe GameToJson costituisce un'utility per la conversione delle informazioni di gioco in formato JSON.
  */
-public class GameToJson {
+public class GameToJson implements Serializable {
     private List<ColorClass> colors;
     private List<Room> rooms;
     private Room room;
@@ -24,7 +26,6 @@ public class GameToJson {
      * @param inventario la lista degli oggetti nell'inventario del giocatore
      */
     public GameToJson(List<ColorClass> colors, List<Room> rooms, Room room, List<Item> inventario) {
-        super();
         this.colors = colors;
         this.rooms = rooms;
         this.room = room;
@@ -32,10 +33,21 @@ public class GameToJson {
     }
 
     /**
+     * Costruisce un nuovo oggetto GameToJson partendo da un'istanza di gioco in corso.
+     *
+     * @param game L'istanza di gioco da convertire in GameToJson.
+     */
+    public GameToJson(final ColorsWithinYourSoulGame game) {
+        this.colors = game.getColors();
+        this.rooms = game.getRooms();
+        this.room = game.getCurrentRoom();
+        this.inventario = game.getInventory();
+    }
+
+    /**
      * Costruisce un nuovo oggetto GameToJson vuoto.
      */
-    public GameToJson() {
-    }
+    public GameToJson() {}
 
     /**
      * Restituisce la lista dei colori del gioco.

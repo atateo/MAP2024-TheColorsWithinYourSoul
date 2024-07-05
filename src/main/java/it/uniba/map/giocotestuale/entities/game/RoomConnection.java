@@ -1,5 +1,7 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import java.io.Serializable;
+
 /**
  * Classe che rappresenta il collegamento unilaterale da una stanza all'altra.
  * Nonostante non siano implementati collegamenti del genere nel nostro gioco The Colors Within Your Soul,
@@ -7,7 +9,7 @@ package it.uniba.map.giocotestuale.entities.game;
  * dei collegamenti che vadano bene da una stanza all'altra ma non viceversa, cioè a una via.
  * Nel nostro gioco, ogni RoomConnection è quindi specchiata tra le due stanze.
  */
-public class RoomConnection {
+public class RoomConnection implements Serializable  {
     /**
      * Stanza raggiungibile.
      */

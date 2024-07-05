@@ -2,13 +2,14 @@ package it.uniba.map.giocotestuale.entities.game;
 
 import it.uniba.map.giocotestuale.type.Command;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Classe che rappresenta le stanze di cui è composta la mappa di gioco.
  */
-public class Room extends GameObject {
+public class Room extends GameObject implements Serializable  {
     /**
      * Oggetto che rappresenta il collegamento verso nord della stanza.
      */

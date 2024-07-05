@@ -1,11 +1,12 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Classe astratta che rappresenta gli oggetti di gioco e i loro attributi.
  */
-public abstract class GameObject {
+public abstract class GameObject implements Serializable  {
     /**
      * ID dell'oggetto.
      */

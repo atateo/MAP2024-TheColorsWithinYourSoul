@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
+import it.uniba.map.giocotestuale.entities.game.GameObject;
 import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.entities.game.Room;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
@@ -220,10 +221,12 @@ public class BaseGameLogic {
 	}
 
 	/**
-	 * Metodo che restituisce tutte le interactions che compongono la logica di gioco.
+	 * Metodo che restituisce tutte le interactions che compongono la logica di gioco sulla base di ciò che è presente nel salvataggio.
+	 * @param objects La lista di items e colori disponibili.
+	 * @param rooms La lista di stanze disponibili.
 	 * @return ArrayList contenente tutte le interactions di gioco.
 	 */
-	public ArrayList<Interaction> getGameLogic() {
+	public ArrayList<Interaction> getGameLogic(ArrayList<GameObject> objects, ArrayList<Room> rooms) {
 		ArrayList<Interaction> gameLogic = new ArrayList<>();
 
 		//Sblocca il colore rosso

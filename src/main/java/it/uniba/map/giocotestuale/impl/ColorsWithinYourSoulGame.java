@@ -9,6 +9,7 @@ import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Mixer;
 import org.glassfish.grizzly.compression.lzma.impl.Base;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -100,7 +101,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Per comodità, si è deciso di scrivere la logica di gioco nell'apposita classe BaseGameLogic.
         BaseGameLogic logic = new BaseGameLogic();
 
-        super.getGameInteractions().addAll(logic.getGameLogic());
+        super.getGameInteractions().addAll(logic.getGameLogic(super.getAllObjects(), super.getRooms()));
     }
 
     /**
