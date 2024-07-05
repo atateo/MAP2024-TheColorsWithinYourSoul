@@ -1,6 +1,8 @@
 package it.uniba.map.giocotestuale.utility.jsonutil;
 
+import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
@@ -16,7 +18,8 @@ public class GameToJson implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	@Serial
+    private static final long serialVersionUID = 1L;
 	private GameTimer timer;
     private List<ColorClass> colors;
     private List<Room> rooms;
@@ -65,13 +68,25 @@ public class GameToJson implements Serializable {
     public ColorsWithinYourSoulGame convertFromJsonObject() {
         ColorsWithinYourSoulGame game = new ColorsWithinYourSoulGame();
 
+        if(this.inventario == null) {
+            this.inventario = new ArrayList<>();
+        }
+
+        if (this.room == null) {
+            this.room = this.rooms.getFirst();
+        }
+
+        if (this.timer == null) {
+            this.timer = new GameTimer();
+        }
+
         //Riempie l'inventario
         for (Item item : this.inventario) {
             game.addItemToInventory(item);
         }
 
         //Riempie le stanze e imposta la stanza corrente
-        for (Room stanza : rooms) {
+        for (Room stanza : this.rooms) {
             game.addRoom(stanza);
 
             if (this.room.getId() == stanza.getId()) {
@@ -80,7 +95,7 @@ public class GameToJson implements Serializable {
         }
 
         //Riempie i colori
-        for (ColorClass color : colors) {
+        for (ColorClass color : this.colors) {
             game.getColors().add(color);
         }
 

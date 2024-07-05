@@ -450,7 +450,7 @@ import java.util.TimerTask;
          };
 
          timer.scheduleAtFixedRate(updateTimerTask, 1000, 1000);
-     }
+    }
 
     /**
     * Metodo che definisce il comportamento del pulsante save quando viene cliccato.

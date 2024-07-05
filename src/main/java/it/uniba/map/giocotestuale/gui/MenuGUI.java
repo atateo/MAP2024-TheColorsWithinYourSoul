@@ -252,7 +252,7 @@ public class MenuGUI extends JPanel {
             progressBar.addPropertyChangeListener(evt1 -> {
                 if (evt1.getPropertyName().equals("isFinished")) {
                     cl.show(getParent(), "GameGUI");
-                    //GameGUI.UpdateTimerLabel();
+                    GameGUI.UpdateTimerLabel();
                     resetAudio();
                     Mixer.getInstance().changRoomMusic("AtticoCentrale");
                     Mixer.getInstance().startTrack();
