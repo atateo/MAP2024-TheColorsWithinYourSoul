@@ -120,7 +120,7 @@ public class Setup {
         		+ "(21,'Aggiustato', 'Orologio da taschino, che ora è funzionante. Ha una forma circolare.'),"
         		+ "(22,'Vuoto', 'Incavità a forma circolare sulla porta d''ingresso. Ha una forma circolare.'),"
         		+ "(22,'Pieno', 'Hai lasciato l''orologio nell''incavo e ora è pieno. Facendo così, la porta d''ingresso si è riaperta.'),"
-        		+ "(23,'PennelloViola', 'Sembra un normale pennello con la punta macchiata di viola.'),"
+        		+ "(23,'Neutro', 'Sembra un normale pennello con la punta macchiata di viola.'),"
         		+ "(24,'Ghiacciato', 'Vivaio situato al centro della stanza. Il centro è congelato.'),"
         		+ "(24,'SenzaTerra', 'Vivaio situato al centro della stanza. Il centro è vuoto, non c''è nemmeno la terra per far crescere le piante.'),"
         		+ "(24,'ConTerra', 'Vivaio situato al centro della stanza. Con la terra dentro è più carino, ma manca ancora qualcosa.'),"
