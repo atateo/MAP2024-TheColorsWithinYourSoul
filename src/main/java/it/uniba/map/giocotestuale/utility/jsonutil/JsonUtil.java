@@ -46,12 +46,12 @@ public class JsonUtil {
      * @param filePath il percorso del file da cui leggere il JSON
   	 * @return restituisce l'oggetto deserializzato
      */
-    public static ColorsWithinYourSoulGame readJsonFromFile(String filePath) {
+    public static GameToJson readJsonFromFile(String filePath) {
         Gson gson = new Gson();
-        ColorsWithinYourSoulGame game = null;
+        GameToJson game = null;
         // Legge il file JSON e deserializza l'oggetto
         try (FileReader fileReader = new FileReader(filePath)) {
-            game = gson.fromJson(fileReader, ColorsWithinYourSoulGame.class);
+            game = gson.fromJson(fileReader, GameToJson.class);
             logger.info("Deserializzazione oggetto avvenuta con successo!");
         } catch (IOException e) {
             logger.info("Eccezione in fase di deserializzazione: ", e);

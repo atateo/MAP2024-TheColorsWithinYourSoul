@@ -7,6 +7,7 @@ import it.uniba.map.giocotestuale.gui.HandlerGUI;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.Parser;
 import it.uniba.map.giocotestuale.type.ColorEnum;
+import it.uniba.map.giocotestuale.utility.jsonutil.GameToJson;
 import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 import java.awt.*;
@@ -75,22 +76,24 @@ public class GameToGUICommunication {
      * @param filename Nome del file da cui caricare la partita.
      */
     public void setGameEngineFromFile(String filename) {
-    	this.gameEngine = null;
+    	GameToJson game = null;
+    	//this.gameEngine = null;
         File file = new File(filename);
 
         if (file.exists()) {
         	
-        	this.gameEngine = JsonUtil.readJsonFromFile(filename);
+        	game = JsonUtil.readJsonFromFile(filename);
             if (this.gameEngine == null) {
                 BaseGameLogic backup = new BaseGameLogic();
                 backup.createJsonBackup();
-                this.gameEngine = JsonUtil.readJsonFromFile(filename);
+                game = JsonUtil.readJsonFromFile(filename);
             }
         } else {
             BaseGameLogic backup = new BaseGameLogic();
             backup.createJsonBackup();
-            this.gameEngine = JsonUtil.readJsonFromFile(filename);
+            game = JsonUtil.readJsonFromFile(filename);
         }        
+        this.gameEngine = game.convertFromJsonObject();
         this.parser = new Parser(this.gameEngine);
     }
 
@@ -122,12 +125,9 @@ public class GameToGUICommunication {
     		catch (IOException e) {
 				
 			}
-    		
-    		Date dataSalvataggio = new Date();
-        	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        	nomeFile += sdf.format(dataSalvataggio)+".dat";
     	}
-    	JsonUtil.writeJsonToFile(nomeFile, this.gameEngine);
+    	
+    	JsonUtil.writeJsonToFile(nomeFile, new GameToJson((ColorsWithinYourSoulGame)this.gameEngine));
     	return nomeFile;
     }
 
