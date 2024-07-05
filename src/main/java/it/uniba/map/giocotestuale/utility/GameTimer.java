@@ -1,9 +1,11 @@
 package it.uniba.map.giocotestuale.utility;
 
+import java.io.Serializable;
+
 /**
  * Classe che rappresenta il timer di gioco. Tutti i valori temporali sono in ms.
  */
-public class GameTimer {
+public class GameTimer implements Serializable {
     /**
      * Tempo di partenza del timer.
      */
@@ -41,6 +43,18 @@ public class GameTimer {
     public void start() {
         if (!isRunning) {
             startTime = System.currentTimeMillis();
+            isRunning = true;
+        }
+    }
+
+    /**
+     * Inizializza e fa partire il timer, usando il tempo di partenza passato come parametro.
+     * @param elapsedTime Tempo di partenza.
+     */
+    public void startAgain(long elapsedTime) {
+        if (!isRunning) {
+            startTime = System.currentTimeMillis();
+            this.elapsedTime = elapsedTime;
             isRunning = true;
         }
     }
