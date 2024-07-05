@@ -7,6 +7,7 @@ import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -457,13 +458,15 @@ import java.util.TimerTask;
     * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void SaveActionPerformed(ActionEvent evt) {
-        /*CardLayout cl = (CardLayout) getParent().getLayout();
-        cl.show(getParent(), "MenuGUI");*/
-        String nomeFile = GameToGUICommunication.getInstance().saveGame(null);
-        
-        GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: "+nomeFile);
-                
-        //displayTextPane.setText("");
+    	JFileChooser j = new JFileChooser("saves");
+   	 
+    	// Open the save dialog
+    	int r = j.showSaveDialog(null);
+    	if (r == JFileChooser.APPROVE_OPTION)
+    	{
+    		String nomeFile = GameToGUICommunication.getInstance().saveGame(j.getSelectedFile().getAbsolutePath());
+            GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: "+nomeFile);
+    	}
     }
     
     /**

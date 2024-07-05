@@ -12,6 +12,11 @@ import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
  * La classe GameToJson costituisce un'utility per la conversione delle informazioni di gioco in formato JSON.
  */
 public class GameToJson implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String timer;
     private List<ColorClass> colors;
     private List<Room> rooms;
     private Room room;
@@ -20,12 +25,14 @@ public class GameToJson implements Serializable {
     /**
      * Costruisce un nuovo oggetto GameToJson con i dettagli del gioco specificati.
      *
+     * @param timer		tempo di gioco
      * @param colors    la lista dei colori del gioco
      * @param rooms     la lista delle stanze nel gioco
      * @param room      la stanza corrente del giocatore
      * @param inventario la lista degli oggetti nell'inventario del giocatore
      */
-    public GameToJson(List<ColorClass> colors, List<Room> rooms, Room room, List<Item> inventario) {
+    public GameToJson(String timer, List<ColorClass> colors, List<Room> rooms, Room room, List<Item> inventario) {
+    	this.timer = timer;
         this.colors = colors;
         this.rooms = rooms;
         this.room = room;
@@ -38,6 +45,7 @@ public class GameToJson implements Serializable {
      * @param game L'istanza di gioco da convertire in GameToJson.
      */
     public GameToJson(final ColorsWithinYourSoulGame game) {
+    	this.timer = String.valueOf(game.getGameTimer().getElapsedTime());
         this.colors = game.getColors();
         this.rooms = game.getRooms();
         this.room = game.getCurrentRoom();
@@ -120,4 +128,23 @@ public class GameToJson implements Serializable {
     public void setInventario(List<Item> inventario) {
         this.inventario = inventario;
     }
+
+    /**
+     * Restituisce il tempo di gioco dell'utente.
+     *
+     * @return il tempo di gioco dell'utente.
+     */
+	public String getTimer() {
+		return timer;
+	}
+
+	/**
+     * Imposta il tempo di gioco dell'utente.
+     *
+     * @param timer il tempo di gioco dell'utente.
+     */
+	public void setTimer(String timer) {
+		this.timer = timer;
+	}
+    
 }
