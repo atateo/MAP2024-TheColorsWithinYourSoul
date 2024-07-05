@@ -74,23 +74,23 @@ public class GameToGUICommunication {
      * @param filename Nome del file da cui caricare la partita.
      */
     public void setGameEngineFromFile(String filename) {
-        this.gameEngine = null;
+    	this.gameEngine = null;
         File file = new File(filename);
 
         if (file.exists()) {
-            JsonUtil.readJsonFromFile(filename, this.gameEngine);
+        	
+        	this.gameEngine = JsonUtil.readJsonFromFile(filename);
             if (this.gameEngine == null) {
                 BaseGameLogic backup = new BaseGameLogic();
                 backup.createJsonBackup();
+                this.gameEngine = JsonUtil.readJsonFromFile(filename);
             }
         } else {
             BaseGameLogic backup = new BaseGameLogic();
             backup.createJsonBackup();
-        }
-
-        JsonUtil.readJsonFromFile(filename, this.gameEngine);
-
-        Parser parser = new Parser(this.gameEngine);
+            this.gameEngine = JsonUtil.readJsonFromFile(filename);
+        }        
+        this.parser = new Parser(this.gameEngine);
     }
 
     /**

@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
+import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
+
 /**
  * La classe JsonUtil fornisce metodi di utilità per la serializzazione e deserializzazione di oggetti in formato JSON.
  */
@@ -42,18 +44,19 @@ public class JsonUtil {
      * Legge un oggetto in formato JSON da un file specificato.
      *
      * @param filePath il percorso del file da cui leggere il JSON
-     * @param obj      l'oggetto in cui deserializzare i dati
+  	 * @return restituisce l'oggetto deserializzato
      */
-    public static void readJsonFromFile(String filePath, Object obj) {
+    public static ColorsWithinYourSoulGame readJsonFromFile(String filePath) {
         Gson gson = new Gson();
-
+        ColorsWithinYourSoulGame game = null;
         // Legge il file JSON e deserializza l'oggetto
         try (FileReader fileReader = new FileReader(filePath)) {
-            obj = gson.fromJson(fileReader, Object.class);
+            game = gson.fromJson(fileReader, ColorsWithinYourSoulGame.class);
             logger.info("Deserializzazione oggetto avvenuta con successo!");
         } catch (IOException e) {
             logger.info("Eccezione in fase di deserializzazione: ", e);
         }
+        return game;
     }
     
     /**
