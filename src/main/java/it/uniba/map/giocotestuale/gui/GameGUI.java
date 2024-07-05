@@ -475,9 +475,9 @@ import java.util.TimerTask;
      * @param evt rappresenta l'evento del click sul pulsante.
       */
      private void BackActionPerformed(ActionEvent evt) {
+         displayTextPane.setText("");
          CardLayout cl = (CardLayout) getParent().getLayout();
          cl.show(getParent(), "MenuGUI");
-         displayTextPane.setText("");
          resetAudio();
          Mixer.getInstance().changRoomMusic("Menu");
          Mixer.getInstance().startTrack();

@@ -134,8 +134,9 @@ public class GameToGUICommunication {
 				
 			}
     	}
-    	
+    	gameEngine.getGameTimer().stop();
     	JsonUtil.writeJsonToFile(nomeFile, new GameToJson((ColorsWithinYourSoulGame)this.gameEngine));
+        gameEngine.getGameTimer().startAgain(gameEngine.getGameTimer().getElapsedTime());
     	return nomeFile;
     }
 
