@@ -52,11 +52,9 @@ public class GameTimer implements Serializable {
      * @param elapsedTime Tempo di partenza.
      */
     public void startAgain(long elapsedTime) {
-        if (!isRunning) {
-            startTime = System.currentTimeMillis();
-            this.elapsedTime = elapsedTime;
-            isRunning = true;
-        }
+        startTime = System.currentTimeMillis();
+        this.elapsedTime = elapsedTime;
+        isRunning = true;
     }
 
     /**

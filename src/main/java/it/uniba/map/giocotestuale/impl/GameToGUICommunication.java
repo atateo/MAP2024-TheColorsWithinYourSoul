@@ -98,6 +98,14 @@ public class GameToGUICommunication {
     }
 
     /**
+     * Metodo che cancella l'istanza di gioco e il parser ad essa associata.
+     */
+    public void killGame() {
+        this.gameEngine = null;
+        this.parser = null;
+    }
+
+    /**
      * Metodo getter per l'istanza della GUI di gioco.
      * @return Istanza della GUI di gioco.
      */
@@ -159,11 +167,18 @@ public class GameToGUICommunication {
     }
 
     /**
-     * Metodo che notifica la GUI che la stanza corrente è cambiata e le fa aggiornare l'immagine.
-     * @param roomName Nome della stanza.
+     * Metodo che notifica la GUI che va aggiornata l'immagine della stanza corrente.
      */
-    public void updateGUIImage(final String roomName) {
-        GameGUI.setRoomImage(roomName);
+    public void updateGUIImage() {
+        GameGUI.setRoomImage(getCurrentGameRoom());
+    }
+
+    /**
+     * Metodo che restituisce il nome della stanza corrente del gioco.
+     * @return Stringa contenente il nome della stanza corrente.
+     */
+    public String getCurrentGameRoom() {
+        return gameEngine.getCurrentRoom().getName();
     }
 
     /**
@@ -197,6 +212,22 @@ public class GameToGUICommunication {
      */
     public String getTime() {
         return gameEngine.getGameTimer().getTimeFormatted();
+    }
+
+    /**
+     * Fa ripartire il tempo di gioco, passando il tempo passato dal salvataggio.
+     * @param elapsedTime Tempo trascorso dal timer prima di fermarsi.
+     */
+    public void restartTimer(long elapsedTime) {
+        gameEngine.getGameTimer().startAgain(elapsedTime);
+    }
+
+    /**
+     * Restituisce il tempo trascorso dal timer.
+     * @return Tempo trascorso dal timer prima di fermarsi.
+     */
+    public long getElapsedTime() {
+        return gameEngine.getGameTimer().getElapsedTime();
     }
 
     /**
