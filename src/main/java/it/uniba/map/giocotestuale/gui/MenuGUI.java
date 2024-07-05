@@ -213,15 +213,21 @@ public class MenuGUI extends JPanel {
         progressBar.addPropertyChangeListener(evt1 -> {
             if (evt1.getPropertyName().equals("isFinished")) {
                 cl.show(getParent(), "GameGUI");
-                //GameGUI.UpdateTimerLabel();
+
+                //Carica l'istanza di gioco
+                GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
+                GameToGUICommunication.getInstance().start();
+
+                //Imposta l'aggiornamento del timer
+                GameGUI.UpdateTimerLabel();
+
+                //Fa partire la musica di gioco
                 resetAudio();
                 Mixer.getInstance().changRoomMusic("AtticoCentrale");
                 Mixer.getInstance().startTrack();
             }
         });
         progressBar.startProgressBar();
-        GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
-        GameToGUICommunication.getInstance().start();
     }
 
 

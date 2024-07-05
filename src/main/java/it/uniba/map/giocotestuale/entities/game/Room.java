@@ -1,8 +1,12 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import it.uniba.map.giocotestuale.database.impl.RoomDaoImpl;
 import it.uniba.map.giocotestuale.type.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +14,10 @@ import java.util.List;
  * Classe che rappresenta le stanze di cui è composta la mappa di gioco.
  */
 public class Room extends GameObject implements Serializable  {
+    /**
+     * Istanza del logger.
+     */
+    private static final Logger logger = LogManager.getLogger(Room.class);
     /**
      * Oggetto che rappresenta il collegamento verso nord della stanza.
      */
@@ -170,7 +178,29 @@ public class Room extends GameObject implements Serializable  {
      */
     @Override
     public String getDescriptionFromDB() {
-        //Placeholder, sarà implementato insieme al DB
-        return null;
+        RoomDaoImpl roomDao = new RoomDaoImpl();
+
+        StringBuilder output = new StringBuilder();
+
+        try {
+            output.append(roomDao.getDescrizioneByIdRoomAndStato(super.getId(), super.getStatus()));
+
+            if (!getItemsInRoom().isEmpty()) {
+                output.append(" Ti saltano all'occhio alcuni oggetti:");
+
+                for (Item item: getItemsInRoom()) {
+                    output.append("\n");
+                    output.append("\uD83C\uDFA8 ➤ ");
+                    output.append(item.getName());
+                    output.append(": ");
+                    output.append(item.getDescriptionFromDB());
+                }
+            }
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            output.append("Strano, neanche io che sono il narratore riesco a descrivere questa stanza...");
+        }
+
+        return output.toString();
     }
 }

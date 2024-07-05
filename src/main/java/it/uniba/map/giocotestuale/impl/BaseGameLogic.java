@@ -26,10 +26,10 @@ public class BaseGameLogic {
 		ArrayList<Room> rooms = getAllBaseGameRooms();
 
 		//Collegamenti stanza centrale
-		rooms.get(0).setNorthRoomConnection(rooms.get(3), true);
-		rooms.get(3).setSouthRoomConnection(rooms.get(0), true);
+		rooms.get(0).setNorthRoomConnection(rooms.get(3), false);
+		rooms.get(3).setSouthRoomConnection(rooms.get(0), false);
 
-		rooms.get(0).setWestRoomConnection(rooms.get(1), true);
+		rooms.get(0).setWestRoomConnection(rooms.get(1), false);
 		rooms.get(1).setEastRoomConnection(rooms.get(0), false);
 
 		rooms.get(0).setEastRoomConnection(rooms.get(2), false);
@@ -39,21 +39,21 @@ public class BaseGameLogic {
 		rooms.get(1).setNorthRoomConnection(rooms.get(4), false);
 		rooms.get(4).setSouthRoomConnection(rooms.get(1), false);
 
-		rooms.get(1).setWestRoomConnection(rooms.get(5), true);
-		rooms.get(5).setEastRoomConnection(rooms.get(1), true);
+		rooms.get(1).setWestRoomConnection(rooms.get(5), false);
+		rooms.get(5).setEastRoomConnection(rooms.get(1), false);
 
-		rooms.get(1).setSouthRoomConnection(rooms.get(6), true);
-		rooms.get(6).setNorthRoomConnection(rooms.get(1), true);
+		rooms.get(1).setSouthRoomConnection(rooms.get(6), false);
+		rooms.get(6).setNorthRoomConnection(rooms.get(1), false);
 
 		//Collegamenti stanza colori secondari
-		rooms.get(2).setNorthRoomConnection(rooms.get(7), true);
-		rooms.get(7).setSouthRoomConnection(rooms.get(2), true);
+		rooms.get(2).setNorthRoomConnection(rooms.get(7), false);
+		rooms.get(7).setSouthRoomConnection(rooms.get(2), false);
 
-		rooms.get(2).setEastRoomConnection(rooms.get(8), true);
-		rooms.get(8).setWestRoomConnection(rooms.get(2), true);
+		rooms.get(2).setEastRoomConnection(rooms.get(8), false);
+		rooms.get(8).setWestRoomConnection(rooms.get(2), false);
 
-		rooms.get(2).setSouthRoomConnection(rooms.get(9), true);
-		rooms.get(9).setNorthRoomConnection(rooms.get(2), true);
+		rooms.get(2).setSouthRoomConnection(rooms.get(9), false);
+		rooms.get(9).setNorthRoomConnection(rooms.get(2), false);
 
 		//Colori
 		game.getColors().addAll(getAllBaseGameColors());
@@ -116,6 +116,9 @@ public class BaseGameLogic {
 
 		//Imposta la stanza iniziale
 		game.setCurrentRoom(rooms.get(0));
+
+		//Inizializza le interazioni di gioco
+		//game.defineGameInteractions();
 
 		JsonUtil.writeJsonToFile("src/main/resources/static/start.json", game);
 	}

@@ -439,13 +439,12 @@ import java.util.TimerTask;
     /**
      * Metodo che aggiorna il timer nella label
      */
-    public static void UpdateTimerLabel()
-     {
+    public static void UpdateTimerLabel() {
          Timer timer = new Timer();
          TimerTask updateTimerTask = new TimerTask(){
              @Override
              public void run() {
-                 //timerLabel.setText(GameToGUICommunication.getInstance().getTime());
+                 timerLabel.setText(GameToGUICommunication.getInstance().getTime());
              }
          };
 
@@ -477,7 +476,6 @@ import java.util.TimerTask;
          cl.show(getParent(), "MenuGUI");
          displayTextPane.setText("");
          resetAudio();
-
          Mixer.getInstance().changRoomMusic("Menu");
          Mixer.getInstance().startTrack();
      }

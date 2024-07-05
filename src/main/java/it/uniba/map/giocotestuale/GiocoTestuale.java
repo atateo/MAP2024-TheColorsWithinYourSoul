@@ -25,11 +25,11 @@ public class GiocoTestuale {
 			Setup.costruisciDatabase();
 		}
 
-		logger.debug("Connessione rilasciata");
-		DatabaseConnection.releaseConnection();
-
 		HandlerGUI handlerGUI = new HandlerGUI();
 		handlerGUI.setVisible(true);
 		GameToGUICommunication.getInstance().setHandlerGUI(handlerGUI);
+
+//		logger.debug("Connessione rilasciata");
+//		DatabaseConnection.releaseConnection();
 	}
 }

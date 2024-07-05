@@ -166,6 +166,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             //Se il primo oggetto è nullo, osserva la stanza
             if (output.getFirstObject() == null) {
                 GameToGUICommunication.getInstance().toGUI(getCurrentRoom().getDescriptionFromDB());
+                return;
             } else {
                 //Se l'oggetto è un item nella stanza, stampane la descrizione a video
                 if (getCurrentRoom().getItemsInRoom().contains(output.getFirstObject())) {

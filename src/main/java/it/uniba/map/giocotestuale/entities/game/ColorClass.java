@@ -1,14 +1,23 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import it.uniba.map.giocotestuale.database.impl.ColorDaoImpl;
 import it.uniba.map.giocotestuale.type.ColorEnum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  * Classe che rappresenta i possibili colori del gioco.
  */
 public class ColorClass extends GameObject implements Serializable {
+    /**
+     * Istanza del logger.
+     */
+    private static final Logger logger = LogManager.getLogger(Item.class);
     /**
      * Booleano che indica se il player ha sbloccato o meno questo colore.
      */
@@ -47,7 +56,13 @@ public class ColorClass extends GameObject implements Serializable {
      * @return Stringa contenente la descrizione del colore.
      */
     public String getDescriptionFromDB() {
-        //Placeholder
-        return null;
+        ColorDaoImpl colorDao = new ColorDaoImpl();
+
+        try {
+            return colorDao.getDescrizioneById(super.getId());
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            return "Strano, neanche io che sono il narratore riesco a descrivere questo colore...";
+        }
     }
 }

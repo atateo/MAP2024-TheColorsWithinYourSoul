@@ -1,6 +1,11 @@
 package it.uniba.map.giocotestuale.entities.game;
 
+import it.uniba.map.giocotestuale.database.impl.ItemDaoImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -8,6 +13,10 @@ import java.util.List;
  * e, nel caso specifico del gioco The Colors Within Your Soul, anche i colori.
  */
 public class Item extends GameObject implements Serializable  {
+    /**
+     * Istanza del logger.
+     */
+    private static final Logger logger = LogManager.getLogger(Item.class);
     /**
      * Booleano che indica se l'item può essere raccolto e messo nell'inventario.
      */
@@ -101,7 +110,13 @@ public class Item extends GameObject implements Serializable  {
      */
     @Override
     public String getDescriptionFromDB() {
-        //Placeholder, verrà implementata insieme al DB
-        return null;
+        ItemDaoImpl itemDao = new ItemDaoImpl();
+
+        try {
+            return itemDao.getDescrizioneByIdItemAndStato(super.getId(), super.getStatus());
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            return "Strano, neanche io che sono il narratore riesco a descrivere questo oggetto...";
+        }
     }
 }

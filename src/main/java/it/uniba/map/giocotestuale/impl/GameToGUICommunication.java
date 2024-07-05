@@ -159,6 +159,14 @@ public class GameToGUICommunication {
     }
 
     /**
+     * Metodo che notifica la GUI che la stanza corrente è cambiata e le fa aggiornare l'immagine.
+     * @param roomName Nome della stanza.
+     */
+    public void updateGUIImage(final String roomName) {
+        GameGUI.setRoomImage(roomName);
+    }
+
+    /**
      * Comunica alla GUI che il player ha sbloccato il colore passato come parametro.
      * @param toUnlock Colore da sbloccare.
      */
