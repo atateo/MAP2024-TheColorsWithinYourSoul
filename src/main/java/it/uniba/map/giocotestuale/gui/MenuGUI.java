@@ -228,6 +228,7 @@ public class MenuGUI extends JPanel {
         //Carica l'istanza di gioco
         GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
         GameToGUICommunication.getInstance().start();
+        GameGUI.setRoomImage(GameToGUICommunication.getInstance().getCurrentGameRoom());
 
         //Imposta l'aggiornamento del timer
         GameGUI.UpdateTimerLabel();
@@ -266,6 +267,7 @@ public class MenuGUI extends JPanel {
             //Carica il file di salvataggio scelto
             GameToGUICommunication.getInstance().setGameEngineFromFile(j.getSelectedFile().getAbsolutePath());
             GameToGUICommunication.getInstance().restartTimer(GameToGUICommunication.getInstance().getElapsedTime());
+            GameGUI.setRoomImage(GameToGUICommunication.getInstance().getCurrentGameRoom());
 
             //Imposta il timer
             GameGUI.UpdateTimerLabel();

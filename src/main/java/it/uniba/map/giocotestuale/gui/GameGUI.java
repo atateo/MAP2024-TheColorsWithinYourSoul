@@ -2,7 +2,6 @@ package it.uniba.map.giocotestuale.gui;
 
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.type.ColorEnum;
-import it.uniba.map.giocotestuale.utility.GameTimer;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
@@ -31,118 +30,118 @@ import java.util.TimerTask;
 /**
  * Classe che mostra la GUI del gioco.
  */
- public class GameGUI extends JPanel {
+public class GameGUI extends JPanel {
 
-     /**
-      *  Pulsante per tornare indietro al menu principale
-      */
-     private JButton back;
-     /**
-      * Pulsante per salvare il gioco
-      */
-     private JButton save;
-     /**
-      * Pulsante di aiuto, mostra la finestra dei comandi di gioco
-      */
-     private JButton help;
-     /**
-      * Pulsante per attivare o disattivare l'audio del gioco
-      */
-     private static JButton audio;
-     /**
-      * Label per posizionare il timer
-      */
+    /**
+     * Pulsante per tornare indietro al menu principale
+     */
+    private JButton back;
+    /**
+     * Pulsante per salvare il gioco
+     */
+    private JButton save;
+    /**
+     * Pulsante di aiuto, mostra la finestra dei comandi di gioco
+     */
+    private JButton help;
+    /**
+     * Pulsante per attivare o disattivare l'audio del gioco
+     */
+    private static JButton audio;
+    /**
+     * Label per posizionare il timer
+     */
     private static JLabel timerLabel;
 
-     /**
-      * Label per l'icona sinistra del timer
-      */
+    /**
+     * Label per l'icona sinistra del timer
+     */
     private JLabel timerImgLabel1;
 
-     /**
-      * Label per l'icona destra del timer
-      */
+    /**
+     * Label per l'icona destra del timer
+     */
     private JLabel timerImgLabel2;
-     /**
-      * Label che segna l'acquisizione del colore rosso
-      */
+    /**
+     * Label che segna l'acquisizione del colore rosso
+     */
     private JLabel redColorLabel;
-     /**
-      * Label che segna l'acquisizione del colore blu
-      */
+    /**
+     * Label che segna l'acquisizione del colore blu
+     */
     private JLabel blueColorLabel;
 
-     /**
-      * label che segna l'acquisizione del colore giallo
-      */
+    /**
+     * label che segna l'acquisizione del colore giallo
+     */
     private JLabel yellowColorLabel;
-     /**
-      * Label che segna l'acquisizione del colore verde
-      */
+    /**
+     * Label che segna l'acquisizione del colore verde
+     */
     private JLabel greenColorLabel;
 
-     /**
-      * Label che segna l'acquisizione del colore marrone
-      */
+    /**
+     * Label che segna l'acquisizione del colore marrone
+     */
     private JLabel brownColorLabel;
 
-     /**
-      * Label che segna l'acquisizione del colore viola
-      */
+    /**
+     * Label che segna l'acquisizione del colore viola
+     */
     private JLabel purpleColorLabel;
-     /**
-      * Label per l'inventario
-      */
+    /**
+     * Label per l'inventario
+     */
     private JLabel inventoryLabel;
 
-     /**
-      * Pannello che mostra l'immagine di gioco corrente
-      */
+    /**
+     * Pannello che mostra l'immagine di gioco corrente
+     */
     private static JPanel imagePanel;
 
-     /**
-      * TextPane che mostra il testo del gioco
-      */
+    /**
+     * TextPane che mostra il testo del gioco
+     */
     private static JTextPane displayTextPane;
-     /**
-      * ScrollPane per il testo del gioco
-      */
+    /**
+     * ScrollPane per il testo del gioco
+     */
     private JScrollPane scrollPaneDisplayText;
-     /**
-      * TextArea che mostra il testo dell'inventario
-      */
+    /**
+     * TextArea che mostra il testo dell'inventario
+     */
     private static JTextArea inventoryTextArea;
-     /**
-      *  ScrollPAne per l'inventario
-      */
+    /**
+     * ScrollPAne per l'inventario
+     */
     private JScrollPane scrollPaneInventoryText;
-     /**
-      * TextField che riceve in input i comandi dell'utente
-      */
+    /**
+     * TextField che riceve in input i comandi dell'utente
+     */
     private JTextField userInputField;
-     /**
-      * ToolBar che comprende il timer e i vari pulsanti
-      */
+    /**
+     * ToolBar che comprende il timer e i vari pulsanti
+     */
     private JToolBar toolBar;
-     /**
-      * CardLayout che consente di cambiare GUI
-      */
+    /**
+     * CardLayout che consente di cambiare GUI
+     */
     private static CardLayout cardLayout;
 
-     /**
-      * Immagine audio spento
-      */
+    /**
+     * Immagine audio spento
+     */
     final ImageIcon audio_off = new ImageIcon("src/main/resources/img/audio_off_game.png");
-     /**
-      * Immagine audio acceso
-      */
+    /**
+     * Immagine audio acceso
+     */
     final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon_game.png");
 
 
     /**
-    * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
-    * per settare i componenti a video e l'immagine di gioco corrente.
-    */
+     * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
+     * per settare i componenti a video e l'immagine di gioco corrente.
+     */
     public GameGUI() {
 
         UIManager.put("ScrollBar.width", 0);
@@ -153,16 +152,16 @@ import java.util.TimerTask;
     }
 
     /**
-    * Metodo che si occupa di configurare e posizionare tutte le componenti sullo schermo.
-    */
+     * Metodo che si occupa di configurare e posizionare tutte le componenti sullo schermo.
+     */
     private void initComponents() {
         // configurazione del pannello
         this.setVisible(true);
-        this.setSize(1000,700);
+        this.setSize(1000, 700);
 
         // configurazione del pannello per l'immagine
         imagePanel = new JPanel();
-        imagePanel.setSize(400,400);
+        imagePanel.setSize(400, 400);
         imagePanel.setBorder(BorderFactory.createLineBorder(new Color(168, 129, 50), 5));
 
         // configurazione della toolBar
@@ -201,13 +200,13 @@ import java.util.TimerTask;
         help.setFocusPainted(false);
         help.setBackground(new Color(166, 15, 15));
         help.setForeground(Color.BLACK);
-        help.setBorder(BorderFactory.createLineBorder(Color.BLACK , 3));
+        help.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         help.addActionListener(this::HelpActionPerformed);
         toolBar.add(help);
 
         // aggiunta del gap per il posizionamento
         toolBar.add(Box.createHorizontalStrut(20));
-        
+
         // configurazione del pulsante audio
         audio = new JButton(audio_on);
         audio.setFocusPainted(false);
@@ -279,8 +278,8 @@ import java.util.TimerTask;
 
         // aggiunta e posizionamento dell'icona borsaInventario 
         inventoryLabel = new JLabel(new ImageIcon("src/main/resources/img/borsaInventario.png"));
-        inventoryLabel.setSize(40,40);
-        inventoryLabel.setBounds((GroupLayout.PREFERRED_SIZE)+530,(GroupLayout.PREFERRED_SIZE)+10,40,40);
+        inventoryLabel.setSize(40, 40);
+        inventoryLabel.setBounds((GroupLayout.PREFERRED_SIZE) + 530, (GroupLayout.PREFERRED_SIZE) + 10, 40, 40);
 
         // configurazione dell'inventoryTextArea
         inventoryTextArea = new JTextArea();
@@ -290,14 +289,14 @@ import java.util.TimerTask;
         inventoryTextArea.setEnabled(false);
         inventoryTextArea.setFocusable(false);
         inventoryTextArea.setOpaque(false);
-        inventoryTextArea.setSize(440,440);
+        inventoryTextArea.setSize(440, 440);
         inventoryTextArea.setText("Inventario:");
         inventoryTextArea.setForeground(Color.BLACK);
         inventoryTextArea.add(inventoryLabel);
-        
+
         // configurazione dello scrollPaneInventoryText
         scrollPaneInventoryText = new JScrollPane();
-        scrollPaneInventoryText.setSize(440,400);
+        scrollPaneInventoryText.setSize(440, 400);
         scrollPaneInventoryText.setViewport(inventoryView);
         scrollPaneInventoryText.setViewportView(inventoryTextArea);
 
@@ -324,7 +323,7 @@ import java.util.TimerTask;
         scrollPaneDisplayText = new JScrollPane();
         scrollPaneDisplayText.setViewport(view);
         scrollPaneDisplayText.setViewportView(displayTextPane);
-        scrollPaneDisplayText.setSize(400,400);
+        scrollPaneDisplayText.setSize(400, 400);
         scrollPaneDisplayText.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneDisplayText.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPaneDisplayText.setBorder(BorderFactory.createLineBorder(new Color(168, 129, 50), 5));
@@ -332,14 +331,13 @@ import java.util.TimerTask;
         // configurazione dell'userInputField
         userInputField = new JTextField();
         userInputField.setOpaque(false);
-        userInputField.setSize(400,107);
+        userInputField.setSize(400, 107);
         userInputField.setBounds(0, 0, 400, 107);
         userInputField.setBorder(BorderFactory.createLineBorder(new Color(168, 129, 50), 5));
         userInputField.addActionListener(this::UserInputActionPerformed);
 
-       // aggiunta dello sfondo per l'user input
-        JPanel userInputFieldPanel = new JPanel()
-        {
+        // aggiunta dello sfondo per l'user input
+        JPanel userInputFieldPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -348,8 +346,8 @@ import java.util.TimerTask;
         };
         // configurazione dell'userInputFieldPanel
         userInputFieldPanel.setLayout(null);
-        userInputFieldPanel.setSize(400,107);
-        userInputFieldPanel.setBorder(BorderFactory.createLineBorder(new Color(168,129,50),7));
+        userInputFieldPanel.setSize(400, 107);
+        userInputFieldPanel.setBorder(BorderFactory.createLineBorder(new Color(168, 129, 50), 7));
         userInputFieldPanel.add(userInputField);
 
 
@@ -363,10 +361,10 @@ import java.util.TimerTask;
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(userInputFieldPanel, 400, 400, 400))
-                                        .addComponent(scrollPaneDisplayText,400,400,400))
+                                        .addComponent(scrollPaneDisplayText, 400, 400, 400))
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(scrollPaneInventoryText, 587, 587, 587)
-                                        .addComponent(imagePanel, 587, 587,587))
+                                        .addComponent(imagePanel, 587, 587, 587))
                                 .addGap(5, 5, 5))
         );
         layout.setVerticalGroup(
@@ -378,16 +376,16 @@ import java.util.TimerTask;
                                                 .addComponent(imagePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(scrollPaneInventoryText, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addComponent(scrollPaneDisplayText,510,510,510)
-                                                .addComponent(userInputFieldPanel,107,107,107)))
+                                                .addComponent(scrollPaneDisplayText, 510, 510, 510)
+                                                .addComponent(userInputFieldPanel, 107, 107, 107)))
                         )
         );
 
     }
 
     /**
-    * Metodo che si occupa di aggiungere le immagini al layout
-    */
+     * Metodo che si occupa di aggiungere le immagini al layout
+     */
     public void initCurrentImage() {
 
         cardLayout = new CardLayout();
@@ -399,42 +397,19 @@ import java.util.TimerTask;
         cardLayout.preferredLayoutSize(imagePanel);
 
         imagePanel.setLayout(cardLayout);
-
-        // immagine iniziale
-        imagePanel.add(new JPanel(null) {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon image = new ImageIcon("src/main/resources/img/placeholder_avvio_partita.jpg");
-                g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        }, "Placeholder");
-
-        addImage("AtticoCentrale","jpg");
-        addImage("SanzaColoriPrimari","jpg");
-        addImage("SanzaColoriSecondari","jpeg");
-        addImage("StanzaRosso","jpeg");
-        addImage("StanzaBlu","jpg");
-        addImage("StanzaGiallo","jpg");
-        addImage("StanzaVerde","jpg");
-        addImage("StanzaMarrone","jpg");
-        addImage("StanzaViola","jpg");
-        addImage("StanzaFinale","jpeg");
-
     }
 
     /**
      * Metodo che aggiunge un immagine all'imagePanel.
+     *
      * @param RoomName nome della stanza, usato per trovare il path della stessa.
-     * @param extension estensione del file.
      */
-    public static void addImage(String RoomName, String extension)
-    {
+    public static void addImage(String RoomName) {
         imagePanel.add(new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon image = new ImageIcon("src/main/resources/img/"+RoomName+"."+extension);
+                ImageIcon image = new ImageIcon("src/main/resources/img/" + RoomName + ".png");
                 g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         }, RoomName);
@@ -442,78 +417,87 @@ import java.util.TimerTask;
 
     /**
      * Metodo che cambia l'immagine di gioco
-     * @param RoomName nome della stanza che si vuole impostare
+     *
+     * @param roomName nome della stanza che si vuole impostare
      */
-    public static void setRoomImage(String RoomName)
-    {
-       cardLayout.show(imagePanel, RoomName);
-
+    public static void setRoomImage(String roomName) {
+        imagePanel.removeAll();
+        addImage(roomName);
+        cardLayout.show(imagePanel, roomName);
+        imagePanel.revalidate();
+        imagePanel.repaint();
     }
+
     /**
      * Metodo che aggiorna il timer nella label
      */
     public static void UpdateTimerLabel() {
-         Timer timer = new Timer();
-         TimerTask updateTimerTask = new TimerTask(){
-             @Override
-             public void run() {
-                 timerLabel.setText(GameToGUICommunication.getInstance().getTime());
-             }
-         };
+        Timer timer = new Timer();
+        TimerTask updateTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                timerLabel.setText(GameToGUICommunication.getInstance().getTime());
+            }
+        };
 
-         timer.scheduleAtFixedRate(updateTimerTask, 1000, 1000);
+        timer.scheduleAtFixedRate(updateTimerTask, 1000, 1000);
     }
 
     /**
-    * Metodo che definisce il comportamento del pulsante save quando viene cliccato.
-    * Apre la finesta per la selezione del file di salvataggio o la creazione di un nuovo file.
-    * @param evt rappresenta l'evento del click sul pulsante.
+     * Metodo che definisce il comportamento del pulsante save quando viene cliccato.
+     * Apre la finesta per la selezione del file di salvataggio o la creazione di un nuovo file.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void SaveActionPerformed(ActionEvent evt) {
-    	JFileChooser j = new JFileChooser("saves");
-   	 
-    	// Open the save dialog
-    	int r = j.showSaveDialog(null);
-    	if (r == JFileChooser.APPROVE_OPTION) {
-    		String nomeFile = GameToGUICommunication.getInstance().saveGame(j.getSelectedFile().getAbsolutePath());
-            GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: "  +nomeFile);
-    	}
+        JFileChooser j = new JFileChooser("saves");
+
+        // Open the save dialog
+        int r = j.showSaveDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            String nomeFile = GameToGUICommunication.getInstance().saveGame(j.getSelectedFile().getAbsolutePath());
+            GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: " + nomeFile);
+        }
     }
-    
+
     /**
      * Metodo che definisce il comportamento del pulsante back quando viene cliccato.
      * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
+     *
      * @param evt rappresenta l'evento del click sul pulsante.
-      */
-     private void BackActionPerformed(ActionEvent evt) {
-         displayTextPane.setText("");
-         CardLayout cl = (CardLayout) getParent().getLayout();
-         cl.show(getParent(), "MenuGUI");
-         resetAudio();
-         Mixer.getInstance().changRoomMusic("Menu");
-         Mixer.getInstance().startTrack();
+     */
+    private void BackActionPerformed(ActionEvent evt) {
+        displayTextPane.setText("");
+        CardLayout cl = (CardLayout) getParent().getLayout();
+        cl.show(getParent(), "MenuGUI");
+        resetAudio();
+        Mixer.getInstance().changRoomMusic("Menu");
+        Mixer.getInstance().startTrack();
 
-         //Resetta i colori sbloccati
-         redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
-         blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
-         yellowColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
-         greenColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
-         brownColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
-         purpleColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
-     }
+        //Resetta i colori sbloccati
+        redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        yellowColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        greenColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        brownColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+        purpleColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+    }
 
     /**
-    * Metodo che definisce il comportamento del pulsante help quando viene cliccato.
-    * Apre la finestra comandi chiamando il metodo getIstance di CommandsGUI.
-    * @param evt rappresenta l'evento del click sul pulsante.
-    */
+     * Metodo che definisce il comportamento del pulsante help quando viene cliccato.
+     * Apre la finestra comandi chiamando il metodo getIstance di CommandsGUI.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void HelpActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getIstance();
         help.setVisible(true);
     }
+
     /**
      * Metodo che definisce il comportamento del pulsante audio quando viene cliccato.
      * Attiva o disattiva l'audio di gioco.
+     *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void AudioActionPerformed(ActionEvent evt) {
@@ -529,16 +513,16 @@ import java.util.TimerTask;
 
     /**
      * Metodo che colora un quadro della toolbar quando l'utente sblocca un colore.
+     *
      * @param color colore da sbloccare nella barra dei colori.
      */
-    public void UnlockColor(ColorEnum color)
-    {
-        switch(color) {
+    public void UnlockColor(ColorEnum color) {
+        switch (color) {
             case ColorEnum.RED:
                 redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroRosso.png"));
                 break;
             case ColorEnum.BLUE:
-                 blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroBlu.png"));
+                blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroBlu.png"));
                 break;
             case ColorEnum.YELLOW:
                 yellowColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGiallo.png"));
@@ -557,9 +541,10 @@ import java.util.TimerTask;
     }
 
     /**
-    * Metodo che gestisce l'input dell'utente.
-    * @param evt rappresenta l'evento dell'input dell'utente.
-    */
+     * Metodo che gestisce l'input dell'utente.
+     *
+     * @param evt rappresenta l'evento dell'input dell'utente.
+     */
     private void UserInputActionPerformed(ActionEvent evt) {
         String text = userInputField.getText();
         userInputField.setText("");
@@ -568,6 +553,7 @@ import java.util.TimerTask;
 
     /**
      * Metodo utilizzato per scrivere sul panel di output displayTextPane.
+     *
      * @param text Stringa da scrivere sul panel.
      */
     public static void writeOnPanel(final String text) {
@@ -581,6 +567,7 @@ import java.util.TimerTask;
 
     /**
      * Metodo che ritorna la lunghezza in caratteri di displayTextPane.
+     *
      * @return Lunghezza in caratteri di displayTextPane.
      */
     public static int getTextPaneWidth() {
@@ -590,17 +577,18 @@ import java.util.TimerTask;
     /**
      * Metodo che ritorna l'oggetto FontMetrics legato al font di displayTextPane.
      * Questo oggetto contiene alcune caratteristiche utili al rendering del testo sul panel.
+     *
      * @return Istanza di FontMetrics di displayTextPane.
      */
     public static FontMetrics getTextPaneFontMetrics() {
         return displayTextPane.getFontMetrics(displayTextPane.getFont());
     }
-     /**
-      * Metodo che accende l'audio se era stato spento in precedenza,
-      * usato per ripristinare l'audio quando si cambia schermata
-      */
-    public void resetAudio()
-    {
+
+    /**
+     * Metodo che accende l'audio se era stato spento in precedenza,
+     * usato per ripristinare l'audio quando si cambia schermata
+     */
+    public void resetAudio() {
 
         if (audio.getIcon().toString().equals(audio_off.toString())) {
             audio.setIcon(audio_on);

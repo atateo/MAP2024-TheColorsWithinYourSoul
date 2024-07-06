@@ -179,6 +179,13 @@ public class GameToGUICommunication {
     }
 
     /**
+     * Metodo che notifica la GUI che il player si è spostato di stanza.
+     */
+    public void notifyRoomUpdateToGUI() {
+        GameGUI.setRoomImage(getCurrentGameRoom());
+    }
+
+    /**
      * Metodo che restituisce tutti i colori che il player ha sbloccato. Serve alla GUI al caricamento della partita.
      * @return Lista dei colori che il giocatore ha sbloccato.
      */
