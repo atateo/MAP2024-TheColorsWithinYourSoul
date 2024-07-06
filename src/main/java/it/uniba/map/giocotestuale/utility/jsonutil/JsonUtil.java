@@ -9,8 +9,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.google.gson.Gson;
 
-import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
-
 /**
  * La classe JsonUtil fornisce metodi di utilità per la serializzazione e deserializzazione di oggetti in formato JSON.
  */

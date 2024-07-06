@@ -1,6 +1,5 @@
 package it.uniba.map.giocotestuale.config;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
@@ -62,6 +61,11 @@ public class ApplicationProperties {
      * array degli id delle opere d'arte gestie dal servizo rest ArtSy.
      */
     private String[] idArtwork;
+    
+    /**
+     * path del file script contenente il setup del db.
+     */
+    private String pathSetupDb;
 
     /**
      * Ritorna l'attributo versione dell'applicazione.
@@ -224,6 +228,24 @@ public class ApplicationProperties {
 	public void setIdArtwork(String[] idArtwork) {
 		this.idArtwork = idArtwork;
 	}
+	
+	/**
+     * Ritorna l'attributo pathSetupDb.
+     * 
+     * @return il path dello script di generazione iniziale del database.
+     */
+	public String getPathSetupDb() {
+		return pathSetupDb;
+	}
+
+	/**
+     * Imposta l'attributo pathSetupDb.
+     * 
+     * @param pathSetupDb il path dello script di generazione iniziale del database.
+     */
+	public void setPathSetupDb(String pathSetupDb) {
+		this.pathSetupDb = pathSetupDb;
+	}
 
 	/**
      * Singleton instance di ApplicationProperties.
@@ -248,6 +270,7 @@ public class ApplicationProperties {
             setUrlEndpoint(appProps.getProperty("urlEndpoint"));
             setClientId(appProps.getProperty("clientId"));
             setSecret(appProps.getProperty("secret"));
+            setPathSetupDb(appProps.getProperty("pathSetupDb"));
             
             /*inserisco nell'array gli id delle opere d'arte mediante lambda function 
             che divide la proprietà letta dal file e usando il carattere ':' come delimitatore
