@@ -480,6 +480,14 @@ import java.util.TimerTask;
          resetAudio();
          Mixer.getInstance().changRoomMusic("Menu");
          Mixer.getInstance().startTrack();
+
+         //Resetta i colori sbloccati
+         redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+         blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+         yellowColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+         greenColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+         brownColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
+         purpleColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
      }
 
     /**

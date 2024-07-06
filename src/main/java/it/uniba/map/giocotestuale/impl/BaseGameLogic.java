@@ -5,6 +5,7 @@ import java.util.List;
 
 import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.entities.game.GameObject;
+import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.entities.game.Room;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
@@ -250,13 +251,15 @@ public class BaseGameLogic {
 	}
 
 	/**
-	 * Metodo che restituisce tutte le interactions che compongono la logica di gioco sulla base di ciò che è presente nel salvataggio.
+	 * Metodo che restituisce tutte le interactions che compongono la
+	 * logica di gioco sulla base di ciò che è presente nel salvataggio.
 	 * @param objects La lista di items, colori e stanze disponibili.
 	 * @return ArrayList contenente tutte le interactions di gioco.
 	 */
 	public ArrayList<Interaction> getGameLogic(ArrayList<GameObject> objects) {
 		ArrayList<Interaction> gameLogic = new ArrayList<>();
 
+		//Sblocca il colore rosso
 		if (getObjectByName("PennelloRosso", objects) != null) {
 			gameLogic.add(InteractionFactory.buildInteraction(
 					getObjectByName("PennelloRosso", objects), getObjectByName("Rosso", objects), "Neutro", "Neutro",
@@ -264,6 +267,9 @@ public class BaseGameLogic {
 						((ColorClass) gameObjects.get(1)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");
+
+						GameToGUICommunication.getInstance().toGUI("Puoi usare il comando Colora per tinteggiare alcuni " +
+								"oggetti ottenendo effetti particolari. Prova il rosso sulla torcia della priva stanza, poi.");
 
 						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
 					}
@@ -278,6 +284,9 @@ public class BaseGameLogic {
 						((ColorClass) gameObjects.get(1)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore blu!");
+
+						GameToGUICommunication.getInstance().toGUI("Alcuni oggetti interagiscono con più colori. " +
+								"Ad esempio, prova il blu sempre sulla torcia dopo averla accesa.");
 
 						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
 					}
@@ -321,6 +330,9 @@ public class BaseGameLogic {
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");
 
+						GameToGUICommunication.getInstance().toGUI("Con il comando Colora puoi tinteggiare alcuni " +
+								"oggetti per ottenere certi effetti. Prova il rosso sulla torcia della prima stanza, poi.");
+
 						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
 					}
 			));
@@ -339,6 +351,27 @@ public class BaseGameLogic {
 					}
 			));
 		}
+
+		//Accendi la torcia colorandola di rosso
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Torcia", objects), getObjectByName("Rosso", objects), Command.COLORA, "Spento", "Acceso",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandola di rosso, la torcia si accende.");
+					GameToGUICommunication.getInstance().toGUI(gameObjects.getFirst().getStatus());
+				}
+		));
+
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Torcia", objects), getObjectByName("Blu", objects), Command.COLORA,"Acceso", "Spento",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandola di blu, la torcia si spegne.");
+					GameToGUICommunication.getInstance().toGUI(gameObjects.getFirst().getStatus());
+				}
+		));
 		
 		return gameLogic;
 	}
