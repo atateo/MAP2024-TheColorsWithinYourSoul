@@ -1,6 +1,8 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
+import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JPanel;
@@ -267,6 +269,11 @@ public class MenuGUI extends JPanel {
 
             //Imposta il timer
             GameGUI.UpdateTimerLabel();
+
+            //Accende le immagini dei colori sbloccati
+            for (ColorEnum color : GameToGUICommunication.getInstance().getUnlockedColors()) {
+                HandlerGUI.getGameGUI().UnlockColor(color);
+            }
         }
     }
 

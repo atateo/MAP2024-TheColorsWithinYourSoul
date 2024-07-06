@@ -77,7 +77,6 @@ public class GameToGUICommunication {
      */
     public void setGameEngineFromFile(String filename) {
     	GameToJson game = null;
-    	//this.gameEngine = null;
         File file = new File(filename);
 
         if (file.exists()) {
@@ -94,6 +93,7 @@ public class GameToGUICommunication {
             game = JsonUtil.readJsonFromFile(filename);
         }        
         this.gameEngine = game.convertFromJsonObject();
+        this.gameEngine.defineGameInteractions();
         this.parser = new Parser(this.gameEngine);
     }
 
@@ -125,18 +125,20 @@ public class GameToGUICommunication {
      * Metodo che salverà su file l'istanza di gioco corrente.
      */
     public String saveGame(String nomeFile) {
-    	if(nomeFile == null || nomeFile.isEmpty()) {
+    	if (nomeFile == null || nomeFile.isEmpty()) {
     		try {
     			getDir();
-    			nomeFile = "saves"+File.separator;
+    			nomeFile = "saves" + File.separator;
     		}
     		catch (IOException e) {
 				
 			}
     	}
+
     	gameEngine.getGameTimer().stop();
-    	JsonUtil.writeJsonToFile(nomeFile, new GameToJson((ColorsWithinYourSoulGame)this.gameEngine));
+    	JsonUtil.writeJsonToFile(nomeFile, new GameToJson((ColorsWithinYourSoulGame) this.gameEngine));
         gameEngine.getGameTimer().startAgain(gameEngine.getGameTimer().getElapsedTime());
+
     	return nomeFile;
     }
 
@@ -180,6 +182,22 @@ public class GameToGUICommunication {
      */
     public String getCurrentGameRoom() {
         return gameEngine.getCurrentRoom().getName();
+    }
+
+    /**
+     * Metodo che restituisce tutti i colori che il player ha sbloccato. Serve alla GUI al caricamento della partita.
+     * @return Lista dei colori che il giocatore ha sbloccato.
+     */
+    public ArrayList<ColorEnum> getUnlockedColors() {
+        ArrayList<ColorEnum> colors = new ArrayList<>();
+
+        for (ColorClass color : gameEngine.getColors()) {
+            if (color.isUnlocked()) {
+                colors.add(getColorEnumFromColorClass(color));
+            }
+        }
+
+        return colors;
     }
 
     /**
