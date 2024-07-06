@@ -126,13 +126,7 @@ public class GameToGUICommunication {
      */
     public String saveGame(String nomeFile) {
     	if (nomeFile == null || nomeFile.isEmpty()) {
-    		try {
-    			getDir();
-    			nomeFile = "saves" + File.separator;
-    		}
-    		catch (IOException e) {
-				
-			}
+    		nomeFile = "saves" + File.separator;
     	}
 
     	gameEngine.getGameTimer().stop();
@@ -293,13 +287,5 @@ public class GameToGUICommunication {
         }
 
         return result.toString();
-    }
-    private void getDir() throws IOException{
-    	File saves = new File("saves");
-    	if(!saves.exists()) {
-    		boolean md = saves.mkdir();
-    		if(!md)throw new IOException();
-    	}
-    	
     }
 }
