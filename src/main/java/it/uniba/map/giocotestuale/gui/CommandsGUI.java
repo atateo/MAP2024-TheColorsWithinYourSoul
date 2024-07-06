@@ -58,7 +58,7 @@ public class CommandsGUI extends JFrame {
                 "<p><b>Usa</b> [<i>oggetto</i>]: Utilizza l'oggetto specificato</p><br>"+
                 "<p><b>Usa</b> [<i>oggetto1</i>] [<i>oggetto2</i>] : Utilizza l'oggetto 1 sull'oggetto 2</p><br>"+
                 "<p><b>Spingi</b> [<i>oggetto</i>] : Spingi l'oggetto selezionato</p><br>"+
-                "<p><b>Colora</b> [<i>oggetto</i>] : Colora l'oggetto selezionato</p><br>" +
+                "<p><b>Colora</b> [<i>oggetto</i>] [<i>colore</i>] : Colora l'oggetto selezionato del colore scelto, l'oggetto deve essere nell'inventario o nella stanza</p><br>" +
                 "</center>"+
                 "</html>"
         );
