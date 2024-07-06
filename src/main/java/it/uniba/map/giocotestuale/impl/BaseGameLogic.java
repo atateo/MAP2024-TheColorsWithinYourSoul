@@ -251,84 +251,94 @@ public class BaseGameLogic {
 
 	/**
 	 * Metodo che restituisce tutte le interactions che compongono la logica di gioco sulla base di ciò che è presente nel salvataggio.
-	 * @param objects La lista di items e colori disponibili.
-	 * @param rooms La lista di stanze disponibili.
+	 * @param objects La lista di items, colori e stanze disponibili.
 	 * @return ArrayList contenente tutte le interactions di gioco.
 	 */
-	public ArrayList<Interaction> getGameLogic(ArrayList<GameObject> objects, ArrayList<Room> rooms) {
+	public ArrayList<Interaction> getGameLogic(ArrayList<GameObject> objects) {
 		ArrayList<Interaction> gameLogic = new ArrayList<>();
 
-		//Sblocca il colore rosso
-		gameLogic.add(InteractionFactory.buildInteraction(
-				getItemByName("PennelloRosso"), getColorByName("Rosso"), "neutro", "neutro",
-				(gameObjects, targetStates, gameEngine) -> {
-					((ColorClass) gameObjects.get(1)).setUnlocked(true);
-					GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-							"però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");
+		if (getObjectByName("PennelloRosso", objects) != null) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("PennelloRosso", objects), getObjectByName("Rosso", objects), "Neutro", "Neutro",
+					(gameObjects, targetStates, gameEngine) -> {
+						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+								"però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");
 
-					GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-				}
-		));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+					}
+			));
+		}
 
 		//Sblocca il colore blu
-		gameLogic.add(InteractionFactory.buildInteraction(
-				getItemByName("PennelloBlu"), getColorByName("Blu"), "neutro", "neutro",
-				(gameObjects, targetStates, gameEngine) -> {
-					((ColorClass) gameObjects.get(1)).setUnlocked(true);
-					GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-							"però senti qualcosa di diverso in te... Hai sbloccato il colore blu!");
+		if (getObjectByName("PennelloBlu", objects) != null) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("PennelloBlu", objects), getObjectByName("Blu", objects), "Neutro", "Neutro",
+					(gameObjects, targetStates, gameEngine) -> {
+						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+								"però senti qualcosa di diverso in te... Hai sbloccato il colore blu!");
 
-					GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-				}
-		));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+					}
+			));
+		}
 
 		//Sblocca il colore giallo
-		gameLogic.add(InteractionFactory.buildInteraction(
-				getItemByName("PennelloGiallo"), getColorByName("Giallo"), "neutro", "neutro",
-				(gameObjects, targetStates, gameEngine) -> {
-					((ColorClass) gameObjects.get(1)).setUnlocked(true);
-					GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-							"però senti qualcosa di diverso in te... Hai sbloccato il colore giallo!");
+		if (getObjectByName("PennelloGiallo", objects) != null) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("PennelloGiallo", objects), getObjectByName("Giallo", objects), "Neutro", "Neutro",
+					(gameObjects, targetStates, gameEngine) -> {
+						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+								"però senti qualcosa di diverso in te... Hai sbloccato il colore giallo!");
 
-					GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-				}
-		));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+					}
+			));
+		}
 
 		//Sblocca il colore verde
-		gameLogic.add(InteractionFactory.buildInteraction(
-				getItemByName("PennelloVerde"), getColorByName("Verde"), "neutro", "neutro",
-				(gameObjects, targetStates, gameEngine) -> {
-					((ColorClass) gameObjects.get(1)).setUnlocked(true);
-					GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-							"però senti qualcosa di diverso in te... Hai sbloccato il colore verde!");
+		if ((getObjectByName("PennelloVerde", objects) != null)) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("PennelloVerde", objects), getObjectByName("Verde", objects), "Neutro", "Neutro",
+					(gameObjects, targetStates, gameEngine) -> {
+						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+								"però senti qualcosa di diverso in te... Hai sbloccato il colore verde!");
 
-					GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-				}
-		));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+					}
+			));
+		}
 
 		//Sblocca il colore marrone
-		gameLogic.add(InteractionFactory.buildInteraction(
-				getItemByName("PennelloMarrone"), getColorByName("Marrone"), "neutro", "neutro",
-				(gameObjects, targetStates, gameEngine) -> {
-					((ColorClass) gameObjects.get(1)).setUnlocked(true);
-					GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-							"però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");
+		if (getObjectByName("PennelloMarrone", objects) != null) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("PennelloMarrone", objects), getObjectByName("Marrone", objects), "Neutro", "Neutro",
+					(gameObjects, targetStates, gameEngine) -> {
+						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+								"però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");
 
-					GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-				}
-		));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+					}
+			));
+		}
 
 		//Sblocca il colore viola
-		gameLogic.add(InteractionFactory.buildInteraction(
-				getItemByName("PennelloViola"), getColorByName("Viola"), "neutro", "neutro",
-				(gameObjects, targetStates, gameEngine) -> {
-					((ColorClass) gameObjects.get(1)).setUnlocked(true);
-					GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-							"però senti qualcosa di diverso in te... Hai sbloccato il colore viola!");
+		if (getObjectByName("PennelloViola", objects) != null) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("PennelloViola", objects), getObjectByName("Viola", objects), "Neutro", "Neutro",
+					(gameObjects, targetStates, gameEngine) -> {
+						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
+								"però senti qualcosa di diverso in te... Hai sbloccato il colore viola!");
 
-					GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
-				}
-		));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+					}
+			));
+		}
 		
 		return gameLogic;
 	}
@@ -340,7 +350,7 @@ public class BaseGameLogic {
 	 */
 	public Item getItemByName(final String name) {
 		for (Item item : getAllBaseGameItems()) {
-			if (item.getName().equals(name)) {
+			if (item.getName().equalsIgnoreCase(name)) {
 				return item;
 			}
 		}
@@ -354,8 +364,22 @@ public class BaseGameLogic {
 	 */
 	public ColorClass getColorByName(final String name) {
 		for (ColorClass color : getAllBaseGameColors()) {
-			if (color.getName().equals(name)) {
+			if (color.getName().equalsIgnoreCase(name)) {
 				return color;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Data una stringa come parametro, questo metodo restituisce l'oggetto di gioco che ha quella stringa come nome.
+	 * @param name Nome da cercare.
+	 * @param availableObjects Lista degli oggetti di gioco in cui cercare.
+	 */
+	public GameObject getObjectByName(final String name, ArrayList<GameObject> availableObjects) {
+		for (GameObject gameObject : availableObjects) {
+			if (gameObject.getName().equalsIgnoreCase(name)) {
+				return gameObject;
 			}
 		}
 		return null;

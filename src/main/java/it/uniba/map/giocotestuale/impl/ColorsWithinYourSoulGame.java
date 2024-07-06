@@ -101,7 +101,11 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Per comodità, si è deciso di scrivere la logica di gioco nell'apposita classe BaseGameLogic.
         BaseGameLogic logic = new BaseGameLogic();
 
-        super.getGameInteractions().addAll(logic.getGameLogic(super.getAllObjects(), super.getRooms()));
+        ArrayList<GameObject> availableObjects = new ArrayList<>();
+        availableObjects.addAll(super.getAllObjects());
+        availableObjects.addAll(super.getRooms());
+
+        super.getGameInteractions().addAll(logic.getGameLogic(availableObjects));
     }
 
     /**

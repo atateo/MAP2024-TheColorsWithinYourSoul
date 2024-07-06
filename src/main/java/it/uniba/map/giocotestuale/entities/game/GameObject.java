@@ -115,6 +115,7 @@ public abstract class GameObject implements Serializable  {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof GameObject that)) return false;
+        if (this.getClass() != that.getClass()) return false;
         if (this == o) return true;
 
         return this.getId() == that.getId();
