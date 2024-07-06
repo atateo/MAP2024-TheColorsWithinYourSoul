@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Optional;
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,7 @@ import com.google.gson.JsonParser;
 
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 import it.uniba.map.giocotestuale.entities.artwork.Artwork;
+import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
 import it.uniba.map.giocotestuale.entities.artwork.Links;
 
 /**
@@ -44,8 +46,10 @@ public class ClientRest {
      *
      * @return l'opera d'arte come array di byte
      */
-    public static byte[] getArtwork() {
+    public static ArtworkResponse getArtwork() {
+    	ArtworkResponse artworkResponse = new ArtworkResponse();
         byte[] operaDArte = null;
+        String nameArtwork = null;
 
         // Predispone l'endPoint per l'api di autenticazione
         String url = appProps.getUrlEndpoint() + URL_TOKEN;
@@ -75,17 +79,37 @@ public class ClientRest {
                 Gson gson = new Gson();
                 Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
                 if (artwork != null) {
+                	
                     Links links = artwork.getLinks();
-                    if (links != null && links.getImage() != null && links.getImage().getHref() != null) {
-                        String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
-                        operaDArte = getImage(urlImmagine);
+                    if (links != null) {
+                    	if(links.getImage() != null && links.getImage().getHref() != null)
+                    	{
+	                        String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
+	                        operaDArte = getImage(urlImmagine);
+	                        nameArtwork = artwork.getTitle();
+	                        artworkResponse.setArtwork(operaDArte);
+	                        artworkResponse.setNameArtwork(nameArtwork);
+                    	}
+                    	if(links.getArtists() != null && links.getArtists().getHref() != null)
+                    	{
+                    		String urlArtista = links.getArtists().getHref();
+                    		String jsonArtista = executeGet(urlArtista, token);
+                    		if(jsonArtista!=null && !jsonArtista.isEmpty())
+                    		{
+                    			artworkResponse.setNameArtist(getNameArtist(jsonArtista));
+                    		}
+                    	}
+                    }
+                    else
+                    {
+                    	nameArtwork = "Opera d'arte non più disponibile";
                     }
                 }
             }
         }
 
         //ritorna l'opera d'arte
-        return operaDArte;
+        return artworkResponse;
     }
 
     /**
@@ -218,4 +242,28 @@ public class ClientRest {
         }
         return image;
     }
+    
+    /**
+     * Recupera il nome dell'artista dal json ottenuto dalla chiamata.
+     * 
+     * @param jsonString la stringa contenente i dati restituiti dall'api
+     * @return il nome dell'artista
+     */
+    private static String getNameArtist(String jsonString) {
+    	/*questo metodo usa volutamente la logica di recupero dell'attributo mediante espressione lambda,
+    	 * avendo già utilizzato negli altri metodi la logica di binding attuata tramite Gson
+    	 */
+    	
+        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+        
+        // Uso una lambda per recuperare il nome dell'artista dalla struttura del json fornito in input
+        Optional<String> name = Optional.ofNullable(jsonObject)
+            .map(obj -> obj.getAsJsonObject("_embedded"))
+            .map(embedded -> embedded.getAsJsonArray("artists"))
+            .flatMap(artists -> artists.size() > 0 ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+            .map(artist -> artist.get("name").getAsString());
+
+        // Ritorna il nome dell'artista o null se non riesce a recuperarlo
+        return name.orElse("Artista sconosciuto");
+    }    
 }
