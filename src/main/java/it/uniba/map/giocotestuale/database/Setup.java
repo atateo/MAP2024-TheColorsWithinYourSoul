@@ -158,9 +158,10 @@ public class Setup {
         }
         
         try {
+        	//provo a creare la directory in cui salvare i file di salvataggio
 			getDir();
 		} catch (IOException e) {
-			logger.info("Cartella saves non creata, i file saranno salvati nella dir principale: ",e.getMessage());
+			logger.error("Cartella saves non creata, i file saranno salvati nella dir principale: ",e);
 		}
     }
 
@@ -184,12 +185,15 @@ public class Setup {
         return successo;
     }
     
+    /**
+     * metodo che crea la directory "saves" dei salvataggi.
+     * 
+     */
     private static void getDir() throws IOException{
     	File saves = new File("saves");
     	if(!saves.exists()) {
     		boolean md = saves.mkdir();
     		if(!md)throw new IOException();
     	}
-    	
     }
 }

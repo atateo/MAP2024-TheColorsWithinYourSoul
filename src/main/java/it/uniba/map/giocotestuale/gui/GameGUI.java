@@ -454,7 +454,7 @@ import java.util.TimerTask;
 
     /**
     * Metodo che definisce il comportamento del pulsante save quando viene cliccato.
-    * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
+    * Apre la finesta per la selezione del file di salvataggio o la creazione di un nuovo file.
     * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void SaveActionPerformed(ActionEvent evt) {
