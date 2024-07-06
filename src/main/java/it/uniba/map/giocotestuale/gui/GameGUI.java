@@ -462,10 +462,9 @@ import java.util.TimerTask;
    	 
     	// Open the save dialog
     	int r = j.showSaveDialog(null);
-    	if (r == JFileChooser.APPROVE_OPTION)
-    	{
+    	if (r == JFileChooser.APPROVE_OPTION) {
     		String nomeFile = GameToGUICommunication.getInstance().saveGame(j.getSelectedFile().getAbsolutePath());
-            GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: "+nomeFile);
+            GameToGUICommunication.getInstance().toGUI("Salvataggio effettuato: "  +nomeFile);
     	}
     }
     

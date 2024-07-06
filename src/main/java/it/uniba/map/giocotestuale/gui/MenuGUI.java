@@ -215,13 +215,6 @@ public class MenuGUI extends JPanel {
             if (evt1.getPropertyName().equals("isFinished")) {
                 cl.show(getParent(), "GameGUI");
 
-                //Carica l'istanza di gioco
-                GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
-                GameToGUICommunication.getInstance().start();
-
-                //Imposta l'aggiornamento del timer
-                GameGUI.UpdateTimerLabel();
-
                 //Fa partire la musica di gioco
                 resetAudio();
                 Mixer.getInstance().changRoomMusic("AtticoCentrale");
@@ -229,6 +222,13 @@ public class MenuGUI extends JPanel {
             }
         });
         progressBar.startProgressBar();
+
+        //Carica l'istanza di gioco
+        GameToGUICommunication.getInstance().setGameEngineFromFile("src/main/resources/static/start.json");
+        GameToGUICommunication.getInstance().start();
+
+        //Imposta l'aggiornamento del timer
+        GameGUI.UpdateTimerLabel();
     }
 
 
@@ -253,13 +253,6 @@ public class MenuGUI extends JPanel {
                 if (evt1.getPropertyName().equals("isFinished")) {
                     cl.show(getParent(), "GameGUI");
 
-                    //Carica il file di salvataggio scelto
-                    GameToGUICommunication.getInstance().setGameEngineFromFile(j.getSelectedFile().getAbsolutePath());
-                    GameToGUICommunication.getInstance().restartTimer(GameToGUICommunication.getInstance().getElapsedTime());
-
-                    //Imposta il timer
-                    GameGUI.UpdateTimerLabel();
-
                     //Imposta la musica di gioco
                     resetAudio();
                     Mixer.getInstance().changRoomMusic(GameToGUICommunication.getInstance().getCurrentGameRoom());
@@ -267,6 +260,13 @@ public class MenuGUI extends JPanel {
                 }
             });
             progressBar.startProgressBar();
+
+            //Carica il file di salvataggio scelto
+            GameToGUICommunication.getInstance().setGameEngineFromFile(j.getSelectedFile().getAbsolutePath());
+            GameToGUICommunication.getInstance().restartTimer(GameToGUICommunication.getInstance().getElapsedTime());
+
+            //Imposta il timer
+            GameGUI.UpdateTimerLabel();
         }
     }
 
