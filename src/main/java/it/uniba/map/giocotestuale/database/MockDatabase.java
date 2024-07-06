@@ -3,19 +3,36 @@ package it.uniba.map.giocotestuale.database;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe mock di backup del database nel caso in cui la creazione mediante script fallisca.
+ */
 public class MockDatabase {
 		
+	/**
+	 * istruzioni da lanciare per creare il database
+	 */
 	private static List<String> istruzioni = new ArrayList<String>();
 	
+	/**
+	 * ritorna le istruzioni di creazione e popolamento del database
+	 * @return la lista di istruzioni di creazione e popolamento del database
+	 */
 	public static List<String> getIstruzioni() {
 		creaIstruzioni();
 		return istruzioni;
 	}
 
+	/**
+	 * imposta la lista istruzioni
+	 * @param istruzioni
+	 */
 	public static void setIstruzioni(List<String> istruzioni) {
 		MockDatabase.istruzioni = istruzioni;
 	}
 	
+	/**
+	 * metodo void che inserisce le singole istruzioni nella lista
+	 */
 	private static void creaIstruzioni() {
 		String dropRoom = "drop table room if exists";
 	    String dropItem = "drop table item if exists";
