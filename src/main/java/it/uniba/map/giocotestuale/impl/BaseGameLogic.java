@@ -27,10 +27,10 @@ public class BaseGameLogic {
 		ArrayList<Room> rooms = getAllBaseGameRooms();
 
 		//Collegamenti stanza centrale
-		rooms.get(0).setNorthRoomConnection(rooms.get(3), false);
+		rooms.get(0).setNorthRoomConnection(rooms.get(3), true);
 		rooms.get(3).setSouthRoomConnection(rooms.get(0), false);
 
-		rooms.get(0).setWestRoomConnection(rooms.get(1), false);
+		rooms.get(0).setWestRoomConnection(rooms.get(1), true);
 		rooms.get(1).setEastRoomConnection(rooms.get(0), false);
 
 		rooms.get(0).setEastRoomConnection(rooms.get(2), false);
@@ -38,23 +38,23 @@ public class BaseGameLogic {
 
 		//Collegamenti stanza colori primari
 		rooms.get(1).setNorthRoomConnection(rooms.get(4), false);
-		rooms.get(4).setSouthRoomConnection(rooms.get(1), false);
+		rooms.get(4).setSouthRoomConnection(rooms.get(1), true);
 
-		rooms.get(1).setWestRoomConnection(rooms.get(5), false);
-		rooms.get(5).setEastRoomConnection(rooms.get(1), false);
+		rooms.get(1).setWestRoomConnection(rooms.get(5), true);
+		rooms.get(5).setEastRoomConnection(rooms.get(1), true);
 
-		rooms.get(1).setSouthRoomConnection(rooms.get(6), false);
-		rooms.get(6).setNorthRoomConnection(rooms.get(1), false);
+		rooms.get(1).setSouthRoomConnection(rooms.get(6), true);
+		rooms.get(6).setNorthRoomConnection(rooms.get(1), true);
 
 		//Collegamenti stanza colori secondari
-		rooms.get(2).setNorthRoomConnection(rooms.get(7), false);
-		rooms.get(7).setSouthRoomConnection(rooms.get(2), false);
+		rooms.get(2).setNorthRoomConnection(rooms.get(7), true);
+		rooms.get(7).setSouthRoomConnection(rooms.get(2), true);
 
-		rooms.get(2).setEastRoomConnection(rooms.get(8), false);
-		rooms.get(8).setWestRoomConnection(rooms.get(2), false);
+		rooms.get(2).setEastRoomConnection(rooms.get(8), true);
+		rooms.get(8).setWestRoomConnection(rooms.get(2), true);
 
-		rooms.get(2).setSouthRoomConnection(rooms.get(9), false);
-		rooms.get(9).setNorthRoomConnection(rooms.get(2), false);
+		rooms.get(2).setSouthRoomConnection(rooms.get(9), true);
+		rooms.get(9).setNorthRoomConnection(rooms.get(2), true);
 
 		//Colori
 		game.getColors().addAll(getAllBaseGameColors());
@@ -176,7 +176,7 @@ public class BaseGameLogic {
 		Item interruttore = new Item(10, "Interruttore", List.of("Bottone"), "Acceso");
 		interruttore.initializeProperties(false, true, false);
 		Item bloccoDiFerro = new Item(11, "BloccoDiFerro", List.of("Lamina"), "NonSpostatoAcceso");
-		bloccoDiFerro.initializeProperties(false, false, true);
+		bloccoDiFerro.initializeProperties(false, false, false);
 		Item pennelloGiallo = new Item(12, "PennelloGiallo", List.of("YellowBrush"), "Neutro");
 		pennelloGiallo.initializeProperties(true, false, false);
 		Item liana = new Item(13, "Liana", List.of("Rampicante"), "NonCresciuto");
@@ -262,16 +262,16 @@ public class BaseGameLogic {
 		//Sblocca il colore rosso
 		if (getObjectByName("PennelloRosso", objects) != null) {
 			gameLogic.add(InteractionFactory.buildInteraction(
-					getObjectByName("PennelloRosso", objects), getObjectByName("Rosso", objects), "Neutro", "Neutro",
+					getObjectByName("PennelloRosso", objects), Command.PRENDI, "Neutro", "Neutro",
 					(gameObjects, targetStates, gameEngine) -> {
-						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						((ColorClass) getObjectByName("Rosso", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");
 
 						GameToGUICommunication.getInstance().toGUI("Puoi usare il comando Colora per tinteggiare alcuni " +
 								"oggetti ottenendo effetti particolari. Prova il rosso sulla torcia della priva stanza, poi.");
 
-						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Rosso", objects));
 					}
 			));
 		}
@@ -279,16 +279,16 @@ public class BaseGameLogic {
 		//Sblocca il colore blu
 		if (getObjectByName("PennelloBlu", objects) != null) {
 			gameLogic.add(InteractionFactory.buildInteraction(
-					getObjectByName("PennelloBlu", objects), getObjectByName("Blu", objects), "Neutro", "Neutro",
+					getObjectByName("PennelloBlu", objects), Command.PRENDI, "Neutro", "Neutro",
 					(gameObjects, targetStates, gameEngine) -> {
-						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						((ColorClass) getObjectByName("Blu", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore blu!");
 
 						GameToGUICommunication.getInstance().toGUI("Alcuni oggetti interagiscono con più colori. " +
 								"Ad esempio, prova il blu sempre sulla torcia dopo averla accesa.");
 
-						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Blu", objects));
 					}
 			));
 		}
@@ -296,13 +296,13 @@ public class BaseGameLogic {
 		//Sblocca il colore giallo
 		if (getObjectByName("PennelloGiallo", objects) != null) {
 			gameLogic.add(InteractionFactory.buildInteraction(
-					getObjectByName("PennelloGiallo", objects), getObjectByName("Giallo", objects), "Neutro", "Neutro",
+					getObjectByName("PennelloGiallo", objects), Command.PRENDI, "Neutro", "Neutro",
 					(gameObjects, targetStates, gameEngine) -> {
-						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						((ColorClass) getObjectByName("Giallo", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore giallo!");
 
-						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Giallo", objects));
 					}
 			));
 		}
@@ -310,13 +310,13 @@ public class BaseGameLogic {
 		//Sblocca il colore verde
 		if ((getObjectByName("PennelloVerde", objects) != null)) {
 			gameLogic.add(InteractionFactory.buildInteraction(
-					getObjectByName("PennelloVerde", objects), getObjectByName("Verde", objects), "Neutro", "Neutro",
+					getObjectByName("PennelloVerde", objects), Command.PRENDI, "Neutro", "Neutro",
 					(gameObjects, targetStates, gameEngine) -> {
-						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						((ColorClass) getObjectByName("Verde", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore verde!");
 
-						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Verde", objects));
 					}
 			));
 		}
@@ -324,16 +324,16 @@ public class BaseGameLogic {
 		//Sblocca il colore marrone
 		if (getObjectByName("PennelloMarrone", objects) != null) {
 			gameLogic.add(InteractionFactory.buildInteraction(
-					getObjectByName("PennelloMarrone", objects), getObjectByName("Marrone", objects), "Neutro", "Neutro",
+					getObjectByName("PennelloMarrone", objects), Command.PRENDI, "Neutro", "Neutro",
 					(gameObjects, targetStates, gameEngine) -> {
-						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						((ColorClass) getObjectByName("Marrone", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");
 
 						GameToGUICommunication.getInstance().toGUI("Con il comando Colora puoi tinteggiare alcuni " +
 								"oggetti per ottenere certi effetti. Prova il rosso sulla torcia della prima stanza, poi.");
 
-						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Marrone", objects));
 					}
 			));
 		}
@@ -341,13 +341,13 @@ public class BaseGameLogic {
 		//Sblocca il colore viola
 		if (getObjectByName("PennelloViola", objects) != null) {
 			gameLogic.add(InteractionFactory.buildInteraction(
-					getObjectByName("PennelloViola", objects), getObjectByName("Viola", objects), "Neutro", "Neutro",
+					getObjectByName("PennelloViola", objects), Command.PRENDI, "Neutro", "Neutro",
 					(gameObjects, targetStates, gameEngine) -> {
-						((ColorClass) gameObjects.get(1)).setUnlocked(true);
+						((ColorClass) getObjectByName("Viola", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore viola!");
 
-						GameToGUICommunication.getInstance().unlockColor((ColorClass) gameObjects.get(1));
+						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Viola", objects));
 					}
 			));
 		}
@@ -359,17 +359,191 @@ public class BaseGameLogic {
 					gameObjects.getFirst().setStatus(targetStates.get(1));
 
 					GameToGUICommunication.getInstance().toGUI("Colorandola di rosso, la torcia si accende.");
-					GameToGUICommunication.getInstance().toGUI(gameObjects.getFirst().getStatus());
 				}
 		));
 
+		//Spegni la torcia colorandola di blu
 		gameLogic.add(InteractionFactory.buildInteraction(
 				getObjectByName("Torcia", objects), getObjectByName("Blu", objects), Command.COLORA,"Acceso", "Spento",
 				(gameObjects, targetStates, gameEngine) -> {
 					gameObjects.getFirst().setStatus(targetStates.get(1));
 
 					GameToGUICommunication.getInstance().toGUI("Colorandola di blu, la torcia si spegne.");
-					GameToGUICommunication.getInstance().toGUI(gameObjects.getFirst().getStatus());
+				}
+		));
+
+		//Spingi le macerie per liberare il passaggio nell'attico
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Macerie", objects), Command.SPINGI, "NonSpostato", "Spostato",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					gameEngine.getRoomByName("AtticoCentrale").getRoomConnection(Command.OVEST).unlock();
+
+					GameToGUICommunication.getInstance().toGUI("Sposti le macerie, sbloccando la porta a sinistra.");
+				}
+		));
+
+		//Accendi il primo camino
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("CaminoDestro", objects), getObjectByName("Rosso", objects), Command.COLORA, "Spento", "Acceso",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					GameToGUICommunication.getInstance().toGUI("Si accende il fuoco nel camino di destra.");
+
+					if (gameEngine.getItemByName("CaminoSinistro").getStatus().equals("Acceso")) {
+						gameEngine.getRoomByName("StanzaRosso").getRoomConnection(Command.SUD).unlock();
+						gameEngine.getRoomByName("StanzaColoriPrimari").getRoomConnection(Command.OVEST).unlock();
+						GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza blu.");
+					}
+				}
+		));
+
+		//Metti i legnetti nel secondo camino
+		if (getObjectByName("Legnetti", objects) != null) {
+			gameLogic.add(InteractionFactory.buildInteraction(
+					getObjectByName("Legnetti", objects), getObjectByName("CaminoSinistro", objects), Command.USA, "Neutro", "Spento",
+					(gameObjects, targetStates, gameEngine) -> {
+						if (gameObjects.get(1).getStatus().equals("SenzaLegna")) {
+							gameObjects.get(1).setStatus(targetStates.get(1));
+							GameToGUICommunication.getInstance().toGUI("Hai messo i legnetti nel camino di sinistra.");
+						} else {
+							GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+						}
+					}
+			));
+		}
+
+		//Accendi il secondo camino
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("CaminoSinistro", objects), getObjectByName("Rosso", objects), Command.COLORA, "Spento", "Acceso",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					GameToGUICommunication.getInstance().toGUI("Si accende il fuoco nel camino di sinistra.");
+
+					if (gameEngine.getItemByName("CaminoDestro").getStatus().equals("Acceso")) {
+						gameEngine.getRoomByName("StanzaRosso").getRoomConnection(Command.SUD).unlock();
+						gameEngine.getRoomByName("StanzaColoriPrimari").getRoomConnection(Command.OVEST).unlock();
+						GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza blu.");
+					}
+				}
+		));
+
+		//Colorare l'alberello di blu lo fa crescere
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Albero", objects), getObjectByName("Blu", objects), Command.COLORA, "NonCresciuto", "Cresciuto",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					GameToGUICommunication.getInstance().toGUI("Dipingendolo di blu, hai annaffiato " +
+							"l'albero e ora è cresciuto.");
+				}
+		));
+
+		//Colorare la statua di blu la fa attivare
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("StatuaDrago", objects), getObjectByName("Blu", objects), Command.COLORA, "SenzaAcqua", "ConAcqua",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					GameToGUICommunication.getInstance().toGUI("Dipingendola di blu, hai attivato la statua. " +
+							"Da essa inizia a sgorgare dell'acqua che riempie il fossato.");
+				}
+		));
+
+		//Tagliare l'albero con l'ascia
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Ascia", objects), getObjectByName("Albero", objects), Command.USA, "Neutro", "Tagliato",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (getObjectByName("Albero", objects).getStatus().equals("Cresciuto")) {
+						((Item) gameObjects.get(1)).setMovable(true);
+						gameObjects.get(1).setStatus(targetStates.get(1));
+						GameToGUICommunication.getInstance().toGUI("Hai abbattuto l'albero con l'ascia. " +
+								"Forse ora puoi spingerlo?");
+					}
+				}
+		));
+
+		//Spingi l'albero in acqua per attivare l'interruttore
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Albero", objects), Command.SPINGI, "Tagliato", "Spinto",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (gameEngine.getItemByName("StatuaDrago").getStatus().equals("ConAcqua")) {
+						gameObjects.getFirst().setStatus(targetStates.get(1));
+						gameEngine.getRoomByName("StanzaBlu").getRoomConnection(Command.EST).unlock();
+						gameEngine.getRoomByName("StanzaColoriPrimari").getRoomConnection(Command.SUD).unlock();
+						GameToGUICommunication.getInstance().toGUI("Spingi l'albero nel fossato e la corrente lo spinge sull'interruttore.");
+						GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza gialla.");
+					} else {
+						GameToGUICommunication.getInstance().toGUI("Forse devi fare qualcos'altro prima di spingerlo.");
+					}
+				}
+		));
+
+		//Spegni l'interruttore
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Interruttore", objects), getObjectByName("Giallo", objects), Command.COLORA, "Acceso", "Spento",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandolo di giallo da acceso, l'interruttore si spegne.");
+				}
+		));
+
+		//Spegnere l'interruttore toglie la corrente al blocco
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Interruttore", objects), getObjectByName("BloccoDiFerro", objects), "Spento", "Spento",
+				(gameObjects, targetStates, gameEngine) -> {
+					GameToGUICommunication.getInstance().toGUI("Spegnendo l'interruttore, hai tolto la corrente " +
+							"al blocco di ferro.");
+
+					if (gameObjects.get(1).getStatus().contains("NonSpostato")) {
+						gameObjects.get(1).setStatus("NonSpostato" + targetStates.get(1));
+					} else {
+						gameObjects.get(1).setStatus("Spostato" + targetStates.get(1));
+					}
+
+					((Item) gameObjects.get(1)).setMovable(true);
+				}
+		));
+
+		//Accendi l'interruttore
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Interruttore", objects), getObjectByName("Giallo", objects), Command.COLORA, "Spento", "Acceso",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandolo di giallo da spento, l'interruttore si accende.");
+				}
+		));
+
+		//Accendere l'interruttore dà la corrente al blocco
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Interruttore", objects), getObjectByName("BloccoDiFerro", objects), "Acceso", "Acceso",
+				(gameObjects, targetStates, gameEngine) -> {
+					GameToGUICommunication.getInstance().toGUI("Accendendo l'interruttore, hai ridato la corrente " +
+							"al blocco di ferro.");
+
+					if (gameObjects.get(1).getStatus().contains("NonSpostato")) {
+						gameObjects.get(1).setStatus("NonSpostato" + targetStates.get(1));
+					} else {
+						gameObjects.get(1).setStatus("Spostato" + targetStates.get(1));
+						GameToGUICommunication.getInstance().toGUI("Si attiva un circuito vicino alla porta. " +
+								"Si sblocca la porta d'ingresso. È il momento di cercare i colori secondari.");
+
+						gameEngine.getRoomByName("StanzaGiallo").getRoomConnection(Command.NORD).unlock();
+						gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.NORD).unlock();
+					}
+
+					((Item) gameObjects.get(1)).setMovable(false);
+				}
+		));
+
+		//Spingere il blocco
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("BloccoDiFerro", objects), Command.SPINGI, "NonSpostatoSpento", "SpostatoSpento",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Hai spostato il blocco. Ora si collega al " +
+							"resto del circuito");
 				}
 		));
 		

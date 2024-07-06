@@ -171,22 +171,6 @@ public abstract class GameEngine {
     }
 
     /**
-     * Dato un ID passato come parametro, restituisce l'item con quell'ID.
-     * @param searchedId ID da cercare.
-     * @return Oggetto con l'ID cercato. Se non esiste, restituisce null.
-     */
-    public Item getItemById(final int searchedId) {
-        for (Room room : rooms) {
-            for (Item item : room.getItemsInRoom()) {
-                if (item.getId() == searchedId) {
-                    return item;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
      * Dato un nome passato come parametro, restituisce l'item con quel nome.
      * @param searchedName Nome da cercare.
      * @return Oggetto con il nome cercato. Se non esiste, restituisce null.
@@ -211,6 +195,20 @@ public abstract class GameEngine {
         for (ColorClass color: colors) {
             if (color.getName().equalsIgnoreCase(searchedName)) {
                 return color;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Dato un nome passato come parametro, restituisce la stanza con quel nome.
+     * @param searchedName Nome da cercare.
+     * @return Stanza con il nome cercato. Se non esiste, restituisce null.
+     */
+    public Room getRoomByName(final String searchedName) {
+        for (Room room : rooms) {
+            if (room.getName().equalsIgnoreCase(searchedName)) {
+                return room;
             }
         }
         return null;
