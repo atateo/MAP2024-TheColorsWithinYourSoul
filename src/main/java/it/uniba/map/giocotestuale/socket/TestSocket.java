@@ -15,7 +15,7 @@ public class TestSocket {
 			Score score = new Score();
 			score.setPlayer("readiPlayerOne");
 			long time = System.currentTimeMillis();
-			score.setTime(timeFormatted(time));
+			score.setTime(time);
 			client.sendScore(score);
 			client.stopConnection();
 			

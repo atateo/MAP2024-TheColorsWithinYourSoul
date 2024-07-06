@@ -1,13 +1,22 @@
 package it.uniba.map.giocotestuale.impl;
 
+import it.uniba.map.giocotestuale.database.domain.Score;
+import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
 import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
+import it.uniba.map.giocotestuale.rest.ClientRest;
+import it.uniba.map.giocotestuale.socket.GameClient;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Mixer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.glassfish.grizzly.compression.lzma.impl.Base;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,7 +30,7 @@ import java.util.Set;
  * @author Angelo Vincenti
  */
 public class ColorsWithinYourSoulGame extends GameEngine {
-
+    
     /**
      * Costruttore di classe. Non ha parametri. Richiama il costruttore della superclasse per
      * l'inizializzazione e successivamente crea la logica di gioco con defineGameInteraction.
@@ -29,6 +38,10 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     public ColorsWithinYourSoulGame() {
         super();
     }
+    /**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
 
     /**
      * Metodo che si occuperà di gestire l'intro del gioco. Definizione del metodo di GameEngine.
@@ -348,6 +361,32 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void goodbyePlayer() {
-        //Scrivere qui il codice che gestirà la fine del gioco
+    	//restituisco l'oggetto che mostra a video autore, titolo e opera d'arte ottenute come premio
+    	ArtworkResponse artworkResponse = ClientRest.getArtwork();
+    	
+    	//effettuo la chiamata "post" per inviare il tempo al server che gestisce il punteggio
+    	GameClient client = new GameClient();
+		//String response = null; 
+	    try {
+	    	//aggiungere properties url e porta socket
+	    	client.startConnection("localhost", 3999);
+			Score score = new Score();
+			score.setPlayer("readiPlayerOne");
+			long time = System.currentTimeMillis();
+			score.setTime(time);
+			client.sendScore(score);
+			/*client.stopConnection();
+			
+			client.startConnection("localhost", 3999);*/
+			client.getScores();
+			/*client.stopConnection();
+			
+			client.startConnection("localhost", 3999);*/
+			client.end();
+			client.stopConnection();
+	    } catch (IOException e) {
+			logger.error("Eccezione di comunicazione con il server dei punteggi",e);
+		}
     }
+	    
 }

@@ -88,8 +88,8 @@ public class Score implements Serializable{
      * Imposta il tempo impiegato da un player.
      * @param time tempo impiegato da un player.
      */
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(long time) {
+        this.time = timeFormatted(time);
     }
 
     /**
@@ -103,5 +103,16 @@ public class Score implements Serializable{
             ", player=" + getPlayer() +
             ", tempo='" + getTime() + "'" +
             "}";
+    }
+    
+    /**
+     * Metodo che restituisce il tempo formattato (hh:mm:ss)
+     * @return record
+     */
+    public static String timeFormatted(long timeTaken) {
+        long second = (timeTaken / 1000) % 60;
+        long minute = (timeTaken / (1000 * 60)) % 60;
+        long hour = (timeTaken / (1000 * 60 * 60)) % 24;
+        return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 }

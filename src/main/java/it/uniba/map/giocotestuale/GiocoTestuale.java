@@ -3,6 +3,10 @@ package it.uniba.map.giocotestuale;
 import it.uniba.map.giocotestuale.gui.*;
 import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
+import it.uniba.map.giocotestuale.socket.GameServer;
+
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +33,12 @@ public class GiocoTestuale {
 		handlerGUI.setVisible(true);
 		GameToGUICommunication.getInstance().setHandlerGUI(handlerGUI);
 
+		GameServer server = new GameServer(3999);
+        try {
+            server.start();
+        } catch (IOException | ClassNotFoundException e) {
+            logger.error("Errore durante la creazione del server: ", e);
+        }
 //		logger.debug("Connessione rilasciata");
 //		DatabaseConnection.releaseConnection();
 	}

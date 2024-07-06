@@ -101,7 +101,7 @@ public class GameClient {
             logger.error("Eccezione nel metodo stopConnection(): ", e);
         }
     }
-
+    
     /**
      * Converte il tempo in formato stringa (hh:mm:ss) in secondi.
      *

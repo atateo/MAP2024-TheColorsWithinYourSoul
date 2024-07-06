@@ -70,7 +70,7 @@ public class ScoreDaoImpl implements ScoreDao {
         	score = new Score();
         	score.setId(rs.getInt("id"));
         	score.setPlayer(rs.getString("player"));
-        	score.setTime(rs.getString("time"));
+        	score.setTime(fromatTimeFromStringToInt(rs.getString("time")));
         }
         return score;
     }
@@ -89,7 +89,7 @@ public class ScoreDaoImpl implements ScoreDao {
         	Score score = new Score();
         	score.setId(rs.getInt("id"));
         	score.setPlayer(rs.getString("player"));
-        	score.setTime(rs.getString("time"));
+        	score.setTime(fromatTimeFromStringToInt(rs.getString("time")));
             ls.add(score);
         }
         return ls;
@@ -106,5 +106,19 @@ public class ScoreDaoImpl implements ScoreDao {
         ps.setString(2, score.getTime());
         ps.setInt(3, score.getId());
         ps.executeUpdate();
+    }
+    
+    /**
+     * Converte il tempo in formato stringa (hh:mm:ss) in secondi.
+     *
+     * @param time il tempo in formato stringa
+     * @return il tempo in secondi
+     */
+    private static int fromatTimeFromStringToInt(String time) {
+        String[] tokenized = time.split(":");
+        int hh = Integer.parseInt(tokenized[0]);
+        int mm = Integer.parseInt(tokenized[1]);
+        int ss = Integer.parseInt(tokenized[2]);
+        return (hh * 3600) + (mm * 60) + ss;
     }
 }
