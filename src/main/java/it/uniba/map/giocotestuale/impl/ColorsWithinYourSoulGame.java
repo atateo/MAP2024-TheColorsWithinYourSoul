@@ -2,6 +2,7 @@ package it.uniba.map.giocotestuale.impl;
 
 import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.GameEngine;
+import it.uniba.map.giocotestuale.logic.interaction.ChainInteraction;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
 import it.uniba.map.giocotestuale.type.Command;
@@ -255,13 +256,13 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                 return;
             }
 
-            if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject()) &&
-            !super.getInventory().contains((Item) output.getFirstObject())) {
+            if (!(output.getFirstObject() instanceof Item) && !(output.getSecondObject() instanceof ColorClass)) {
                 invalidCommandOutput();
                 return;
             }
 
-            if (!(output.getSecondObject() instanceof ColorClass)) {
+            if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject()) &&
+            !super.getInventory().contains((Item) output.getFirstObject())) {
                 invalidCommandOutput();
                 return;
             }
@@ -310,10 +311,30 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             gameObjects = List.of(output.getFirstObject(), output.getSecondObject());
         }
 
+        ArrayList<Interaction> toExecute = new ArrayList<>();
+
+        //Cicla prima le interazioni dirette
         for (Interaction interaction : super.getGameInteractions()) {
-            if (interaction.isCorrectInteraction(gameObjects, command)){
-                interaction.executeInteraction(this);
+            if (!(interaction instanceof ChainInteraction) && (interaction.isCorrectInteraction(gameObjects, command))) {
+                toExecute.add(interaction);
                 didSomething = true;
+            }
+        }
+
+        //Se ha raccolto delle interazioni dirette, le esegue
+        if (didSomething) {
+            for (Interaction interaction : toExecute) {
+                interaction.executeInteraction(this);
+            }
+
+            //Dopo aver eseguito le interazioni dirette, vede se c'è un'interazione a catena da eseguire
+            //NB: Il gioco è strutturato in modo che venga eseguita una sola ChainInteraction per volta.
+            //Inoltre, le ChainInteraction vengono analizzate solo se sono state eseguite interazioni dirette prima.
+            for (Interaction interaction : super.getGameInteractions()) {
+                if ((interaction instanceof ChainInteraction) && (interaction.isCorrectInteraction(gameObjects, command))) {
+                    interaction.executeInteraction(this);
+                    break;
+                }
             }
         }
 

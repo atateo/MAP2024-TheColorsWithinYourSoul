@@ -33,7 +33,7 @@ public class InteractionFactory {
      * @param targetState Stato iniziale del primo oggetto di gioco.
      * @param resultState Stato finale del secondo oggetto di gioco.
      * @param interaction Comportamento dell'interazione.
-     * @return Oggetto TwoObjectInteraction (Direct o Chain) creato con gli attributi passati sopra.
+     * @return Oggetto DirectInteraction creato con gli attributi passati come parametri.
      */
     public static Interaction buildInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         return new DirectInteraction(firstObject, secondObject, interactionType, targetState, resultState, interaction);
@@ -46,7 +46,7 @@ public class InteractionFactory {
      * @param targetState Stato iniziale del primo oggetto di gioco.
      * @param resultState Stato finale del secondo oggetto di gioco.
      * @param interaction Comportamento dell'interazione.
-     * @return Oggetto TwoObjectInteraction (Direct o Chain) creato con gli attributi passati sopra.
+     * @return Oggetto ChainInteraction creato con gli attributi passati come parametri.
      */
     public static Interaction buildInteraction(final GameObject firstObject, final GameObject secondObject, final String targetState, final String resultState, final Interactable interaction) {
         return new ChainInteraction(firstObject, secondObject, targetState, resultState, interaction);
