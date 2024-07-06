@@ -410,19 +410,31 @@ import java.util.TimerTask;
             }
         }, "Placeholder");
 
+        addImage("AtticoCentrale","jpg");
+        addImage("SanzaColoriPrimari","jpg");
+        addImage("SanzaColoriSecondari","jpeg");
+        addImage("StanzaRosso","jpeg");
+        addImage("StanzaBlu","jpg");
+        addImage("StanzaGiallo","jpg");
+        addImage("StanzaVerde","jpg");
+        addImage("StanzaMarrone","jpg");
+        addImage("StanzaViola","jpg");
+        addImage("StanzaFinale","jpeg");
+
     }
 
     /**
-     * Metodo che aggiunge un immagine all'imagePanel
-     * @param RoomName nome della stanza, usato per trovare il path della stessa
+     * Metodo che aggiunge un immagine all'imagePanel.
+     * @param RoomName nome della stanza, usato per trovare il path della stessa.
+     * @param extension estensione del file.
      */
-    public static void addImage(String RoomName)
+    public static void addImage(String RoomName, String extension)
     {
         imagePanel.add(new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon image = new ImageIcon("src/main/resources/img/"+RoomName+".jpg");
+                ImageIcon image = new ImageIcon("src/main/resources/img/"+RoomName+"."+extension);
                 g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         }, RoomName);
