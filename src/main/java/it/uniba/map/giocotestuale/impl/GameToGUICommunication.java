@@ -12,10 +12,7 @@ import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Classe che gestisce la comunicazione tra la GUI di gioco e il gioco stesso. È una classe singleton.
@@ -83,12 +80,12 @@ public class GameToGUICommunication {
         	
         	game = JsonUtil.readJsonFromFile(filename);
             if (this.gameEngine == null) {
-                BaseGameLogic backup = new BaseGameLogic();
+                BaseGameDefinition backup = new BaseGameDefinition();
                 backup.createJsonBackup();
                 game = JsonUtil.readJsonFromFile(filename);
             }
         } else {
-            BaseGameLogic backup = new BaseGameLogic();
+            BaseGameDefinition backup = new BaseGameDefinition();
             backup.createJsonBackup();
             game = JsonUtil.readJsonFromFile(filename);
         }        

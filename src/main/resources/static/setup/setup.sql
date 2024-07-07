@@ -52,6 +52,7 @@ INSERT INTO item(id_item, stato, descrizione) VALUES
 (13,'Cresciuto', 'Ora la liana è cresciuta considerevolmente, forse puoi usarla come corda.'),
 (14,'NonCresciuto', 'Una delle vecchie aiuole del giardino di tuo nonno. Ti rattrista vederla senza piante dentro.'),
 (14,'Cresciuto', 'Una delle vecchie aiuole del giardino di tuo nonno. Nell''albero che ci è cresciuto dentro, noti un frutto verde.'),
+(14,'SenzaFrutta', 'Una delle vecchie aiuole del giardino di tuo nonno. Dentro c''è cresciuto un albero.'),
 (15,'Neutro', 'Sembra un normale pennello con la punta macchiata di colore verde.'),
 (16,'NonColorato', 'Un sostegno che probabilmente usava tuo nonno per scolpire statue. Si vede che era un amante di tutti i tipi d''arte.'),
 (16,'Colorato', 'È comparso un blocco di pietra sul piedistallo. Ti senti ispirato, ma non sai di preciso perché...'),
