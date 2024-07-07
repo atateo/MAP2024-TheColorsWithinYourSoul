@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Classe ScoreGui, utilizzata per rappresentare i migliori dieci player per tempo impiegato
+ * per risolvere il gioco
+ */
 public class ScoreGui extends JFrame {
 	/**
      * Logger per la registrazione degli eventi.
@@ -29,8 +33,11 @@ public class ScoreGui extends JFrame {
     private JList<String> scoreList;
     private int myIdScore;
 
+    /**
+     * costruttore pubblico della GUI Score
+     */
     public ScoreGui() {
-        // Inizializzazione del frame
+        //Inizializzazione del frame
         setTitle("The Colors within yuor Soul - Classifica");
         setSize(700, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,30 +45,29 @@ public class ScoreGui extends JFrame {
         ImageIcon img = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
         setIconImage(img.getImage());
 
-        // Pannello principale con BorderLayout
+        //Pannello principale con BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
         getContentPane().add(mainPanel);
 
-        // Pannello per l'inserimento del nickname
+        //Pannello per l'inserimento del nickname
         JPanel inputPanel = new JPanel();
         JLabel nameLabel = new JLabel("Nickname:");
         nicknameField = new JTextField(20);
         inputPanel.add(nameLabel);
         inputPanel.add(nicknameField);
         
-     // Lista dei punteggi
+        //Lista dei punteggi
         scoreListModel = new DefaultListModel<>();
         scoreList = new JList<>(scoreListModel);
         
         updateScoreList(getScores());
-        // Pulsante per aggiungere il punteggio
+        //Pulsante per aggiungere il punteggio
         JButton addButton = new JButton("Inserisci il tuo nome");
         
-     // Pannello per il pulsante
+        //Pannello per il pulsante
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(addButton);
         
-        //score.setTime(new Long(2500));
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,6 +78,7 @@ public class ScoreGui extends JFrame {
                 //prendere il tempo
                 score.setTime(System.currentTimeMillis());
                 addScore(score);
+                //spengo i campi che non mi occorrono più
                 inputPanel.setVisible(false);
                 buttonPanel.setVisible(false);
                 updateScoreList(getScores());
@@ -80,10 +87,6 @@ public class ScoreGui extends JFrame {
                 scoreListModel.addElement(riga);
             }
         });
-
-        
-
-        
         
         JScrollPane scrollPane = new JScrollPane(scoreList);
 
@@ -93,6 +96,10 @@ public class ScoreGui extends JFrame {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Metodo void che aggiunge il tempo conseguito dal palyer alla classifica
+     * @param score l'oggetto che rappresenta il pnteggio del player
+     */
     private void addScore(Score score) {
         
         if (score!=null) {
@@ -119,6 +126,10 @@ public class ScoreGui extends JFrame {
         }
     }
     
+    /**
+     * Metodo che restituisce la lista dei punteggi (tempi) contenente i primi 10 players
+     * @return la lista dei primi 10 player per tempo impiegato per risolvere il gioco
+     */
     private List<Score> getScores() {
     	GameClient client = new GameClient();
     	List<Score> scores = new ArrayList<Score>();
@@ -132,6 +143,11 @@ public class ScoreGui extends JFrame {
     	return scores;
     }
 
+    /**
+     * Metodo che predispone la lista dei migliori dicei giocatori
+     * @param scores la lista dei migliori dicei player per tempo impiegato
+     * @return il boolean che indica se il player attuale è presente nei primi dieci
+     */
     private boolean updateScoreList(List<Score> scores) {
         scoreListModel.clear();
         boolean firstTen=false;
@@ -147,12 +163,13 @@ public class ScoreGui extends JFrame {
         return firstTen;
     }
 
+    /*utile solo per il test
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new ScoreGui().setVisible(true);
             }
         });
-    }
+    }*/
 }
 
