@@ -46,7 +46,7 @@ public class ScoreGUI extends JFrame {
         setIconImage(img.getImage());
 
         //Pannello principale con BorderLayout
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel mainPanel = new JPanel(new GridBagLayout());
         getContentPane().add(mainPanel);
 
         //Pannello per l'inserimento del nickname
@@ -88,12 +88,42 @@ public class ScoreGUI extends JFrame {
             }
         });
         
+     // Aggiungere lo JScrollPane al pannello
         JScrollPane scrollPane = new JScrollPane(scoreList);
+        scrollPane.setPreferredSize(new Dimension(500, 250));
+        inputPanel.setPreferredSize(new Dimension(250, 50));
+        inputPanel.setPreferredSize(new Dimension(250, 50));
+        /*scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);*/
+        
+        GridBagConstraints gbcInput = new GridBagConstraints();
+        gbcInput.gridx = 1;
+        gbcInput.gridy = 0;
+        gbcInput.gridwidth = 1;
+        gbcInput.gridheight = 1;
+        gbcInput.anchor = GridBagConstraints.NORTH;
+        gbcInput.insets = new Insets(10, 10, 10, 10); // margini intorno al componente
+        
+        GridBagConstraints gbScroll = new GridBagConstraints();
+        gbScroll.gridx = 0;
+        gbScroll.gridy = 1;
+        gbScroll.gridwidth = 2;
+        gbScroll.gridheight = 1;
+        gbScroll.anchor = GridBagConstraints.CENTER;
+        gbScroll.insets = new Insets(10, 10, 10, 10); // margini intorno al componente
+        
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 1;
+        gbcButton.gridy = 3;
+        gbcButton.gridwidth = 1;
+        gbcButton.gridheight = 1;
+        gbcButton.anchor = GridBagConstraints.NORTH;
+        gbcButton.insets = new Insets(10, 10, 10, 10); // margini intorno al componente
 
         // Aggiungi i pannelli al layout principale
-        mainPanel.add(inputPanel, BorderLayout.NORTH);
-        mainPanel.add(scrollPane, BorderLayout.CENTER);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        mainPanel.add(inputPanel, gbcInput);
+        mainPanel.add(scrollPane, gbScroll);
+        mainPanel.add(buttonPanel, gbcButton);
     }
 
     /**
@@ -163,13 +193,13 @@ public class ScoreGUI extends JFrame {
         return firstTen;
     }
 
-    /*utile solo per il test
+    //utile solo per il test
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new ScoreGui().setVisible(true);
             }
         });
-    }*/
+    }
 }
 
