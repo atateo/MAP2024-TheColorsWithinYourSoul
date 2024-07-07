@@ -194,12 +194,12 @@ public class ScoreGUI extends JFrame {
     }
 
     //utile solo per il test
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new ScoreGui().setVisible(true);
+                new ScoreGUI().setVisible(true);
             }
         });
-    }
+    }*/
 }
 
