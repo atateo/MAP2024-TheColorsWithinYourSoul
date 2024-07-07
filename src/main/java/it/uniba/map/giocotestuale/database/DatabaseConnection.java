@@ -50,6 +50,7 @@ public class DatabaseConnection {
     public static void releaseConnection() {
         try {
             conn.close();
+            logger.info("Connessione al database rilasciata");
         } catch (SQLException e) {
             logger.error("Eccezione in fase di chiusura della connessione al database: ", e);
         }

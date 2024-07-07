@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.database.DatabaseConnection;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
@@ -7,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
  /**
  * Classe che si occupa di coordinare tutte le GUI del gioco.
@@ -14,6 +17,10 @@ import java.awt.CardLayout;
 public class HandlerGUI extends JFrame {
 
      /**
+	 * default long serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
       * La GUI del gioco
       */
     private static GameGUI game;
@@ -42,7 +49,19 @@ public class HandlerGUI extends JFrame {
     public HandlerGUI() {
 
         // configurazione del frame principale
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        
+        // Aggiungi un WindowListener per intercettare l'evento di chiusura della finestra
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Invoca il metodo releaseConnection prima della chiusura
+                DatabaseConnection.releaseConnection();
+                dispose();
+                System.exit(0);
+            }
+        });
         this.setTitle("The colors whitin your soul");
         this.setSize(1000, 700);
         this.setResizable(false);
