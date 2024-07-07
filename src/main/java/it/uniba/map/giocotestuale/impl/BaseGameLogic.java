@@ -546,6 +546,44 @@ public class BaseGameLogic {
 							"resto del circuito");
 				}
 		));
+
+		//Fa crescere la liana
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Liana", objects), getObjectByName("Verde", objects), Command.COLORA, "NonCresciuto", "Cresciuto",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					((Item) gameObjects.getFirst()).setPickable(true);
+
+					GameToGUICommunication.getInstance().toGUI("Colorandola di verde, la liana cresce considerevolmente.");
+				}
+		));
+
+		//Fa crescere le piante nell'aiuola
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Aiuola", objects), getObjectByName("Verde", objects), Command.COLORA, "NonCresciuto", "Cresciuto",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandola di verde, nell'aiuola cresce un albero con dei frutti colorati.");
+				}
+		));
+
+		//Usa la liana per raccogliere il frutto dall'albero
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Liana", objects), getObjectByName("Aiuola", objects), Command.USA, "Cresciuto", "SenzaFrutto",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (gameObjects.get(1).getStatus().equals("Cresciuto")) {
+						gameObjects.get(1).setStatus(targetStates.get(1));
+						gameEngine.getRoomByName("StanzaVerde").getRoomConnection(Command.SUD).unlock();
+						gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.EST).unlock();
+
+						GameToGUICommunication.getInstance().toGUI("Usi la liana per raccogliere un frutto verde dall'albero. " +
+								"Il frutto si dissolve, facendo aprire la porta d'ingresso e la porta della stanza.");
+					} else {
+						GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+					}
+				}
+		));
 		
 		return gameLogic;
 	}

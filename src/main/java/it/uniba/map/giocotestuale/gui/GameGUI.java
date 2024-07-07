@@ -490,7 +490,7 @@ public class GameGUI extends JPanel {
      * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void HelpActionPerformed(ActionEvent evt) {
-        CommandsGUI help = CommandsGUI.getIstance();
+        CommandsGUI help = CommandsGUI.getInstance();
         help.setVisible(true);
     }
 

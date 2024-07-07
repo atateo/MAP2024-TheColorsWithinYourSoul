@@ -1,6 +1,5 @@
 package it.uniba.map.giocotestuale.gui;
 
-import it.uniba.map.giocotestuale.entities.game.ColorClass;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
@@ -285,7 +284,7 @@ public class MenuGUI extends JPanel {
     * @param evt rappresenta l'evento del click sul pulsante.
     */
     private void CommandsActionPerformed(ActionEvent evt) {
-        CommandsGUI help = CommandsGUI.getIstance();
+        CommandsGUI help = CommandsGUI.getInstance();
         help.setVisible(true);
     }
 
