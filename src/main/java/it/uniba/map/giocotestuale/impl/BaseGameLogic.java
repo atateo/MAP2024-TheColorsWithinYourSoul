@@ -10,6 +10,7 @@ import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.entities.game.Room;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
+import it.uniba.map.giocotestuale.utility.jsonutil.GameToJson;
 import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 
 /**
@@ -21,7 +22,7 @@ public class BaseGameLogic {
 	 * Crea un file Json corrispondente allo stato iniziale del gioco.
 	 */
 	public void createJsonBackup() {
-		ColorsWithinYourSoulGame game = new ColorsWithinYourSoulGame();
+		GameToJson game = new GameToJson();
 
 		//Stanze
 		ArrayList<Room> rooms = getAllBaseGameRooms();
@@ -57,7 +58,7 @@ public class BaseGameLogic {
 		rooms.get(9).setNorthRoomConnection(rooms.get(2), true);
 
 		//Colori
-		game.getColors().addAll(getAllBaseGameColors());
+		game.setColors(getAllBaseGameColors());
 
 		//Item
 		ArrayList<Item> items = getAllBaseGameItems();
@@ -104,22 +105,22 @@ public class BaseGameLogic {
 		rooms.get(3).addItem(items.get(24));
 
 		//Aggiunge le stanze al gioco
-		game.addRoom(rooms.get(0));
-		game.addRoom(rooms.get(1));
-		game.addRoom(rooms.get(2));
-		game.addRoom(rooms.get(3));
-		game.addRoom(rooms.get(4));
-		game.addRoom(rooms.get(5));
-		game.addRoom(rooms.get(6));
-		game.addRoom(rooms.get(7));
-		game.addRoom(rooms.get(8));
-		game.addRoom(rooms.get(9));
+		ArrayList<Room> gameRooms = new ArrayList<>();
+		gameRooms.add(rooms.get(0));
+		gameRooms.add(rooms.get(1));
+		gameRooms.add(rooms.get(2));
+		gameRooms.add(rooms.get(3));
+		gameRooms.add(rooms.get(4));
+		gameRooms.add(rooms.get(5));
+		gameRooms.add(rooms.get(6));
+		gameRooms.add(rooms.get(7));
+		gameRooms.add(rooms.get(8));
+		gameRooms.add(rooms.get(9));
+
+		game.setRooms(gameRooms);
 
 		//Imposta la stanza iniziale
-		game.setCurrentRoom(rooms.get(0));
-
-		//Inizializza le interazioni di gioco
-		//game.defineGameInteractions();
+		game.setRoom(rooms.get(0));
 
 		JsonUtil.writeJsonToFile("src/main/resources/static/start.json", game);
 	}
@@ -329,9 +330,6 @@ public class BaseGameLogic {
 						((ColorClass) getObjectByName("Marrone", objects)).setUnlocked(true);
 						GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");
-
-						GameToGUICommunication.getInstance().toGUI("Con il comando Colora puoi tinteggiare alcuni " +
-								"oggetti per ottenere certi effetti. Prova il rosso sulla torcia della prima stanza, poi.");
 
 						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Marrone", objects));
 					}
@@ -581,6 +579,114 @@ public class BaseGameLogic {
 								"Il frutto si dissolve, facendo aprire la porta d'ingresso e la porta della stanza.");
 					} else {
 						GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+					}
+				}
+		));
+
+		//Colora il piedistallo per far comparire il blocco di pietra
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Piedistallo", objects), getObjectByName("Marrone", objects), Command.COLORA, "NonColorato", "Colorato",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandolo di marrone, compare un blocco di pietra " +
+							"sul piedistallo.");
+				}
+		));
+
+		//Usa lo scalpello per scolpire una statua sul piedistallo
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Scalpello", objects), getObjectByName("Piedistallo", objects), Command.USA, "Neutro", "NonSpostatoStatua",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (gameObjects.get(1).getStatus().equals("Colorato")) {
+						gameObjects.get(1).setStatus(targetStates.get(1));
+						((Item) gameObjects.getFirst()).setMovable(true);
+
+						GameToGUICommunication.getInstance().toGUI("Hai scolpito una statua col blocco di pietra " +
+								"sul piedistallo.");
+					} else {
+						GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+					}
+				}
+		));
+
+		//Sposta la statua
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Piedistallo", objects), Command.SPINGI, "NonSpostatoStatua", "SpostatoStatua",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+					((Item) gameObjects.getFirst()).setMovable(false);
+
+					GameToGUICommunication.getInstance().toGUI("Hai spinto la statua sulla pedana a pressione. " +
+							"È incastrata nell'incavo ora.");
+				}
+		));
+
+		//Spostando la statua, si attiva la pedana a pressione e la porta si apre
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Piedistallo", objects), getObjectByName("PedanaAPressione", objects), "SpostatoStatua", "Premuta",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (gameObjects.get(1).getStatus().equals("NonPremuta")) {
+						gameObjects.get(1).setStatus(targetStates.get(1));
+						gameEngine.getRoomByName("StanzaMarrone").getRoomConnection(Command.OVEST).unlock();
+						gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.SUD).unlock();
+
+						GameToGUICommunication.getInstance().toGUI("Hai spinto la statua sulla pedana a pressione.");
+						GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta " +
+								"della stanza viola.");
+					}
+				}
+		));
+
+		//Colora la scala di viola per aggiustarla
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Scala", objects), getObjectByName("Viola", objects), Command.COLORA, "Rotto", "Aggiustato",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandola di viola, hai riportato la statua a " +
+							"quando non era ancora rotta.");
+				}
+		));
+
+		//Aggiustare la scala rende raggiungibile l'orologio
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Scala", objects), getObjectByName("Orologio", objects), "Aggiustato", "Rotto",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (!((Item) gameObjects.get(1)).getPickable()) {
+						((Item) gameObjects.get(1)).setPickable(true);
+						((Item) gameObjects.get(1)).setPaintable(true);
+
+						GameToGUICommunication.getInstance().toGUI("Ora che hai aggiustato la scala, puoi " +
+								"raggiungere la cima della libreria.");
+					}
+				}
+		));
+
+		//Colorare l'orologio di viola per aggiustarlo
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Orologio", objects), getObjectByName("Viola", objects), Command.COLORA, "Rotto", "Aggiustato",
+				(gameObjects, targetStates, gameEngine) -> {
+					gameObjects.getFirst().setStatus(targetStates.get(1));
+
+					GameToGUICommunication.getInstance().toGUI("Colorandolo di viola, hai riportato l'orologio a " +
+							"quando non era ancora rotto.");
+				}
+		));
+
+		//Usare l'orologio aggiustato sull'incavo per riempirlo
+		gameLogic.add(InteractionFactory.buildInteraction(
+				getObjectByName("Orologio", objects), getObjectByName("Incavo", objects), Command.USA, "Aggiustato", "Pieno",
+				(gameObjects, targetStates, gameEngine) -> {
+					if (gameObjects.get(1).getStatus().equals("Vuoto")) {
+						gameObjects.get(1).setStatus(targetStates.get(1));
+						gameEngine.getRoomByName("StanzaViola").getRoomConnection(Command.NORD).unlock();
+						gameEngine.getRoomByName("StanzaViola").addItem((Item) getObjectByName("Orologio", objects));
+						gameEngine.getRoomByName("AtticoCentrale").getRoomConnection(Command.NORD).unlock();
+						gameEngine.removeItem((Item) getObjectByName("Orologio", objects));
+
+						GameToGUICommunication.getInstance().toGUI("Inserendo l'orologio nell'incavo, la porta si riapre. " +
+								"Ora sei pronto per la prova finale.");
 					}
 				}
 		));

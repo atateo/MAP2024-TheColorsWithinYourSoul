@@ -62,7 +62,7 @@ INSERT INTO item(id_item, stato, descrizione) VALUES
 (19,'Neutro', 'Sembra un normale pennello con la punta macchiata di colore marrone.'),
 (20,'Rotto', 'Una scala a pioli poggiata sulla libreria. Al momento è rotta quindi non puoi usarla.'),
 (20,'Aggiustato', 'Una scala a pioli poggiata sulla libreria. Ora che l''hai aggiustata, puoi raggiungere la cima della libreria.'),
-(21,'Rotto', 'Resti di quello che sembra essere un orologio da taschino molto vecchio. Non funziona più.'),
+(21,'Rotto', 'Resti di quello che sembra essere un orologio da taschino molto vecchio. Non funziona più. Si trova in cima alla libreria, ti serve qualcosa per raggiungerlo.'),
 (21,'Aggiustato', 'Orologio da taschino, che ora è funzionante. Ha una forma circolare.'),
 (22,'Vuoto', 'Incavità a forma circolare sulla porta d''ingresso. Ha una forma circolare.'),
 (22,'Pieno', 'Hai lasciato l''orologio nell''incavo e ora è pieno. Facendo così, la porta d''ingresso si è riaperta.'),
