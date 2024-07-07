@@ -44,15 +44,17 @@ public class GameClient {
      * Invia un oggetto Score (punteggio) al server.
      * @param score il punteggio da inviare
      */
-    public void sendScore(Score score) {
+    public String sendScore(Score score) {
+    	String resp=null;
         try {
             out.writeObject("POST");
             out.writeObject(score);
-            String resp = (String) in.readObject();
+            resp = (String) in.readObject();
             logger.info("Risposta del server: {}", resp);
         } catch (IOException | ClassNotFoundException e) {
             logger.error("Eccezione nel metodo sendScore (invio punteggio): ", e);
         }
+        return resp;
     }
 
     /**

@@ -36,11 +36,17 @@ public class ScoreDaoImpl implements ScoreDao {
      */
     @Override
     public int add(Score score) throws SQLException {
+    	int n=0;
         String query = "INSERT INTO score (player, time) VALUES (?, ?)";
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, score.getPlayer());
         ps.setString(2, score.getTime());
-        int n = ps.executeUpdate();
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if(rs.next())
+        {
+            n = rs.getInt(1);
+        }
         return n;
     }
 
@@ -79,8 +85,11 @@ public class ScoreDaoImpl implements ScoreDao {
      * {@inheritDoc}
      */
     @Override
-    public List<Score> getScores() throws SQLException {
-        String query = "SELECT * FROM score";
+    public List<Score> getScores(int limit) throws SQLException {
+        String query = "SELECT * FROM score order by time asc";
+        if(limit>0){
+        	query=query + " limit "+limit;
+        }
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         List<Score> ls = new ArrayList<Score>();

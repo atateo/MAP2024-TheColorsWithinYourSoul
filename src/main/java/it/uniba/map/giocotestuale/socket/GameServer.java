@@ -52,17 +52,19 @@ public class GameServer {
                         ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
                         Score score = (Score) in.readObject();
                         try {
-                            scoreDaoImpl.add(score);
-                            out.writeObject("Operazione di inserimento eseguita correttamente.");
+                        	int keyGenerated = scoreDaoImpl.add(score);
+                            out.writeObject("Operazione di inserimento eseguita correttamente. KEY="+keyGenerated);
                         } catch (SQLException e) {
+                        	logger.error("Operazione di inserimento fallita",e);
                             out.writeObject("Operazione di inserimento fallita");
                         }
                     }
                     case "GET" -> {
                         ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
                         try {
-                            out.writeObject(scoreDaoImpl.getScores());
+                            out.writeObject(scoreDaoImpl.getScores(10));
                         } catch (SQLException e) {
+                        	logger.error("Eccezione in fase di recupero della classifica: ",e);
                             out.writeObject("Eccezione in fase di recupero della classifica: " + e);
                         }
                     }
@@ -76,6 +78,7 @@ public class GameServer {
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
+            	logger.error("Eccezione in fase di comunicazione con il server dei punteggi",e);
             	throw e;
             }
         }
