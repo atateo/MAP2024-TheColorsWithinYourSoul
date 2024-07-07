@@ -270,7 +270,7 @@ public class BaseGameLogic {
 								"però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");
 
 						GameToGUICommunication.getInstance().toGUI("Puoi usare il comando Colora per tinteggiare alcuni " +
-								"oggetti ottenendo effetti particolari. Prova il rosso sulla torcia della priva stanza, poi.");
+								"oggetti ottenendo effetti particolari. Prova il rosso sulla torcia della prima stanza, poi.");
 
 						GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Rosso", objects));
 					}
@@ -403,6 +403,7 @@ public class BaseGameLogic {
 					(gameObjects, targetStates, gameEngine) -> {
 						if (gameObjects.get(1).getStatus().equals("SenzaLegna")) {
 							gameObjects.get(1).setStatus(targetStates.get(1));
+							gameEngine.removeItem((Item) getObjectByName("Legnetti", objects));
 							GameToGUICommunication.getInstance().toGUI("Hai messo i legnetti nel camino di sinistra.");
 						} else {
 							GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
@@ -631,7 +632,6 @@ public class BaseGameLogic {
 						gameEngine.getRoomByName("StanzaMarrone").getRoomConnection(Command.OVEST).unlock();
 						gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.SUD).unlock();
 
-						GameToGUICommunication.getInstance().toGUI("Hai spinto la statua sulla pedana a pressione.");
 						GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta " +
 								"della stanza viola.");
 					}
@@ -644,7 +644,7 @@ public class BaseGameLogic {
 				(gameObjects, targetStates, gameEngine) -> {
 					gameObjects.getFirst().setStatus(targetStates.get(1));
 
-					GameToGUICommunication.getInstance().toGUI("Colorandola di viola, hai riportato la statua a " +
+					GameToGUICommunication.getInstance().toGUI("Colorandola di viola, hai riportato la scala a " +
 							"quando non era ancora rotta.");
 				}
 		));

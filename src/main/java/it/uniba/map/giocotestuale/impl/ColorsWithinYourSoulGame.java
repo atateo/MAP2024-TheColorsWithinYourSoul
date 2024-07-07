@@ -169,7 +169,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Comando inventario
         if (command == Command.INVENTARIO) {
-            //Scrivere qui la stampa dell'inventario
+            GameToGUICommunication.getInstance().toGUI("Puoi vedere gli oggetti nel tuo inventario in basso a destra.");
             return;
         }
 
@@ -230,7 +230,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                     getCurrentRoom().removeItem((Item) output.getFirstObject());
                     GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getName() + ": aggiunto nell'inventario.");
 
-                    //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player prende un item
+                    //Non fa un return perché potrebbe scatenarsi un'interaction quando il player prende un item
                     //Inoltre non mette i pennelli nell'inventario perché sbloccano direttamente i colori
                 } else {
                     //Rimuove il pennello dalla stanza
@@ -249,7 +249,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                 getCurrentRoom().addItem((Item) output.getFirstObject());
                 GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getName() + ": rimosso dall'inventario.");
 
-                //Non fa un return perché potrebbe scatenarsi una reazione a catena quando il player lascia un item
+                //Non fa un return perché potrebbe scatenarsi un'interaction quando il player lascia un item
             }
         }
 
@@ -319,10 +319,26 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //nel caso corrispondano con l'output del Parser
         List<GameObject> gameObjects;
 
+        //Se il primo oggetto non è nella stanza o nell'inventario, non eseguire i comandi
+        if (!(output.getFirstObject() instanceof Room) && !(output.getFirstObject().getName().contains("Pennello"))) {
+            if (!getCurrentRoom().getItemsInRoom().contains(output.getFirstObject()) && !getInventory().contains(output.getFirstObject())) {
+                invalidCommandOutput();
+                return;
+            }
+        }
+
         if (output.getSecondObject() == null) {
             gameObjects = List.of(output.getFirstObject());
         } else {
             gameObjects = List.of(output.getFirstObject(), output.getSecondObject());
+
+            //Se il secondo oggetto non è nella stanza o nell'inventario, non eseguire i comandi
+            if (!(output.getSecondObject() instanceof Room) && !(output.getSecondObject() instanceof ColorClass)) {
+                if (!getCurrentRoom().getItemsInRoom().contains(output.getSecondObject()) && !getInventory().contains(output.getSecondObject())) {
+                    invalidCommandOutput();
+                    return;
+                }
+            }
         }
 
         ArrayList<Interaction> toExecute = new ArrayList<>();
@@ -354,11 +370,14 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Se nessuna interaction è stata effettuata, notifica l'utente
         if (!didSomething) {
-            if (command != Command.PRENDI && !movementCommands.contains(command)) {
+            if (command != Command.PRENDI && command != Command.LASCIA && !movementCommands.contains(command)) {
                 GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
             }
         }
+
+        GameToGUICommunication.getInstance().notifyInventoryUpdateToGUI();
     }
+
 
     /**
      * Metodo che notifica l'utente che il comando generico è invalido. Definizione del metodo di GameEngine.
