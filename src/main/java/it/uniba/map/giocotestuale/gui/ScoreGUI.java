@@ -174,8 +174,8 @@ public class ScoreGUI extends JFrame {
     }
 
     /**
-     * Metodo che predispone la lista dei migliori dicei giocatori
-     * @param scores la lista dei migliori dicei player per tempo impiegato
+     * Metodo che predispone la lista dei migliori dice i giocatori
+     * @param scores la lista dei migliori dice i player per tempo impiegato
      * @return il boolean che indica se il player attuale è presente nei primi dieci
      */
     private boolean updateScoreList(List<Score> scores) {
