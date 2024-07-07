@@ -49,7 +49,7 @@ public class Setup {
     /**
      * Esegue l'istruzione SQL passata come parametro, sul database.
      * 
-     * @param istruzione la stringa dell'istruzione SQL da eseguire.
+     * @param setup la stringa dell'istruzione SQL da eseguire.
      * @return true se l'istruzione è stata eseguita con successo, false in caso di errore.
      */
     private static boolean eseguiIstruzione(String setup) {

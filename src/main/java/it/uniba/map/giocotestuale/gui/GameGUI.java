@@ -290,7 +290,7 @@ public class GameGUI extends JPanel {
         inventoryTextArea.setFocusable(false);
         inventoryTextArea.setOpaque(false);
         inventoryTextArea.setSize(440, 440);
-        inventoryTextArea.setText("Inventario:");
+        inventoryTextArea.setText("Inventario");
         inventoryTextArea.setForeground(Color.BLACK);
         inventoryTextArea.add(inventoryLabel);
 
@@ -429,6 +429,15 @@ public class GameGUI extends JPanel {
     }
 
     /**
+     * Metodo che aggiorna l'area di testo dell'inventario.
+     *
+     * @param inventoryText Stringa che rappresenta l'inventario dell'utente.
+     */
+    public void updateInventory(final String inventoryText) {
+        inventoryTextArea.setText(inventoryText);
+    }
+
+    /**
      * Metodo che aggiorna il timer nella label
      */
     public static void UpdateTimerLabel() {
@@ -473,6 +482,8 @@ public class GameGUI extends JPanel {
         resetAudio();
         Mixer.getInstance().changRoomMusic("Menu");
         Mixer.getInstance().startTrack();
+
+        inventoryTextArea.setText("Inventario");
 
         //Resetta i colori sbloccati
         redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));

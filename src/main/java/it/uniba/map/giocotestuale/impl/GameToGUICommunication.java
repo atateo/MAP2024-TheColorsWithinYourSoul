@@ -164,13 +164,6 @@ public class GameToGUICommunication {
     }
 
     /**
-     * Metodo che notifica la GUI che va aggiornata l'immagine della stanza corrente.
-     */
-    public void updateGUIImage() {
-        GameGUI.setRoomImage(getCurrentGameRoom());
-    }
-
-    /**
      * Metodo che restituisce il nome della stanza corrente del gioco.
      * @return Stringa contenente il nome della stanza corrente.
      */
@@ -189,7 +182,16 @@ public class GameToGUICommunication {
      * Metodo che notifica la GUI che va aggiornata la textbox con l'inventario del player.
      */
     public void notifyInventoryUpdateToGUI() {
+        StringBuilder stringBuilder = new StringBuilder();
 
+        stringBuilder.append("Inventario\n\n\n");
+
+        for (Item item : gameEngine.getInventory()) {
+            stringBuilder.append(item.getName());
+            stringBuilder.append("   ");
+        }
+
+        HandlerGUI.getGameGUI().updateInventory(stringBuilder.toString());
     }
 
     /**

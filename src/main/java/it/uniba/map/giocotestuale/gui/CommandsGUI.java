@@ -1,5 +1,8 @@
 package it.uniba.map.giocotestuale.gui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.*;
 import java.io.File;
 import javax.imageio.ImageIO;
@@ -11,6 +14,11 @@ import java.io.IOException;
  */
 public class CommandsGUI extends JFrame {
 
+    private static final Logger log = LogManager.getLogger(CommandsGUI.class);
+
+    /**
+     * Istanza della
+     */
     private static CommandsGUI instance;
 
     private Image backgroundImage;
@@ -38,7 +46,7 @@ public class CommandsGUI extends JFrame {
         try {
             backgroundImage = ImageIO.read(new File("src/main/resources/img/Comandi.png"));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Errore nel caricamento dell'immagine di background: {}", e.getMessage());
         }
 
         // Configura la finestra

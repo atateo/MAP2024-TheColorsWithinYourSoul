@@ -275,6 +275,9 @@ public class MenuGUI extends JPanel {
             for (ColorEnum color : GameToGUICommunication.getInstance().getUnlockedColors()) {
                 HandlerGUI.getGameGUI().UnlockColor(color);
             }
+
+            //Imposta l'inventario
+            GameToGUICommunication.getInstance().notifyInventoryUpdateToGUI();
         }
     }
 
