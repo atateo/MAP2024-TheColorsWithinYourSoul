@@ -374,6 +374,11 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         }
 
         GameToGUICommunication.getInstance().notifyInventoryUpdateToGUI();
+
+        if (checkIfGameIsOver()) {
+            GameToGUICommunication.getInstance().notifyGameOverToGUI();
+            goodbyePlayer();
+        }
     }
 
 
@@ -400,32 +405,41 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void goodbyePlayer() {
-    	//restituisco l'oggetto che mostra a video autore, titolo e opera d'arte ottenute come premio
-    	ArtworkResponse artworkResponse = ClientRest.getArtwork();
+        GameToGUICommunication.getInstance().toGUI("Dal tronco dell'albero, cade un'altra lettera da tuo nonno. " +
+                "Dentro ci trovi un messaggio per te.");
+
+        GameToGUICommunication.getInstance().toGUI("\"Caro figliolo, se sei arrivato fin qui vuol dire che avevi bisogno " +
+                "di ritrovare te stesso. Ormai sono passato a miglior vita, ma spero che questo viaggio ti abbia insegnato " +
+                "qualcosa. Hai recuperato tutti i colori e ora la tua anima non è più grigia. Ci saranno momenti nella vita in " +
+                "cui non ce la farai più, in quei momenti ricordati sempre di non perdere mai ciò chi sei e di andare sempre " +
+                "avanti, rimettendoti in piedi quando dovessi cadere. Ti voglio bene e sono fiero di te, figliolo - Nonno\"");
+
+        GameToGUICommunication.getInstance().toGUI("Dentro la lettera sembra esserci anche una foto, cosa sarà mai?");
+
+        GameToGUICommunication.getInstance().toGUI("Premi invio per continuare");
     	
-    	//effettuo la chiamata "post" per inviare il tempo al server che gestisce il punteggio
-    	GameClient client = new GameClient();
-		//String response = null; 
-	    try {
-	    	//aggiungere properties url e porta socket
-	    	client.startConnection("localhost", 3999);
-			Score score = new Score();
-			score.setPlayer("readiPlayerOne");
-			long time = System.currentTimeMillis();
-			score.setTime(time);
-			client.sendScore(score);
-			/*client.stopConnection();
-			
-			client.startConnection("localhost", 3999);*/
-			client.getScores();
-			/*client.stopConnection();
-			
-			client.startConnection("localhost", 3999);*/
-			client.end();
-			client.stopConnection();
-	    } catch (IOException e) {
-			logger.error("Eccezione di comunicazione con il server dei punteggi",e);
-		}
+//    	//effettuo la chiamata "post" per inviare il tempo al server che gestisce il punteggio
+//    	GameClient client = new GameClient();
+//		//String response = null;
+//	    try {
+//	    	//aggiungere properties url e porta socket
+//	    	client.startConnection("localhost", 3999);
+//			Score score = new Score();
+//			score.setPlayer("readiPlayerOne");
+//			long time = System.currentTimeMillis();
+//			score.setTime(time);
+//			client.sendScore(score);
+//			/*client.stopConnection();
+//
+//			client.startConnection("localhost", 3999);*/
+//			client.getScores();
+//			/*client.stopConnection();
+//
+//			client.startConnection("localhost", 3999);*/
+//			client.end();
+//			client.stopConnection();
+//	    } catch (IOException e) {
+//			logger.error("Eccezione di comunicazione con il server dei punteggi",e);
+//		}
     }
-	    
 }

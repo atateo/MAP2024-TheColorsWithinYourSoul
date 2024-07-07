@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * Classe ScoreGui, utilizzata per rappresentare i migliori dieci player per tempo impiegato
  * per risolvere il gioco
  */
-public class ScoreGui extends JFrame {
+public class ScoreGUI extends JFrame {
 	/**
      * Logger per la registrazione degli eventi.
      */
@@ -36,7 +36,7 @@ public class ScoreGui extends JFrame {
     /**
      * costruttore pubblico della GUI Score
      */
-    public ScoreGui() {
+    public ScoreGUI() {
         //Inizializzazione del frame
         setTitle("The Colors within yuor Soul - Classifica");
         setSize(700, 600);

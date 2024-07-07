@@ -301,4 +301,11 @@ public class GameToGUICommunication {
 
         return result.toString();
     }
+
+    /**
+     * Metodo che notifica la GUI che il gioco è terminato. Predispone le azioni di fine gioco.
+     */
+    public void notifyGameOverToGUI() {
+        HandlerGUI.getGameGUI().setFinished(true);
+    }
 }

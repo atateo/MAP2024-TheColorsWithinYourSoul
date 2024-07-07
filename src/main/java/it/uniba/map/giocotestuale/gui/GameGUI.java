@@ -1,6 +1,8 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
+import it.uniba.map.giocotestuale.rest.ClientRest;
 import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
@@ -26,6 +28,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Classe che mostra la GUI del gioco.
@@ -136,6 +139,10 @@ public class GameGUI extends JPanel {
      * Immagine audio acceso
      */
     final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon_game.png");
+    /**
+     * Booleano che indica se il gioco è finito o meno. Definisce cosa deve fare con l'input dell'utente.
+     */
+    private boolean isFinished;
 
 
     /**
@@ -155,6 +162,9 @@ public class GameGUI extends JPanel {
      * Metodo che si occupa di configurare e posizionare tutte le componenti sullo schermo.
      */
     private void initComponents() {
+        //Istanzia il booleano di fine gioco a false
+        isFinished = false;
+
         // configurazione del pannello
         this.setVisible(true);
         this.setSize(1000, 700);
@@ -552,14 +562,37 @@ public class GameGUI extends JPanel {
     }
 
     /**
-     * Metodo che gestisce l'input dell'utente.
-     *
+     * Metodo che gestisce l'input dell'utente. Gestisce anche il comportamento
+     * della TextArea in base a se il gioco è finito o meno.
      * @param evt rappresenta l'evento dell'input dell'utente.
      */
     private void UserInputActionPerformed(ActionEvent evt) {
         String text = userInputField.getText();
         userInputField.setText("");
-        GameToGUICommunication.getInstance().toGame(text);
+
+        if (!isFinished) {
+            GameToGUICommunication.getInstance().toGame(text);
+        } else {
+            ArtworkResponse artworkResponse = ClientRest.getArtwork();
+            ImageIcon artwork = new ImageIcon(artworkResponse.getArtwork());
+
+            imagePanel.removeAll();
+
+            imagePanel.add(new JPanel() {
+                @Override
+                public void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    g.drawImage(artwork.getImage(), 0, 0, getWidth(), getHeight(), this);
+                }
+            });
+
+            imagePanel.revalidate();
+            imagePanel.repaint();
+
+            GameToGUICommunication.getInstance().toGUI("È la replica di un famoso dipinto. Dietro la foto c'è scritto: " +
+                    "\"Questa è una piccola replica del dipinto che vedi in foto. L'ho fatta per te come mio ultimo lavoro " +
+                    "prima di lasciarti. Spero che terrai questo mio ultimo lavoro sempre con te - Nonno\"");
+        }
     }
 
     /**
@@ -600,9 +633,16 @@ public class GameGUI extends JPanel {
      * usato per ripristinare l'audio quando si cambia schermata
      */
     public void resetAudio() {
-
         if (audio.getIcon().toString().equals(audio_off.toString())) {
             audio.setIcon(audio_on);
         }
+    }
+
+    /**
+     * Metodo setter per l'attributo isFinished.
+     * @param isFinished Nuovo valore booleano dell'attributo isFinished.
+     */
+    public void setFinished(final boolean isFinished) {
+        this.isFinished = isFinished;
     }
 }
