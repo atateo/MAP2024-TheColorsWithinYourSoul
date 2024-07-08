@@ -17,6 +17,7 @@
 > #### [7. Lambda expressions/functions](#Lambda-expressions-e-functions)
 
 ## Caratteristiche del progetto
+In questa sezione spieghiamo meglio cos'è questo progetto, il suo scopo e alcuni approfondimenti sulla struttura del gioco.
 ### Introduzione generale
 Questo progetto è stato sviluppato come esame per il corso *Metodi Avanzati di Programmazione*, tenuto dal Prof. *Pierpaolo Basile* presso l'Università degli Studi di Bari Aldo Moro. Il titolo del progetto è *The Colors Within Your Soul*. 
 
@@ -56,6 +57,7 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 - GUI: nonostante il gioco sia un'avventura testuale, è stata comunque implementata una finestra di gioco apposita sulla quale vengono stampate alcune informazioni di gioco come inventario del giocatore, stanza corrente e così via.
 
 ## Utilizzo dei vari argomenti del corso
+In questa sezione approfondiamo l'utilizzo dei vari argomenti di questo corso all'interno di questo corso, spiegando come sono stati implementati e a quali funzionalità corrispondono all'interno del codice. Verranno mostrati anche degli stralci di codice presi dal progetti come esempio, però si noti bene che sono stati inseriti solo a scopo informativo, di conseguenza sono stati semplificati in funzione della spiegazione e non necessariamente riflettono completamente il codice sorgente del nostro gioco.
 
 ### Progettazione OOP
 Questo progetto è stato sviluppato con l'intento di scrivere un codice quanto più riutilizzabile ed estendibile per il futuro. Sono stati applicati molti principi della OOP tra cui incapsulamento, ereditarietà e polimorfismo. Sono state scritte dunque molte classi con l'intento di dare una definizione generica ad un determinato concetto, eventualmente ereditando poi da tali classi per definire una maggiore specializzazione di quella classe. Ad esempio, abbiamo definito la classe <code>GameEngine</code> come classe astratta che definisce gli attributi e i metodi che un'avventura testuale basata sul nostro codice deve avere. La classe di gioco principale <code>ColorsWithinYourSoulGame</code>, infatti, è una classe che eredita da <code>GameEngine</code> definendo il comportamento di ciascun metodo. Con l'organizzazione in classi che abbiamo scelto, è possibile usufruire di molti metodi già scritti semplicemente ereditando dalle classi che abbiamo già scritto. Ad esempio, la classe <code>GameToGUICommunication</code> usa una generica istanza di <code>GameEngine</code> e, di conseguenza, è possibile usarla su qualunque classe che sia sottoclasse di <code>GameEngine</code> grazie al *principio di sostituibilità delle sottoclassi*.
