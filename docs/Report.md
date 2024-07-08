@@ -17,3 +17,5 @@
 ### 7) Lambda expressions/functions
 
 ## Walkthrough del gioco
+
+https://youtu.be/8sHqEgjV5qA
