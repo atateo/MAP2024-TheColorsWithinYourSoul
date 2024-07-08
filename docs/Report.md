@@ -18,4 +18,4 @@
 
 ## Walkthrough del gioco
 
-https://youtu.be/8sHqEgjV5qA
+[![Step Image](https://img.youtube.com/vi/OYFn26ghAkE/0.jpg)](https://www.youtube.com/watch?v=OYFn26ghAkE)
