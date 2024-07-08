@@ -8,7 +8,7 @@
 > #### [4. Walkthrough](#Walkthrough-del-gioco)
 > #### [5. Implementazione del progetto](#Implementazione-del-progetto)
 ### [Utilizzo dei vari argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
-> #### [1. OOP, diagramma delle classi e specifiche algebriche](#Utilizzo-dei-principi-della-OOP)
+> #### [1. OOP, diagramma delle classi e specifiche algebriche](#Progettazione-OOP)
 > #### [2. File](#File)
 > #### [3. Database](#Database)
 > #### [4. Thread](#Thread)
@@ -57,7 +57,7 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 
 ## Utilizzo dei vari argomenti del corso
 
-### Utilizzo dei principi della OOP
+### Progettazione OOP
 Questo progetto è stato sviluppato con l'intento di scrivere un codice quanto più riutilizzabile ed estendibile per il futuro. Sono stati applicati molti principi della OOP tra cui incapsulamento, ereditarietà e polimorfismo. Sono state scritte dunque molte classi con l'intento di dare una definizione generica ad un determinato concetto, eventualmente ereditando poi da tali classi per definire una maggiore specializzazione di quella classe. Ad esempio, abbiamo definito la classe <code>GameEngine</code> come classe astratta che definisce gli attributi e i metodi che un'avventura testuale basata sul nostro codice deve avere. La classe di gioco principale <code>ColorsWithinYourSoulGame</code>, infatti, è una classe che eredita da <code>GameEngine</code> definendo il comportamento di ciascun metodo. Con l'organizzazione in classi che abbiamo scelto, è possibile usufruire di molti metodi già scritti semplicemente ereditando dalle classi che abbiamo già scritto. Ad esempio, la classe <code>GameToGUICommunication</code> usa una generica istanza di <code>GameEngine</code> e, di conseguenza, è possibile usarla su qualunque classe che sia sottoclasse di <code>GameEngine</code> grazie al *principio di sostituibilità delle sottoclassi*.
 
 #### Diagramma delle classi
