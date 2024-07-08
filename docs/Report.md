@@ -427,3 +427,36 @@ public void defineGameInteractions() {
     ));
 }
 ```
+
+Quando il metodo <code>update()</code> scorrerà la lista di <code>Interactions</code> e, quando viene trovata un'interazione che corrisponde all'output ricevuto dal parser (se viene trovata), verrà eseguita l'istanza ddell'interfaccia funzionale <code>Interactable</code> istanziata mediante la lambda function. Questo permette di definire l'intera logica di gioco mediante una serie di lambda functions.
+
+Le lambda expressions sono state usate anche come supporto in altri punti del programma. Nello specifico, sono state utilizzate per compiere queste funzioni:
+- Supporto per la creazione e la gestione della GUI: In alcuni casi, abbiamo fatto uso delle lambda expressions per la gestione delle GUI. Ad esempio, abbiamo definito il comportamento dei listener di alcuni pulsanti mediante lambda expressions, oppure abbiamo ridefinito alcuni metodi come <code>paintComponent()</code> di <code>JPanel</code> per l'aggiornamento dinamico della GUI, oppure sono state usate per impostare delle task che la GUI doveva eseguire con un certo delay o con una certa cadenza con i metodi <code>SwingUtilities.invokeLater()</code> e <code>Timer.scheduleAtFixedRate()</code>, ad esempio per l'update delle immagini di gioco al cambio di stanza e per l'update del <code>JLabel</code> contenente il timer di gioco.
+- Supporto nella ricerca e nel filtraggio di elementi all'interno delle strutture dati: In alcuni casi, abbiamo fatto uso delle lambda expressions per ciclare delle strutture dati alla ricerca di un determinato elemento o applicando un filtro. Ad esempio, nella classe <code>ClientRest</code>, abbiamo fatto uso delle lambda expressions per ricavare il nome dell'artista dalla risposta ricevuta dall'API, oppure nella classe <code>Parser</code> ne abbiamo fatto uso per dividere la stringa di input in tokens, togliendo tutti i token inclusi nella lista di stopwords.
+```java
+//Classe ClientRest
+private static String getNameArtist(String jsonString) {
+      JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+      
+      //Lambda function che recupera il nome dell'artista 
+      Optional<String> name = Optional.ofNullable(jsonObject)
+          .map(obj -> obj.getAsJsonObject("_embedded"))
+          .map(embedded -> embedded.getAsJsonArray("artists"))
+          .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+          .map(artist -> artist.get("name").getAsString());
+
+      //...
+}
+
+//Classe Parser
+public ParserOutput parse(String input) {
+      String[] tokens;
+
+      //Lambda function che divide la stringa di input in token filtrando le stopwords
+      //e convertendo tutto in minuscolo, salvando poi i token nell'array di stringhe tokens
+      tokens = Arrays.stream(input.split("\\s+"))
+              .map(String::toLowerCase)
+              .filter(w -> !stopwords.contains(w))
+              .toArray(String[]::new);
+}
+```
