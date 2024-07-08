@@ -25,10 +25,10 @@ L'obiettivo del corso è stato quello di introdurre, conoscere e approfondire un
 
 Un'avventura testuale è un tipo di videogioco in cui il giocatore interagisce con il mondo di gioco tramite comandi testuali. Questi giochi erano particolarmente popolari nei primi anni dell'era informatica, quando l'elaborazione grafica era limitata.
 
-### Caratteristiche Principali
-- Interfaccia Testuale: l'interazione avviene tramite comandi scritti, come "nord", "prendi torcia" o "osserva".
-- Descrizioni Dettagliate: il gioco descrive le scene, gli oggetti e le azioni attraverso testi dettagliati, stimolando l'immaginazione del giocatore.
-- Enigmi e Puzzle: i giocatori devono risolvere enigmi o puzzle per avanzare nel gioco, utilizzando azioni varie, oggetti e colori a loro disposizione.
+### Caratteristiche principali
+- Interfaccia testuale: l'interazione avviene tramite comandi scritti, come "nord", "prendi torcia" o "osserva".
+- Descrizioni degli ambienti: il gioco descrive le scene, gli oggetti e le azioni attraverso testi abbastanza dettagliati, con l'intento di stimolare l'immaginazione del player.
+- Puzzle ed esplorazione: i giocatori devono esplorare le stanze e risolvere dei puzzle per avanzare nel gioco, utilizzando azioni varie, oggetti e colori a loro disposizione.
 
 ### Trama del gioco
 In quest'avventura testuale, giochi nelle vesti di un ragazzo che è cresciuto con suo nonno in una villa a Vieste. Nella speranza di fare carriera, questo ragazzo decide di partire per gli USA, nello specifico a New York, subito dopo la laurea.
