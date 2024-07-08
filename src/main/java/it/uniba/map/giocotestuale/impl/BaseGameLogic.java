@@ -211,6 +211,8 @@ public class BaseGameLogic {
                         ((Item) gameObjects.get(1)).setMovable(true);
                         gameObjects.get(1).setStatus(targetStates.get(1));
                         GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(18));//18
+                    } else {
+                        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(13));//13
                     }
                 }
         ));
