@@ -260,7 +260,7 @@ public class ClientRest {
         Optional<String> name = Optional.ofNullable(jsonObject)
             .map(obj -> obj.getAsJsonObject("_embedded"))
             .map(embedded -> embedded.getAsJsonArray("artists"))
-            .flatMap(artists -> artists.size() > 0 ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+            .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
             .map(artist -> artist.get("name").getAsString());
 
         // Ritorna il nome dell'artista o null se non riesce a recuperarlo
