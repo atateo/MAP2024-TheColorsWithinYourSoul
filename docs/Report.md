@@ -421,7 +421,7 @@ public void defineGameInteractions() {
                     gameEngine.getRoomByName("AtticoCentrale").getRoomConnection(Command.NORD).unlock();
                     gameEngine.removeItem((Item) getObjectByName("Orologio", objects));
     
-                    GameToGUICommunication.getInstance().toGUI("");
+                    GameToGUICommunication.getInstance().toGUI("Messaggio");
                 }
             }
     ));
