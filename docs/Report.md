@@ -63,9 +63,19 @@ In questa sezione approfondiamo l'utilizzo dei vari argomenti di questo corso al
 Questo progetto è stato sviluppato con l'intento di scrivere un codice quanto più riutilizzabile ed estendibile per il futuro. Sono stati applicati molti principi della OOP tra cui incapsulamento, ereditarietà e polimorfismo. Sono state scritte dunque molte classi con l'intento di dare una definizione generica ad un determinato concetto, eventualmente ereditando poi da tali classi per definire una maggiore specializzazione di quella classe. Ad esempio, abbiamo definito la classe <code>GameEngine</code> come classe astratta che definisce gli attributi e i metodi che un'avventura testuale basata sul nostro codice deve avere. La classe di gioco principale <code>ColorsWithinYourSoulGame</code>, infatti, è una classe che eredita da <code>GameEngine</code> definendo il comportamento di ciascun metodo. Con l'organizzazione in classi che abbiamo scelto, è possibile usufruire di molti metodi già scritti semplicemente ereditando dalle classi che abbiamo già scritto. Ad esempio, la classe <code>GameToGUICommunication</code> usa una generica istanza di <code>GameEngine</code> e, di conseguenza, è possibile usarla su qualunque classe che sia sottoclasse di <code>GameEngine</code> grazie al *principio di sostituibilità delle sottoclassi*. Abbiamo inoltre cercato di scrivere la logica di gioco in modo da poterla rendere quanto più flessibile possibile. Ora, una singola interazione di gioco è definita mediante un oggetto di tipo <code>Interaction</code>, così che l'intera logica di gioco possa essere descritta mediante una serie di oggetti di questa classe. Per aggiungere un'interazione, basterà quindi definire un oggetto di <code>Interaction</code> e aggiungerlo alla lista di interazioni del gioco.
 
 ```java
-public class GameEngine() {
+public abstract class GameEngine {
+    private ArrayList<Room> rooms;
+    private ArrayList<Item> inventory;
     private ArrayList<Interaction> gameInteractions;
+    //...
 
+    public abstract void welcomePlayer();
+    public abstract void update();
+    public abstract void defineGameInteractions();
+    //...
+}
+
+public class ColorsWithinYourSoulGame extends GameEngine {
     public void defineGameInteractions() {
         //Crea e aggiunge un'interazione di gioco
         gameInteractions.add(InteractionFactory.buildInteraction(oggetto1, oggetto2, comando, "stato1", "stato2", () -> {
