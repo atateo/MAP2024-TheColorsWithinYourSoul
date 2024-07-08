@@ -322,7 +322,7 @@ Per la gestione di questi file, abbiamo creato una classe che si occupi di seria
 
 ```java
 public void createJsonBackup() {
-		GameToJson game = new GameToJson();
+    GameToJson game = new GameToJson();
     //Codice che imposta le caratteristiche dell'oggetto game come se fosse una nuova partita
     //...
 
@@ -330,7 +330,7 @@ public void createJsonBackup() {
 }
 ```
 
-La classe che usiamo per la gestione dei file Json è <code>JsonUtil</code>. In questa classe vengono definiti i metodi <code>readJsonFromFile</code> e <code>writeJsonToFile</code> che si occupano rispettivamente della deserializzazione e della serializzazione degli oggetti di gioco. Questi due metodi usano a loro volta i due metodi <code>getObjectFromJsonString</code> e <code>getJsonStringFromObject</code>, che si occupano rispettivamente di convertire una stringa letta da un file JSON in oggetto e di convertire un oggetto in una stringa che può essere poi scritta su un file JSON. Questi metodi lavorano sul path del file passato come parametro, così da permetterne l'utilizzo indipendentemente da se è richiesta una nuova partita o il caricamento di un salvataggio.
+La classe che usiamo per la gestione dei file Json è <code>JsonUtil</code>. In questa classe vengono definiti i metodi <code>readJsonFromFile</code> e <code>writeJsonToFile</code> che si occupano rispettivamente della deserializzazione e della serializzazione degli oggetti di gioco. Anche se non vengono usati, nel caso servano per evoluzioni future del programma, sono stati implementati i metodi <code>getObjectFromJsonString</code> e <code>getJsonStringFromObject</code>, che si occupano rispettivamente di convertire una stringa letta da un file JSON in oggetto e di convertire un oggetto in una stringa che può essere poi scritta su un file JSON. Tutti questi metodi lavorano sul path del file passato come parametro, così da permetterne l'utilizzo indipendentemente da se è richiesta una nuova partita o il caricamento di un salvataggio.
 
 ```java
 public static void writeJsonToFile(String filePath, Object obj) {
