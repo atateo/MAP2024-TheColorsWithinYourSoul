@@ -18,4 +18,6 @@
 
 ## Walkthrough del gioco
 
-[![Step Image](src/Thumbnail.png)](https://youtu.be/8sHqEgjV5qA)
+<a href="https://youtu.be/8sHqEgjV5qA">
+  <img src="./img/Thumbnail.png" alt="Walkthrough" width="600px">
+</a>
