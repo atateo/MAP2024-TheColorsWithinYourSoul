@@ -1,5 +1,6 @@
 # The Colors Within Your Soul - Report
 
+## Utilizzo dei vari argomenti del corso
 ## Indice
 ### [Utilizzo dei vari argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
 >#### [1. OOP, diagramma delle classi e specifiche algebriche](#OOP)
@@ -10,8 +11,6 @@
 >#### [6. GUI](#GUI)
 >#### [7. Lambda expressions/functions](#Lambda-expressions-e-functions)
 ### [Caratteristiche del gioco](#Caratteristiche-del-gioco)
-
-## Utilizzo dei vari argomenti del corso
 
 ### OOP
 
