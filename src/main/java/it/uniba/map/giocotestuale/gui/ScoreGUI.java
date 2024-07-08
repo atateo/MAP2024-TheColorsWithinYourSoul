@@ -1,211 +1,221 @@
 package it.uniba.map.giocotestuale.gui;
 
-import it.uniba.map.giocotestuale.database.domain.Score;
-import it.uniba.map.giocotestuale.socket.GameClient;
-
 import javax.swing.*;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import it.uniba.map.giocotestuale.database.domain.Score;
+import it.uniba.map.giocotestuale.socket.GameClient;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 
 /**
- * Classe ScoreGui, utilizzata per rappresentare i migliori dieci player per
- * tempo impiegato per risolvere il gioco
+ * GUI per la gestione della classifica dei punteggi ottenuti.
+ * Ritorna a video la lista dei primi 10 migliori tempi e se il tempo di gioco
+ * non è tra i primi 10, lo accoda in fondo alla classifica come non classificato "--"
  */
 public class ScoreGUI extends JFrame {
-	/**
-	 * Logger per la registrazione degli eventi.
-	 */
-	protected static final Logger logger = LogManager.getLogger();
+    /**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
+    private JTextField nicknameField;
+    private JTextArea textArea;
+    private JButton sendButton;
+    private BufferedImage backgroundImage;
+    private int myIdScore;
 
-	private static final long serialVersionUID = 1L;
-	private JTextField nicknameField;
-	private DefaultListModel<String> scoreListModel;
-	private JList<String> scoreList;
-	private int myIdScore;
+    /**
+     * costruttore pubblico della ScoreGUI
+     */
+    public ScoreGUI() {
+        // Carica l'immagine di sfondo
+        try {
+            backgroundImage = ImageIO.read(new File("src/main/resources/img/Score.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        ImageIcon img = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
+        setIconImage(img.getImage());
+        createView();
 
-	/**
-	 * costruttore pubblico della GUI Score
-	 */
-	public ScoreGUI() {
-		// Inizializzazione del frame
-		setTitle("The Colors within yuor Soul - Classifica");
-		setSize(700, 600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		ImageIcon img = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
-		setIconImage(img.getImage());
+        setTitle("The Colors within your Soul - Classifica");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(650, 400);
+        setLocationRelativeTo(null);
+        setResizable(false);
+    }
 
-		// Pannello principale con BorderLayout
-		JPanel mainPanel = new JPanel(new GridBagLayout());
-		getContentPane().add(mainPanel);
+    /**
+     * metodo che formatta la view della ScoreGUI
+     */
+    private void createView() {
+        JPanel panel = new BackgroundPanel();
+        panel.setLayout(new GridBagLayout());
+        getContentPane().add(panel);
 
-		// Pannello per l'inserimento del nickname
-		JPanel inputPanel = new JPanel();
-		JLabel nameLabel = new JLabel("Nickname:");
-		nicknameField = new JTextField(20);
-		inputPanel.add(nameLabel);
-		inputPanel.add(nicknameField);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
 
-		// Lista dei punteggi
-		scoreListModel = new DefaultListModel<>();
-		scoreList = new JList<>(scoreListModel);
+        JPanel inputPanel = new JPanel(new FlowLayout());
+        inputPanel.setOpaque(false); // Rendi il pannello trasparente
+        panel.add(inputPanel, gbc);
 
-		updateScoreList(getScores());
-		// Pulsante per aggiungere il punteggio
-		JButton addButton = new JButton("Inserisci il tuo nome");
+        JLabel nicknameLabel = new JLabel("Player:");
+        nicknameLabel.setForeground(Color.BLACK); // Cambia il colore del testo a nero
+        nicknameLabel.setFont(nicknameLabel.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
+        inputPanel.add(nicknameLabel);
 
-		// Pannello per il pulsante
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(addButton);
+        nicknameField = new JTextField(20);
+        nicknameField.setFont(nicknameField.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
+        inputPanel.add(nicknameField);
 
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+        sendButton = new JButton("Invia");
+        sendButton.setFont(sendButton.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
+        inputPanel.add(sendButton);
 
-				String nickname = nicknameField.getText().trim();
-				Score score = new Score();
-				score.setPlayer(nickname);
-				// prendere il tempo
-				score.setTime(System.currentTimeMillis());
-				addScore(score);
-				// spengo i campi che non mi occorrono più
-				inputPanel.setVisible(false);
-				buttonPanel.setVisible(false);
-				boolean inFirstTen = updateScoreList(getScores());
-				if (!inFirstTen) {
-					String riga = String.format("%-40s%-40s%-40s", "--", score.getPlayer(), score.getTime());
-					scoreListModel.addElement(riga);
-				}
-			}
-		});
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
 
-		// Aggiungere lo JScrollPane al pannello
-		JScrollPane scrollPane = new JScrollPane(scoreList);
-		scrollPane.setPreferredSize(new Dimension(500, 250));
-		inputPanel.setPreferredSize(new Dimension(250, 50));
-		inputPanel.setPreferredSize(new Dimension(250, 50));
-		/*
-		 * scrollPane.setOpaque(false); scrollPane.getViewport().setOpaque(false);
-		 */
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setOpaque(false); // Rendi trasparente la JTextArea
+        textArea.setForeground(Color.BLACK); // Cambia il colore del testo a nero
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 16)); // Imposta un font monospaziato
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setOpaque(false); // Rendi trasparente lo JScrollPane
+        scrollPane.getViewport().setOpaque(false); // Rendi trasparente la viewport dello JScrollPane
+        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Rimuovi il bordo dello JScrollPane
+        panel.add(scrollPane, gbc);
 
-		GridBagConstraints gbcInput = new GridBagConstraints();
-		gbcInput.gridx = 1;
-		gbcInput.gridy = 0;
-		gbcInput.gridwidth = 1;
-		gbcInput.gridheight = 1;
-		gbcInput.anchor = GridBagConstraints.NORTH;
-		gbcInput.insets = new Insets(10, 10, 10, 10); // margini intorno al componente
+        updateScoreList(getScores());
 
-		GridBagConstraints gbScroll = new GridBagConstraints();
-		gbScroll.gridx = 0;
-		gbScroll.gridy = 1;
-		gbScroll.gridwidth = 2;
-		gbScroll.gridheight = 1;
-		gbScroll.anchor = GridBagConstraints.CENTER;
-		gbScroll.insets = new Insets(10, 10, 10, 10); // margini intorno al componente
+        sendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nickname = nicknameField.getText();
 
-		GridBagConstraints gbcButton = new GridBagConstraints();
-		gbcButton.gridx = 1;
-		gbcButton.gridy = 3;
-		gbcButton.gridwidth = 1;
-		gbcButton.gridheight = 1;
-		gbcButton.anchor = GridBagConstraints.NORTH;
-		gbcButton.insets = new Insets(10, 10, 10, 10); // margini intorno al componente
+                Score score = new Score();
+                score.setPlayer(nickname);
+                // prendere il tempo
+                score.setTime(System.currentTimeMillis());
+                addScore(score);
+                textArea.append(" \n");
+                // spengo i campi che non mi occorrono più
+                inputPanel.setVisible(false);
+                boolean inFirstTen = updateScoreList(getScores());
+                if (!inFirstTen) {
+                    String riga = String.format("%-20s%-20s%-20s", "Posizione:  --", "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
+                    textArea.append(riga + "\n");
+                }
+            }
+        });
+    }
 
-		// Aggiungi i pannelli al layout principale
-		mainPanel.add(inputPanel, gbcInput);
-		mainPanel.add(scrollPane, gbScroll);
-		mainPanel.add(buttonPanel, gbcButton);
-	}
+    /**
+     * classe BackgroundPanel che estende Jpanel, utilizzata per impostare l'immagine di background
+     */
+    private class BackgroundPanel extends JPanel {
+    	// Pannello personalizzato per disegnare l'immagine di sfondo
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+    }
 
-	/**
-	 * Metodo void che aggiunge il tempo conseguito dal palyer alla classifica
-	 * 
-	 * @param score l'oggetto che rappresenta il pnteggio del player
-	 */
-	private void addScore(Score score) {
+    /**
+     * Metodo che restituisce la lista dei punteggi (tempi) contenente i primi 10
+     * players
+     *
+     * @return la lista dei primi 10 player per tempo impiegato per risolvere il
+     * gioco
+     */
+    private List<Score> getScores() {
+        GameClient client = new GameClient();
+        List<Score> scores = new ArrayList<>();
+        try {
+            client.startConnection("localhost", 3999);
+            scores = client.getScores();
+        } catch (IOException e) {
+            logger.error("Eccezione di I/O in fase di recupero dei punteggi dal server");
+        }
+        return scores;
+    }
 
-		if (score != null) {
+    /**
+     * Metodo che predispone la lista dei migliori dieci giocatori
+     *
+     * @param scores la lista dei migliori dieci player per tempo impiegato
+     * @return il boolean che indica se il player attuale è presente nei primi dieci
+     */
+    private boolean updateScoreList(List<Score> scores) {
+        textArea.setText("");
+        boolean firstTen = false;
+        int positionOnBoard = 1;
+        for (Score score : scores) {
+            if (score.getId() == myIdScore || scores.size() < 10)
+                firstTen = true;
 
-			GameClient client = new GameClient();
-			try {
-				client.startConnection("localhost", 3999);
-				String resp = client.sendScore(score);
-				Pattern pattern = Pattern.compile("KEY=(.*)");
-				Matcher matcher = pattern.matcher(resp);
-				if (matcher.find()) {
-					String keyGenerated = matcher.group(1);
-					myIdScore = Integer.parseInt(keyGenerated);
-				} else {
-					logger.info("KEY non trovata");
-				}
-			} catch (IOException e) {
-				logger.error("Eccezione di I/O in fase di invio del punteggio al server");
-				e.printStackTrace();
-			}
-			// updateScoreList();
-		} else {
-			JOptionPane.showMessageDialog(this, "Inserisci un nickname.", "Errore", JOptionPane.ERROR_MESSAGE);
-		}
-	}
+            String riga = String.format("%-20s%-20s%-20s", "Posizione:  " + positionOnBoard, "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
+            textArea.append(riga + "\n");
+            positionOnBoard++;
+        }
+        return firstTen;
+    }
 
-	/**
-	 * Metodo che restituisce la lista dei punteggi (tempi) contenente i primi 10
-	 * players
-	 * 
-	 * @return la lista dei primi 10 player per tempo impiegato per risolvere il
-	 *         gioco
-	 */
-	private List<Score> getScores() {
-		GameClient client = new GameClient();
-		List<Score> scores = new ArrayList<Score>();
-		try {
-			client.startConnection("localhost", 3999);
-			scores = client.getScores();
-			scores = scores.subList(0, Math.min(scores.size(), 10));
-		} catch (IOException e) {
-			logger.error("Eccezione di I/O in fase di recupero dei punteggi dal server");
-		}
-		return scores;
-	}
+    /**
+     * Metodo void che aggiunge il tempo conseguito dal player alla classifica
+     *
+     * @param score l'oggetto che rappresenta il punteggio del player
+     */
+    private void addScore(Score score) {
+        if (score != null) {
+            GameClient client = new GameClient();
+            try {
+                client.startConnection("localhost", 3999);
+                String resp = client.sendScore(score);
+                Pattern pattern = Pattern.compile("KEY=(.*)");
+                Matcher matcher = pattern.matcher(resp);
+                if (matcher.find()) {
+                    String keyGenerated = matcher.group(1);
+                    myIdScore = Integer.parseInt(keyGenerated);
+                } else {
+                    logger.info("KEY non trovata");
+                }
+            } catch (IOException e) {
+                logger.error("Eccezione di I/O in fase di invio del punteggio al server");
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Inserisci un nickname.", "Errore", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
-	/**
-	 * Metodo che predispone la lista dei migliori dice i giocatori
-	 * 
-	 * @param scores la lista dei migliori dice i player per tempo impiegato
-	 * @return il boolean che indica se il player attuale è presente nei primi dieci
-	 */
-	private boolean updateScoreList(List<Score> scores) {
-		scoreListModel.clear();
-		boolean firstTen = false;
-		int positionOnBoard = 1;
-		for (Score score : scores) {
-			if (score.getId() == myIdScore || scores.size() < 10)
-				firstTen = true;
-
-			String riga = String.format("%-40s%-40s%-40s", positionOnBoard, score.getPlayer(), score.getTime());
-			scoreListModel.addElement(riga);
-			positionOnBoard++;
-		}
-		return firstTen;
-	}
-
-	// utile solo per il test
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				new ScoreGUI().setVisible(true);
-			}
-		});
-	}
+    /*utile solo ai fini di test
+     * public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ScoreGUI().setVisible(true);
+            }
+        });
+    }*/
 }
+
