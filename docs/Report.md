@@ -59,12 +59,12 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 
 ### OOP
 #### Specifiche Algebriche
-Due delle strutture dati più utilizzate nel nostro progetto sono la **Mappa** e la **Lista**, in questa sezione verranno presentate le specifiche algebriche di entrambe.
+Nel nostro progetto, abbiamo spesso fatto uso delle strutture dati **Mappa** e **Lista**. Ad esempio, le stanze del gioco sono conservate in una lista e ogni stanza ha una lista con gli item in essa contenuta. La mappa, invece, è usata per conservare i comandi di gioco e le stopwords all'interno del parser. In questa sezione definiremo le specifiche algebriche per queste due strutture dati.
 
-##### Specifica algebrica della Lista
+#### Specifica algebrica della Lista
 La lista è una struttura dati che permette di memorizzare e recuperare informazioni sfruttando l'indice di posizione degli elementi contenuti.
 
-##### Specifica sintattica
+#### Specifica sintattica
 <table>
     <thead>
         <tr>
@@ -91,7 +91,7 @@ La lista è una struttura dati che permette di memorizzare e recuperare informaz
             <td>Restituisce <code>true</code> se la lista è vuota altrimenti <code>false</code></td>
           </tr>
             <tr>
-                <td><code>getLastIndex(List) -> Integer</code></td>
+                <td><code>getSize(List) -> Integer</code></td>
                 <td>Restituisce l'ultima posizione occupata da un elemento</td>
             </tr> 
             <tr>
@@ -112,11 +112,9 @@ La lista è una struttura dati che permette di memorizzare e recuperare informaz
             </tr>
     </tbody>
 </table>
-Si noti come <code>Item</code> è un tipo generico, che può essere sostituito con qualsiasi altro tipo di dato.
+Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Può essere rimpiazzato da qualunque tipo di dato. <code>Interger</code> (numeri interi) e <code>Boolean</code> (valori di verità <code>true</code> e <code>false</code>) invece, sono tipi ausiliari alla definizione della specifica algebrica della lista.
 
-<code>Interger</code> e <code>Boolean</code> invece, sono tipi ausiliari alla definizione della specifica algebrica della lista.
-
-##### Osservazioni e Costruttori
+#### Osservazioni e Costruttori
 
 <table>
   <thead>
@@ -137,9 +135,9 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
       <td><code>false</code></td>
     </tr>
     <tr>
-      <td><code>getLastIndex(l')</code></td>
+      <td><code>getSize(l')</code></td>
       <td><code>error</code></td>
-      <td>if <code>isEmpty(l)</code> then <code>1</code> else <code>getLastIndex(l) + 1</code></td>
+      <td>if <code>isEmpty(l)</code> then <code>1</code> else <code>getSize(l) + 1</code></td>
     </tr>
     <tr>
       <td><code>getIndex(l', it')</code></td>
@@ -164,7 +162,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
   </tbody>
 </table>
 
-##### Specifica semantica
+#### Specifica semantica
 - **DECLARE**
   - <code>l</code>, <code>l'</code>: <code>List</code>
   - <code>it</code>, <code>it'</code>: <code>Item</code>
@@ -174,25 +172,25 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
 - **OPERATIONS**
   - <code>isEmpty(newList)</code> = <code>true</code>
   - <code>isEmpty(add(l, it, id))</code> = <code>false</code>
-  - <code>getLastIndex(add(l, it, id))</code> = if <code>isEmpty(l)</code> then <code>1</code> else <code>getLastIndex(l) + 1</code>
+  - <code>getSize(add(l, it, id))</code> = if <code>isEmpty(l)</code> then <code>1</code> else <code>getSize(l) + 1</code>
   - <code>getIndex(add(l, it, id), it')</code> = if <code>it = it'</code> then <code>id</code> else <code>getIndex(l, it')</code>
   - <code>getItem(add(l, it, id), id')</code> = if <code>id = id'</code> then <code>it</code> else <code>getItem(l, id')</code>
   - <code>remove(add(l, it, id), id')</code> = if <code>id = id'</code> then <code>l</code> else <code>add(remove(l, id'), it)</code>
   - <code>contains(newList, it')</code> = <code>false</code>
   - <code>contains(add(l, it, id), it')</code> = if <code>it = it'</code> then <code>true</code> else <code>contains(l, it')</code>
 
-##### Specifica di restrizione
+#### Specifica di restrizione
 - **RESTRICTIONS**
-  - <code>getLastIndex(newList)</code> = <code>error</code>
+  - <code>getSize(newList)</code> = <code>error</code>
   - <code>getIndex(newList, it')</code> = <code>error</code>
   - <code>getItem(newList, id')</code> = <code>error</code>
   - <code>remove(newList, id')</code> = <code>error</code>
 
-##### Specifica algebrica della Mappa
+#### Specifica algebrica della Mappa
 
 - La mappa è una struttura dati che associa una chiave ad un valore, permettendo di memorizzare e recuperare informazioni in modo efficiente.
 
-### Specifica sintattica
+#### Specifica sintattica
 <table>
     <thead>
         <tr>
@@ -289,7 +287,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
   </tbody>
 </table>
 
-##### Specifica semantica
+#### Specifica semantica
 
 - **DECLARE**
   - <code>m</code>, <code>m'</code>: <code>Map</code>
@@ -309,7 +307,7 @@ Si noti come <code>Item</code> è un tipo generico, che può essere sostituito c
   - <code>size(put(m, k, v))</code> = <code>size(m) + 1</code>
 
 
-##### Specifica di restrizione
+#### Specifica di restrizione
 
 - **RESTRICTIONS**
   - <code>get(newMap, k')</code> = <code>error</code>
