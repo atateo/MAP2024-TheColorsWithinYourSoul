@@ -116,7 +116,7 @@ public class DialogDaoImpl implements DialogDao {
     	
     	String testo = null;
     	//id_room e stato sono alternate key in tabella
-        String query = "SELECT testo FROM color WHERE id = ? ";
+        String query = "SELECT testo FROM dialog WHERE id = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
 
