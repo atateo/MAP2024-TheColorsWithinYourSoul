@@ -76,6 +76,9 @@ public abstract class GameEngine {
 }
 
 public class ColorsWithinYourSoulGame extends GameEngine {
+    //Definizione metodi
+    //...
+    
     public void defineGameInteractions() {
         //Crea e aggiunge un'interazione di gioco
         gameInteractions.add(InteractionFactory.buildInteraction(oggetto1, oggetto2, comando, "stato1", "stato2", () -> {
