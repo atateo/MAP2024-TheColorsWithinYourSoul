@@ -417,6 +417,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         GameToGUICommunication.getInstance().toGUI("Dentro la lettera sembra esserci anche una foto, cosa sarà mai?");
 
         GameToGUICommunication.getInstance().toGUI("Premi invio per continuare...");
+
+        super.getGameTimer().stop();
     	
 //    	//effettuo la chiamata "post" per inviare il tempo al server che gestisce il punteggio
 //    	GameClient client = new GameClient();
