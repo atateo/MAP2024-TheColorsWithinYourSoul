@@ -1,20 +1,31 @@
-# Documentazione
+# The Colors Within Your Soul - Report
+
+## Indice
+### [Utilizzo dei vari argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
+#### [1. OOP, diagramma delle classi e specifiche algebriche](#OOP,-diagramma-delle-classi-e-specifiche-algebriche)
+#### [2. File](#File)
+#### [3. Database](#Database)
+#### [4. Thread](#Thread)
+#### [5. REST/Socket](#REST/Socket)
+#### [6. GUI](#GUI)
+#### [7. Lambda expressions/functions](#Lambda-expressions/functions)
+### [Caratteristiche del gioco](#Caratteristiche-del-gioco)
 
 ## Utilizzo dei vari argomenti del corso
 
-### 1) OOP, diagramma delle classi e specifiche algebriche
+### OOP, diagramma delle classi e specifiche algebriche
 
-### 2) File
+### File
 
-### 3) Database
+### Database
 
-### 4) Thread
+### Thread
 
-### 5) REST/Socket
+### REST/Socket
 
-### 6) GUI
+### GUI
 
-### 7) Lambda expressions/functions
+### Lambda expressions/functions
 
 
 ## Caratteristiche del gioco
