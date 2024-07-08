@@ -58,7 +58,263 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 ## Utilizzo dei vari argomenti del corso
 
 ### OOP
+#### Specifiche Algebriche
+Due delle strutture dati più utilizzate nel nostro progetto sono la **Mappa** e la **Lista**, in questa sezione verranno presentate le specifiche algebriche di entrambe.
 
+##### Specifica algebrica della Lista
+La lista è una struttura dati che permette di memorizzare e recuperare informazioni sfruttando l'indice di posizione degli elementi contenuti.
+
+##### Specifica sintattica
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Tipi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="2"><code>List</code>, <code>Item</code>, <code>Integer</code>, <code>Boolean</code></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><strong>Operatori</strong></td>
+        </tr>
+        <tr>
+            <td><code>newList() -> List</code></td>
+            <td>Crea una nuova lista vuota</td>
+        </tr>
+        <tr>
+            <td><code>add(List, Item, Integer) -> List</code></td>
+            <td>Aggiunge un elemento alla lista nella posizione specificata</td>
+        </tr>
+        <tr>
+            <td><code>isEmpty(List) -> Boolean</code></td>
+            <td>Restituisce <code>true</code> se la lista è vuota altrimenti <code>false</code></td>
+          </tr>
+            <tr>
+                <td><code>getLastIndex(List) -> Integer</code></td>
+                <td>Restituisce l'ultima posizione occupata da un elemento</td>
+            </tr> 
+            <tr>
+                <td><code>getIndex(List, Item) -> Integer</code></td>
+                <td>Restituisce la posizione dell'elemento specificato</td>
+            </tr> 
+            <tr>
+                <td><code>getItem(List, Integer) -> Item</code></td>
+                <td>Restituisce l'elemento nella posizione specificata</td> 
+            </tr> 
+            <tr>
+                <td><code>remove(List, Integer) -> List</code></td>
+                <td>Rimuove dalla lista l'elemento nella posizione specificata</td>  
+            </tr>
+            <tr>
+                <td><code>contains(List, Item) -> Boolean</code></td>
+                <td>Restituisce <code>true</code> se l'elemento specificato è contenuto nella lista</td>
+            </tr>
+    </tbody>
+</table>
+Si noti come <code>Item</code> è un tipo generico, che può essere sostituito con qualsiasi altro tipo di dato.
+
+<code>Interger</code> e <code>Boolean</code> invece, sono tipi ausiliari alla definizione della specifica algebrica della lista.
+
+##### Osservazioni e Costruttori
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2">Costruttori di l'</th>
+    </tr>
+  </thead>
+  <tbody align="center">
+    <tr>
+      <td><strong>Osservazioni</strong></td>
+      <td><code>newList</code></td>
+      <td><code>add(l, it, id)</code></td>
+    </tr>
+    <tr>
+      <td><code>isEmpty(l')</code></td>
+      <td><code>true</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>getLastIndex(l')</code></td>
+      <td><code>error</code></td>
+      <td>if <code>isEmpty(l)</code> then <code>1</code> else <code>getLastIndex(l) + 1</code></td>
+    </tr>
+    <tr>
+      <td><code>getIndex(l', it')</code></td>
+      <td><code>error</code></td>
+      <td>if <code>it = it'</code> then <code>id</code> else <code>getIndex(l, it')</code></td>
+    </tr>
+    <tr>
+      <td><code>getItem(l', id')</code></td>
+      <td><code>error</code></td>
+      <td>if <code>id = id'</code> then <code>it</code> else <code>getItem(l, id')</code></td>
+    </tr>
+    <tr>
+      <td><code>remove(l', id')</code></td>
+      <td><code>error</code></td>
+      <td>if <code>id = id'</code> then <code>l</code> else <code>add(remove(l, id'), it)</code></td>
+    </tr>
+    <tr>
+      <td><code>contains(l', it')</code></td>
+      <td><code>false</code></td>
+      <td>if <code>it = it'</code> then <code>true</code> else <code>contains(l, it')</code></td>
+    </tr>
+  </tbody>
+</table>
+
+##### Specifica semantica
+- **DECLARE**
+  - <code>l</code>, <code>l'</code>: <code>List</code>
+  - <code>it</code>, <code>it'</code>: <code>Item</code>
+  - <code>id</code>, <code>id'</code>: <code>Integer</code>
+
+
+- **OPERATIONS**
+  - <code>isEmpty(newList)</code> = <code>true</code>
+  - <code>isEmpty(add(l, it, id))</code> = <code>false</code>
+  - <code>getLastIndex(add(l, it, id))</code> = if <code>isEmpty(l)</code> then <code>1</code> else <code>getLastIndex(l) + 1</code>
+  - <code>getIndex(add(l, it, id), it')</code> = if <code>it = it'</code> then <code>id</code> else <code>getIndex(l, it')</code>
+  - <code>getItem(add(l, it, id), id')</code> = if <code>id = id'</code> then <code>it</code> else <code>getItem(l, id')</code>
+  - <code>remove(add(l, it, id), id')</code> = if <code>id = id'</code> then <code>l</code> else <code>add(remove(l, id'), it)</code>
+  - <code>contains(newList, it')</code> = <code>false</code>
+  - <code>contains(add(l, it, id), it')</code> = if <code>it = it'</code> then <code>true</code> else <code>contains(l, it')</code>
+
+##### Specifica di restrizione
+- **RESTRICTIONS**
+  - <code>getLastIndex(newList)</code> = <code>error</code>
+  - <code>getIndex(newList, it')</code> = <code>error</code>
+  - <code>getItem(newList, id')</code> = <code>error</code>
+  - <code>remove(newList, id')</code> = <code>error</code>
+
+##### Specifica algebrica della Mappa
+
+- La mappa è una struttura dati che associa una chiave ad un valore, permettendo di memorizzare e recuperare informazioni in modo efficiente.
+
+### Specifica sintattica
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Tipi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="2">Map, Key, Value, Boolean, Integer</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Operatori</strong></td>
+        </tr>
+        <tr>
+            <td><code>newMap() -> Map</code></td>
+            <td>Crea una nuova mappa vuota</td>
+        </tr>
+        <tr>
+            <td><code>isEmpty(Map) -> Boolean</code></td>
+            <td>Restituisce <code>true</code> se la mappa è vuota, <code>false</code> altrimenti</td>
+        </tr>
+        <tr>
+            <td><code>put(Map, Key, Value) -> Map</code></td>
+            <td>Aggiunge una coppia chiave-valore alla mappa, o, se già presente, ne aggiorna il valore</td>
+        </tr>
+        <tr>
+            <td><code>get(Map, Key) -> Value</code></td>
+            <td>Restituisce il valore associato alla chiave specificata</td>
+        </tr>
+        <tr>
+            <td><code>containsKey(Map, Key) -> Boolean</code></td>
+            <td>Restituisce <code>true</code> se la chiave specificata è presente nella mappa</td>
+        </tr> 
+        <tr>
+            <td><code>containsValue(Map, Value) -> Boolean</code></td>
+            <td>Restituisce <code>true</code> se il valore specificato è presente nella mappa</td> 
+        </tr>
+        <tr>
+            <td><code>remove(Map, Key) -> Map</code></td>
+            <td>Rimuove la chiave ed il valore associato ad essa dalla mappa</td>
+        </tr> 
+        <tr>
+            <td><code>size(map) -> Integer</code></td>
+            <td>Restituisce il numero di coppie chiave-valore presenti nella mappa</td>  
+        </tr>
+    </tbody>
+</table>
+
+##### Osservazioni e Costruttori
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2">Costruttori di m'</th>
+    </tr>
+  </thead>
+  <tbody align="center">
+    <tr>
+      <td><strong>Osservazioni</strong></td>
+      <td><code>newMap</code></td>
+      <td><code>put(m, k, v)</code></td>
+    </tr>
+    <tr>
+      <td><code>isEmpty(m')</code></td>
+      <td><code>true</code></td>
+      <td><code>false</code></td>
+    </tr>
+    <tr>
+      <td><code>containsKey(m', k')</code></td>
+      <td><code>false</code></td>
+      <td>if <code>k = k'</code> then <code>true</code> else <code>containsKey(m, k')</code></td>
+    </tr>
+    <tr>
+      <td><code>containsValue(m', v')</code></td>
+      <td><code>false</code></td>
+      <td>if <code>v = v'</code> then <code>true</code> else <code>containsValue(m, v')</code></td>
+    </tr>
+    <tr>
+      <td><code>get(m', k')</code></td>
+      <td><code>error</code></td>
+      <td>if <code>k = k'</code> then <code>v</code> else <code>get(m, k')</code></td>
+    </tr>
+    <tr>
+      <td><code>remove(m', k')</code></td>
+      <td><code>error</code></td>
+      <td>if <code>k = k'</code> then <code>m</code> else <code>put(remove(m, k'), k, v)</code></td>
+    </tr>
+    <tr>
+      <td><code>size(m')</code></td>
+      <td><code>0</code></td>
+      <td>if <code>isEmpty(m)</code> then <code>1</code> else <code>size(m) + 1</code></td>
+    </tr>
+  </tbody>
+</table>
+
+##### Specifica semantica
+
+- **DECLARE**
+  - <code>m</code>, <code>m'</code>: <code>Map</code>
+  - <code>k</code>, <code>k'</code>: <code>Key</code>
+  - <code>v</code>, <code>v'</code>: <code>Value</code>
+
+- **OPERATIONS**
+  - <code>isEmpty(newMap)</code> = <code>true</code>
+  - <code>isEmpty(put(m, k, v))</code> = <code>false</code>
+  - <code>containsKey(newMap, k')</code> = <code>false</code>
+  - <code>containsKey(put(m, k, v), k')</code> = if <code>k = k'</code> then <code>true</code> else <code>containsKey(m, k')</code>
+  - <code>containsValue(newMap, v')</code> = <code>false</code>
+  - <code>containsValue(put(m, k, v), v')</code> = if <code>v = v'</code> then <code>true</code> else <code>containsValue(m, v')</code>
+  - <code>get(put(m, k, v), k')</code> = if <code>k = k'</code> then <code>v</code> else <code>get(m, k')</code>
+  - <code>remove(put(m, k, v), k')</code> = if <code>k = k'</code> then <code>m</code> else <code>put(remove(m, k'), k, v)</code>
+  - <code>size(newMap)</code> = <code>0</code>
+  - <code>size(put(m, k, v))</code> = <code>size(m) + 1</code>
+
+
+##### Specifica di restrizione
+
+- **RESTRICTIONS**
+  - <code>get(newMap, k')</code> = <code>error</code>
+  - <code>remove(newMap, k')</code> = <code>error</code>
+  
 ### File
 
 ### Database
