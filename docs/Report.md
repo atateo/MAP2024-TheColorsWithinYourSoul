@@ -38,7 +38,7 @@ Un giorno, riceve una lettera dalla quale apprende la notizia della morte di suo
 
 ![Mappa](./img/MappaGioco.png)
 
-### Walktrough del gioco
+### Walkthrough del gioco
 <a href="https://youtu.be/8sHqEgjV5qA">
   <img src="./img/Thumbnail.png" alt="Walkthrough">
 </a>
