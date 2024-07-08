@@ -30,10 +30,10 @@ public class BaseGameLogic {
                     (gameObjects, targetStates, gameEngine) -> {
                         ((ColorClass) getObjectByName("Rosso", objects)).setUnlocked(true);
                         GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                                "però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");
+                                "però senti qualcosa di diverso in te... Hai sbloccato il colore rosso!");//1
 
                         GameToGUICommunication.getInstance().toGUI("Puoi usare il comando Colora per tinteggiare alcuni " +
-                                "oggetti ottenendo effetti particolari. Prova il rosso sulla torcia della prima stanza, poi.");
+                                "oggetti ottenendo effetti particolari. Prova il rosso sulla torcia della prima stanza, poi.");//2
 
                         GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Rosso", objects));
                     }
@@ -47,7 +47,7 @@ public class BaseGameLogic {
                     (gameObjects, targetStates, gameEngine) -> {
                         ((ColorClass) getObjectByName("Blu", objects)).setUnlocked(true);
                         GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                                "però senti qualcosa di diverso in te... Hai sbloccato il colore blu!");
+                                "però senti qualcosa di diverso in te... Hai sbloccato il colore blu!");//3
 
                         GameToGUICommunication.getInstance().toGUI("Alcuni oggetti interagiscono con più colori. " +
                                 "Ad esempio, prova il blu sempre sulla torcia dopo averla accesa.");
@@ -64,7 +64,7 @@ public class BaseGameLogic {
                     (gameObjects, targetStates, gameEngine) -> {
                         ((ColorClass) getObjectByName("Giallo", objects)).setUnlocked(true);
                         GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                                "però senti qualcosa di diverso in te... Hai sbloccato il colore giallo!");
+                                "però senti qualcosa di diverso in te... Hai sbloccato il colore giallo!");//4
 
                         GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Giallo", objects));
                     }
@@ -78,7 +78,7 @@ public class BaseGameLogic {
                     (gameObjects, targetStates, gameEngine) -> {
                         ((ColorClass) getObjectByName("Verde", objects)).setUnlocked(true);
                         GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                                "però senti qualcosa di diverso in te... Hai sbloccato il colore verde!");
+                                "però senti qualcosa di diverso in te... Hai sbloccato il colore verde!");//5
 
                         GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Verde", objects));
                     }
@@ -92,7 +92,7 @@ public class BaseGameLogic {
                     (gameObjects, targetStates, gameEngine) -> {
                         ((ColorClass) getObjectByName("Marrone", objects)).setUnlocked(true);
                         GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                                "però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");
+                                "però senti qualcosa di diverso in te... Hai sbloccato il colore marrone!");//6
 
                         GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Marrone", objects));
                     }
@@ -106,7 +106,7 @@ public class BaseGameLogic {
                     (gameObjects, targetStates, gameEngine) -> {
                         ((ColorClass) getObjectByName("Viola", objects)).setUnlocked(true);
                         GameToGUICommunication.getInstance().toGUI("Il pennello si dissolve appena lo prendi, " +
-                                "però senti qualcosa di diverso in te... Hai sbloccato il colore viola!");
+                                "però senti qualcosa di diverso in te... Hai sbloccato il colore viola!");//7
 
                         GameToGUICommunication.getInstance().unlockColor((ColorClass) getObjectByName("Viola", objects));
                     }
@@ -119,7 +119,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
-                    GameToGUICommunication.getInstance().toGUI("Colorandola di rosso, la torcia si accende.");
+                    GameToGUICommunication.getInstance().toGUI("Colorandola di rosso, la torcia si accende.");//8
                 }
         ));
 
@@ -129,7 +129,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
-                    GameToGUICommunication.getInstance().toGUI("Colorandola di blu, la torcia si spegne.");
+                    GameToGUICommunication.getInstance().toGUI("Colorandola di blu, la torcia si spegne.");//9
                 }
         ));
 
@@ -140,7 +140,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
                     gameEngine.getRoomByName("AtticoCentrale").getRoomConnection(Command.OVEST).unlock();
 
-                    GameToGUICommunication.getInstance().toGUI("Sposti le macerie, sbloccando la porta a sinistra.");
+                    GameToGUICommunication.getInstance().toGUI("Sposti le macerie, sbloccando la porta a sinistra.");//10
                 }
         ));
 
@@ -149,7 +149,7 @@ public class BaseGameLogic {
                 getObjectByName("CaminoDestro", objects), getObjectByName("Rosso", objects), Command.COLORA, "Spento", "Acceso",
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
-                    GameToGUICommunication.getInstance().toGUI("Si accende il fuoco nel camino di destra.");
+                    GameToGUICommunication.getInstance().toGUI("Si accende il fuoco nel camino di destra.");//11
 
                     if (gameEngine.getItemByName("CaminoSinistro").getStatus().equals("Acceso")) {
                         gameEngine.getRoomByName("StanzaRosso").getRoomConnection(Command.SUD).unlock();
@@ -167,9 +167,9 @@ public class BaseGameLogic {
                         if (gameObjects.get(1).getStatus().equals("SenzaLegna")) {
                             gameObjects.get(1).setStatus(targetStates.get(1));
                             gameEngine.removeItem((Item) getObjectByName("Legnetti", objects));
-                            GameToGUICommunication.getInstance().toGUI("Hai messo i legnetti nel camino di sinistra.");
+                            GameToGUICommunication.getInstance().toGUI("Hai messo i legnetti nel camino di sinistra.");//12
                         } else {
-                            GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+                            GameToGUICommunication.getInstance().toGUI("Non è successo niente.");//13
                         }
                     }
             ));
@@ -180,12 +180,12 @@ public class BaseGameLogic {
                 getObjectByName("CaminoSinistro", objects), getObjectByName("Rosso", objects), Command.COLORA, "Spento", "Acceso",
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
-                    GameToGUICommunication.getInstance().toGUI("Si accende il fuoco nel camino di sinistra.");
+                    GameToGUICommunication.getInstance().toGUI("Si accende il fuoco nel camino di sinistra.");//14
 
                     if (gameEngine.getItemByName("CaminoDestro").getStatus().equals("Acceso")) {
                         gameEngine.getRoomByName("StanzaRosso").getRoomConnection(Command.SUD).unlock();
                         gameEngine.getRoomByName("StanzaColoriPrimari").getRoomConnection(Command.OVEST).unlock();
-                        GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza blu.");
+                        GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza blu.");//15
                     }
                 }
         ));
@@ -196,7 +196,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
                     GameToGUICommunication.getInstance().toGUI("Dipingendolo di blu, hai annaffiato " +
-                            "l'albero e ora è cresciuto.");
+                            "l'albero e ora è cresciuto.");//16
                 }
         ));
 
@@ -206,7 +206,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
                     GameToGUICommunication.getInstance().toGUI("Dipingendola di blu, hai attivato la statua. " +
-                            "Da essa inizia a sgorgare dell'acqua che riempie il fossato.");
+                            "Da essa inizia a sgorgare dell'acqua che riempie il fossato.");//17
                 }
         ));
 
@@ -218,7 +218,7 @@ public class BaseGameLogic {
                         ((Item) gameObjects.get(1)).setMovable(true);
                         gameObjects.get(1).setStatus(targetStates.get(1));
                         GameToGUICommunication.getInstance().toGUI("Hai abbattuto l'albero con l'ascia. " +
-                                "Forse ora puoi spingerlo?");
+                                "Forse ora puoi spingerlo?");//18
                     }
                 }
         ));
@@ -231,10 +231,10 @@ public class BaseGameLogic {
                         gameObjects.getFirst().setStatus(targetStates.get(1));
                         gameEngine.getRoomByName("StanzaBlu").getRoomConnection(Command.EST).unlock();
                         gameEngine.getRoomByName("StanzaColoriPrimari").getRoomConnection(Command.SUD).unlock();
-                        GameToGUICommunication.getInstance().toGUI("Spingi l'albero nel fossato e la corrente lo spinge sull'interruttore.");
-                        GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza gialla.");
+                        GameToGUICommunication.getInstance().toGUI("Spingi l'albero nel fossato e la corrente lo spinge sull'interruttore.");//19
+                        GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta della stanza gialla.");//20
                     } else {
-                        GameToGUICommunication.getInstance().toGUI("Forse devi fare qualcos'altro prima di spingerlo.");
+                        GameToGUICommunication.getInstance().toGUI("Forse devi fare qualcos'altro prima di spingerlo.");//21
                     }
                 }
         ));
@@ -245,7 +245,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
-                    GameToGUICommunication.getInstance().toGUI("Colorandolo di giallo da acceso, l'interruttore si spegne.");
+                    GameToGUICommunication.getInstance().toGUI("Colorandolo di giallo da acceso, l'interruttore si spegne.");//22
                 }
         ));
 
@@ -254,7 +254,7 @@ public class BaseGameLogic {
                 getObjectByName("Interruttore", objects), getObjectByName("BloccoDiFerro", objects), "Spento", "Spento",
                 (gameObjects, targetStates, gameEngine) -> {
                     GameToGUICommunication.getInstance().toGUI("Spegnendo l'interruttore, hai tolto la corrente " +
-                            "al blocco di ferro.");
+                            "al blocco di ferro.");//23
 
                     if (gameObjects.get(1).getStatus().contains("NonSpostato")) {
                         gameObjects.get(1).setStatus("NonSpostato" + targetStates.get(1));
@@ -272,7 +272,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
-                    GameToGUICommunication.getInstance().toGUI("Colorandolo di giallo da spento, l'interruttore si accende.");
+                    GameToGUICommunication.getInstance().toGUI("Colorandolo di giallo da spento, l'interruttore si accende.");//24
                 }
         ));
 
@@ -281,7 +281,7 @@ public class BaseGameLogic {
                 getObjectByName("Interruttore", objects), getObjectByName("BloccoDiFerro", objects), "Acceso", "Acceso",
                 (gameObjects, targetStates, gameEngine) -> {
                     GameToGUICommunication.getInstance().toGUI("Accendendo l'interruttore, hai ridato la corrente " +
-                            "al blocco di ferro.");
+                            "al blocco di ferro.");//25
 
                     if (gameObjects.get(1).getStatus().contains("NonSpostato")) {
                         gameObjects.get(1).setStatus("NonSpostato" + targetStates.get(1));
@@ -289,7 +289,7 @@ public class BaseGameLogic {
                         gameObjects.get(1).setStatus("Spostato" + targetStates.get(1));
                         ((Item) gameObjects.get(0)).setPaintable(false);
                         GameToGUICommunication.getInstance().toGUI("Si attiva un circuito vicino alla porta. " +
-                                "Si sblocca la porta d'ingresso. È il momento di cercare i colori secondari.");
+                                "Si sblocca la porta d'ingresso. È il momento di cercare i colori secondari.");//26
 
                         gameEngine.getRoomByName("StanzaGiallo").getRoomConnection(Command.NORD).unlock();
                         gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.NORD).unlock();
@@ -306,7 +306,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Hai spostato il blocco. Ora si collega al " +
-                            "resto del circuito");
+                            "resto del circuito");//27
                 }
         ));
 
@@ -317,7 +317,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
                     ((Item) gameObjects.getFirst()).setPickable(true);
 
-                    GameToGUICommunication.getInstance().toGUI("Colorandola di verde, la liana cresce considerevolmente.");
+                    GameToGUICommunication.getInstance().toGUI("Colorandola di verde, la liana cresce considerevolmente.");//28
                 }
         ));
 
@@ -327,7 +327,7 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
-                    GameToGUICommunication.getInstance().toGUI("Colorandola di verde, nell'aiuola cresce un albero con dei frutti colorati.");
+                    GameToGUICommunication.getInstance().toGUI("Colorandola di verde, nell'aiuola cresce un albero con dei frutti colorati.");//29
                 }
         ));
 
@@ -341,9 +341,9 @@ public class BaseGameLogic {
                         gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.EST).unlock();
 
                         GameToGUICommunication.getInstance().toGUI("Usi la liana per raccogliere un frutto verde dall'albero. " +
-                                "Il frutto si dissolve, facendo aprire la porta d'ingresso e la porta della stanza marrone.");
+                                "Il frutto si dissolve, facendo aprire la porta d'ingresso e la porta della stanza marrone.");//30
                     } else {
-                        GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+                        GameToGUICommunication.getInstance().toGUI("Non è successo niente.");//13
                     }
                 }
         ));
@@ -355,7 +355,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Colorandolo di marrone, compare un blocco di pietra " +
-                            "sul piedistallo.");
+                            "sul piedistallo.");//31
                 }
         ));
 
@@ -368,9 +368,9 @@ public class BaseGameLogic {
                         ((Item) gameObjects.getFirst()).setMovable(true);
 
                         GameToGUICommunication.getInstance().toGUI("Hai scolpito una statua col blocco di pietra " +
-                                "sul piedistallo.");
+                                "sul piedistallo.");//32
                     } else {
-                        GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+                        GameToGUICommunication.getInstance().toGUI("Non è successo niente.");//13
                     }
                 }
         ));
@@ -383,7 +383,7 @@ public class BaseGameLogic {
                     ((Item) gameObjects.getFirst()).setMovable(false);
 
                     GameToGUICommunication.getInstance().toGUI("Hai spinto la statua sulla pedana a pressione. " +
-                            "È incastrata nell'incavo ora.");
+                            "È incastrata nell'incavo ora.");//33
                 }
         ));
 
@@ -397,7 +397,7 @@ public class BaseGameLogic {
                         gameEngine.getRoomByName("StanzaColoriSecondari").getRoomConnection(Command.SUD).unlock();
 
                         GameToGUICommunication.getInstance().toGUI("Si sblocca la porta d'ingresso e la porta " +
-                                "della stanza viola.");
+                                "della stanza viola.");//34
                     }
                 }
         ));
@@ -409,7 +409,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Colorandola di viola, hai riportato la scala a " +
-                            "quando non era ancora rotta.");
+                            "quando non era ancora rotta.");//35
                 }
         ));
 
@@ -422,7 +422,7 @@ public class BaseGameLogic {
                         ((Item) gameObjects.get(1)).setPaintable(true);
 
                         GameToGUICommunication.getInstance().toGUI("Ora che hai aggiustato la scala, puoi " +
-                                "raggiungere la cima della libreria.");
+                                "raggiungere la cima della libreria.");//36
                     }
                 }
         ));
@@ -434,7 +434,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Colorandolo di viola, hai riportato l'orologio a " +
-                            "quando non era ancora rotto.");
+                            "quando non era ancora rotto.");//37
                 }
         ));
 
@@ -451,7 +451,7 @@ public class BaseGameLogic {
                         gameEngine.removeItem((Item) getObjectByName("Orologio", objects));
 
                         GameToGUICommunication.getInstance().toGUI("Inserendo l'orologio nell'incavo, la porta si riapre. " +
-                                "Ora sei pronto per la prova finale.");
+                                "Ora sei pronto per la prova finale.");//38
                     }
                 }
         ));
@@ -463,7 +463,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Hai sciolto il ghiaccio dell'aiuola. Dentro è vuota, " +
-                            "non c'è nemmeno del terriccio.");
+                            "non c'è nemmeno del terriccio.");//39
                 }
         ));
 
@@ -474,7 +474,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Colorandola di marrone, hai aggiunto del terriccio nell'aiuola. " +
-                            "È ancora vuoto, però.");
+                            "È ancora vuoto, però.");//40
                 }
         ));
 
@@ -485,7 +485,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Iniziano a crescere un germoglio nel vivaio. " +
-                            "Con le giuste cure, crescerà bene.");
+                            "Con le giuste cure, crescerà bene.");//41
                 }
         ));
 
@@ -496,7 +496,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Hai annaffiato la piantina, ti sembra più forte ora. " +
-                            "Sta iniziando ad attirare degli insetti, però.");
+                            "Sta iniziando ad attirare degli insetti, però.");//42
                 }
         ));
 
@@ -507,7 +507,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Hai scacciato gli insetti usando il giallo. " +
-                            "Ora la pianta ha solo bisogno di tempo.");
+                            "Ora la pianta ha solo bisogno di tempo.");//43
                 }
         ));
 
@@ -518,7 +518,7 @@ public class BaseGameLogic {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
                     GameToGUICommunication.getInstance().toGUI("Colorandolo di viola, hai accelerato la crescita " +
-                            "della pianta. Ora è diventata un maestoso albero di quercia.");
+                            "della pianta. Ora è diventata un maestoso albero di quercia.");//44
                 }
         ));
 
@@ -528,12 +528,12 @@ public class BaseGameLogic {
                 (gameObjects, targetStates, gameEngine) -> {
                     if (getObjectByName("Vivaio", objects).getStatus().equals("Cresciuto")) {
                         gameObjects.get(1).setStatus(targetStates.get(1));
-                        GameToGUICommunication.getInstance().toGUI("Hai abbattuto l'albero maestro con l'ascia.");
+                        GameToGUICommunication.getInstance().toGUI("Hai abbattuto l'albero maestro con l'ascia.");//45
 
                         //Imposta la stanza a null perché il gioco è finito
                         gameEngine.setCurrentRoomToNull();
                     } else {
-                        GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+                        GameToGUICommunication.getInstance().toGUI("Non è successo niente.");//13
                     }
                 }
         ));
