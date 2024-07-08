@@ -112,19 +112,25 @@ public class DialogDaoImpl implements DialogDao {
      * {@inheritDoc}
      */
     @Override
-    public String getTestoById(int id) throws SQLException {
+    public String getTestoById(int id) {
     	
     	String testo = null;
-    	//id_room e stato sono alternate key in tabella
-        String query = "SELECT testo FROM dialog WHERE id = ? ";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, id);
-
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-        	testo=rs.getString("testo");
-        }
+    	try {
+	        String query = "SELECT testo FROM dialog WHERE id = ? ";
+	        PreparedStatement ps = conn.prepareStatement(query);
+	        ps.setInt(1, id);
+	
+	        ResultSet rs = ps.executeQuery();
+	
+	        while (rs.next()) {
+	        	testo=rs.getString("testo");
+	        }
+	        if(testo==null || testo.isEmpty())
+        		testo="Anche se sono il narratore non so cosa dirti...";
+    	}
+    	catch (SQLException e) {
+			testo="Anche se sono il narratore non so cosa dirti...";
+		}
 
         return testo;
     }

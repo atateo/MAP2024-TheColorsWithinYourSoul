@@ -8,7 +8,7 @@
 > #### [4. Walkthrough](#Walkthrough-del-gioco)
 > #### [5. Implementazione del progetto](#Implementazione-del-progetto)
 ### [Utilizzo dei vari argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
-> #### [1. OOP, diagramma delle classi e specifiche algebriche](#OOP)
+> #### [1. OOP, diagramma delle classi e specifiche algebriche](#Progettazione-OOP)
 > #### [2. File](#File)
 > #### [3. Database](#Database)
 > #### [4. Thread](#Thread)
@@ -17,6 +17,7 @@
 > #### [7. Lambda expressions/functions](#Lambda-expressions-e-functions)
 
 ## Caratteristiche del progetto
+In questa sezione spieghiamo meglio cos'è questo progetto, il suo scopo e alcuni approfondimenti sulla struttura del gioco.
 ### Introduzione generale
 Questo progetto è stato sviluppato come esame per il corso *Metodi Avanzati di Programmazione*, tenuto dal Prof. *Pierpaolo Basile* presso l'Università degli Studi di Bari Aldo Moro. Il titolo del progetto è *The Colors Within Your Soul*. 
 
@@ -56,8 +57,14 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 - GUI: nonostante il gioco sia un'avventura testuale, è stata comunque implementata una finestra di gioco apposita sulla quale vengono stampate alcune informazioni di gioco come inventario del giocatore, stanza corrente e così via.
 
 ## Utilizzo dei vari argomenti del corso
+In questa sezione approfondiamo l'utilizzo dei vari argomenti di questo corso all'interno di questo corso, spiegando come sono stati implementati e a quali funzionalità corrispondono all'interno del codice. Verranno mostrati anche degli stralci di codice presi dal progetti come esempio, però si noti bene che sono stati inseriti solo a scopo informativo, di conseguenza sono stati semplificati in funzione della spiegazione e non necessariamente riflettono completamente il codice sorgente del nostro gioco.
 
-### OOP
+### Progettazione OOP
+Questo progetto è stato sviluppato con l'intento di scrivere un codice quanto più riutilizzabile ed estendibile per il futuro. Sono stati applicati molti principi della OOP tra cui incapsulamento, ereditarietà e polimorfismo. Sono state scritte dunque molte classi con l'intento di dare una definizione generica ad un determinato concetto, eventualmente ereditando poi da tali classi per definire una maggiore specializzazione di quella classe. Ad esempio, abbiamo definito la classe <code>GameEngine</code> come classe astratta che definisce gli attributi e i metodi che un'avventura testuale basata sul nostro codice deve avere. La classe di gioco principale <code>ColorsWithinYourSoulGame</code>, infatti, è una classe che eredita da <code>GameEngine</code> definendo il comportamento di ciascun metodo. Con l'organizzazione in classi che abbiamo scelto, è possibile usufruire di molti metodi già scritti semplicemente ereditando dalle classi che abbiamo già scritto. Ad esempio, la classe <code>GameToGUICommunication</code> usa una generica istanza di <code>GameEngine</code> e, di conseguenza, è possibile usarla su qualunque classe che sia sottoclasse di <code>GameEngine</code> grazie al *principio di sostituibilità delle sottoclassi*.
+
+#### Diagramma delle classi
+(Inserire qui le immagini del diagramma delle classi una volta che saranno committate)
+
 #### Specifiche Algebriche
 Nel nostro progetto, abbiamo spesso fatto uso delle strutture dati **Mappa** e **Lista**. Ad esempio, le stanze del gioco sono conservate in una lista e ogni stanza ha una lista con gli item in essa contenuta. La mappa, invece, è usata per conservare i comandi di gioco e le stopwords all'interno del parser. In questa sezione definiremo le specifiche algebriche per queste due strutture dati.
 
@@ -314,7 +321,52 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
   - <code>remove(newMap, k')</code> = <code>error</code>
   
 ### File
+All'interno del nostro progetto, abbiamo utilizzato i file per la memorizzazione di alcune informazioni a lungo termine senza utilizzare il DB. La gestione dei file ci ha permesso di memorizzare e recuperare i dati del gioco in modo persistente, garantendo la continuità dell'esperienza di gioco per gli utenti. Per la maggior parte, abbiamo usato file di tipo JSON per memorizzare i dati in modo strutturato e leggibile, facilitandone la lettura e la manipolazione.
 
+Principalmente, facciamo uso dei file JSON per la gestione dei salvataggi e il caricamento iniziale del gioco. Nel nostro progetto abbiamo un file, <code>start.json</code>, che contiene la definizione del gioco nel suo stato iniziale. Contiene quindi i collegamenti tra le stanze e gli oggetti, tutto quanto nello stato iniziale. Inoltre, la gestione dei salvataggi avviene sempre mediante file JSON. Al salvataggio del gioco, viene generato un file che rappresenta lo stato del gioco al momento del salvataggio, conservando quindi informazioni come lo stato delle stanze e gli oggetti al loro interno, quali oggetti sono nell'inventario del player e in che stato si trova ogni oggetto di gioco.
+
+Per la gestione di questi file, abbiamo creato una classe che si occupi di serializzare e deserializzare gli oggetti di gioco, indipendentemente dal loro stato corrente, così da avere un unica interfaccia per qualsiasi caso. Se il player inizia una nuova partita, verrà semplicemente deserializzato il contenuto di <code>start.json</code>. Se il player vuole invece caricare un salvataggio, gli verrà proposta un'interfaccia per la scelta del file implementata mediante la classe di Java <code>JFileChooser</code> e verrà deserializzato il contenuto del file scelto dal player. La serializzazione del file, invece, avviene al momento del salvataggio della partita. Quando il player decide di salvare, sempre mediante interfaccia di <code>JFileChooser</code>, gli verrà chiesto di decidere il file su cui salvare (è anche possibile creare un nuovo file di salvataggio). Su quel file verrà poi serializzato il contenuto della partita. Abbiamo inoltre definito una classe <code>BaseGameDefinition</code> che contiene vari metodi per la ricostruzione del gioco nel suo stato originale. Se ci dovessero essere problemi all'avvio di una nuova partita, quindi alla deserializzazione di <code>start.json</code>, viene richiamata questa classe, nello specifico il metodo <code>createJsonBackup</code> con lo scopo di creare un'istanza del gioco di base e serializzarla sul file. Il file ricostruito viene quindi deserializzato per far cominciare la partita.
+
+```java
+public void createJsonBackup() {
+    GameToJson game = new GameToJson();
+    //Codice che imposta le caratteristiche dell'oggetto game come se fosse una nuova partita
+    //...
+
+    JsonUtil.writeJsonToFile("src/main/resources/static/start.json", game);
+}
+```
+
+La classe che usiamo per la gestione dei file Json è <code>JsonUtil</code>. In questa classe vengono definiti i metodi <code>readJsonFromFile</code> e <code>writeJsonToFile</code> che si occupano rispettivamente della deserializzazione e della serializzazione degli oggetti di gioco. Anche se non vengono usati, nel caso servano per evoluzioni future del programma, sono stati implementati i metodi <code>getObjectFromJsonString</code> e <code>getJsonStringFromObject</code>, che si occupano rispettivamente di convertire una stringa letta da un file JSON in oggetto e di convertire un oggetto in una stringa che può essere poi scritta su un file JSON. Tutti questi metodi lavorano sul path del file passato come parametro, così da permetterne l'utilizzo indipendentemente da se è richiesta una nuova partita o il caricamento di un salvataggio.
+
+```java
+public static void writeJsonToFile(String filePath, Object obj) {
+    Gson gson = new Gson();
+    String jsonString = gson.toJson(obj);
+
+    try (FileWriter fileWriter = new FileWriter(filePath, false)) {
+        fileWriter.write(jsonString);
+    } catch (IOException e) {
+        logger.error("Eccezione in fase di scrittura del file Json: ", e);
+    }
+}
+
+public static GameToJson readJsonFromFile(String filePath) {
+    Gson gson = new Gson();
+    GameToJson game = null;
+
+    try (FileReader fileReader = new FileReader(filePath)) {
+        game = gson.fromJson(fileReader, GameToJson.class);
+    } catch (IOException e) {
+        logger.error("Eccezione in fase di deserializzazione: ", e);
+    }
+    return game;
+}
+```
+
+Notiamo che la classe che sta venendo serializzata è <code>GameToJson</code> e non una classe come <code>ColorsWithinYourSoulGame</code> o <code>GameEngine</code>. Questo perché la classe <code>GameEngine</code> e di conseguenza anche <code>ColorsWithinYourSoulGame</code>, contiene una lista di oggetti della classe <code>Interaction</code> che definiscono la logica di gioco. Questi oggetti non hanno bisogno di essere salvati su file, in quanto la logica di <code>ColorsWithinYourSoulGame</code> è sempre ben definita nella classe <code>BaseGameLogic</code>. Non avrebbe logicamente senso salvare anche la logica di gioco, quindi. Per questo, viene invece serializzata/deserializzata la classe <code>GameToJson</code> che contiene gli attributi del gioco che vanno effettivamente salvati. Quindi, in fase di serializzazione convertiamo prima l'istanza di gioco in <code>GameToJson</code> e successivamente viene salvata su file. Il viceversa vale per la deserializzazione, quindi da file viene letto un oggetto <code>GameToJson</code> che poi viene convertito in istanza di gioco.
+
+Abbiamo usato i file anche per qualche altra parte dell'applicazione. Ad esempio, abbiamo un file <code>application.properties</code> che, come suggerisce il nome, contiene alcune proprietà generali dell'applicazione, ad esempio la versione, dati per la connessione al DB, dati per la connessione all'API, flag vari e path di file utili al programma. Inoltre, il parser legge le stopwords, cioè le parole che deve ignorare in fase di interpretazione del comando (preposizioni, articoli e così via), da un file di testo.
 ### Database
 
 ### Thread
