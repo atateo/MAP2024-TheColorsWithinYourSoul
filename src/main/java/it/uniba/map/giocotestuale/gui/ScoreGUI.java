@@ -208,8 +208,8 @@ public class ScoreGUI extends JFrame {
         }
     }
 
-    /*utile solo ai fini di test
-     * public static void main(String[] args) {
+    /* utile solo per testare la gui alone
+     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
