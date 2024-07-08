@@ -61,10 +61,10 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 #### Specifiche Algebriche
 Nel nostro progetto, abbiamo spesso fatto uso delle strutture dati **Mappa** e **Lista**. Ad esempio, le stanze del gioco sono conservate in una lista e ogni stanza ha una lista con gli item in essa contenuta. La mappa, invece, è usata per conservare i comandi di gioco e le stopwords all'interno del parser. In questa sezione definiremo le specifiche algebriche per queste due strutture dati.
 
-##### Specifica algebrica della Lista
+#### Specifica algebrica della Lista
 La lista è una struttura dati che permette di memorizzare e recuperare informazioni sfruttando l'indice di posizione degli elementi contenuti.
 
-##### Specifica sintattica
+#### Specifica sintattica
 <table>
     <thead>
         <tr>
@@ -114,7 +114,7 @@ La lista è una struttura dati che permette di memorizzare e recuperare informaz
 </table>
 Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Può essere rimpiazzato da qualunque tipo di dato. <code>Interger</code> (numeri interi) e <code>Boolean</code> (valori di verità <code>true</code> e <code>false</code>) invece, sono tipi ausiliari alla definizione della specifica algebrica della lista.
 
-##### Osservazioni e Costruttori
+#### Osservazioni e Costruttori
 
 <table>
   <thead>
@@ -162,7 +162,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
   </tbody>
 </table>
 
-##### Specifica semantica
+#### Specifica semantica
 - **DECLARE**
   - <code>l</code>, <code>l'</code>: <code>List</code>
   - <code>it</code>, <code>it'</code>: <code>Item</code>
@@ -179,18 +179,18 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
   - <code>contains(newList, it')</code> = <code>false</code>
   - <code>contains(add(l, it, id), it')</code> = if <code>it = it'</code> then <code>true</code> else <code>contains(l, it')</code>
 
-##### Specifica di restrizione
+#### Specifica di restrizione
 - **RESTRICTIONS**
   - <code>getSize(newList)</code> = <code>error</code>
   - <code>getIndex(newList, it')</code> = <code>error</code>
   - <code>getItem(newList, id')</code> = <code>error</code>
   - <code>remove(newList, id')</code> = <code>error</code>
 
-##### Specifica algebrica della Mappa
+#### Specifica algebrica della Mappa
 
 - La mappa è una struttura dati che associa una chiave ad un valore, permettendo di memorizzare e recuperare informazioni in modo efficiente.
 
-### Specifica sintattica
+#### Specifica sintattica
 <table>
     <thead>
         <tr>
@@ -287,7 +287,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
   </tbody>
 </table>
 
-##### Specifica semantica
+#### Specifica semantica
 
 - **DECLARE**
   - <code>m</code>, <code>m'</code>: <code>Map</code>
@@ -307,7 +307,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
   - <code>size(put(m, k, v))</code> = <code>size(m) + 1</code>
 
 
-##### Specifica di restrizione
+#### Specifica di restrizione
 
 - **RESTRICTIONS**
   - <code>get(newMap, k')</code> = <code>error</code>
