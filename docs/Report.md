@@ -25,4 +25,4 @@ Qui sotto l'immagine con il link per la walktrough del gioco:
 </a>
 
 Qui invece un'immagine della mappa di gioco:
-![Mappa](docs/img/MappaGioco)
+![Mappa](./img/MappaGioco)
