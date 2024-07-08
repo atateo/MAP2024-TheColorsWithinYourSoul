@@ -408,7 +408,7 @@ Abbiamo usato i file anche per qualche altra parte dell'applicazione. Ad esempio
 In questo progetto, abbiamo utilizzato le lambda functions per una serie di funzioni chiave al funzionamento del programma. Come già anticipato nella sezione OOP, la logica di gioco è composta da una serie di interazioni che determinano cosa accade quando si esegue un'azione su un singolo oggetto (<code>SingleObjectInteraction</code>), cosa accade quando si esegue un'azione che include due oggetti (<code>DirectInteraction</code>) e cosa accade a un oggetto quando un altro oggetto riceve un cambiamento di stato (<code>ChainInteraction</code>). In ognuno di questi casi, le azioni che il gioco deve eseguire quando viene ricevuto un determinato comando su determinati oggetti vengono definite mediante una lambda function. Nello specifico, la classe <code>Interaction</code> ha come attributo un oggetto di tipo <code>Interactable</code>, che è un'interfaccia funzionale che include solo il metodo <code>executeInteraction</code>. Questo metodo è quello che effettivamente esegue l'interazione sugli oggetti interessati prendendo in input l'istanza di <code>GameEngine</code> che rappresenta l'istanza di gioco. Per definire un'interazione, bisogna quindi istanziare un oggetto della categoria di classi <code>Interaction</code> istanziando l'interfaccia funzionale <code>Interactable</code> mediante una lambda function che verrà passata come parametro. Qui sotto riportato un esempio pratico che definisce cosa succede col comando "USA Orologio SU Incavo" quando l'orologio è nello stato "Aggiustato":
 
 ```java
-public void defineGameInteractions() {
+public ArrayList<Interaction> getGameLogic() {
     //Usare l'orologio aggiustato sull'incavo per riempirlo
     gameLogic.add(InteractionFactory.buildInteraction(
             getObjectByName("Orologio", objects), getObjectByName("Incavo", objects), Command.USA, "Aggiustato", "Pieno",
@@ -425,6 +425,10 @@ public void defineGameInteractions() {
                 }
             }
     ));
+
+    //...
+
+    return gameLogic;
 }
 ```
 
@@ -436,29 +440,29 @@ Le lambda expressions sono state usate anche come supporto in altri punti del pr
 ```java
 //Classe ClientRest
 private static String getNameArtist(String jsonString) {
-      JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-      
-      //Lambda function che recupera il nome dell'artista 
-      Optional<String> name = Optional.ofNullable(jsonObject)
-          .map(obj -> obj.getAsJsonObject("_embedded"))
-          .map(embedded -> embedded.getAsJsonArray("artists"))
-          .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
-          .map(artist -> artist.get("name").getAsString());
-
-      //...
+    JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+    
+    //Lambda function che recupera il nome dell'artista 
+    Optional<String> name = Optional.ofNullable(jsonObject)
+        .map(obj -> obj.getAsJsonObject("_embedded"))
+        .map(embedded -> embedded.getAsJsonArray("artists"))
+        .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+        .map(artist -> artist.get("name").getAsString());
+    
+    //...
 }
 
 //Classe Parser
 public ParserOutput parse(String input) {
-      String[] tokens;
-
-      //Lambda function che divide la stringa di input in token filtrando le stopwords
-      //e convertendo tutto in minuscolo, salvando poi i token nell'array di stringhe tokens
-      tokens = Arrays.stream(input.split("\\s+"))
-              .map(String::toLowerCase)
-              .filter(w -> !stopwords.contains(w))
-              .toArray(String[]::new);
-
-      //...
+    String[] tokens;
+    
+    //Lambda function che divide la stringa di input in token filtrando le stopwords
+    //e convertendo tutto in minuscolo, salvando poi i token nell'array di stringhe tokens
+    tokens = Arrays.stream(input.split("\\s+"))
+            .map(String::toLowerCase)
+            .filter(w -> !stopwords.contains(w))
+            .toArray(String[]::new);
+    
+    //...
 }
 ```
