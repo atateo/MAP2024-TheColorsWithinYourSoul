@@ -51,17 +51,17 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                 "New York. Ormai hai fatto carriera, eppure senti di aver perso qualcosa per strada, forse proprio te stesso. " +
                 "Un giorno, però, ricevi una lettera da Vieste. Il tuo caro nonno, con il quale sei cresciuto, è passato a" +
                 "miglior vita e ti ha lasciato in eredità la sua amata villa di famiglia. La notizia ti ha lasciato scosso, " +
-                "ma allo stesso tempo forse questa è l'opportunità di cui avevi bisogno per ritrovare i colori nella tua anima...");
+                "ma allo stesso tempo forse questa è l'opportunità di cui avevi bisogno per ritrovare i colori nella tua anima...");//46
 
         GameToGUICommunication.getInstance().toGUI("Decidi quindi di partire per tornare nella villa di tuo nonno. Al tuo " +
                 "arrivo, decidi di fare un giro per la villa per rivivere qualche ricordo d'infanzia. Ti ricordi, però, che tuo " +
                 "nonno ti aveva sempre impedito di salire all'ultimo piano della villa. La curiosità prende il meglio di te e " +
-                "decidi di andare a controllarlo. Forse tuo nonno ti ha lasciato la villa perché ti ritiene pronto per essa?");
+                "decidi di andare a controllarlo. Forse tuo nonno ti ha lasciato la villa perché ti ritiene pronto per essa?");//47
 
         GameToGUICommunication.getInstance().toGUI("Salite le scale, ti ritrovi davanti al portone d'ingresso della stanza " +
                 "principale del piano. Lo apri e ti ritrovi in un'enorme stanza che ti pare un misto tra un attico e una serra. La " +
                 "porta si chiude alle tue spalle e su di essa vedi scritto \"Recupera i 6 colori che ormai la tua anima ha perduto. " +
-                "Dovrai poi abbattere l'albero maestro. Solo allora potrai uscire\". La tua avventura comincia qui.");
+                "Dovrai poi abbattere l'albero maestro. Solo allora potrai uscire\". La tua avventura comincia qui.");//48
 
         super.getGameTimer().start();
     }

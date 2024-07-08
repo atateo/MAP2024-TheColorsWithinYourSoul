@@ -595,12 +595,12 @@ public class GameGUI extends JPanel {
 
             GameToGUICommunication.getInstance().toGUI("È la replica di un famoso dipinto. Dietro la foto c'è scritto: " +
                     "\"Questa è una piccola replica del dipinto che vedi in foto. L'ho fatta per te come mio ultimo lavoro " +
-                    "prima di lasciarti. Spero che terrai questo mio ultimo lavoro sempre con te - Nonno\"");
+                    "prima di lasciarti. Spero che terrai questo mio ultimo lavoro sempre con te - Nonno\"");//49
 
             GameToGUICommunication.getInstance().toGUI("Hai finito il gioco! Grazie per aver giocato a " +
-                    "The Colors Within Your Soul!");
+                    "The Colors Within Your Soul!");//50
 
-            GameToGUICommunication.getInstance().toGUI("Premi invio per continuare...");
+            GameToGUICommunication.getInstance().toGUI("Premi invio per continuare...");//51
 
             startScore = true;
         } else {
