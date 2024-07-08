@@ -405,3 +405,23 @@ Abbiamo usato i file anche per qualche altra parte dell'applicazione. Ad esempio
 ### GUI
 
 ### Lambda expressions e functions
+In questo progetto, abbiamo utilizzato le lambda functions per una serie di funzioni chiave al funzionamento del programma. Come già anticipato nella sezione OOP, la logica di gioco è composta da una serie di interazioni che determinano cosa accade quando si esegue un'azione su un singolo oggetto (<code>SingleObjectInteraction</code>), cosa accade quando si esegue un'azione che include due oggetti (<code>DirectInteraction</code>) e cosa accade a un oggetto quando un altro oggetto riceve un cambiamento di stato (<code>ChainInteraction</code>). In ognuno di questi casi, le azioni che il gioco deve eseguire quando viene ricevuto un determinato comando su determinati oggetti vengono definite mediante una lambda function. Nello specifico, la classe <code>Interaction</code> ha come attributo un oggetto di tipo <code>Interactable</code>, che è un'interfaccia funzionale che include solo il metodo <code>executeInteraction</code>. Questo metodo è quello che effettivamente esegue l'interazione sugli oggetti interessati prendendo in input l'istanza di <code>GameEngine</code> che rappresenta l'istanza di gioco. Per definire un'interazione, bisogna quindi istanziare un oggetto della categoria di classi <code>Interaction</code> istanziando l'interfaccia funzionale <code>Interactable</code> mediante una lambda function che verrà passata come parametro. Qui sotto riportato un esempio pratico che definisce cosa succede col comando "USA Orologio SU Incavo" quando l'orologio è nello stato "Aggiustato":
+
+```java
+//Usare l'orologio aggiustato sull'incavo per riempirlo
+gameLogic.add(InteractionFactory.buildInteraction(
+        getObjectByName("Orologio", objects), getObjectByName("Incavo", objects), Command.USA, "Aggiustato", "Pieno",
+        (gameObjects, targetStates, gameEngine) -> {
+                gameObjects.get(1).setStatus(targetStates.get(1));
+                ((Item) gameObjects.getFirst()).setPickable(false);
+
+                gameEngine.getRoomByName("StanzaViola").getRoomConnection(Command.NORD).unlock();
+                gameEngine.getRoomByName("StanzaViola").addItem((Item) getObjectByName("Orologio", objects));
+                gameEngine.getRoomByName("AtticoCentrale").getRoomConnection(Command.NORD).unlock();
+                gameEngine.removeItem((Item) getObjectByName("Orologio", objects));
+
+                GameToGUICommunication.getInstance().toGUI("");
+            }
+        }
+));
+```
