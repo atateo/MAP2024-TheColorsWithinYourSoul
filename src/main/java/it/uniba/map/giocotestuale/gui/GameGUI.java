@@ -143,7 +143,10 @@ public class GameGUI extends JPanel {
      * Booleano che indica se il gioco è finito o meno. Definisce cosa deve fare con l'input dell'utente.
      */
     private boolean isFinished;
-
+    /**
+     * Booleano che indica se l'outro è finita e si può passare alla stampa della classifica.
+     */
+    private boolean startScore;
 
     /**
      * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
@@ -164,6 +167,7 @@ public class GameGUI extends JPanel {
     private void initComponents() {
         //Istanzia il booleano di fine gioco a false
         isFinished = false;
+        startScore = false;
 
         // configurazione del pannello
         this.setVisible(true);
@@ -572,7 +576,7 @@ public class GameGUI extends JPanel {
 
         if (!isFinished) {
             GameToGUICommunication.getInstance().toGame(text);
-        } else {
+        } else if (!startScore){
             ArtworkResponse artworkResponse = ClientRest.getArtwork();
             ImageIcon artwork = new ImageIcon(artworkResponse.getArtwork());
 
@@ -592,6 +596,15 @@ public class GameGUI extends JPanel {
             GameToGUICommunication.getInstance().toGUI("È la replica di un famoso dipinto. Dietro la foto c'è scritto: " +
                     "\"Questa è una piccola replica del dipinto che vedi in foto. L'ho fatta per te come mio ultimo lavoro " +
                     "prima di lasciarti. Spero che terrai questo mio ultimo lavoro sempre con te - Nonno\"");
+
+            GameToGUICommunication.getInstance().toGUI("Hai finito il gioco! Grazie per aver giocato a " +
+                    "The Colors Within Your Soul!");
+
+            GameToGUICommunication.getInstance().toGUI("Premi invio per continuare...");
+
+            startScore = true;
+        } else {
+            //Apertura della finestra con la classifica qui
         }
     }
 
