@@ -2,18 +2,18 @@
 
 ## Indice
 ### [Utilizzo dei vari argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
-#### [1. OOP, diagramma delle classi e specifiche algebriche](#OOP,-diagramma-delle-classi-e-specifiche-algebriche)
+#### [1. OOP, diagramma delle classi e specifiche algebriche](#OOP)
 #### [2. File](#File)
 #### [3. Database](#Database)
 #### [4. Thread](#Thread)
-#### [5. REST/Socket](#REST/Socket)
+#### [5. REST e Socket](#REST-e-Socket)
 #### [6. GUI](#GUI)
-#### [7. Lambda expressions/functions](#Lambda-expressions/functions)
+#### [7. Lambda expressions/functions](#Lambda-expressions-e-functions)
 ### [Caratteristiche del gioco](#Caratteristiche-del-gioco)
 
 ## Utilizzo dei vari argomenti del corso
 
-### OOP, diagramma delle classi e specifiche algebriche
+### OOP
 
 ### File
 
@@ -21,11 +21,11 @@
 
 ### Thread
 
-### REST/Socket
+### REST e Socket
 
 ### GUI
 
-### Lambda expressions/functions
+### Lambda expressions e functions
 
 
 ## Caratteristiche del gioco
