@@ -1,21 +1,16 @@
 package it.uniba.map.giocotestuale.impl;
 
-import it.uniba.map.giocotestuale.database.domain.Score;
-import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
+import it.uniba.map.giocotestuale.database.impl.DialogDaoImpl;
 import it.uniba.map.giocotestuale.entities.game.*;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.ChainInteraction;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
-import it.uniba.map.giocotestuale.rest.ClientRest;
-import it.uniba.map.giocotestuale.socket.GameClient;
 import it.uniba.map.giocotestuale.type.Command;
 import it.uniba.map.giocotestuale.type.ParserOutput;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,6 +24,7 @@ import java.util.Set;
  * @author Angelo Vincenti
  */
 public class ColorsWithinYourSoulGame extends GameEngine {
+	private DialogDaoImpl dialog;
     
     /**
      * Costruttore di classe. Non ha parametri. Richiama il costruttore della superclasse per
@@ -36,6 +32,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     public ColorsWithinYourSoulGame() {
         super();
+        dialog = new DialogDaoImpl();
     }
     /**
      * Logger per la registrazione degli eventi.
@@ -47,21 +44,11 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void welcomePlayer() {
-        GameToGUICommunication.getInstance().toGUI("Sono passati ormai diversi anni da quando ti sei trasferito a " +
-                "New York. Ormai hai fatto carriera, eppure senti di aver perso qualcosa per strada, forse proprio te stesso. " +
-                "Un giorno, però, ricevi una lettera da Vieste. Il tuo caro nonno, con il quale sei cresciuto, è passato a" +
-                "miglior vita e ti ha lasciato in eredità la sua amata villa di famiglia. La notizia ti ha lasciato scosso, " +
-                "ma allo stesso tempo forse questa è l'opportunità di cui avevi bisogno per ritrovare i colori nella tua anima...");//46
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(46));//46
 
-        GameToGUICommunication.getInstance().toGUI("Decidi quindi di partire per tornare nella villa di tuo nonno. Al tuo " +
-                "arrivo, decidi di fare un giro per la villa per rivivere qualche ricordo d'infanzia. Ti ricordi, però, che tuo " +
-                "nonno ti aveva sempre impedito di salire all'ultimo piano della villa. La curiosità prende il meglio di te e " +
-                "decidi di andare a controllarlo. Forse tuo nonno ti ha lasciato la villa perché ti ritiene pronto per essa?");//47
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(47));//47
 
-        GameToGUICommunication.getInstance().toGUI("Salite le scale, ti ritrovi davanti al portone d'ingresso della stanza " +
-                "principale del piano. Lo apri e ti ritrovi in un'enorme stanza che ti pare un misto tra un attico e una serra. La " +
-                "porta si chiude alle tue spalle e su di essa vedi scritto \"Recupera i 6 colori che ormai la tua anima ha perduto. " +
-                "Dovrai poi abbattere l'albero maestro. Solo allora potrai uscire\". La tua avventura comincia qui.");//48
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(48));//48
 
         super.getGameTimer().start();
     }
@@ -71,8 +58,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void help() {
-        GameToGUICommunication.getInstance().toGUI("Premi il tasto ? in alto per avere un chiarimento sui " +
-                "comandi di gioco.");
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(55));//55
     }
 
     /**
@@ -167,7 +153,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         //Comando inventario
         if (command == Command.INVENTARIO) {
-            GameToGUICommunication.getInstance().toGUI("Puoi vedere gli oggetti nel tuo inventario in basso a destra.");
+            GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(56));//56
             return;
         }
 
@@ -216,11 +202,11 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             }
 
             if (output.getCommandType() == Command.SPINGI && !((Item) output.getFirstObject()).getMovable()) {
-                GameToGUICommunication.getInstance().toGUI("Non vale la pena spostare questo oggetto.");
+                GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(57));//57
                 return;
             } else if (output.getCommandType() == Command.PRENDI) {
                 if ( !((Item) output.getFirstObject()).getPickable()) {
-                    GameToGUICommunication.getInstance().toGUI("Non puoi mettere una cosa del genere nell'inventario!!");
+                    GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(58));//58
                     return;
                 } else if (!output.getFirstObject().getName().contains("Pennello")) {
                     //Aggiunge l'oggetto nell'inventario e lo rimuove dalla stanza
@@ -240,7 +226,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Implementa il comando LASCIA
         if (command == Command.LASCIA) {
             if (output.getFirstObject() == null) {
-                GameToGUICommunication.getInstance().toGUI("Non stai lasciando nulla!!");
+                GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(59));//59
             } else {
                 //Rimuove l'oggetto nell'inventario e lo aggiunge dalla stanza
                 removeItem((Item) output.getFirstObject());
@@ -279,12 +265,12 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             }
 
             if (!((ColorClass) output.getSecondObject()).isUnlocked()) {
-                GameToGUICommunication.getInstance().toGUI("Non hai ancora ritrovato questo colore...");
+                GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(60));//60
                 return;
             }
 
             if (!((Item) output.getFirstObject()).getPaintable()) {
-                GameToGUICommunication.getInstance().toGUI("Sembra che la pittura non abbia effetto su questo oggetto.");
+                GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(61));//61
                 return;
             }
         }
@@ -302,9 +288,9 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
                 //Verifica ed esegue il comando di movimento
                 if (destination == null) {
-                    GameToGUICommunication.getInstance().toGUI("Non c'è nulla in quella direzione.");
+                    GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(62));//62
                 } else if (destination.isLocked()) {
-                    GameToGUICommunication.getInstance().toGUI("La porta è chiusa.");
+                    GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(63));//63
                 } else {
                     setCurrentRoom(destination.getReachableRoom(this));
                     GameToGUICommunication.getInstance().notifyRoomUpdateToGUI();
@@ -369,7 +355,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Se nessuna interaction è stata effettuata, notifica l'utente
         if (!didSomething) {
             if (command != Command.PRENDI && command != Command.LASCIA && !movementCommands.contains(command)) {
-                GameToGUICommunication.getInstance().toGUI("Non è successo niente.");
+                GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(13));//13
             }
         }
 
@@ -388,7 +374,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     @Override
     public void invalidCommandOutput() {
         GameToGUICommunication.getInstance().toGUI("Non ho capito cosa mi vuoi dire...\n" +
-                "Il comando potrebbe essere sbagliato o non ho trovato l'oggetto che hai chiesto.");
+                "Il comando potrebbe essere sbagliato o non ho trovato l'oggetto che hai chiesto.");//64
     }
 
     /**
@@ -405,43 +391,14 @@ public class ColorsWithinYourSoulGame extends GameEngine {
      */
     @Override
     public void goodbyePlayer() {
-        GameToGUICommunication.getInstance().toGUI("Dal tronco dell'albero, cade un'altra lettera da tuo nonno. " +
-                "Dentro ci trovi un messaggio per te.");
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(52));//52
 
-        GameToGUICommunication.getInstance().toGUI("\"Caro figliolo, se sei arrivato fin qui vuol dire che avevi bisogno " +
-                "di ritrovare te stesso. Ormai sono passato a miglior vita, ma spero che questo viaggio ti abbia insegnato " +
-                "qualcosa. Hai recuperato tutti i colori e ora la tua anima non è più grigia. Ci saranno momenti nella vita in " +
-                "cui non ce la farai più, in quei momenti ricordati sempre di non perdere mai ciò chi sei e di andare sempre " +
-                "avanti, rimettendoti in piedi quando dovessi cadere. Ti voglio bene e sono fiero di te, figliolo - Nonno\"");
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(53));//53
 
-        GameToGUICommunication.getInstance().toGUI("Dentro la lettera sembra esserci anche una foto, cosa sarà mai?");
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(54));//54
 
-        GameToGUICommunication.getInstance().toGUI("Premi invio per continuare...");
+        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(51));//51
 
         super.getGameTimer().stop();
-    	
-//    	//effettuo la chiamata "post" per inviare il tempo al server che gestisce il punteggio
-//    	GameClient client = new GameClient();
-//		//String response = null;
-//	    try {
-//	    	//aggiungere properties url e porta socket
-//	    	client.startConnection("localhost", 3999);
-//			Score score = new Score();
-//			score.setPlayer("readiPlayerOne");
-//			long time = System.currentTimeMillis();
-//			score.setTime(time);
-//			client.sendScore(score);
-//			/*client.stopConnection();
-//
-//			client.startConnection("localhost", 3999);*/
-//			client.getScores();
-//			/*client.stopConnection();
-//
-//			client.startConnection("localhost", 3999);*/
-//			client.end();
-//			client.stopConnection();
-//	    } catch (IOException e) {
-//			logger.error("Eccezione di comunicazione con il server dei punteggi",e);
-//		}
     }
 }

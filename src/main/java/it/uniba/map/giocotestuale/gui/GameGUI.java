@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.database.impl.DialogDaoImpl;
 import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.rest.ClientRest;
@@ -28,14 +29,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Classe che mostra la GUI del gioco.
  */
 public class GameGUI extends JPanel {
-
-    /**
+	
+	/**
      * Pulsante per tornare indietro al menu principale
      */
     private JButton back;
@@ -165,6 +165,7 @@ public class GameGUI extends JPanel {
      * Metodo che si occupa di configurare e posizionare tutte le componenti sullo schermo.
      */
     private void initComponents() {
+    	    	
         //Istanzia il booleano di fine gioco a false
         isFinished = false;
         startScore = false;
@@ -571,6 +572,9 @@ public class GameGUI extends JPanel {
      * @param evt rappresenta l'evento dell'input dell'utente.
      */
     private void UserInputActionPerformed(ActionEvent evt) {
+    	//istanzo la classe DAO 
+    	DialogDaoImpl dialog = new DialogDaoImpl();
+    	
         String text = userInputField.getText();
         userInputField.setText("");
 
@@ -593,14 +597,11 @@ public class GameGUI extends JPanel {
             imagePanel.revalidate();
             imagePanel.repaint();
 
-            GameToGUICommunication.getInstance().toGUI("È la replica di un famoso dipinto. Dietro la foto c'è scritto: " +
-                    "\"Questa è una piccola replica del dipinto che vedi in foto. L'ho fatta per te come mio ultimo lavoro " +
-                    "prima di lasciarti. Spero che terrai questo mio ultimo lavoro sempre con te - Nonno\"");//49
+            GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(49));//49
 
-            GameToGUICommunication.getInstance().toGUI("Hai finito il gioco! Grazie per aver giocato a " +
-                    "The Colors Within Your Soul!");//50
+            GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(50));//50
 
-            GameToGUICommunication.getInstance().toGUI("Premi invio per continuare...");//51
+            GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(51));//51
 
             startScore = true;
         } else {
