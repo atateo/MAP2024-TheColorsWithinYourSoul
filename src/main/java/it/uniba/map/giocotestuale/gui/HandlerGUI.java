@@ -27,7 +27,7 @@ public class HandlerGUI extends JFrame {
      /**
       * La GUI del menu
       */
-    private static MenuGUI menu;
+     private static MenuGUI menu;
      /**
       * La GUI dei crediti
       */
@@ -101,4 +101,22 @@ public class HandlerGUI extends JFrame {
     public static GameGUI getGameGUI() {
         return game;
     }
+
+     /**
+      * Aggiorna l'icona del gioco con la versione colorata
+      */
+    public void updateIcon()
+    {
+        ImageIcon icon = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
+        this.setIconImage(icon.getImage());
+    }
+
+     /**
+      * Aggiorna MenuGUI con la versione colorata
+      */
+    public static void updateMenuGUI()
+    {
+        menu.updateMenu();
+    }
+
 }
