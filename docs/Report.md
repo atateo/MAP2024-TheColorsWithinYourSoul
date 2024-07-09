@@ -758,17 +758,16 @@ if (jsonOpera != null && !jsonOpera.isEmpty()) {
 		}
 ```
 
-La deserializzazione della response è effettuata tramite la libreria <code>Gson</code> che estrae gli attributi dalla stringa e li associa agli attributi definiti nell'oggetto <code>Artwork</code>.
+La deserializzazione della response è effettuata tramite la libreria <code>Gson</code> che estrae gli attributi dalla stringa e li associa agli attributi definiti nell'oggetto <code>Artwork</code>. Il tipo di ritorno del client è un bean <code>ArtworkResponse</code> che definisce gli attributi <code>nameArtist</code> e <code>nameArtwork</code> di tipo <code>String</code> e <code>byte[]</code>, rispettivamente. Viene anche salvato il nome dell'artista come stringa.
 
 ```java
+//Deserializzazione response
 Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
-```
 
-Il tipo di ritorno del client è un bean <code>ArtworkResponse</code> che definisce gli attributi: <code>nameArtist</code> e <code>nameArtwork</code> di tipo <code>String</code> e artwork di tipo <code>byte[]</code>:
-```java
-	private byte[] artwork;
-	private String nameArtwork;
-	private String nameArtist;
+//Ritorno del client
+private byte[] artwork;
+private String nameArtwork;
+private String nameArtist;
 ```
 
 Per recuperare il nome dell'artista dalla relativa response, si è scelto di non effettuare una deserializzazione completa ma si è proceduto a recuperare l'attributo direttamente:
@@ -806,49 +805,43 @@ public GameServer(int port) {
 }
 ```
 
-La classe server implementa il metodo <code>start</code> che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso:
+La classe server implementa il metodo <code>start</code> che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso. Sulla base dell'operazione definita dal client, effettua le due principali operazioni.
+- <code>POST</code> indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco.
+- <code>GET</code> indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dieci.
+Catturata la richiesta del client, il server esegue il ramo di codice selezionato. Anche se non sono è previsto che il client invii comandi differenti, è stato gestito il caso di default input errato.
 
 ```java
 while (true) {
 	try (Socket clientSocket = serverSocket.accept();
 		 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
 		 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
-		 ...
-```
-
-Sulla base dell'operazione definita dal client, effettua le due principali operazioni: <code>POST</code> e <code>GET</code>.
-Catturata la richiesta del client, il server esrgue il ramo di codice selezionato: <code>POST</code> indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco;
-<code>GET</code> indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dicei:
-
-```java
-switch (input) {
-	case "POST" -> {
-		ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
-		Score score = (Score) in.readObject();
-		try {
-			int keyGenerated = scoreDaoImpl.add(score);
-			out.writeObject("Operazione di inserimento eseguita correttamente. KEY=" + keyGenerated);
-		} catch (SQLException e) {
-			logger.error("Operazione di inserimento fallita", e);
-			out.writeObject("Operazione di inserimento fallita");
+		 //...
+		 switch (input) {
+			case "POST" -> {
+				ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
+				Score score = (Score) in.readObject();
+				try {
+					int keyGenerated = scoreDaoImpl.add(score);
+					out.writeObject("Operazione di inserimento eseguita correttamente. KEY=" + keyGenerated);
+				} catch (SQLException e) {
+					logger.error("Operazione di inserimento fallita", e);
+					out.writeObject("Operazione di inserimento fallita");
+				}
+			}
+			case "GET" -> {
+				ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
+				try {
+					out.writeObject(scoreDaoImpl.getScores(10));
+				} catch (SQLException e) {
+					logger.error("Eccezione in fase di recupero della classifica: ", e);
+					out.writeObject("Eccezione in fase di recupero della classifica: " + e);
+				}
+			}
+			default -> {
+				out.writeObject("Operazione non valida");
+			}
 		}
 	}
-	case "GET" -> {
-		ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
-		try {
-			out.writeObject(scoreDaoImpl.getScores(10));
-		} catch (SQLException e) {
-			logger.error("Eccezione in fase di recupero della classifica: ", e);
-			out.writeObject("Eccezione in fase di recupero della classifica: " + e);
-		}
-	}
-```
-
-Anche se non sono è previsto che il client invii comandi differenti, è stato gestito il caso di default input errato:
-
-```java
-default -> {
-	out.writeObject("Operazione non valida");
 }
 ```
 
