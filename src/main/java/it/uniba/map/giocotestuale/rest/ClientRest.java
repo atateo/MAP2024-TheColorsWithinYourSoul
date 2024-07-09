@@ -97,7 +97,7 @@ public class ClientRest {
                             }
                         }
                     } else {
-                        nameArtwork = "Opera d'arte non più disponibile";
+                        artworkResponse.setNameArtwork("Opera d'arte non più disponibile");
                     }
                 }
             }
@@ -180,7 +180,7 @@ public class ClientRest {
             connection.setDoOutput(true);
 
             int responseCode = connection.getResponseCode();
-            logger.info("Response Code metodo GET: " + responseCode);
+            logger.info("Response Code metodo GET: {}", responseCode);
 
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));

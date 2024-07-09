@@ -10,7 +10,7 @@ import javax.sound.sampled.Clip;
 import java.util.HashMap;
 
 /**
- * Classe che gestice la riproduzione della musica di gioco. È una classe singleton.
+ * Classe che gestisce la riproduzione della musica di gioco. È una classe singleton.
  */
 public class Mixer extends Thread {
     /**
@@ -21,7 +21,6 @@ public class Mixer extends Thread {
      * Singola istanza della classe Mixer.
      */
     public static Mixer instance;
-
     /**
      * Array contenente tutte le tracks caricate nel Mixer.
      */

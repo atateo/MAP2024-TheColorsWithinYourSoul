@@ -63,10 +63,10 @@ public class JsonUtil {
      * @param jsonString il percorso del file da cui leggere il JSON
      * @return obj l'oggetto in cui deserializzare i dati
      */
-    public static Object getObjectFromJsonString(String jsonString, Object obj) {
+    public static Object getObjectFromJsonString(String jsonString) {
         Gson gson = new Gson();
 
-        obj = gson.fromJson(jsonString, Object.class);
+        Object obj = gson.fromJson(jsonString, Object.class);
         logger.info("Deserializzazione oggetto avvenuta con successo!");
         return obj;
     }

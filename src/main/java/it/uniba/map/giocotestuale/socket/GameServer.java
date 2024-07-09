@@ -72,7 +72,6 @@ public class GameServer {
                     }
                     case "END" -> {
                         out.writeObject("Disconnessione in corso...");
-                        //stop();
                     }
                     default -> {
                         out.writeObject("Operazione non valida");

@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Comparator;
 import java.util.List;
 
 import it.uniba.map.giocotestuale.database.domain.Score;
@@ -70,14 +70,14 @@ public class GameClient {
             out.writeObject("GET");
 
             List<?> response = (List<?>) in.readObject();
-            for (Iterator<?> iterator = response.iterator(); iterator.hasNext(); ) {
-                Score score = (Score) iterator.next();
+            for (Object o : response) {
+                Score score = (Score) o;
                 punteggi.add(score);
             }
         } catch (IOException | ClassNotFoundException e) {
             logger.error("Eccezione nel metodo getScores (recupero dei punteggi): ", e);
         }
-        punteggi.sort((a, b) -> fromatTimeFromStringToInt(a.getTime()) - fromatTimeFromStringToInt(b.getTime()));
+        punteggi.sort(Comparator.comparingInt(a -> fromatTimeFromStringToInt(a.getTime())));
         return punteggi;
     }
 

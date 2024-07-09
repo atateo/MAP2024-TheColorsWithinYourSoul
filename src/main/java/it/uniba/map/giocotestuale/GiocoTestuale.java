@@ -12,10 +12,24 @@ import org.apache.logging.log4j.Logger;
 import it.uniba.map.giocotestuale.database.Setup;
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 
+/**
+ * Classe contente il main della nostra applicazione. Fa partire il gioco.
+ *
+ * @author Yuri Tateo
+ * @author Antimo Tateo
+ * @author Angelo Vincenti
+ */
 public class GiocoTestuale {
 
+    /**
+     * Logger per la registrazione degli eventi.
+     */
     protected static final Logger logger = LogManager.getLogger();
 
+    /**
+     * Main dell'applicazione. Il metodo che verrà eseguito e darà inizio al gioco.
+     * @param args Argomenti.
+     */
     public static void main(String[] args) {
 
         ApplicationProperties properties = ApplicationProperties.getInstance();
@@ -36,7 +50,5 @@ public class GiocoTestuale {
         } catch (IOException | ClassNotFoundException e) {
             logger.error("Errore durante la creazione del server: ", e);
         }
-//		logger.debug("Connessione rilasciata");
-//		DatabaseConnection.releaseConnection();
     }
 }
