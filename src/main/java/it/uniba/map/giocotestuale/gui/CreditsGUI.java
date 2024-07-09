@@ -161,7 +161,7 @@ public class CreditsGUI extends JPanel {
         content.setText(
                 "<html>"+"<center>"
                         + "<p>The Colors Within Your Soul è un'avventura testuale sviluppata da Yuri Tateo, Antimo Tateo e Angelo Vincenti come piccolo progetto di passione. Ci auguriamo che il gioco sia di vostro gradimento!</p>"
-                        + "<p>Cliccando sulle immagini potrete visionare i profili Github dei membri del team</p>"
+                        + "<p>Cliccando sulle immagini verrete portati sulla pagina web GitHub di ciascuno dei membri.</p>"
                         + "</html>"+"</center>"
         );
         content.setBackground(new Color(50, 168, 156));
