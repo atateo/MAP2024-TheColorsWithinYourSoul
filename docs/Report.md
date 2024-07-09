@@ -702,7 +702,7 @@ public void startProgressBar() {
 Altre operazioni che abbiamo eseguito utilizzando i Thread includono aggiornamento di elementi di GUI utilizzando il metodo <code>scheduleAtFixedRate()</code> come spiegato sopra (l'aggiornamento del label del timer, per esempio). Abbiamo anche fatto un utilizzo indiretto dei Thread lavorando con l'<code>Event Dispatch Thread</code> che gestisce il flow della GUI, oppure utilizzando alcune classi che si appoggiano sui Thread come <code>System</code>, nello specifico utilizzando il metodo <code>currentTimeMillis()</code> sulla quale è basato l'intero funzionamento della classe <code>GameTimer</code>, che gestisce il timer di gioco.
 ### REST e Socket
 
-Per implementare un sistema di comunicazione client/server abbiamo realizzato un client <code>REST</code> e utilizzato i Socket per gestire la classifica con i migliori tempi ottenuti per la soluzione del gioco.
+Per implementare un sistema di comunicazione client/server abbiamo realizzato un client <code>REST</code> e utilizzato i <code>Socket</code> per gestire la classifica con i migliori tempi ottenuti per la soluzione del gioco.
 Il client <code>REST</code> si interfaccia con il <code>WebService</code> pubblico <code>ArtSy</code>, un sistema molto complesso che condivide migliaia di opere d'arte di artisti di ogni genere ed epoca.
 <code>ArtSy</code> prevede l'utilizzo delle proprie <code>API</code> previa iscrizione al servizio e l'ottenimento di un token applicativo <code>X-XAPP-Token</code> che viene utilizzato in tutte le chiamate di ogni operazione.
 Per semplificare le operazioni di recupero delle opere d'arte, abbiamo effettuato un'attività di scouting che partendo dal nome dell'artista, ci ha portato a definire un set di undici opere d'arte predefinite.
