@@ -258,6 +258,9 @@ public class MenuGUI extends JPanel {
 
         //Imposta l'aggiornamento del timer
         GameGUI.UpdateTimerLabel();
+
+        //Imposta il gioco a non finito
+        HandlerGUI.getGameGUI().setFinished(false);
     }
 
 
@@ -305,6 +308,9 @@ public class MenuGUI extends JPanel {
 
             //Imposta l'inventario
             GameToGUICommunication.getInstance().notifyInventoryUpdateToGUI();
+
+            //Imposta il gioco a non finito
+            HandlerGUI.getGameGUI().setFinished(false);
         }
     }
 

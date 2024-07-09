@@ -658,5 +658,8 @@ public class GameGUI extends JPanel {
      */
     public void setFinished(final boolean isFinished) {
         this.isFinished = isFinished;
+
+        //Se il gioco è finito, blocca il tasto save, altrimenti sbloccalo
+        save.setEnabled(!isFinished);
     }
 }
