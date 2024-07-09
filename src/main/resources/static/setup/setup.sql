@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS room (id INT AUTO_INCREMENT PRIMARY KEY, stato VARCHA
 CREATE TABLE IF NOT EXISTS item (id INT AUTO_INCREMENT PRIMARY KEY, stato VARCHAR(20), descrizione VARCHAR(200), id_item INT);
 CREATE TABLE IF NOT EXISTS color (id INT AUTO_INCREMENT PRIMARY KEY, descrizione VARCHAR(300));
 CREATE TABLE IF NOT EXISTS dialog (id INT AUTO_INCREMENT PRIMARY KEY, testo VARCHAR(500));
-CREATE TABLE IF NOT EXISTS score (id INT AUTO_INCREMENT PRIMARY KEY, player VARCHAR(100), score INT, time VARCHAR(10));
+CREATE TABLE IF NOT EXISTS score (id INT AUTO_INCREMENT PRIMARY KEY, player VARCHAR(100), time VARCHAR(10));
 
 INSERT INTO room(id_room, stato, descrizione) VALUES 
 (0,'Neutro', 'Ti trovi nella stanza centrale del piano. È un misto tra una serra e un attico vero e proprio ed è enorme. Noti come la vegetazione abbia totalmente preso il sopravvento, ci sono finestre rotte, macerie in giro ed è tutto in disordine. Ci sono tre porte, oltre a quella da cui sei entrato. Alla tua sinistra, una porta normale, con alcune macchie di pittura rossa, gialla e blu. Alla tua destra, un''altra porta normale, con alcune macchie di pittura verde, marrone e viola. Davanti a te, una porta con un sigillo con tutti e 6 i colori.'),

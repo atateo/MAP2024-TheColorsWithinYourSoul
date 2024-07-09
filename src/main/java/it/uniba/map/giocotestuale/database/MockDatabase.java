@@ -69,7 +69,6 @@ public class MockDatabase {
         String creaScore = "CREATE TABLE IF NOT EXISTS score (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY, " +
                 "player VARCHAR(100), " +
-                "score INT, " +
                 "time VARCHAR(10))";
 
 
