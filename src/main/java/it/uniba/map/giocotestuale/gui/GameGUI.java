@@ -7,6 +7,7 @@ import it.uniba.map.giocotestuale.rest.ClientRest;
 import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
+import javax.net.ssl.SNIHostName;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -499,7 +500,6 @@ public class GameGUI extends JPanel {
         Mixer.getInstance().startTrack();
 
         inventoryTextArea.setText("Inventario");
-
         //Resetta i colori sbloccati
         redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));
         blueColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroGrigio.png"));

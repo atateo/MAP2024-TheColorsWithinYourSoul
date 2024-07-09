@@ -4,12 +4,7 @@ import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout;
-import javax.swing.BorderFactory;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
@@ -49,12 +44,6 @@ public class MenuGUI extends JPanel {
       * Pulsante per attivare o disattivare l'audio del gioco
       */
      private static JButton audio;
-
-     /**
-      * Pulsante che rimanda al sito del progetto
-      */
-     private JButton site;
-
      /**
       * Immagine audio spento
       */
@@ -69,7 +58,7 @@ public class MenuGUI extends JPanel {
       * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
       */
      public MenuGUI() {
-         initComponents();
+        initComponents();
 
      }
 
@@ -77,7 +66,6 @@ public class MenuGUI extends JPanel {
       * Metodo che istanzia e setta i componenti sullo schermo.
       */
      private void initComponents() {
-
         // disegna l'immagine di sfondo
         background = new JPanel() {
             @Override
@@ -90,9 +78,7 @@ public class MenuGUI extends JPanel {
         };
 
         // setta le dimensioni del pannello menu e dello sfondo
-
         this.setSize(1000, 700);
-
 
         background.setSize(1000, 700);
         background.setRequestFocusEnabled(false);
@@ -139,14 +125,16 @@ public class MenuGUI extends JPanel {
         audio.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         audio.addActionListener(this::AudioActionPerformed);
 
-        // configurazione del pulsante site
-        site = new JButton(new ImageIcon("src/main/resources/img/tavolozza_bn.png"));
-        site.setFocusPainted(false);
-        site.setForeground(Color.black);
-        site.setBackground(Color.lightGray);
-        site.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
-        site.addActionListener(this::SiteActionPerformed);
+        setGroupLayout();
 
+
+    }
+
+     /**
+      * Metodo che configura il GroupLayout
+      */
+    private void setGroupLayout()
+    {
         // impostazione del Group Layout per il posizionamento dei vari componenti sullo sfondo
         GroupLayout backgroundLayout = new GroupLayout(background);
         backgroundLayout.setHorizontalGroup(
@@ -154,8 +142,7 @@ public class MenuGUI extends JPanel {
                         .addGroup(backgroundLayout.createSequentialGroup()
                                 .addGap(25)
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(audio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(site, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(audio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                         .addGroup(backgroundLayout.createSequentialGroup()
                                 .addGap(400)
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
@@ -172,8 +159,7 @@ public class MenuGUI extends JPanel {
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(backgroundLayout.createSequentialGroup()
                                                 .addComponent(audio, 64, 64, 64)
-                                                .addGap(12)
-                                                .addComponent(site, 60, 60, 60)))
+                                                .addGap(12)))
                                 .addPreferredGap(ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
                                 .addComponent(start, 64, 64, 64)
                                 .addGap(32)
@@ -187,7 +173,7 @@ public class MenuGUI extends JPanel {
 
         background.setLayout(backgroundLayout);
 
-         // impostazione del Group Layout per il posizionamento dello sfondo
+        // impostazione del Group Layout per il posizionamento dello sfondo
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,7 +184,48 @@ public class MenuGUI extends JPanel {
                 layout.createParallelGroup(Alignment.TRAILING)
                         .addComponent(background, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+    }
 
+     /**
+      * Metodo che aggiorna il menu rendendolo colorato
+      */
+    public void updateMenu() {
+
+       this.remove(background);
+       background = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon img = new ImageIcon("src/main/resources/img/backgroundColorato.jpg");
+                Image image = img.getImage();
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+       Color colorePulsante = new Color(71,111,206);
+       Color coloreBordo = new Color(76,172,62);
+
+        // modifica del colore del pulsante start
+         start.setBackground(colorePulsante);
+         start.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+
+        // modifica del colore del pulsante load
+        load.setBackground(colorePulsante);
+        load.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+
+        // modifica del colore del pulsante commands
+        commands.setBackground(colorePulsante);
+        commands.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+
+        // modifica del colore del pulsante credits
+        credits.setBackground(colorePulsante);
+        credits.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+
+        // modifica del colore del pulsante audio
+        audio.setBackground(colorePulsante);
+        audio.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+
+        setGroupLayout();
 
     }
 
@@ -315,14 +342,6 @@ public class MenuGUI extends JPanel {
              audio.setIcon(audio_on);
              Mixer.getInstance().startTrack();
          }
-    }
-    /**
-    * Metodo che definisce il comportamento del pulsante site quando viene cliccato.
-    * Rimanda al sito del progetto.
-    * @param evt rappresenta l'evento del click sul pulsante.
-    */
-    private void SiteActionPerformed(ActionEvent evt) {
-        //placeholder
     }
 
      /**

@@ -25,10 +25,10 @@ L'obiettivo del corso è stato quello di introdurre, conoscere e approfondire un
 
 Un'avventura testuale è un tipo di videogioco in cui il giocatore interagisce con il mondo di gioco tramite comandi testuali. Questi giochi erano particolarmente popolari nei primi anni dell'era informatica, quando l'elaborazione grafica era limitata.
 
-### Caratteristiche Principali
-- Interfaccia Testuale: l'interazione avviene tramite comandi scritti, come "nord", "prendi torcia" o "osserva".
-- Descrizioni Dettagliate: il gioco descrive le scene, gli oggetti e le azioni attraverso testi dettagliati, stimolando l'immaginazione del giocatore.
-- Enigmi e Puzzle: i giocatori devono risolvere enigmi o puzzle per avanzare nel gioco, utilizzando azioni varie, oggetti e colori a loro disposizione.
+### Caratteristiche principali
+- Interfaccia testuale: l'interazione avviene tramite comandi scritti, come "nord", "prendi torcia" o "osserva".
+- Descrizioni degli ambienti: il gioco descrive le scene, gli oggetti e le azioni attraverso testi abbastanza dettagliati, con l'intento di stimolare l'immaginazione del player.
+- Puzzle ed esplorazione: i giocatori devono esplorare le stanze e risolvere dei puzzle per avanzare nel gioco, utilizzando azioni varie, oggetti e colori a loro disposizione.
 
 ### Trama del gioco
 In quest'avventura testuale, giochi nelle vesti di un ragazzo che è cresciuto con suo nonno in una villa a Vieste. Nella speranza di fare carriera, questo ragazzo decide di partire per gli USA, nello specifico a New York, subito dopo la laurea.
@@ -40,7 +40,7 @@ Un giorno, riceve una lettera dalla quale apprende la notizia della morte di suo
 ![Mappa](./img/MappaGioco.png)
 
 ### Walkthrough del gioco
-Per la fruibilità del gioco e per dare un aiuto ai player che dovessero rimanere bloccati, abbiamo registrato una playthrough completa del gioco. Consigliamo anche il frequente utilizzo del comando "Osserva", in quanto abbiamo cercato di lasciare dei piccoli aiuti nelle descrizioni di stanze e oggetti. Cliccare l'immagine sotto porterà al video Youtube con la playthrough completa, che ha una durata di circa 6 minuti.
+Per la fruibilità del gioco e per dare un aiuto ai player che dovessero rimanere bloccati, abbiamo registrato una playthrough completa del gioco. Consigliamo anche il frequente utilizzo del comando "Osserva", in quanto abbiamo cercato di lasciare dei piccoli aiuti nelle descrizioni di stanze e oggetti. Cliccare l'immagine sotto porterà al video YouTube con la playthrough completa, che ha una durata di circa 6 minuti.
 
 <a href="https://youtu.be/8sHqEgjV5qA">
   <img src="./img/Thumbnail.png" alt="Walkthrough">
@@ -60,7 +60,7 @@ Il progetto è stato realizzato utilizzando il linguaggio di programmazione Java
 In questa sezione approfondiamo l'utilizzo dei vari argomenti di questo corso all'interno di questo corso, spiegando come sono stati implementati e a quali funzionalità corrispondono all'interno del codice. Verranno mostrati anche degli stralci di codice presi dal progetti come esempio, però si noti bene che sono stati inseriti solo a scopo informativo, di conseguenza sono stati semplificati in funzione della spiegazione e non necessariamente riflettono completamente il codice sorgente del nostro gioco.
 
 ### Progettazione OOP
-Questo progetto è stato sviluppato con l'intento di scrivere un codice quanto più riutilizzabile ed estendibile per il futuro. Sono stati applicati molti principi della OOP tra cui incapsulamento, ereditarietà e polimorfismo. Sono state scritte dunque molte classi con l'intento di dare una definizione generica ad un determinato concetto, eventualmente ereditando poi da tali classi per definire una maggiore specializzazione di quella classe. Ad esempio, abbiamo definito la classe <code>GameEngine</code> come classe astratta che definisce gli attributi e i metodi che un'avventura testuale basata sul nostro codice deve avere. La classe di gioco principale <code>ColorsWithinYourSoulGame</code>, infatti, è una classe che eredita da <code>GameEngine</code> definendo il comportamento di ciascun metodo. Con l'organizzazione in classi che abbiamo scelto, è possibile usufruire di molti metodi già scritti semplicemente ereditando dalle classi che abbiamo già scritto. Ad esempio, la classe <code>GameToGUICommunication</code> usa una generica istanza di <code>GameEngine</code> e, di conseguenza, è possibile usarla su qualunque classe che sia sottoclasse di <code>GameEngine</code> grazie al *principio di sostituibilità delle sottoclassi*. Abbiamo inoltre cercato di scrivere la logica di gioco in modo da poterla rendere quanto più flessibile possibile. Ora, una singola interazione di gioco è definita mediante un oggetto di tipo <code>Interaction</code>, così che l'intera logica di gioco possa essere descritta mediante una serie di oggetti di questa classe. Per aggiungere un'interazione, basterà quindi definire un oggetto di <code>Interaction</code> e aggiungerlo alla lista di interazioni del gioco.
+Questo progetto è stato sviluppato con l'intento di scrivere un codice quanto più riutilizzabile ed estendibile per il futuro. Sono stati applicati molti principi della OOP tra cui incapsulamento, ereditarietà e polimorfismo. Sono state scritte dunque molte classi con l'intento di dare una definizione generica ad un determinato concetto, eventualmente ereditando poi da tali classi per definire una maggiore specializzazione di quella classe. Ad esempio, abbiamo definito la classe <code>GameEngine</code> come classe astratta che definisce gli attributi e i metodi che un'avventura testuale basata sul nostro codice deve avere. La classe di gioco principale <code>ColorsWithinYourSoulGame</code>, infatti, è una classe che eredita da <code>GameEngine</code> definendo il comportamento di ciascun metodo. Con l'organizzazione in classi che abbiamo scelto, è possibile usufruire di molti metodi già scritti semplicemente ereditando dalle classi che abbiamo già scritto. Ad esempio, la classe <code>GameToGUICommunication</code> usa una generica istanza di <code>GameEngine</code> e, di conseguenza, è possibile usarla su qualunque classe che sia sottoclasse di <code>GameEngine</code> grazie al *principio di sostituibilità delle sottoclassi*. Abbiamo inoltre cercato di scrivere la logica di gioco in modo da poterla rendere quanto più flessibile possibile. Ora, una singola interazione di gioco è definita mediante un oggetto di tipo <code>Interaction</code>, così che l'intera logica di gioco possa essere descritta mediante una serie di oggetti di questa classe. Per aggiungere un'interazione, basterà quindi definire un oggetto di <code>Interaction</code> e aggiungerlo alla lista di interazioni del gioco. Si è anche cercato di fare utilizzo di alcuni design patterns dove ritenuti necessari. Ad esempio, la classe <code>GameToGUICommunication</code> fa da <code>Mediator</code> tra la GUI e l'istanza di gioco, inoltre è una classe <code>Singleton</code>. Un altro esempio è la classe <code>InteractionFactory</code> che, come il nome suggerisce, si occupa di istanziare vari oggetti delle diverse classi della gerarchia di <code>Interaction</code> e utilizza un approccio simile al <code>Factory</code> design pattern.
 
 ```java
 public abstract class GameEngine {
@@ -511,7 +511,7 @@ Altre operazioni che abbiamo eseguito utilizzando i Thread includono aggiornamen
 In questo progetto, abbiamo utilizzato le lambda functions per una serie di funzioni chiave al funzionamento del programma. Come già anticipato nella sezione OOP, la logica di gioco è composta da una serie di interazioni che determinano cosa accade quando si esegue un'azione su un singolo oggetto (<code>SingleObjectInteraction</code>), cosa accade quando si esegue un'azione che include due oggetti (<code>DirectInteraction</code>) e cosa accade a un oggetto quando un altro oggetto riceve un cambiamento di stato (<code>ChainInteraction</code>). In ognuno di questi casi, le azioni che il gioco deve eseguire quando viene ricevuto un determinato comando su determinati oggetti vengono definite mediante una lambda function. Nello specifico, la classe <code>Interaction</code> ha come attributo un oggetto di tipo <code>Interactable</code>, che è un'interfaccia funzionale che include solo il metodo <code>executeInteraction</code>. Questo metodo è quello che effettivamente esegue l'interazione sugli oggetti interessati prendendo in input l'istanza di <code>GameEngine</code> che rappresenta l'istanza di gioco. Per definire un'interazione, bisogna quindi istanziare un oggetto della categoria di classi <code>Interaction</code> istanziando l'interfaccia funzionale <code>Interactable</code> mediante una lambda function che verrà passata come parametro. Qui sotto riportato un esempio pratico che definisce cosa succede col comando "USA Orologio SU Incavo" quando l'orologio è nello stato "Aggiustato":
 
 ```java
-public void defineGameInteractions() {
+public ArrayList<Interaction> getGameLogic() {
     //Usare l'orologio aggiustato sull'incavo per riempirlo
     gameLogic.add(InteractionFactory.buildInteraction(
             getObjectByName("Orologio", objects), getObjectByName("Incavo", objects), Command.USA, "Aggiustato", "Pieno",
@@ -527,5 +527,44 @@ public void defineGameInteractions() {
                     GameToGUICommunication.getInstance().toGUI("Messaggio");
             }
     ));
+
+    //...
+
+    return gameLogic;
+}
+```
+
+Quando il metodo <code>update()</code> scorrerà la lista di <code>Interactions</code> e, quando viene trovata un'interazione che corrisponde all'output ricevuto dal parser (se viene trovata), verrà eseguita l'istanza ddell'interfaccia funzionale <code>Interactable</code> istanziata mediante la lambda function. Questo permette di definire l'intera logica di gioco mediante una serie di lambda functions.
+
+Le lambda expressions sono state usate anche come supporto in altri punti del programma. Nello specifico, sono state utilizzate per compiere queste funzioni:
+- Supporto per la creazione e la gestione della GUI: In alcuni casi, abbiamo fatto uso delle lambda expressions per la gestione delle GUI. Ad esempio, abbiamo definito il comportamento dei listener di alcuni pulsanti mediante lambda expressions, oppure abbiamo ridefinito alcuni metodi come <code>paintComponent()</code> di <code>JPanel</code> per l'aggiornamento dinamico della GUI, oppure sono state usate per impostare delle task che la GUI doveva eseguire con un certo delay o con una certa cadenza con i metodi <code>SwingUtilities.invokeLater()</code> e <code>Timer.scheduleAtFixedRate()</code>, ad esempio per l'update delle immagini di gioco al cambio di stanza e per l'update del <code>JLabel</code> contenente il timer di gioco.
+- Supporto nella ricerca e nel filtraggio di elementi all'interno delle strutture dati: In alcuni casi, abbiamo fatto uso delle lambda expressions per ciclare delle strutture dati alla ricerca di un determinato elemento o applicando un filtro. Ad esempio, nella classe <code>ClientRest</code>, abbiamo fatto uso delle lambda expressions per ricavare il nome dell'artista dalla risposta ricevuta dall'API, oppure nella classe <code>Parser</code> ne abbiamo fatto uso per dividere la stringa di input in tokens, togliendo tutti i token inclusi nella lista di stopwords.
+```java
+//Classe ClientRest
+private static String getNameArtist(String jsonString) {
+    JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+    
+    //Lambda function che recupera il nome dell'artista 
+    Optional<String> name = Optional.ofNullable(jsonObject)
+        .map(obj -> obj.getAsJsonObject("_embedded"))
+        .map(embedded -> embedded.getAsJsonArray("artists"))
+        .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+        .map(artist -> artist.get("name").getAsString());
+    
+    //...
+}
+
+//Classe Parser
+public ParserOutput parse(String input) {
+    String[] tokens;
+    
+    //Lambda function che divide la stringa di input in token filtrando le stopwords
+    //e convertendo tutto in minuscolo, salvando poi i token nell'array di stringhe tokens
+    tokens = Arrays.stream(input.split("\\s+"))
+            .map(String::toLowerCase)
+            .filter(w -> !stopwords.contains(w))
+            .toArray(String[]::new);
+    
+    //...
 }
 ```
