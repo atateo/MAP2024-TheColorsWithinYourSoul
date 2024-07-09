@@ -703,7 +703,7 @@ Altre operazioni che abbiamo eseguito utilizzando i Thread includono aggiornamen
 ### REST e Socket
 
 Per implementare un sistema di comunicazione client/server abbiamo realizzato un client <code>REST</code> e utilizzato i Socket per gestire la classifica con i migliori tempi ottenuti per la soluzione del gioco.
-Il client REST si interfaccia con il webService pubblico <code>ArtSy</code>, un sistema molto complesso che condivide migliaia di opere d'arte di artisti di ogni genere ed epoca.
+Il client REST si interfaccia con il <code>WebService</code> pubblico <code>ArtSy</code>, un sistema molto complesso che condivide migliaia di opere d'arte di artisti di ogni genere ed epoca.
 <code>ArtSy</code> prevede l'utilizzo delle proprie <code>API</code> previa iscrizione al servizio e l'ottenimento di un token applicativo <code>X-XAPP-Token</code> che viene utilizzato in tutte le chiamate di ogni operazione.
 Per semplificare le operazioni di recupero delle opere d'arte, abbiamo effettuato un'attività di scouting che partendo dal nome dell'artista, ci ha portato a definire un set di undici opere d'arte predefinite.
 Queste opere d'arte sono state catalogate nel file <code>application.properties</code>; randomicamente viene estratto un <code>id</code> utilizzato per recuperare tramite opportuna <code>API</code> la specifica opera d'arte. Questo rende ancora più interessante l'esperienza di gioco, permettendo ad un player che termini il gioco più volte, di ottenere un'opera d'arte sempre diversa.
