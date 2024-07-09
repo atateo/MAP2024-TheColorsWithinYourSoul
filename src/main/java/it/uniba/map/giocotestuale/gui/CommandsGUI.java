@@ -86,7 +86,7 @@ public class CommandsGUI extends JFrame {
                                                \s
                 Back: Se sei in una stanza con una sola porta, esce da quella porta (se è aperta)
                                                \s
-                Osserva: Mostra la descrizione della stanza e degli oggetti che risaltano all'occhio
+                Osserva: Mostra la descrizione della stanza e degli oggetti che risaltano all'occhio (usalo se si resta bloccati, dà consigli utili)
                                                \s
                 Osserva [oggetto]: Mostra la descrizione dell'oggetto se presente nella stanza o nell'inventario
                                                \s
