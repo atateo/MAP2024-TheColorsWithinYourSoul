@@ -546,10 +546,10 @@ private static String getNameArtist(String jsonString) {
     
     //Lambda function che recupera il nome dell'artista 
     Optional<String> name = Optional.ofNullable(jsonObject)
-                            .map(obj -> obj.getAsJsonObject("_embedded"))
-                            .map(embedded -> embedded.getAsJsonArray("artists"))
-                            .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
-                            .map(artist -> artist.get("name").getAsString());
+                    .map(obj -> obj.getAsJsonObject("_embedded"))
+                    .map(embedded -> embedded.getAsJsonArray("artists"))
+                    .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+                    .map(artist -> artist.get("name").getAsString());
     
     //...
 }
@@ -561,9 +561,9 @@ public ParserOutput parse(String input) {
     //Lambda function che divide la stringa di input in token filtrando le stopwords
     //e convertendo tutto in minuscolo, salvando poi i token nell'array di stringhe tokens
     tokens = Arrays.stream(input.split("\\s+"))
-              .map(String::toLowerCase)
-              .filter(w -> !stopwords.contains(w))
-              .toArray(String[]::new);
+          .map(String::toLowerCase)
+          .filter(w -> !stopwords.contains(w))
+          .toArray(String[]::new);
     
     //...
 }
@@ -576,9 +576,9 @@ public void update(ParserOutput output) {
 
         //Lambda expression che travasa in una lista i collegamenti non nulli della stanza corrente
         destination = Arrays.stream(Command.values())
-                            .map(getCurrentRoom()::getRoomConnection)
-                            .filter(connection -> connection != null)
-                            .collect(Collectors.toList());
+                    .map(getCurrentRoom()::getRoomConnection)
+                    .filter(connection -> connection != null)
+                    .collect(Collectors.toList());
 
         //...
     }
