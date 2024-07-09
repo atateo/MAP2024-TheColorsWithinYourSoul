@@ -1,7 +1,6 @@
 package it.uniba.map.giocotestuale;
 
 import it.uniba.map.giocotestuale.gui.*;
-import it.uniba.map.giocotestuale.impl.ColorsWithinYourSoulGame;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import it.uniba.map.giocotestuale.socket.GameServer;
 
@@ -10,7 +9,6 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import it.uniba.map.giocotestuale.database.DatabaseConnection;
 import it.uniba.map.giocotestuale.database.Setup;
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 

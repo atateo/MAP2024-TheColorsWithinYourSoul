@@ -150,4 +150,5 @@ insert into dialog (id, testo) values
 (62, 'Non c''è nulla in quella direzione.'),
 (63, 'La porta è chiusa.'),
 (64, 'Non ho capito cosa mi vuoi dire...\n Il comando potrebbe essere sbagliato o non ho trovato l''oggetto che hai chiesto.'),
-(65, 'Si sblocca la porta d''ingresso e la porta della stanza blu.')
+(65, 'Si sblocca la porta d''ingresso e la porta della stanza blu.'),
+(66, 'Hai inviato il tuo tempo in classifica! Puoi tornare al menù principale con la freccia in alto. C''è una sorpresa che ti aspetta!');

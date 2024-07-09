@@ -6,6 +6,7 @@ import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import it.uniba.map.giocotestuale.database.domain.Score;
+import it.uniba.map.giocotestuale.database.impl.DialogDaoImpl;
 import it.uniba.map.giocotestuale.socket.GameClient;
 
 import java.awt.*;
@@ -113,6 +114,7 @@ public class ScoreGUI extends JFrame {
         updateScoreList(getScores());
 
         sendButton.addActionListener(new ActionListener() {
+        	DialogDaoImpl impl = new DialogDaoImpl(); 
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nickname = nicknameField.getText();
@@ -131,8 +133,7 @@ public class ScoreGUI extends JFrame {
                     textArea.append(riga + "\n");
                 }
 
-                GameToGUICommunication.getInstance().toGUI("Hai inviato il tuo tempo in classifica! " +
-                        "Puoi tornare al menù principale con la freccia in alto. C'è una sorpresa che ti aspetta!");
+                GameToGUICommunication.getInstance().toGUI(impl.getTestoById(66));//66
             }
         });
     }
