@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * Implementazione dell'interfaccia ItemDao.
  * Fornisce i metodi per le operazioni CRUD sull'entità Item nel database.
- * 
  */
 public class ItemDaoImpl implements ItemDao {
 
@@ -35,14 +34,14 @@ public class ItemDaoImpl implements ItemDao {
      */
     @Override
     public int add(ItemRecord item) throws SQLException {
-    	
+
         String query = "INSERT INTO item (stato, descrizione, id_item) VALUES (?, ?, ?)";
-        
+
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, item.getStato());
         ps.setString(2, item.getDescrizione());
         ps.setInt(3, item.getIdItem());
-        
+
         int n = ps.executeUpdate();
         return n;
     }
@@ -70,11 +69,11 @@ public class ItemDaoImpl implements ItemDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	item = new ItemRecord();
-        	item.setId(rs.getInt("id"));
-        	item.setStato(rs.getString("stato"));
-        	item.setDescrizione(rs.getString("descrizione"));
-        	item.setIdItem(rs.getInt("id_item"));
+            item = new ItemRecord();
+            item.setId(rs.getInt("id"));
+            item.setStato(rs.getString("stato"));
+            item.setDescrizione(rs.getString("descrizione"));
+            item.setIdItem(rs.getInt("id_item"));
         }
 
         return item;
@@ -91,11 +90,11 @@ public class ItemDaoImpl implements ItemDao {
         List<ItemRecord> ls = new ArrayList<ItemRecord>();
 
         while (rs.next()) {
-        	ItemRecord item = new ItemRecord();
-        	item.setId(rs.getInt("id"));
-        	item.setStato(rs.getString("stato"));
-        	item.setDescrizione(rs.getString("descrizione"));
-        	item.setIdItem(rs.getInt("id_item"));
+            ItemRecord item = new ItemRecord();
+            item.setId(rs.getInt("id"));
+            item.setStato(rs.getString("stato"));
+            item.setDescrizione(rs.getString("descrizione"));
+            item.setIdItem(rs.getInt("id_item"));
             ls.add(item);
         }
         return ls;
@@ -115,15 +114,15 @@ public class ItemDaoImpl implements ItemDao {
         ps.setInt(4, item.getId());
         ps.executeUpdate();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String getDescrizioneByIdItemAndStato(int id, String stato) throws SQLException {
-    	
-    	String descrizione = null;
-    	//id_room e stato sono alternate key in tabella
+
+        String descrizione = null;
+        //id_room e stato sono alternate key in tabella
         String query = "SELECT descrizione FROM item WHERE id_item = ? and lower(stato) = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
@@ -132,7 +131,7 @@ public class ItemDaoImpl implements ItemDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	descrizione=rs.getString("descrizione");
+            descrizione = rs.getString("descrizione");
         }
 
         return descrizione;

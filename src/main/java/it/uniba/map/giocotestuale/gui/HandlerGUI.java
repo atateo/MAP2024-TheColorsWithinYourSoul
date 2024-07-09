@@ -11,47 +11,47 @@ import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
- /**
+/**
  * Classe che si occupa di coordinare tutte le GUI del gioco.
  */
 public class HandlerGUI extends JFrame {
 
-     /**
-	 * default long serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
-	/**
-      * La GUI del gioco
-      */
+    /**
+     * default long serialVersionUID
+     */
+    private static final long serialVersionUID = 1L;
+    /**
+     * La GUI del gioco
+     */
     private static GameGUI game;
-     /**
-      * La GUI del menu
-      */
-     private static MenuGUI menu;
-     /**
-      * La GUI dei crediti
-      */
+    /**
+     * La GUI del menu
+     */
+    private static MenuGUI menu;
+    /**
+     * La GUI dei crediti
+     */
     private static CreditsGUI credits;
-     /**
-      * La GUI della progress bar
-      */
+    /**
+     * La GUI della progress bar
+     */
     private static ProgressBarGUI bar;
-     /**
-      * Il CardLayout usato per gestire i pannelli
-      */
+    /**
+     * Il CardLayout usato per gestire i pannelli
+     */
     private static CardLayout layout;
 
 
     /**
-    * Costruttore pubblico che si occupa di definire le impostazioni del frame principale
-    * e della creazione del CardLayout per gestire i vari pannelli.
-    */
+     * Costruttore pubblico che si occupa di definire le impostazioni del frame principale
+     * e della creazione del CardLayout per gestire i vari pannelli.
+     */
     public HandlerGUI() {
 
         // configurazione del frame principale
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        
+
         // Aggiungi un WindowListener per intercettare l'evento di chiusura della finestra
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -69,7 +69,7 @@ public class HandlerGUI extends JFrame {
 
         ImageIcon icon = new ImageIcon("src/main/resources/img/icona_pennello_bn.jpg");
         this.setIconImage(icon.getImage());
-        
+
         // inizializzazione delle GUI
         menu = new MenuGUI();
         game = new GameGUI();
@@ -96,27 +96,26 @@ public class HandlerGUI extends JFrame {
 
     /**
      * Ritorna l'istanza della GUI di gioco.
+     *
      * @return Istanza della GUI di gioco.
      */
     public static GameGUI getGameGUI() {
         return game;
     }
 
-     /**
-      * Aggiorna l'icona del gioco con la versione colorata
-      */
-    public void updateIcon()
-    {
+    /**
+     * Cambia il menu di gioco con la sua versione colorata dopo la fine del gioco.
+     */
+    public void updateMenu() {
         ImageIcon icon = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
         this.setIconImage(icon.getImage());
+        updateMenuGUI();
     }
 
-     /**
-      * Aggiorna MenuGUI con la versione colorata
-      */
-    public static void updateMenuGUI()
-    {
+    /**
+     * Aggiorna MenuGUI con la versione colorata.
+     */
+    public static void updateMenuGUI() {
         menu.updateMenu();
     }
-
 }

@@ -5,15 +5,16 @@ import java.io.Serializable;
 /**
  * Classe che rappresenta il modello di Score (punteggio).
  */
-public class Score implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Score implements Serializable {
 
-	/**
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Metodo costruttore della classe Score
+     *
      * @param id
      * @param player
      * @param time
@@ -23,29 +24,31 @@ public class Score implements Serializable{
         this.player = player;
         this.time = time;
     }
-    
+
     /**
      * Identificativo del punteggio.
      */
     private int id;
-    
+
     /**
      * player che ha registrato il punteggio.
      */
     private String player;
-    
+
     /**
      * tempo impiegato per finire il gioco.
      */
     private String time;
-    
+
     /**
      * Costruttore di default.
      */
-    public Score() {}
+    public Score() {
+    }
 
     /**
      * Restituisce l'identificativo del punteggio.
+     *
      * @return l'identificativo del punteggio.
      */
     public int getId() {
@@ -54,6 +57,7 @@ public class Score implements Serializable{
 
     /**
      * Imposta l'identificativo del punteggio.
+     *
      * @param id l'identificativo del punteggio.
      */
     public void setId(int id) {
@@ -62,6 +66,7 @@ public class Score implements Serializable{
 
     /**
      * Restituisce il player che ha ottenuto il punteggio.
+     *
      * @return il player che ha ottenuto il punteggio.
      */
     public String getPlayer() {
@@ -70,6 +75,7 @@ public class Score implements Serializable{
 
     /**
      * Imposta il player.
+     *
      * @param player player da impostare.
      */
     public void setPlayer(String player) {
@@ -78,6 +84,7 @@ public class Score implements Serializable{
 
     /**
      * Restituisce il tempo impiegato da un player.
+     *
      * @return il tempo impiegato da un player.
      */
     public String getTime() {
@@ -86,6 +93,7 @@ public class Score implements Serializable{
 
     /**
      * Imposta il tempo impiegato da un player.
+     *
      * @param time tempo impiegato da un player.
      */
     public void setTime(long time) {
@@ -94,20 +102,22 @@ public class Score implements Serializable{
 
     /**
      * Restituisce la rappresentazione in formato stringa dell'oggetto Score.
+     *
      * @return una stringa che rappresenta l'oggetto Score.
      */
     @Override
     public String toString() {
         return "Score{" +
-            "id=" + getId() +
-            ", player=" + getPlayer() +
-            ", tempo='" + getTime() + "'" +
-            "}";
+                "id=" + getId() +
+                ", player=" + getPlayer() +
+                ", tempo='" + getTime() + "'" +
+                "}";
     }
-    
+
     /**
      * Metodo che restituisce il tempo formattato (hh:mm:ss)
-     * @return record
+     *
+     * @return Tempo espresso in una stringa formattata.
      */
     public static String timeFormatted(long timeTaken) {
         long second = (timeTaken / 1000) % 60;

@@ -12,7 +12,7 @@ import it.uniba.map.giocotestuale.config.ApplicationProperties;
  * La connessione viene aperta una volta e riutilizzata fino a quando non viene rilasciata.
  */
 public class DatabaseConnection {
-    
+
     /**
      * Logger per la registrazione degli eventi.
      */
@@ -37,7 +37,7 @@ public class DatabaseConnection {
 
     /**
      * Restituisce la connessione al database.
-     * 
+     *
      * @return l'oggetto Connection corrente.
      */
     public static Connection getConnection() {

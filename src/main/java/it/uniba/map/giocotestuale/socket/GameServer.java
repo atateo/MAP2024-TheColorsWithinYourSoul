@@ -25,6 +25,7 @@ public class GameServer {
 
     /**
      * Costruttore per la creazione del server sulla porta specificata.
+     *
      * @param port la porta su cui il server si mette in ascolto.
      */
     public GameServer(int port) {
@@ -38,6 +39,7 @@ public class GameServer {
 
     /**
      * Avvia il server e attende le connessioni dei client.
+     *
      * @throws IOException eccezione sollevata se si dovesse verificare un errore di I/O durante la comunicazione client/server.
      */
     public void start() throws IOException, ClassNotFoundException {
@@ -52,10 +54,10 @@ public class GameServer {
                         ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
                         Score score = (Score) in.readObject();
                         try {
-                        	int keyGenerated = scoreDaoImpl.add(score);
-                            out.writeObject("Operazione di inserimento eseguita correttamente. KEY="+keyGenerated);
+                            int keyGenerated = scoreDaoImpl.add(score);
+                            out.writeObject("Operazione di inserimento eseguita correttamente. KEY=" + keyGenerated);
                         } catch (SQLException e) {
-                        	logger.error("Operazione di inserimento fallita",e);
+                            logger.error("Operazione di inserimento fallita", e);
                             out.writeObject("Operazione di inserimento fallita");
                         }
                     }
@@ -64,7 +66,7 @@ public class GameServer {
                         try {
                             out.writeObject(scoreDaoImpl.getScores(10));
                         } catch (SQLException e) {
-                        	logger.error("Eccezione in fase di recupero della classifica: ",e);
+                            logger.error("Eccezione in fase di recupero della classifica: ", e);
                             out.writeObject("Eccezione in fase di recupero della classifica: " + e);
                         }
                     }
@@ -78,14 +80,15 @@ public class GameServer {
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
-            	logger.error("Eccezione in fase di comunicazione con il server dei punteggi",e);
-            	throw e;
+                logger.error("Eccezione in fase di comunicazione con il server dei punteggi", e);
+                throw e;
             }
         }
     }
 
     /**
      * Arresta il server chiudendo il ServerSocket.
+     *
      * @throws IOException eccezione sollevata se si dovesse verificare un errore di I/O durante la chiusura del ServerSocket.
      */
     public void stop() throws IOException {
@@ -95,6 +98,7 @@ public class GameServer {
 
     /**
      * Metodo principale per avviare il server (non sarà più utilizzato quando il server sarà integrato nel sistema).
+     *
      * @param args argomenti della riga di comando (non utilizzati).
      */
     public static void main(String[] args) {

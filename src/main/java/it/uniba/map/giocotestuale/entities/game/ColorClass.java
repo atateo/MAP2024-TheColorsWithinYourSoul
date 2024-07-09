@@ -25,9 +25,10 @@ public class ColorClass extends GameObject implements Serializable {
 
     /**
      * Costruttore con parametri della classe ColorClass. Istanzia tutti i parametri della classe.
-     * @param id ID del colore.
-     * @param name Nome del colore.
-     * @param aliases Alias del colore.
+     *
+     * @param id         ID del colore.
+     * @param name       Nome del colore.
+     * @param aliases    Alias del colore.
      * @param isUnlocked Booleano che indica se il colore è stato sbloccato o meno.
      */
     public ColorClass(final int id, final String name, final List<String> aliases, final boolean isUnlocked) {
@@ -37,6 +38,7 @@ public class ColorClass extends GameObject implements Serializable {
 
     /**
      * Metodo setter per l'attributo isUnlocked.
+     *
      * @param unlocked Booleano da impostare come valore di isUnlocked.
      */
     public void setUnlocked(boolean unlocked) {
@@ -45,6 +47,7 @@ public class ColorClass extends GameObject implements Serializable {
 
     /**
      * Metodo getter per l'attributo isUnlocked.
+     *
      * @return Booleano che indica se il colore è stato sbloccato o meno.
      */
     public boolean isUnlocked() {
@@ -53,6 +56,7 @@ public class ColorClass extends GameObject implements Serializable {
 
     /**
      * Restituisce la descrizione del colore presa facendo una query al DB.
+     *
      * @return Stringa contenente la descrizione del colore.
      */
     public String getDescriptionFromDB() {

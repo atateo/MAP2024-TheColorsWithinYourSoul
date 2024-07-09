@@ -13,12 +13,13 @@ public class DirectInteraction extends TwoObjectInteraction {
 
     /**
      * Costruttore con parametri della classe ChainInteraction. Inizializza tutti gli attributi della superclasse.
-     * @param firstObject Primo oggetto.
-     * @param secondObject Secondo oggetto.
+     *
+     * @param firstObject     Primo oggetto.
+     * @param secondObject    Secondo oggetto.
      * @param interactionType Comando dell'interazione.
-     * @param targetState Stato che il primo oggetto deve avere per iniziare l'interazione.
-     * @param resultState Stato che il secondo oggetto avrà dopo l'interazione.
-     * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
+     * @param targetState     Stato che il primo oggetto deve avere per iniziare l'interazione.
+     * @param resultState     Stato che il secondo oggetto avrà dopo l'interazione.
+     * @param interaction     Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
     public DirectInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(firstObject, secondObject, interactionType, targetState, resultState, interaction);
@@ -27,7 +28,8 @@ public class DirectInteraction extends TwoObjectInteraction {
     /**
      * Metodo che verifica se, sulla base degli oggetti passati e il comando passati come parametri,
      * l'interazione va effettuata su di essi. Definizione del metodo nella superclasse.
-     * @param gameObjects Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
+     *
+     * @param gameObjects     Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
      * @param interactionType Comando dell'interazione.
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
@@ -44,7 +46,7 @@ public class DirectInteraction extends TwoObjectInteraction {
         }
 
         //Il primo o il secondo oggetto non corrispondono
-        if (!super.getFirstObject().equals(gameObjects.get(0)) || !this.getSecondObject().equals(gameObjects.get(1))){
+        if (!super.getFirstObject().equals(gameObjects.get(0)) || !this.getSecondObject().equals(gameObjects.get(1))) {
             return false;
         }
 

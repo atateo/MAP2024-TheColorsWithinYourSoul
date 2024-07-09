@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * Implementazione dell'interfaccia RoomDao.
  * Fornisce i metodi per le operazioni CRUD sull'entità Room nel database.
- * 
  */
 public class RoomDaoImpl implements RoomDao {
 
@@ -35,14 +34,14 @@ public class RoomDaoImpl implements RoomDao {
      */
     @Override
     public int add(RoomRecord room) throws SQLException {
-    	
+
         String query = "INSERT INTO room (stato, descrizione, id_room) VALUES (?, ?, ?)";
-        
+
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, room.getStato());
         ps.setString(2, room.getDescrizione());
         ps.setInt(3, room.getIdRoom());
-        
+
         int n = ps.executeUpdate();
         return n;
     }
@@ -70,11 +69,11 @@ public class RoomDaoImpl implements RoomDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	room = new RoomRecord();
-        	room.setId(rs.getInt("id"));
-        	room.setStato(rs.getString("stato"));
-        	room.setDescrizione(rs.getString("descrizione"));
-        	room.setIdRoom(rs.getInt("id_room"));
+            room = new RoomRecord();
+            room.setId(rs.getInt("id"));
+            room.setStato(rs.getString("stato"));
+            room.setDescrizione(rs.getString("descrizione"));
+            room.setIdRoom(rs.getInt("id_room"));
         }
 
         return room;
@@ -115,15 +114,15 @@ public class RoomDaoImpl implements RoomDao {
         ps.setInt(4, room.getId());
         ps.executeUpdate();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String getDescrizioneByIdRoomAndStato(int id, String stato) throws SQLException {
-    	
-    	String descrizione = null;
-    	//id_room e stato sono alternate key in tabella
+
+        String descrizione = null;
+        //id_room e stato sono alternate key in tabella
         String query = "SELECT descrizione FROM room WHERE id_room = ? and lower(stato) = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
@@ -132,7 +131,7 @@ public class RoomDaoImpl implements RoomDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	descrizione=rs.getString("descrizione");
+            descrizione = rs.getString("descrizione");
         }
 
         return descrizione;

@@ -4,12 +4,12 @@ package it.uniba.map.giocotestuale.database.domain;
  * Classe che rappresenta il modello dell'entity Dialog (dialogo).
  */
 public class Dialog {
-    
+
     /**
      * Identificativo univoco del dialogo.
      */
     private int id;
-        
+
     /**
      * testo del dialogo.
      */
@@ -18,11 +18,12 @@ public class Dialog {
     /**
      * Costruttore di default.
      */
-    public Dialog() {}
+    public Dialog() {
+    }
 
     /**
      * Restituisce l'identificativo del dialogo.
-     * 
+     *
      * @return l'identificativo del dialogo.
      */
     public int getId() {
@@ -31,7 +32,7 @@ public class Dialog {
 
     /**
      * Imposta l'identificativo del dialogo.
-     * 
+     *
      * @param id l'identificativo del dialogo.
      */
     public void setId(int id) {
@@ -40,7 +41,7 @@ public class Dialog {
 
     /**
      * Restituisce il testo del dialogo.
-     * 
+     *
      * @return il testo del dialogo.
      */
     public String getTesto() {
@@ -49,7 +50,7 @@ public class Dialog {
 
     /**
      * Imposta il testo del dialogo.
-     * 
+     *
      * @param testo il testo del dialogo.
      */
     public void setTesto(String testo) {
@@ -58,14 +59,14 @@ public class Dialog {
 
     /**
      * Restituisce la rappresentazione in formato stringa dell'oggetto Dialog.
-     * 
+     *
      * @return una stringa che rappresenta l'oggetto Dialog.
      */
     @Override
     public String toString() {
         return "Dialog{" +
-            "id=" + getId() +
-            ", testo='" + getTesto() + "'" +
-            "}";
+                "id=" + getId() +
+                ", testo='" + getTesto() + "'" +
+                "}";
     }
 }

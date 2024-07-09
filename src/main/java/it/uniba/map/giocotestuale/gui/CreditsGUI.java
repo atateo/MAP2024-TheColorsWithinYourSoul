@@ -13,7 +13,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.CardLayout;
 
- /**
+/**
  * Classe che gestisce la schermata dei crediti.
  */
 public class CreditsGUI extends JPanel {
@@ -31,12 +31,12 @@ public class CreditsGUI extends JPanel {
     private JLabel content2;
 
     /**
-    * Costruttore pubbico che si occupa di istanziare e settare i vari componenti sullo schermo
-    */
+     * Costruttore pubbico che si occupa di istanziare e settare i vari componenti sullo schermo
+     */
     public CreditsGUI() {
 
 
-        this.setSize(1000,700);
+        this.setSize(1000, 700);
 
         background = new JPanel() {
             @Override
@@ -47,7 +47,7 @@ public class CreditsGUI extends JPanel {
             }
         };
 
-        background.setSize(1000,700);
+        background.setSize(1000, 700);
 
         back = new JButton(new ImageIcon("src/main/resources/img/backButton.png"));
         back.setFocusPainted(false);
@@ -75,8 +75,6 @@ public class CreditsGUI extends JPanel {
         background.setLayout(bglayout);
 
 
-
-
         bglayout.setHorizontalGroup(
                 bglayout.createSequentialGroup()
                         .addComponent(back)
@@ -102,23 +100,24 @@ public class CreditsGUI extends JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(background,1000,1000,1000)
+                                .addComponent(background, 1000, 1000, 1000)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(background, 700,700,700)
+                                .addComponent(background, 700, 700, 700)
                                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
 
-
     }
+
     /**
-    * Metodo che definisce il comportamento del pulsante back quando viene cliccato.
-    * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
-    * @param evt rappresenta l'evento del click sul pulsante.
+     * Metodo che definisce il comportamento del pulsante back quando viene cliccato.
+     * Passa al menu principale selezionando MenuGUI attraverso il CardLayout.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void backActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();

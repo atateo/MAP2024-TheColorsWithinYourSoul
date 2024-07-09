@@ -4,22 +4,22 @@ package it.uniba.map.giocotestuale.database.domain;
  * Classe che rappresenta il modello dell'entity Item (oggetto).
  */
 public class ItemRecord {
-    
+
     /**
      * Identificativo univoco dell'Item (PK tecnica).
      */
     private int id;
-    
+
     /**
      * stato dell'item.
      */
     private String stato;
-    
+
     /**
      * descrizione dell'item.
      */
     private String descrizione;
-    
+
     /**
      * Identificativo dell'item nel gioco.
      */
@@ -28,11 +28,12 @@ public class ItemRecord {
     /**
      * Costruttore di default.
      */
-    public ItemRecord() {}
+    public ItemRecord() {
+    }
 
     /**
      * Restituisce l'identificativo dell'item.
-     * 
+     *
      * @return l'identificativo dell'item.
      */
     public int getId() {
@@ -41,7 +42,7 @@ public class ItemRecord {
 
     /**
      * Imposta l'identificativo dell'item.
-     * 
+     *
      * @param id l'identificativo dell'item.
      */
     public void setId(int id) {
@@ -50,7 +51,7 @@ public class ItemRecord {
 
     /**
      * Restituisce lo stato dell'item.
-     * 
+     *
      * @return lo stato dell'item.
      */
     public String getStato() {
@@ -59,7 +60,7 @@ public class ItemRecord {
 
     /**
      * Imposta lo stato dell'item.
-     * 
+     *
      * @param stato lo stato dell'item.
      */
     public void setStato(String stato) {
@@ -68,7 +69,7 @@ public class ItemRecord {
 
     /**
      * Restituisce la descrizione dell'item.
-     * 
+     *
      * @return la descrizione dell'item.
      */
     public String getDescrizione() {
@@ -77,7 +78,7 @@ public class ItemRecord {
 
     /**
      * Imposta la descrizione dell'item.
-     * 
+     *
      * @param descrizione la descrizione dell'item.
      */
     public void setDescrizione(String descrizione) {
@@ -86,7 +87,7 @@ public class ItemRecord {
 
     /**
      * Restituisce l'identificativo dell'item nel gioco.
-     * 
+     *
      * @return l'identificativo dell'item nel gioco.
      */
     public int getIdItem() {
@@ -95,7 +96,7 @@ public class ItemRecord {
 
     /**
      * Imposta l'identificativo dell'item nel gioco.
-     * 
+     *
      * @param idItem l'identificativo dell'item nel gioco.
      */
     public void setIdItem(int idItem) {
@@ -104,16 +105,16 @@ public class ItemRecord {
 
     /**
      * Restituisce la rappresentazione in formato stringa dell'oggetto Contenuto.
-     * 
+     *
      * @return una stringa che rappresenta l'oggetto Contenuto.
      */
     @Override
     public String toString() {
         return "Item{" +
-            "id=" + getId() +
-            ", stato=" + getStato() +
-            ", descrizione='" + getDescrizione() + "'" +
-            ", id_item='" + getIdItem() + "'" +
-            "}";
+                "id=" + getId() +
+                ", stato=" + getStato() +
+                ", descrizione='" + getDescrizione() + "'" +
+                ", id_item='" + getIdItem() + "'" +
+                "}";
     }
 }

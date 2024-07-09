@@ -7,7 +7,7 @@ public class ArtworkResponse {
     private byte[] artwork;
     private String nameArtwork;
     private String nameArtist;
-    
+
     /**
      * Restituisce l'opera d'arte come array di byte.
      *
@@ -16,7 +16,7 @@ public class ArtworkResponse {
     public byte[] getArtwork() {
         return artwork;
     }
-    
+
     /**
      * Imposta l'opera d'arte come array di byte.
      *
@@ -25,7 +25,7 @@ public class ArtworkResponse {
     public void setArtwork(byte[] artwork) {
         this.artwork = artwork;
     }
-    
+
     /**
      * Restituisce il nome dell'opera d'arte.
      *
@@ -34,7 +34,7 @@ public class ArtworkResponse {
     public String getNameArtwork() {
         return nameArtwork;
     }
-    
+
     /**
      * Imposta il nome dell'opera d'arte.
      *
@@ -43,7 +43,7 @@ public class ArtworkResponse {
     public void setNameArtwork(String nameArtwork) {
         this.nameArtwork = nameArtwork;
     }
-    
+
     /**
      * Restituisce il nome dell'artista.
      *
@@ -52,7 +52,7 @@ public class ArtworkResponse {
     public String getNameArtist() {
         return nameArtist;
     }
-    
+
     /**
      * Imposta il nome dell'artista.
      *

@@ -15,25 +15,24 @@ import it.uniba.map.giocotestuale.database.Setup;
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
 
 public class GiocoTestuale {
-	
-	protected static final Logger logger = LogManager.getLogger();
-	
-	public static void main(String[] args) {
-		
-		ApplicationProperties properties = ApplicationProperties.getInstance();
-		logger.info("Proprietà recuperate correttamente: versione dell'app = {}",properties.getVersion());
-		
-		if(properties.isSetup())
-		{
-			logger.info("Costruisco il database");
-			Setup.setup();
-		}
 
-		HandlerGUI handlerGUI = new HandlerGUI();
-		handlerGUI.setVisible(true);
-		GameToGUICommunication.getInstance().setHandlerGUI(handlerGUI);
+    protected static final Logger logger = LogManager.getLogger();
 
-		GameServer server = new GameServer(3999);
+    public static void main(String[] args) {
+
+        ApplicationProperties properties = ApplicationProperties.getInstance();
+        logger.info("Proprietà recuperate correttamente: versione dell'app = {}", properties.getVersion());
+
+        if (properties.isSetup()) {
+            logger.info("Costruisco il database");
+            Setup.setup();
+        }
+
+        HandlerGUI handlerGUI = new HandlerGUI();
+        handlerGUI.setVisible(true);
+        GameToGUICommunication.getInstance().setHandlerGUI(handlerGUI);
+
+        GameServer server = new GameServer(3999);
         try {
             server.start();
         } catch (IOException | ClassNotFoundException e) {
@@ -41,5 +40,5 @@ public class GiocoTestuale {
         }
 //		logger.debug("Connessione rilasciata");
 //		DatabaseConnection.releaseConnection();
-	}
+    }
 }

@@ -49,6 +49,7 @@ public class GameTimer implements Serializable {
 
     /**
      * Inizializza e fa partire il timer, usando il tempo di partenza passato come parametro.
+     *
      * @param elapsedTime Tempo di partenza.
      */
     public void startAgain(long elapsedTime) {
@@ -79,6 +80,7 @@ public class GameTimer implements Serializable {
 
     /**
      * Metodo getter per il tempo trascorso col timer attivo.
+     *
      * @return Tempo trascorso col timer attivo.
      */
     public long getElapsedTime() {
@@ -91,6 +93,7 @@ public class GameTimer implements Serializable {
 
     /**
      * Metodo setter per il tempo trascorso col timer attivo.
+     *
      * @param elapsedTime Nuovo tempo trascorso col timer attivo.
      */
     public void setElapsedTime(final long elapsedTime) {
@@ -99,6 +102,7 @@ public class GameTimer implements Serializable {
 
     /**
      * Metodo che restituisce lo stato del timer.
+     *
      * @return Booleano che indica se il timer è attivo o meno.
      */
     public boolean isRunning() {
@@ -107,6 +111,7 @@ public class GameTimer implements Serializable {
 
     /**
      * Il metodo getStartTime() restituisce il tempo di inizio.
+     *
      * @return tempo di inizio
      */
     public long getStartTime() {
@@ -115,6 +120,7 @@ public class GameTimer implements Serializable {
 
     /**
      * Restituisce una stringa formattata che rappresenta il tempo attuale segnato dal timer.
+     *
      * @return Tempo formattato in hh::mm:ss.
      */
     public String getTimeFormatted() {

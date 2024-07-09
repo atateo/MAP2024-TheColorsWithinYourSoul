@@ -51,7 +51,7 @@ public interface ColorDao {
      * @throws SQLException se si verifica un errore durante l'operazione di aggiornamento.
      */
     public void update(ColorRecord color) throws SQLException;
-    
+
     /**
      * Recupera la descrizione dell'oggetto Color dal database in base al suo id.
      *

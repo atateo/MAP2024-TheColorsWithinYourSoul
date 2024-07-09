@@ -38,10 +38,12 @@ public class GameToGUICommunication {
     /**
      * Costruttore base della classe. Non ha parametri ed è privato.
      */
-    private GameToGUICommunication() {}
+    private GameToGUICommunication() {
+    }
 
     /**
      * Restituisce la singola istanza di questa classe.
+     *
      * @return L'istanza della classe.
      */
     public static GameToGUICommunication getInstance() {
@@ -53,6 +55,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo setter per l'HandlerGUI utilizzata dalla classe.
+     *
      * @param handlerGUI La GUI con la quale comunicare.
      */
     public void setHandlerGUI(HandlerGUI handlerGUI) {
@@ -61,6 +64,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo setter per l'istanza di gioco utilizzata dalla classe.
+     *
      * @param gameEngine L'istanza di gioco.
      */
     public void setGameEngine(GameEngine gameEngine) {
@@ -70,15 +74,16 @@ public class GameToGUICommunication {
 
     /**
      * Metodo che usa le classi apposite per caricare una partita dal percorso file specificato.
+     *
      * @param filename Nome del file da cui caricare la partita.
      */
     public void setGameEngineFromFile(String filename) {
-    	GameToJson game = null;
+        GameToJson game = null;
         File file = new File(filename);
 
         if (file.exists()) {
-        	
-        	game = JsonUtil.readJsonFromFile(filename);
+
+            game = JsonUtil.readJsonFromFile(filename);
             if (this.gameEngine == null) {
                 BaseGameDefinition backup = new BaseGameDefinition();
                 backup.createJsonBackup();
@@ -88,7 +93,7 @@ public class GameToGUICommunication {
             BaseGameDefinition backup = new BaseGameDefinition();
             backup.createJsonBackup();
             game = JsonUtil.readJsonFromFile(filename);
-        }        
+        }
         this.gameEngine = game.convertFromJsonObject();
         this.gameEngine.defineGameInteractions();
         this.parser = new Parser(this.gameEngine);
@@ -104,6 +109,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo getter per l'istanza della GUI di gioco.
+     *
      * @return Istanza della GUI di gioco.
      */
     public HandlerGUI getGameGUI() {
@@ -112,6 +118,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo getter per l'istanza del gioco.
+     *
      * @return Istanza del gioco.
      */
     public GameEngine getGameEngine() {
@@ -122,21 +129,22 @@ public class GameToGUICommunication {
      * Metodo che salverà su file l'istanza di gioco corrente.
      */
     public String saveGame(String nomeFile) {
-    	if (nomeFile == null || nomeFile.isEmpty()) {
-    		nomeFile = "saves" + File.separator;
-    	}
+        if (nomeFile == null || nomeFile.isEmpty()) {
+            nomeFile = "saves" + File.separator;
+        }
 
-    	gameEngine.getGameTimer().stop();
-    	JsonUtil.writeJsonToFile(nomeFile, new GameToJson((ColorsWithinYourSoulGame) this.gameEngine));
+        gameEngine.getGameTimer().stop();
+        JsonUtil.writeJsonToFile(nomeFile, new GameToJson((ColorsWithinYourSoulGame) this.gameEngine));
         gameEngine.getGameTimer().startAgain(gameEngine.getGameTimer().getElapsedTime());
 
-    	return nomeFile;
+        return nomeFile;
     }
 
     /**
      * Metodo che gestirà l'input ricevuto dall'utente tramite GUI.
      * In parole povere, chiamerà il Parser sull'input dell'utente preso dalla GUI
      * e ne comunicherà il risultato all'istanza di gioco affinché possa gestirlo.
+     *
      * @param input Stringa di input dell'utente.
      */
     public void toGame(final String input) {
@@ -147,6 +155,7 @@ public class GameToGUICommunication {
     /**
      * Metodo che gestirà l'output che l'utente vedrà sulla GUI:
      * In parole povere, restituirà alla GUI la risposta del gioco alle azioni dell'utente.
+     *
      * @param output Stringa di output da stampare sulla GUI.
      */
     public void toGUI(final String output) {
@@ -162,6 +171,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo che restituisce il nome della stanza corrente del gioco.
+     *
      * @return Stringa contenente il nome della stanza corrente.
      */
     public String getCurrentGameRoom() {
@@ -193,6 +203,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo che restituisce tutti i colori che il player ha sbloccato. Serve alla GUI al caricamento della partita.
+     *
      * @return Lista dei colori che il giocatore ha sbloccato.
      */
     public ArrayList<ColorEnum> getUnlockedColors() {
@@ -209,6 +220,7 @@ public class GameToGUICommunication {
 
     /**
      * Comunica alla GUI che il player ha sbloccato il colore passato come parametro.
+     *
      * @param toUnlock Colore da sbloccare.
      */
     public void unlockColor(final ColorClass toUnlock) {
@@ -217,6 +229,7 @@ public class GameToGUICommunication {
 
     /**
      * Metodo di utility che dato una ColorClass ne restituisce l'equivalente ColorEnum.
+     *
      * @param color Oggetto ColorClass da convertire in ColorEnum.
      * @return ColorEnum relativo all'oggetto passato come parametro.
      */
@@ -234,6 +247,7 @@ public class GameToGUICommunication {
 
     /**
      * Restituisce il tempo di gioco formattato.
+     *
      * @return Stringa contenente il tempo di gioco formattato.
      */
     public String getTime() {
@@ -242,6 +256,7 @@ public class GameToGUICommunication {
 
     /**
      * Fa ripartire il tempo di gioco, passando il tempo passato dal salvataggio.
+     *
      * @param elapsedTime Tempo trascorso dal timer prima di fermarsi.
      */
     public void restartTimer(long elapsedTime) {
@@ -250,6 +265,7 @@ public class GameToGUICommunication {
 
     /**
      * Restituisce il tempo trascorso dal timer.
+     *
      * @return Tempo trascorso dal timer prima di fermarsi.
      */
     public long getElapsedTime() {
@@ -258,13 +274,14 @@ public class GameToGUICommunication {
 
     /**
      * Restituisce una stringa che rappresenta l'inventario del player.
+     *
      * @return Stringa che rappresenta l'inventario del player.
      */
     public String inventoryToString() {
         ArrayList<Item> inventory = gameEngine.getInventory();
         StringBuilder stringInventory = new StringBuilder();
 
-        for (Item item: inventory) {
+        for (Item item : inventory) {
             stringInventory.append(item.getName());
             stringInventory.append(" ");
         }
@@ -276,6 +293,7 @@ public class GameToGUICommunication {
      * Questo metodo serve per formattare la stringa passata come parametro in modo che,
      * se dovesse venire stampata sulla GUI, non darebbe problemi di formattazione al panel
      * (va a capo quando il testo è troppo lungo, ad esempio).
+     *
      * @param text Stringa di testo da formattare.
      * @return Stringa formattata.
      */

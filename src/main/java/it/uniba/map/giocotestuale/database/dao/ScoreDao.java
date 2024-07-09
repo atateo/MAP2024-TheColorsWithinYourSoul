@@ -39,8 +39,8 @@ public interface ScoreDao {
     /**
      * Recupera tutti i punteggi dal database.
      *
-     * @return una lista di tutti gli oggetti Score presenti nel database.
      * @param limit se impostato determina quanti record estrarre.
+     * @return una lista di tutti gli oggetti Score presenti nel database.
      * @throws SQLException se si verifica un errore durante l'operazione di recupero.
      */
     public List<Score> getScores(int limit) throws SQLException;

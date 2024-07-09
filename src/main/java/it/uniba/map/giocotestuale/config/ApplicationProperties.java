@@ -11,57 +11,57 @@ import org.apache.logging.log4j.Logger;
  * Singleton class per la gestione delle proprietà dell'applicazione.
  */
 public class ApplicationProperties {
-	/**
+    /**
      * Logger per la registrazione degli eventi.
      */
     protected static final Logger logger = LogManager.getLogger();
-    
+
     /**
      * Application version.
      */
     private String version;
-    
+
     /**
      * Database URL.
      */
     private String urlDatabase;
-    
+
     /**
      * Database user.
      */
     private String user;
-    
+
     /**
      * Database password.
      */
     private String password;
-    
+
     /**
-     * indica se é necessario costruire il  database (solo la prima volta deve 
+     * indica se é necessario costruire il  database (solo la prima volta deve
      * valere true anche se è presente il controllo di esistenza sulla tabella).
      */
     private boolean setup;
-    
+
     /**
      * url delle api del servizio Artsy.
      */
     private String urlEndpoint;
-    
+
     /**
      * clientId utile all'autenticazione in OAuth2 all'api Artsy.
      */
     private String clientId;
-    
+
     /**
      * secret utile all'autenticazione in OAuth2 all'api Artsy.
      */
-    private String secret;    
-    
+    private String secret;
+
     /**
      * array degli id delle opere d'arte gestie dal servizo rest ArtSy.
      */
     private String[] idArtwork;
-    
+
     /**
      * path del file script contenente il setup del db.
      */
@@ -69,7 +69,7 @@ public class ApplicationProperties {
 
     /**
      * Ritorna l'attributo versione dell'applicazione.
-     * 
+     *
      * @return version la versione dell'applicazione.
      */
     public String getVersion() {
@@ -78,16 +78,16 @@ public class ApplicationProperties {
 
     /**
      * Imposta l'attributo versione dell'applicazione.
-     * 
+     *
      * @param version l'attributo version da impostare.
      */
     public void setVersion(String version) {
         this.version = version;
     }
-    
+
     /**
      * Ritorna l'attributo database URL.
-     * 
+     *
      * @return database URL.
      */
     public String getUrlDatabase() {
@@ -96,7 +96,7 @@ public class ApplicationProperties {
 
     /**
      * Imposta l'attributo database URL.
-     * 
+     *
      * @param urlDatabase l'attributo database URL da impostare.
      */
     public void setUrlDatabase(String urlDatabase) {
@@ -105,7 +105,7 @@ public class ApplicationProperties {
 
     /**
      * Ritorna l'attributo user.
-     * 
+     *
      * @return database user.
      */
     public String getUser() {
@@ -114,7 +114,7 @@ public class ApplicationProperties {
 
     /**
      * Imposta l'attributo user.
-     * 
+     *
      * @param user l'attributo da impostare.
      */
     public void setUser(String user) {
@@ -123,7 +123,7 @@ public class ApplicationProperties {
 
     /**
      * Ritorna l'attributo password.
-     * 
+     *
      * @return database password.
      */
     public String getPassword() {
@@ -132,7 +132,7 @@ public class ApplicationProperties {
 
     /**
      * Imposta l'attributo password.
-     * 
+     *
      * @param password l'attributo password da impostare.
      */
     public void setPassword(String password) {
@@ -141,7 +141,7 @@ public class ApplicationProperties {
 
     /**
      * Ritorna il booleano isSetup.
-     * 
+     *
      * @return true se il setup è richiesto, false altrimenti.
      */
     public boolean isSetup() {
@@ -150,108 +150,108 @@ public class ApplicationProperties {
 
     /**
      * Imposta l'attributo booleano isSetup.
-     * 
+     *
      * @param setup true se il setup è richiesto, false altrimenti.
      */
     public void setSetup(boolean setup) {
         this.setup = setup;
     }
-    
+
     /**
      * Ritorna l'attributo urlEndpoint.
-     * 
+     *
      * @return urlEndpoint (servizio Artsy).
      */
     public String getUrlEndpoint() {
-		return urlEndpoint;
-	}
+        return urlEndpoint;
+    }
 
     /**
      * Imposta l'attributo urlEndpoint.
-     * 
+     *
      * @param urlEndpoint l'attributo urlEndpoint da impostare per l'autenticazione.
      */
-	public void setUrlEndpoint(String urlEndpoint) {
-		this.urlEndpoint = urlEndpoint;
-	}
+    public void setUrlEndpoint(String urlEndpoint) {
+        this.urlEndpoint = urlEndpoint;
+    }
 
-	/**
+    /**
      * Ritorna l'attributo clientId.
-     * 
+     *
      * @return clientId (servizio di autenticazione ad Artsy).
      */
-	public String getClientId() {
-		return clientId;
-	}
+    public String getClientId() {
+        return clientId;
+    }
 
-	/**
+    /**
      * Imposta l'attributo clientId.
-     * 
+     *
      * @param clientId l'attributo clientId da impostare per l'autenticazione ad Artsy.
      */
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
 
-	/**
+    /**
      * Ritorna l'attributo secret.
-     * 
+     *
      * @return secret (servizio di autenticazione ad Artsy).
      */
-	public String getSecret() {
-		return secret;
-	}
+    public String getSecret() {
+        return secret;
+    }
 
-	/**
+    /**
      * Imposta l'attributo secret.
-     * 
+     *
      * @param secret l'attributo secret da impostare per l'autenticazione ad Artsy.
      */
-	public void setSecret(String secret) {
-		this.secret = secret;
-	}
-	
-	/**
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    /**
      * Ritorna l'attributo idArtwork.
-     * 
+     *
      * @return idArtwork (array delle opere d'arte gestite dal servizio di Artsy).
      */
-	public String[] getIdArtwork() {
-		return idArtwork;
-	}
+    public String[] getIdArtwork() {
+        return idArtwork;
+    }
 
-	/**
+    /**
      * Imposta l'attributo idArtwork.
-     * 
+     *
      * @param idArtwork (array delle opere d'arte gestite dal servizio di Artsy).
      */
-	public void setIdArtwork(String[] idArtwork) {
-		this.idArtwork = idArtwork;
-	}
-	
-	/**
+    public void setIdArtwork(String[] idArtwork) {
+        this.idArtwork = idArtwork;
+    }
+
+    /**
      * Ritorna l'attributo pathSetupDb.
-     * 
+     *
      * @return il path dello script di generazione iniziale del database.
      */
-	public String getPathSetupDb() {
-		return pathSetupDb;
-	}
+    public String getPathSetupDb() {
+        return pathSetupDb;
+    }
 
-	/**
+    /**
      * Imposta l'attributo pathSetupDb.
-     * 
+     *
      * @param pathSetupDb il path dello script di generazione iniziale del database.
      */
-	public void setPathSetupDb(String pathSetupDb) {
-		this.pathSetupDb = pathSetupDb;
-	}
+    public void setPathSetupDb(String pathSetupDb) {
+        this.pathSetupDb = pathSetupDb;
+    }
 
-	/**
+    /**
      * Singleton instance di ApplicationProperties.
      */
     private static ApplicationProperties instance = null;
-    
+
     /**
      * Costruttorre privato che carica le proprietà dell'applicazione da file.
      */
@@ -278,14 +278,14 @@ public class ApplicationProperties {
             setIdArtwork(Arrays.stream(appProps.getProperty("artworks").split(":"))
                     .toArray(String[]::new));
         } catch (IOException e) {
-            logger.error("Errore in fase di caricamento delle proprietà dell'applicazione: ",e);
+            logger.error("Errore in fase di caricamento delle proprietà dell'applicazione: ", e);
         }
     }
-    
+
     /**
      * Ritorna l'istanza Singleton di ApplicationProperties.
      * Se l'istanza non esiste la crea
-     * 
+     *
      * @return singleton instance di ApplicationProperties.
      */
     public static synchronized ApplicationProperties getInstance() {

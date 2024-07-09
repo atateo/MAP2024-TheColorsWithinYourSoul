@@ -29,10 +29,10 @@ public class GameClient {
     /**
      * Avvia la connessione al server specificato.
      *
-     * @param ip l'indirizzo IP del server
+     * @param ip   l'indirizzo IP del server
      * @param port la porta del server
      * @throws UnknownHostException se l'indirizzo IP del server non è valido
-     * @throws IOException se si verifica un errore di I/O durante la connessione
+     * @throws IOException          se si verifica un errore di I/O durante la connessione
      */
     public void startConnection(String ip, int port) throws UnknownHostException, IOException {
         clientSocket = new Socket(ip, port);
@@ -42,10 +42,11 @@ public class GameClient {
 
     /**
      * Invia un oggetto Score (punteggio) al server.
+     *
      * @param score il punteggio da inviare
      */
     public String sendScore(Score score) {
-    	String resp=null;
+        String resp = null;
         try {
             out.writeObject("POST");
             out.writeObject(score);
@@ -59,6 +60,7 @@ public class GameClient {
 
     /**
      * Richiede al server la lista dei punteggi, restituisce la lista ordinata per tempo di gioco crescente.
+     *
      * @return una lista di punteggi
      */
     public List<Score> getScores() {
@@ -68,7 +70,7 @@ public class GameClient {
             out.writeObject("GET");
 
             List<?> response = (List<?>) in.readObject();
-            for (Iterator<?> iterator = response.iterator(); iterator.hasNext();) {
+            for (Iterator<?> iterator = response.iterator(); iterator.hasNext(); ) {
                 Score score = (Score) iterator.next();
                 punteggi.add(score);
             }
@@ -81,6 +83,7 @@ public class GameClient {
 
     /**
      * Invia un comando al server per terminare la connessione.
+     *
      * @throws IOException se si verifica un errore di I/O durante la disconnessione
      */
     public void end() throws IOException {
@@ -103,7 +106,7 @@ public class GameClient {
             logger.error("Eccezione nel metodo stopConnection(): ", e);
         }
     }
-    
+
     /**
      * Converte il tempo in formato stringa (hh:mm:ss) in secondi.
      *

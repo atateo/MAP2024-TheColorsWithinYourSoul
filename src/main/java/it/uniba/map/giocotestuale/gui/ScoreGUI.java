@@ -1,10 +1,12 @@
 package it.uniba.map.giocotestuale.gui;
 
 import javax.swing.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import it.uniba.map.giocotestuale.database.domain.Score;
 import it.uniba.map.giocotestuale.socket.GameClient;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -130,7 +132,7 @@ public class ScoreGUI extends JFrame {
      * classe BackgroundPanel che estende Jpanel, utilizzata per impostare l'immagine di background
      */
     private class BackgroundPanel extends JPanel {
-    	// Pannello personalizzato per disegnare l'immagine di sfondo
+        // Pannello personalizzato per disegnare l'immagine di sfondo
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);

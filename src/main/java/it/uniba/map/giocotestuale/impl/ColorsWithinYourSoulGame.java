@@ -391,6 +391,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         if (checkIfGameIsOver()) {
             GameToGUICommunication.getInstance().notifyGameOverToGUI();
+            GameToGUICommunication.getInstance().getGameGUI().updateMenu();
             goodbyePlayer();
         }
     }

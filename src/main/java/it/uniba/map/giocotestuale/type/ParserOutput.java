@@ -22,12 +22,14 @@ public class ParserOutput {
     /**
      * Costruttore senza parametri di ParserOutput.
      */
-    public ParserOutput() {}
+    public ParserOutput() {
+    }
 
     /**
      * Costruttore con parametri di ParserOutput. Inizializza tutti gli attributi.
-     * @param commandType Tipo di comando dell'output.
-     * @param firstObject Primo parametro dell'output.
+     *
+     * @param commandType  Tipo di comando dell'output.
+     * @param firstObject  Primo parametro dell'output.
      * @param secondObject Secondo parametro dell'output.
      */
     public ParserOutput(Command commandType, GameObject firstObject, GameObject secondObject) {
@@ -38,6 +40,7 @@ public class ParserOutput {
 
     /**
      * Metodo getter per il tipo di comando.
+     *
      * @return Tipo di comando.
      */
     public Command getCommandType() {
@@ -46,6 +49,7 @@ public class ParserOutput {
 
     /**
      * Metodo getter per il primo parametro.
+     *
      * @return Primo parametro.
      */
     public GameObject getFirstObject() {
@@ -54,6 +58,7 @@ public class ParserOutput {
 
     /**
      * Metodo getter per il secondo parametro.
+     *
      * @return Secondo parametro.
      */
     public GameObject getSecondObject() {
@@ -62,6 +67,7 @@ public class ParserOutput {
 
     /**
      * Metodo setter per il tipo di comando.
+     *
      * @param commandType Tipo di comando da impostare.
      */
     public void setCommandType(Command commandType) {
@@ -70,6 +76,7 @@ public class ParserOutput {
 
     /**
      * Metodo setter per il primo parametro.
+     *
      * @param firstObject Oggetto di gioco da impostare come primo parametro.
      */
     public void setFirstObject(GameObject firstObject) {
@@ -78,6 +85,7 @@ public class ParserOutput {
 
     /**
      * Metodo setter per il primo parametro.
+     *
      * @param secondObject Oggetto di gioco da impostare come secondo parametro.
      */
     public void setSecondObject(GameObject secondObject) {
@@ -87,6 +95,7 @@ public class ParserOutput {
     /**
      * Override del metodo equals. Verifica se l'istanza corrente sia uguale a quella passata come parametro,
      * verificando l'uguaglianza tra il tipo di comando e i due parametri.
+     *
      * @param o Oggetto da confrontare con l'istanza.
      * @return Booleano che indica se le due istanze sono uguali.
      */
@@ -96,9 +105,9 @@ public class ParserOutput {
 
         if (this.getCommandType() != that.getCommandType()) return false;
 
-        if(this.getSecondObject() == null && that.getSecondObject() != null) return false;
+        if (this.getSecondObject() == null && that.getSecondObject() != null) return false;
 
-        if(this.getSecondObject() != null && that.getSecondObject() == null) return false;
+        if (this.getSecondObject() != null && that.getSecondObject() == null) return false;
 
         if (!this.getFirstObject().equals(that.getFirstObject())) return false;
 
