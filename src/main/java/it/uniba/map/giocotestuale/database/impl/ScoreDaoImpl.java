@@ -127,6 +127,6 @@ public class ScoreDaoImpl implements ScoreDao {
         int hh = Integer.parseInt(tokenized[0]);
         int mm = Integer.parseInt(tokenized[1]);
         int ss = Integer.parseInt(tokenized[2]);
-        return (hh * 3600) + (mm * 60) + ss;
+        return ((hh * 3600) + (mm * 60) + ss) * 1000;
     }
 }

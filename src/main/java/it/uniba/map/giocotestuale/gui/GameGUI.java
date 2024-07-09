@@ -607,8 +607,11 @@ public class GameGUI extends JPanel {
 
             startScore = true;
         } else {
+            userInputField.setEnabled(false);
+
             //Apertura della finestra con la classifica qui
-            ScoreGUI score = new ScoreGUI();
+            ScoreGUI scoreGUI = new ScoreGUI(GameToGUICommunication.getInstance().getElapsedTime());
+            scoreGUI.setVisible(true);
         }
     }
 
@@ -674,5 +677,12 @@ public class GameGUI extends JPanel {
      */
     public void setScore(final boolean startScore) {
         this.startScore = startScore;
+    }
+
+    /**
+     * Metodo che riattiva la casella di testo di input dell'utente.
+     */
+    public void enableUserInputField() {
+        userInputField.setEnabled(true);
     }
 }

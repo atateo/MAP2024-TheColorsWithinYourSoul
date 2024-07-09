@@ -34,11 +34,17 @@ public class ScoreGUI extends JFrame {
     private JButton sendButton;
     private BufferedImage backgroundImage;
     private int myIdScore;
+    private long time;
 
     /**
-     * costruttore pubblico della ScoreGUI
+     * Costruttore pubblico della ScoreGUI.
+     *
+     * @param time Tempo impiegato dal player a completare il gioco, espresso in ms.
      */
-    public ScoreGUI() {
+    public ScoreGUI(final long time) {
+        //Imposta il tempo a quello passato come parametro
+        this.time = time;
+
         // Carica l'immagine di sfondo
         try {
             backgroundImage = ImageIO.read(new File("src/main/resources/img/Score.png"));
@@ -50,7 +56,6 @@ public class ScoreGUI extends JFrame {
         createView();
 
         setTitle("The Colors within your Soul - Classifica");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(650, 400);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -114,7 +119,7 @@ public class ScoreGUI extends JFrame {
                 Score score = new Score();
                 score.setPlayer(nickname);
                 // prendere il tempo
-                score.setTime(System.currentTimeMillis());
+                score.setTime(time);
                 addScore(score);
                 textArea.append(" \n");
                 // spengo i campi che non mi occorrono più
