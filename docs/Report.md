@@ -40,7 +40,7 @@ Un giorno, riceve una lettera dalla quale apprende la notizia della morte di suo
 ![Mappa](./img/MappaGioco.png)
 
 ### Walkthrough del gioco
-Per la fruibilità del gioco e per dare un aiuto ai player che dovessero rimanere bloccati, abbiamo registrato una playthrough completa del gioco. Consigliamo anche il frequente utilizzo del comando "Osserva", in quanto abbiamo cercato di lasciare dei piccoli aiuti nelle descrizioni di stanze e oggetti. Cliccare l'immagine sotto porterà al video YouTube con la playthrough completa, che ha una durata di circa 6 minuti.
+Per la fruibilità del gioco e per dare un aiuto ai player che dovessero rimanere bloccati, abbiamo registrato una playthrough completa del gioco. Consigliamo anche il frequente utilizzo del comando *OSSERVA*, in quanto abbiamo cercato di lasciare dei piccoli aiuti nelle descrizioni di stanze e oggetti. Cliccare l'immagine sotto porterà al video YouTube con la playthrough completa, che ha una durata di circa 6 minuti.
 
 <a href="https://youtu.be/8sHqEgjV5qA">
   <img src="./img/Thumbnail.png" alt="Walkthrough">
