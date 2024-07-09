@@ -23,7 +23,7 @@ public class JsonUtil {
      * Scrive un oggetto in formato JSON su un file specificato.
      *
      * @param filePath il percorso del file in cui scrivere il JSON
-     * @param obj l'oggetto da serializzare
+     * @param obj      l'oggetto da serializzare
      */
     public static void writeJsonToFile(String filePath, Object obj) {
         Gson gson = new Gson();
@@ -42,7 +42,7 @@ public class JsonUtil {
      * Legge un oggetto in formato JSON da un file specificato.
      *
      * @param filePath il percorso del file da cui leggere il JSON
-  	 * @return restituisce l'oggetto deserializzato
+     * @return restituisce l'oggetto deserializzato
      */
     public static GameToJson readJsonFromFile(String filePath) {
         Gson gson = new Gson();
@@ -56,7 +56,7 @@ public class JsonUtil {
         }
         return game;
     }
-    
+
     /**
      * Legge un oggetto in formato JSON da un file specificato.
      *
@@ -70,7 +70,7 @@ public class JsonUtil {
         logger.info("Deserializzazione oggetto avvenuta con successo!");
         return obj;
     }
-    
+
     /**
      * Restituisce una stringa in formato JSON a partire da un oggetto.
      *

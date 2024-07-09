@@ -18,11 +18,12 @@ public class SingleObjectInteraction extends Interaction {
 
     /**
      * Costruttore con parametri della classe SingleObjectInteraction. Inizializza tutti i parametri.
-     * @param gameObject Oggetto interessato dall'interazione.
+     *
+     * @param gameObject      Oggetto interessato dall'interazione.
      * @param interactionType Tipo di comando che scaturisce l'interazione.
-     * @param targetState Stato che l'oggetto deve avere per scaturire l'interazione.
-     * @param resultState Stato che l'oggetto avrà alla fine dell'interazione.
-     * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
+     * @param targetState     Stato che l'oggetto deve avere per scaturire l'interazione.
+     * @param resultState     Stato che l'oggetto avrà alla fine dell'interazione.
+     * @param interaction     Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
     public SingleObjectInteraction(final GameObject gameObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
         super(interactionType, targetState, resultState, interaction);
@@ -31,6 +32,7 @@ public class SingleObjectInteraction extends Interaction {
 
     /**
      * Metodo getter per l'oggetto dell'interazione singola.
+     *
      * @return Oggetto interessato dall'interazione singola.
      */
     public GameObject getGameObject() {
@@ -40,7 +42,8 @@ public class SingleObjectInteraction extends Interaction {
     /**
      * Metodo che verifica se, sulla base degli oggetti passati e il comando passati come parametri,
      * l'interazione va effettuata su di essi. Definizione del metodo nella superclasse.
-     * @param gameObjects Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
+     *
+     * @param gameObjects     Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
      * @param interactionType Comando dell'interazione.
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
@@ -57,7 +60,7 @@ public class SingleObjectInteraction extends Interaction {
         }
 
         //Non è l'oggetto giusto su cui effettuarlo
-        if (!this.getGameObject().equals(gameObjects.getFirst())){
+        if (!this.getGameObject().equals(gameObjects.getFirst())) {
             return false;
         }
 
@@ -68,6 +71,7 @@ public class SingleObjectInteraction extends Interaction {
 
     /**
      * Metodo che esegue l'interazione tra gli oggetti nell'istanza di gioco passata come parametro.
+     *
      * @param game Istanza di gioco su cui va effettuata l'interazione.
      */
     @Override

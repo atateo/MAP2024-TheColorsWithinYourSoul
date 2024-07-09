@@ -7,6 +7,7 @@ import it.uniba.map.giocotestuale.type.ParserOutput;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -39,6 +40,7 @@ public class Parser {
     /**
      * Costruttore con parametro della classe Parser. Istanzia il Parser sulla base dell'istanza
      * di GameEngine passata come parametro e tenta di leggere il file delle stopwords.
+     *
      * @param game Istanza di gioco da cui saranno ricavate le informazioni su item e comandi.
      */
     public Parser(final GameEngine game) {
@@ -55,6 +57,7 @@ public class Parser {
     /**
      * Costruisce un oggetto di tipo ParseOutput sulla base della stringa fornita in input dall'utente.
      * L'oggetto ParseOutput costruito sarà usato per eseguire il comando.
+     *
      * @param input Stringa di input dell'utente.
      * @return Oggetto ParseOutput corrispondente alla stringa. Il Parser non ha riconosciuto il comando.
      */
@@ -85,7 +88,7 @@ public class Parser {
                 output.setFirstObject(checkForObjects(tokens[1]));
 
                 //Non ha riconosciuto il primo parametro del comando
-                if(output.getFirstObject() == null) {
+                if (output.getFirstObject() == null) {
                     return null;
                 }
 
@@ -99,7 +102,7 @@ public class Parser {
                     output.setSecondObject(checkForObjects(tokens[2]));
 
                     //Non ha riconosciuto il secondo parametro del comando
-                    if(output.getFirstObject() == null) {
+                    if (output.getFirstObject() == null) {
                         return null;
                     }
                 } else {
@@ -118,6 +121,7 @@ public class Parser {
 
     /**
      * Verifica se il token passato è un comando tra quelli disponibili nel parser.
+     *
      * @param token Token da analizzare.
      * @return Tipo di comando corrispondente. Se non riconosce il comando, restituisce null.
      */
@@ -133,6 +137,7 @@ public class Parser {
 
     /**
      * Verifica se il token passato è un item tra quelli disponibili nel parser.
+     *
      * @param token Token da analizzare.
      * @return Item corrispondente. Se non riconosce il comando, restituisce null.
      */
@@ -148,6 +153,7 @@ public class Parser {
 
     /**
      * Tenta di leggere il file stopwords.txt per ricavare le parole da inserire nel set stopwords.
+     *
      * @throws Exception Eccezioni dovute alla lettura del file.
      */
     private void setupUselessWords() throws Exception {

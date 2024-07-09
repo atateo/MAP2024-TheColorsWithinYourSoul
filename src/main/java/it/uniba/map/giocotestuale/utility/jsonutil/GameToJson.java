@@ -15,12 +15,12 @@ import it.uniba.map.giocotestuale.utility.GameTimer;
  * La classe GameToJson costituisce un'utility per la conversione delle informazioni di gioco in formato JSON.
  */
 public class GameToJson implements Serializable {
-	/**
-	 * 
-	 */
-	@Serial
+    /**
+     *
+     */
+    @Serial
     private static final long serialVersionUID = 1L;
-	private GameTimer timer;
+    private GameTimer timer;
     private List<ColorClass> colors;
     private List<Room> rooms;
     private Room room;
@@ -29,14 +29,14 @@ public class GameToJson implements Serializable {
     /**
      * Costruisce un nuovo oggetto GameToJson con i dettagli del gioco specificati.
      *
-     * @param timer		tempo di gioco
-     * @param colors    la lista dei colori del gioco
-     * @param rooms     la lista delle stanze nel gioco
-     * @param room      la stanza corrente del giocatore
+     * @param timer      tempo di gioco
+     * @param colors     la lista dei colori del gioco
+     * @param rooms      la lista delle stanze nel gioco
+     * @param room       la stanza corrente del giocatore
      * @param inventario la lista degli oggetti nell'inventario del giocatore
      */
     public GameToJson(GameTimer timer, List<ColorClass> colors, List<Room> rooms, Room room, List<Item> inventario) {
-    	this.timer = timer;
+        this.timer = timer;
         this.colors = colors;
         this.rooms = rooms;
         this.room = room;
@@ -49,7 +49,7 @@ public class GameToJson implements Serializable {
      * @param game L'istanza di gioco da convertire in GameToJson.
      */
     public GameToJson(final ColorsWithinYourSoulGame game) {
-    	this.timer = game.getGameTimer();
+        this.timer = game.getGameTimer();
         this.colors = game.getColors();
         this.rooms = game.getRooms();
         this.room = game.getCurrentRoom();
@@ -59,16 +59,18 @@ public class GameToJson implements Serializable {
     /**
      * Costruisce un nuovo oggetto GameToJson vuoto.
      */
-    public GameToJson() {}
+    public GameToJson() {
+    }
 
     /**
      * Partendo dall'istanza corrente di GameToJson, restituisce un'istanza equivalente di ColorsWithinYourSoulGame.
+     *
      * @return Istanza del gioco equivalente all'istanza corrente di GameToJson.
      */
     public ColorsWithinYourSoulGame convertFromJsonObject() {
         ColorsWithinYourSoulGame game = new ColorsWithinYourSoulGame();
 
-        if(this.inventario == null) {
+        if (this.inventario == null) {
             this.inventario = new ArrayList<>();
         }
 
@@ -104,6 +106,7 @@ public class GameToJson implements Serializable {
 
         return game;
     }
+
     /**
      * Restituisce la lista dei colori del gioco.
      *
@@ -181,17 +184,17 @@ public class GameToJson implements Serializable {
      *
      * @return il tempo di gioco dell'utente.
      */
-	public GameTimer getTimer() {
-		return timer;
-	}
+    public GameTimer getTimer() {
+        return timer;
+    }
 
-	/**
+    /**
      * Imposta il tempo di gioco dell'utente.
      *
      * @param timer il tempo di gioco dell'utente.
      */
-	public void setTimer(GameTimer timer) {
-		this.timer = timer;
-	}
-    
+    public void setTimer(GameTimer timer) {
+        this.timer = timer;
+    }
+
 }

@@ -29,10 +29,11 @@ public abstract class Interaction {
 
     /**
      * Costruttore con parametri della classe Interaction. Inizializza tutti i parametri.
+     *
      * @param interactionCommand Stato che l'oggetto o gli oggetti devono avere per scatenare l'interazione.
-     * @param targetState Stato che l'oggetto o gli oggetti avranno a fine interazione.
-     * @param resultState Tipo del comando che scaturisce l'interazione.
-     * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
+     * @param targetState        Stato che l'oggetto o gli oggetti avranno a fine interazione.
+     * @param resultState        Tipo del comando che scaturisce l'interazione.
+     * @param interaction        Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
     public Interaction(final Command interactionCommand, final String targetState, final String resultState, final Interactable interaction) {
         this.interaction = interaction;
@@ -43,6 +44,7 @@ public abstract class Interaction {
 
     /**
      * Metodo getter per il tipo di comando.
+     *
      * @return Tipo del comando dell'interazione.
      */
     public Command getInteractionCommand() {
@@ -51,6 +53,7 @@ public abstract class Interaction {
 
     /**
      * Metodo getter per il target state.
+     *
      * @return Stato che l'oggetto o gli oggetti devono avere per scatenare l'interazione.
      */
     public String getTargetState() {
@@ -59,6 +62,7 @@ public abstract class Interaction {
 
     /**
      * Metodo getter per il result state.
+     *
      * @return Stato che l'oggetto o gli oggetti avranno a fine interazione.
      */
     public String getResultState() {
@@ -67,6 +71,7 @@ public abstract class Interaction {
 
     /**
      * Metodo getter per l'istanza di Interactable.
+     *
      * @return Istanza di Interactable che definisce il codice dell'interazione.
      */
     public Interactable getInteraction() {
@@ -76,7 +81,8 @@ public abstract class Interaction {
     /**
      * Metodo astratto che verifica se, sulla base degli oggetti passati e il comando
      * passati come parametri, l'interazione va effettuata su di essi.
-     * @param gameObjects Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
+     *
+     * @param gameObjects     Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
      * @param interactionType Comando dell'interazione.
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
@@ -84,6 +90,7 @@ public abstract class Interaction {
 
     /**
      * Metodo astratto che esegue l'interazione tra gli oggetti nell'istanza di gioco passata come parametro.
+     *
      * @param game Istanza di gioco su cui va effettuata l'interazione.
      */
     public abstract void executeInteraction(final GameEngine game);

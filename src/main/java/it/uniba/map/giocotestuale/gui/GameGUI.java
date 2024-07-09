@@ -1,5 +1,6 @@
 package it.uniba.map.giocotestuale.gui;
 
+import it.uniba.map.giocotestuale.database.domain.Score;
 import it.uniba.map.giocotestuale.database.impl.DialogDaoImpl;
 import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
@@ -35,8 +36,8 @@ import java.util.TimerTask;
  * Classe che mostra la GUI del gioco.
  */
 public class GameGUI extends JPanel {
-	
-	/**
+
+    /**
      * Pulsante per tornare indietro al menu principale
      */
     private JButton back;
@@ -166,7 +167,7 @@ public class GameGUI extends JPanel {
      * Metodo che si occupa di configurare e posizionare tutte le componenti sullo schermo.
      */
     private void initComponents() {
-    	    	
+
         //Istanzia il booleano di fine gioco a false
         isFinished = false;
         startScore = false;
@@ -569,18 +570,19 @@ public class GameGUI extends JPanel {
     /**
      * Metodo che gestisce l'input dell'utente. Gestisce anche il comportamento
      * della TextArea in base a se il gioco è finito o meno.
+     *
      * @param evt rappresenta l'evento dell'input dell'utente.
      */
     private void UserInputActionPerformed(ActionEvent evt) {
-    	//istanzo la classe DAO 
-    	DialogDaoImpl dialog = new DialogDaoImpl();
-    	
+        //istanzo la classe DAO
+        DialogDaoImpl dialog = new DialogDaoImpl();
+
         String text = userInputField.getText();
         userInputField.setText("");
 
         if (!isFinished) {
             GameToGUICommunication.getInstance().toGame(text);
-        } else if (!startScore){
+        } else if (!startScore) {
             ArtworkResponse artworkResponse = ClientRest.getArtwork();
             ImageIcon artwork = new ImageIcon(artworkResponse.getArtwork());
 
@@ -605,7 +607,11 @@ public class GameGUI extends JPanel {
 
             startScore = true;
         } else {
+            userInputField.setEnabled(false);
+
             //Apertura della finestra con la classifica qui
+            ScoreGUI scoreGUI = new ScoreGUI(GameToGUICommunication.getInstance().getElapsedTime());
+            scoreGUI.setVisible(true);
         }
     }
 
@@ -654,9 +660,29 @@ public class GameGUI extends JPanel {
 
     /**
      * Metodo setter per l'attributo isFinished.
+     *
      * @param isFinished Nuovo valore booleano dell'attributo isFinished.
      */
     public void setFinished(final boolean isFinished) {
         this.isFinished = isFinished;
+
+        //Se il gioco è finito, blocca il tasto save, altrimenti sbloccalo
+        save.setEnabled(!isFinished);
+    }
+
+    /**
+     * Metodo setter per l'attributo startScore.
+     *
+     * @param startScore Nuovo valore booleano dell'attributo startScore.
+     */
+    public void setScore(final boolean startScore) {
+        this.startScore = startScore;
+    }
+
+    /**
+     * Metodo che riattiva la casella di testo di input dell'utente.
+     */
+    public void enableUserInputField() {
+        userInputField.setEnabled(true);
     }
 }

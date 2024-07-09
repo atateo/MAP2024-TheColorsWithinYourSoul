@@ -10,15 +10,17 @@ public class InteractionFactory {
     /**
      * Costruttore della classe. Essendo una classe di utility, è privato.
      */
-    private InteractionFactory() {}
+    private InteractionFactory() {
+    }
 
     /**
      * Costruisce un oggetto SingleObjectInteraction sulla base dei parametri passati in input.
-     * @param gameObject Oggetto interessato dall'interazione.
+     *
+     * @param gameObject      Oggetto interessato dall'interazione.
      * @param interactionType Comando dell'interazione.
-     * @param targetState Stato iniziale dell'oggetto di gioco.
-     * @param resultState Stato finale dell'oggetto di gioco.
-     * @param interaction Comportamento dell'interazione.
+     * @param targetState     Stato iniziale dell'oggetto di gioco.
+     * @param resultState     Stato finale dell'oggetto di gioco.
+     * @param interaction     Comportamento dell'interazione.
      * @return Oggetto SingleObjectInteraction creato con gli attributi passati sopra.
      */
     public static Interaction buildInteraction(final GameObject gameObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
@@ -27,12 +29,13 @@ public class InteractionFactory {
 
     /**
      * Costruisce un oggetto DirectInteraction sulla base dei parametri passati in input.
-     * @param firstObject Primo oggetto interessato dall'interazione.
-     * @param secondObject Secondo oggetto interessato dall'interazione.
+     *
+     * @param firstObject     Primo oggetto interessato dall'interazione.
+     * @param secondObject    Secondo oggetto interessato dall'interazione.
      * @param interactionType Comando dell'interazione.
-     * @param targetState Stato iniziale del primo oggetto di gioco.
-     * @param resultState Stato finale del secondo oggetto di gioco.
-     * @param interaction Comportamento dell'interazione.
+     * @param targetState     Stato iniziale del primo oggetto di gioco.
+     * @param resultState     Stato finale del secondo oggetto di gioco.
+     * @param interaction     Comportamento dell'interazione.
      * @return Oggetto DirectInteraction creato con gli attributi passati come parametri.
      */
     public static Interaction buildInteraction(final GameObject firstObject, final GameObject secondObject, final Command interactionType, final String targetState, final String resultState, final Interactable interaction) {
@@ -41,11 +44,12 @@ public class InteractionFactory {
 
     /**
      * Costruisce un oggetto ChainInteraction sulla base dei parametri passati in input.
-     * @param firstObject Primo oggetto interessato dall'interazione.
+     *
+     * @param firstObject  Primo oggetto interessato dall'interazione.
      * @param secondObject Secondo oggetto interessato dall'interazione.
-     * @param targetState Stato iniziale del primo oggetto di gioco.
-     * @param resultState Stato finale del secondo oggetto di gioco.
-     * @param interaction Comportamento dell'interazione.
+     * @param targetState  Stato iniziale del primo oggetto di gioco.
+     * @param resultState  Stato finale del secondo oggetto di gioco.
+     * @param interaction  Comportamento dell'interazione.
      * @return Oggetto ChainInteraction creato con gli attributi passati come parametri.
      */
     public static Interaction buildInteraction(final GameObject firstObject, final GameObject secondObject, final String targetState, final String resultState, final Interactable interaction) {

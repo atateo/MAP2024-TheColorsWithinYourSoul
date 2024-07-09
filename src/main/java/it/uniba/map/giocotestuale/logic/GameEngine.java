@@ -52,6 +52,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo setter per la stanza corrente. Verifica che la stanza non sia nulla e che sia presente nel gioco.
+     *
      * @param room Nuova stanza corrente.
      * @return Booleano che indica se il cambio di stanza è andato a buon fine.
      */
@@ -73,6 +74,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo getter per la stanza corrente.
+     *
      * @return Stanza corrente.
      */
     public Room getCurrentRoom() {
@@ -81,6 +83,7 @@ public abstract class GameEngine {
 
     /**
      * Aggiunge la stanza passata come parametro alla lista di stanze del gioco.
+     *
      * @param room Stanza da aggiungere.
      */
     public void addRoom(Room room) {
@@ -89,6 +92,7 @@ public abstract class GameEngine {
 
     /**
      * Aggiunge l'item passato come parametro all'inventario del player.
+     *
      * @param item Item da aggiungere.
      */
     public void addItemToInventory(Item item) {
@@ -97,6 +101,7 @@ public abstract class GameEngine {
 
     /**
      * Rimuove l'item passato come parametro dall'inventario del player.
+     *
      * @param item Item da rimuovere.
      */
     public void removeItem(Item item) {
@@ -107,6 +112,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo getter per la lista di stanze del gioco.
+     *
      * @return Lista di stanze del gioco.
      */
     public ArrayList<Room> getRooms() {
@@ -115,6 +121,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo getter per l'inventario del player.
+     *
      * @return Inventario del player.
      */
     public ArrayList<Item> getInventory() {
@@ -123,6 +130,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo getter per la lista dei colori del gioco.
+     *
      * @return Lista dei colori del gioco.
      */
     public ArrayList<ColorClass> getColors() {
@@ -131,6 +139,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo getter per la lista di interazioni di gioco.
+     *
      * @return Lista di interazioni di gioco.
      */
     public ArrayList<Interaction> getGameInteractions() {
@@ -139,6 +148,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo getter per il timer di gioco.
+     *
      * @return Istanza del timer del gioco.
      */
     public GameTimer getGameTimer() {
@@ -147,6 +157,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo setter per il timer di gioco.
+     *
      * @param gameTimer Istanza del timer da impostare come nuovo timer.
      */
     public void setGameTimer(GameTimer gameTimer) {
@@ -156,6 +167,7 @@ public abstract class GameEngine {
     /**
      * Restituisce la lista di tutti gli item e colori presenti nel gioco.
      * Scorre quindi tutte le stanze e l'inventario del player per ricavarne gli item.
+     *
      * @return Lista contenente tutti gli item del gioco.
      */
     public ArrayList<GameObject> getAllObjects() {
@@ -172,6 +184,7 @@ public abstract class GameEngine {
 
     /**
      * Dato un nome passato come parametro, restituisce l'item con quel nome.
+     *
      * @param searchedName Nome da cercare.
      * @return Oggetto con il nome cercato. Se non esiste, restituisce null.
      */
@@ -188,11 +201,12 @@ public abstract class GameEngine {
 
     /**
      * Dato un nome passato come parametro, restituisce il colore con quel nome.
+     *
      * @param searchedName Nome da cercare.
      * @return Colore con il nome cercato. Se non esiste, restituisce null.
      */
     public ColorClass getColorByName(final String searchedName) {
-        for (ColorClass color: colors) {
+        for (ColorClass color : colors) {
             if (color.getName().equalsIgnoreCase(searchedName)) {
                 return color;
             }
@@ -202,6 +216,7 @@ public abstract class GameEngine {
 
     /**
      * Dato un nome passato come parametro, restituisce la stanza con quel nome.
+     *
      * @param searchedName Nome da cercare.
      * @return Stanza con il nome cercato. Se non esiste, restituisce null.
      */
@@ -239,6 +254,7 @@ public abstract class GameEngine {
     /**
      * Metodo astratto che si occuperà di aggiornare il gioco quando l'utente inserisce un comando.
      * A tutti gli effetti è il metodo che esegue i comandi del gioco.
+     *
      * @param output Oggetto di tipo ParserOutput ostruito sull'input dell'utente dalla classe Parser.
      */
     public abstract void update(ParserOutput output);
@@ -250,6 +266,7 @@ public abstract class GameEngine {
 
     /**
      * Metodo astratto che verifica se il gioco è terminato o meno.
+     *
      * @return Booleano che indica se il gioco è terminato o meno.
      */
     public abstract boolean checkIfGameIsOver();

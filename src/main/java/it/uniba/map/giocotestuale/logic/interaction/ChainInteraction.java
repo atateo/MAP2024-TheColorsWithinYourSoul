@@ -14,11 +14,12 @@ public class ChainInteraction extends TwoObjectInteraction {
 
     /**
      * Costruttore con parametri della classe ChainInteraction. Inizializza tutti gli attributi della superclasse.
-     * @param firstObject Primo oggetto. Causa dell'interazione.
+     *
+     * @param firstObject  Primo oggetto. Causa dell'interazione.
      * @param secondObject Secondo oggetto. Subisce la conseguenza dell'interazione.
-     * @param targetState Stato che il primo oggetto deve avere per scaturire l'interazione.
-     * @param resultState Stato che il secondo oggetto assumerà dopo l'interazione.
-     * @param interaction Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
+     * @param targetState  Stato che il primo oggetto deve avere per scaturire l'interazione.
+     * @param resultState  Stato che il secondo oggetto assumerà dopo l'interazione.
+     * @param interaction  Istanza dell'interfaccia funzionale Interactable che definisce il codice dell'interazione.
      */
     public ChainInteraction(final GameObject firstObject, final GameObject secondObject, final String targetState, final String resultState, final Interactable interaction) {
         super(firstObject, secondObject, null, targetState, resultState, interaction);
@@ -27,14 +28,15 @@ public class ChainInteraction extends TwoObjectInteraction {
     /**
      * Metodo che verifica se, sulla base degli oggetti passati come parametro, l'interazione
      * va effettuata su di essi. Definizione del metodo nella superclasse.
-     * @param gameObjects Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
+     *
+     * @param gameObjects     Lista degli oggetti da analizzare per vedere se sono interessati dall'interazione.
      * @param interactionType Comando dell'interazione. Essendo una interazione a catena, non viene analizzato.
      * @return Booleano che indica se l'interazione interessa gli oggetti o meno.
      */
     @Override
     public boolean isCorrectInteraction(final List<GameObject> gameObjects, final Command interactionType) {
         //Il primo oggetto non corrisponde
-        if (!super.getFirstObject().equals(gameObjects.getFirst())){
+        if (!super.getFirstObject().equals(gameObjects.getFirst())) {
             return false;
         }
 

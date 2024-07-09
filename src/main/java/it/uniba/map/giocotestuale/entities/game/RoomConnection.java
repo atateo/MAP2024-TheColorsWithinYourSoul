@@ -23,8 +23,9 @@ public class RoomConnection implements Serializable {
 
     /**
      * Costruttore con parametri della classe RoomConnection. Inizializza tutti gli attributi.
+     *
      * @param reachableRoom Stanza raggiungibile.
-     * @param isLocked Booleano che definisce se il collegamento è bloccato o meno.
+     * @param isLocked      Booleano che definisce se il collegamento è bloccato o meno.
      */
     public RoomConnection(final Room reachableRoom, final boolean isLocked) {
         this.IDReachableRoom = reachableRoom.getId();
@@ -33,6 +34,7 @@ public class RoomConnection implements Serializable {
 
     /**
      * Metodo getter per la stanza raggiungibile. Prende l'istanza di gioco e restituisce la stanza con l'ID cercato.
+     *
      * @return Stanza raggiungibile. Se non esiste, restituisce null.
      */
     public Room getReachableRoom(final GameEngine gameEngine) {
@@ -46,6 +48,7 @@ public class RoomConnection implements Serializable {
 
     /**
      * Metodo setter per la stanza raggiungibile.
+     *
      * @param reachableRoom Nuova stanza raggiungibile.
      */
     public void setReachableRoom(final Room reachableRoom) {
@@ -54,6 +57,7 @@ public class RoomConnection implements Serializable {
 
     /**
      * Metodo getter per la proprietà isLocked.
+     *
      * @return Booleano che indica se il collegamento è bloccato o meno.
      */
     public boolean isLocked() {
@@ -62,6 +66,7 @@ public class RoomConnection implements Serializable {
 
     /**
      * Metodo setter per la proprietà isLocked.
+     *
      * @param isLocked Nuovo valore che indica se il collegamento è bloccato o meno.
      */
     public void setLocked(final boolean isLocked) {

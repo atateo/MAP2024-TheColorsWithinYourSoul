@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * Implementazione dell'interfaccia ColorDao.
  * Fornisce i metodi per le operazioni CRUD sull'entità Color nel database.
- * 
  */
 public class ColorDaoImpl implements ColorDao {
 
@@ -35,12 +34,12 @@ public class ColorDaoImpl implements ColorDao {
      */
     @Override
     public int add(ColorRecord color) throws SQLException {
-    	
+
         String query = "INSERT INTO color (descrizione) VALUES (?)";
-        
+
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, color.getDescrizione());
-        
+
         int n = ps.executeUpdate();
         return n;
     }
@@ -68,9 +67,9 @@ public class ColorDaoImpl implements ColorDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	color = new ColorRecord();
-        	color.setId(rs.getInt("id"));
-        	color.setDescrizione(rs.getString("descrizione"));
+            color = new ColorRecord();
+            color.setId(rs.getInt("id"));
+            color.setDescrizione(rs.getString("descrizione"));
         }
 
         return color;
@@ -87,9 +86,9 @@ public class ColorDaoImpl implements ColorDao {
         List<ColorRecord> ls = new ArrayList<ColorRecord>();
 
         while (rs.next()) {
-        	ColorRecord item = new ColorRecord();
-        	item.setId(rs.getInt("id"));
-        	item.setDescrizione(rs.getString("descrizione"));
+            ColorRecord item = new ColorRecord();
+            item.setId(rs.getInt("id"));
+            item.setDescrizione(rs.getString("descrizione"));
             ls.add(item);
         }
         return ls;
@@ -107,15 +106,15 @@ public class ColorDaoImpl implements ColorDao {
         ps.setInt(2, color.getId());
         ps.executeUpdate();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String getDescrizioneById(int id) throws SQLException {
-    	
-    	String descrizione = null;
-    	//id_room e stato sono alternate key in tabella
+
+        String descrizione = null;
+        //id_room e stato sono alternate key in tabella
         String query = "SELECT descrizione FROM color WHERE id = ? ";
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setInt(1, id);
@@ -123,7 +122,7 @@ public class ColorDaoImpl implements ColorDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	descrizione=rs.getString("descrizione");
+            descrizione = rs.getString("descrizione");
         }
 
         return descrizione;

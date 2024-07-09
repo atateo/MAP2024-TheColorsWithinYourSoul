@@ -51,12 +51,12 @@ public interface ItemDao {
      * @throws SQLException se si verifica un errore durante l'operazione di aggiornamento.
      */
     public void update(ItemRecord room) throws SQLException;
-    
+
     /**
      * Recupera la descrizione dell'oggetto Item dal database in base al suo idItem (id nel game).
      *
      * @param idItem l'idItem dell'item da recuperare.
-     * @param stato lo stato dell'item da recuperare.
+     * @param stato  lo stato dell'item da recuperare.
      * @return la descrizione del record Item corrispondente all'idItem e allo stato specificati.
      * @throws SQLException se si verifica un errore durante l'operazione di recupero.
      */

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Classe che rappresenta le stanze di cui è composta la mappa di gioco.
  */
-public class Room extends GameObject implements Serializable  {
+public class Room extends GameObject implements Serializable {
     /**
      * Istanza del logger.
      */
@@ -43,8 +43,9 @@ public class Room extends GameObject implements Serializable  {
     /**
      * Costruttore con parametri della classe Room. Inizializza gli attributi della superclasse GameObject
      * e crea la lista degli item.
-     * @param id ID della stanza.
-     * @param name Nome della stanza.
+     *
+     * @param id    ID della stanza.
+     * @param name  Nome della stanza.
      * @param state Stato corrente della stanza.
      */
     public Room(final int id, final String name, final String state) {
@@ -55,8 +56,9 @@ public class Room extends GameObject implements Serializable  {
     /**
      * Stabilisce un collegamento a nord con la stanza di questa istanza e la stanza passata come parametro.
      * Col secondo parametro è possibile definire se il collegamento è bloccato o meno.
+     *
      * @param reachableRoom Stanza raggiungibile a nord.
-     * @param isLocked Booleano che indica se il collegamento è bloccato o no.
+     * @param isLocked      Booleano che indica se il collegamento è bloccato o no.
      */
     public void setNorthRoomConnection(final Room reachableRoom, final boolean isLocked) {
         this.north = new RoomConnection(reachableRoom, isLocked);
@@ -65,8 +67,9 @@ public class Room extends GameObject implements Serializable  {
     /**
      * Stabilisce un collegamento a sud con la stanza di questa istanza e la stanza passata come parametro.
      * Col secondo parametro è possibile definire se il collegamento è bloccato o meno.
+     *
      * @param reachableRoom Stanza raggiungibile a sud.
-     * @param isLocked Booleano che indica se il collegamento è bloccato o no.
+     * @param isLocked      Booleano che indica se il collegamento è bloccato o no.
      */
     public void setSouthRoomConnection(final Room reachableRoom, final boolean isLocked) {
         this.south = new RoomConnection(reachableRoom, isLocked);
@@ -75,8 +78,9 @@ public class Room extends GameObject implements Serializable  {
     /**
      * Stabilisce un collegamento a ovest con la stanza di questa istanza e la stanza passata come parametro.
      * Col secondo parametro è possibile definire se il collegamento è bloccato o meno.
+     *
      * @param reachableRoom Stanza raggiungibile a ovest.
-     * @param isLocked Booleano che indica se il collegamento è bloccato o no.
+     * @param isLocked      Booleano che indica se il collegamento è bloccato o no.
      */
     public void setWestRoomConnection(final Room reachableRoom, final boolean isLocked) {
         this.west = new RoomConnection(reachableRoom, isLocked);
@@ -85,8 +89,9 @@ public class Room extends GameObject implements Serializable  {
     /**
      * Stabilisce un collegamento a est con la stanza di questa istanza e la stanza passata come parametro.
      * Col secondo parametro è possibile definire se il collegamento è bloccato o meno.
+     *
      * @param reachableRoom Stanza raggiungibile a est.
-     * @param isLocked Booleano che indica se il collegamento è bloccato o no.
+     * @param isLocked      Booleano che indica se il collegamento è bloccato o no.
      */
     public void setEastRoomConnection(final Room reachableRoom, final boolean isLocked) {
         this.east = new RoomConnection(reachableRoom, isLocked);
@@ -94,6 +99,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo setter per la lista di item nella stanza.
+     *
      * @param itemsInRoom Nuova lista di item nella stanza.
      */
     public void setItemsInRoom(final List<Item> itemsInRoom) {
@@ -102,6 +108,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo che aggiunge l'item passato come parametro alla lista di item nella stanza.
+     *
      * @param item Item da aggiungere nella stanza.
      */
     public void addItem(final Item item) {
@@ -110,6 +117,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo che rimuove l'item passato come parametro alla lista di item nella stanza.
+     *
      * @param item Item da rimuovere nella stanza.
      */
     public void removeItem(final Item item) {
@@ -118,6 +126,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo getter per il collegamento a nord della stanza.
+     *
      * @return Collegamento a nord della stanza.
      */
     public RoomConnection getNorthRoomConnection() {
@@ -126,6 +135,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo getter per il collegamento a sud della stanza.
+     *
      * @return Collegamento a sud della stanza.
      */
     public RoomConnection getSouthRoomConnection() {
@@ -134,6 +144,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo getter per il collegamento a ovest della stanza.
+     *
      * @return Collegamento a ovest della stanza.
      */
     public RoomConnection getWestRoomConnection() {
@@ -142,6 +153,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo getter per il collegamento a est della stanza.
+     *
      * @return Collegamento a est della stanza.
      */
     public RoomConnection getEastRoomConnection() {
@@ -150,6 +162,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Restituisce la RoomConnection sulla base del comando di movimento passato come parametro.
+     *
      * @param command Direzione della RoomConnection da restituire.
      * @return L'oggetto RoomConnection trovato nella direzione richiesta.
      */
@@ -165,6 +178,7 @@ public class Room extends GameObject implements Serializable  {
 
     /**
      * Metodo getter per la lista di item nella stanza.
+     *
      * @return Lista di item nella stanza.
      */
     public List<Item> getItemsInRoom() {
@@ -174,6 +188,7 @@ public class Room extends GameObject implements Serializable  {
     /**
      * Metodo che interroga il DB sulla base degli attributi della stanza per ottenerne la descrizione.
      * Definisce il metodo getDescriptionFromDB ereditato dalla superclasse.
+     *
      * @return Descrizione della stanza in questione.
      */
     @Override
@@ -188,7 +203,7 @@ public class Room extends GameObject implements Serializable  {
             if (!getItemsInRoom().isEmpty()) {
                 output.append(" Ti saltano all'occhio alcuni oggetti:");
 
-                for (Item item: getItemsInRoom()) {
+                for (Item item : getItemsInRoom()) {
                     output.append("\n");
                     output.append("\uD83C\uDFA8 ➤ ");
                     output.append(item.getName());

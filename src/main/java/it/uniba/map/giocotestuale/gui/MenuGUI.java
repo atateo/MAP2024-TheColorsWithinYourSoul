@@ -14,58 +14,58 @@ import java.awt.Image;
 import java.awt.CardLayout;
 
 
- /**
+/**
  * Classe che si occupa di mostrare gli elementi della GUI del menu di inizio partita.
  */
 public class MenuGUI extends JPanel {
 
-     /**
-      * Pannello per il background
-      */
-     private JPanel background;
+    /**
+     * Pannello per il background
+     */
+    private JPanel background;
 
-     /**
-      * Pulsante di avvio di una nuova partita
-      */
-     private JButton start;
-     /**
-      *  Pulsante per caricare una partita già iniziata
-      */
-     private JButton load;
-     /**
-      * Pulsante per la visualizzazione dei comandi di gioco
-      */
-     private JButton commands;
-     /**
-      * Pulsante per la visualizzazione dei crediti
-      */
-     private JButton credits;
-     /**
-      * Pulsante per attivare o disattivare l'audio del gioco
-      */
-     private static JButton audio;
-     /**
-      * Immagine audio spento
-      */
-     final ImageIcon audio_off = new ImageIcon("src/main/resources/img/audio_off.png");
-     /**
-      * Immagine audio acceso
-      */
-     final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon.png");
+    /**
+     * Pulsante di avvio di una nuova partita
+     */
+    private JButton start;
+    /**
+     * Pulsante per caricare una partita già iniziata
+     */
+    private JButton load;
+    /**
+     * Pulsante per la visualizzazione dei comandi di gioco
+     */
+    private JButton commands;
+    /**
+     * Pulsante per la visualizzazione dei crediti
+     */
+    private JButton credits;
+    /**
+     * Pulsante per attivare o disattivare l'audio del gioco
+     */
+    private static JButton audio;
+    /**
+     * Immagine audio spento
+     */
+    final ImageIcon audio_off = new ImageIcon("src/main/resources/img/audio_off.png");
+    /**
+     * Immagine audio acceso
+     */
+    final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon.png");
 
 
-     /**
-      * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
-      */
-     public MenuGUI() {
+    /**
+     * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
+     */
+    public MenuGUI() {
         initComponents();
 
-     }
+    }
 
-     /**
-      * Metodo che istanzia e setta i componenti sullo schermo.
-      */
-     private void initComponents() {
+    /**
+     * Metodo che istanzia e setta i componenti sullo schermo.
+     */
+    private void initComponents() {
         // disegna l'immagine di sfondo
         background = new JPanel() {
             @Override
@@ -130,11 +130,10 @@ public class MenuGUI extends JPanel {
 
     }
 
-     /**
-      * Metodo che configura il GroupLayout
-      */
-    private void setGroupLayout()
-    {
+    /**
+     * Metodo che configura il GroupLayout
+     */
+    private void setGroupLayout() {
         // impostazione del Group Layout per il posizionamento dei vari componenti sullo sfondo
         GroupLayout backgroundLayout = new GroupLayout(background);
         backgroundLayout.setHorizontalGroup(
@@ -186,13 +185,13 @@ public class MenuGUI extends JPanel {
         );
     }
 
-     /**
-      * Metodo che aggiorna il menu rendendolo colorato
-      */
+    /**
+     * Metodo che aggiorna il menu rendendolo colorato
+     */
     public void updateMenu() {
 
-       this.remove(background);
-       background = new JPanel() {
+        this.remove(background);
+        background = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -202,12 +201,12 @@ public class MenuGUI extends JPanel {
             }
         };
 
-       Color colorePulsante = new Color(71,111,206);
-       Color coloreBordo = new Color(76,172,62);
+        Color colorePulsante = new Color(71, 111, 206);
+        Color coloreBordo = new Color(76, 172, 62);
 
         // modifica del colore del pulsante start
-         start.setBackground(colorePulsante);
-         start.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+        start.setBackground(colorePulsante);
+        start.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
 
         // modifica del colore del pulsante load
         load.setBackground(colorePulsante);
@@ -230,11 +229,12 @@ public class MenuGUI extends JPanel {
     }
 
 
-    /**  
-    * Metodo che definisce il comportamento del pulsante start quando viene cliccato.
-    * Inizia una nuova partita selezionando la GameGUI attraverso il CardLayout.
-    * @param evt rappresenta l'evento del click sul pulsante.
-    */
+    /**
+     * Metodo che definisce il comportamento del pulsante start quando viene cliccato.
+     * Inizia una nuova partita selezionando la GameGUI attraverso il CardLayout.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void StartActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         ProgressBarGUI progressBar = (ProgressBarGUI) this.getParent().getComponent(2);
@@ -258,24 +258,27 @@ public class MenuGUI extends JPanel {
 
         //Imposta l'aggiornamento del timer
         GameGUI.UpdateTimerLabel();
+
+        //Imposta il gioco a non finito
+        HandlerGUI.getGameGUI().setFinished(false);
+        HandlerGUI.getGameGUI().setScore(false);
+        HandlerGUI.getGameGUI().enableUserInputField();
     }
 
 
-
-    /**  
-    * Metodo che definisce il comportamento del pulsante load quando viene cliccato.
-    * Carica il salvataggio di una partita.
-    * @param evt rappresenta l'evento del click sul pulsante.
-    */
+    /**
+     * Metodo che definisce il comportamento del pulsante load quando viene cliccato.
+     * Carica il salvataggio di una partita.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void LoadActionPerformed(ActionEvent evt) {
-    	JFileChooser j = new JFileChooser("saves");
-    	 
-    	// Open the save dialog
-    	int r = j.showOpenDialog(null);
-    	if (r == JFileChooser.APPROVE_OPTION)
-    		 
-        {
-    		CardLayout cl = (CardLayout) getParent().getLayout();
+        JFileChooser j = new JFileChooser("saves");
+
+        // Open the save dialog
+        int r = j.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            CardLayout cl = (CardLayout) getParent().getLayout();
             ProgressBarGUI progressBar = (ProgressBarGUI) this.getParent().getComponent(2);
             cl.show(getParent(), "ProgressBarGUI");
             progressBar.addPropertyChangeListener(evt1 -> {
@@ -305,23 +308,30 @@ public class MenuGUI extends JPanel {
 
             //Imposta l'inventario
             GameToGUICommunication.getInstance().notifyInventoryUpdateToGUI();
+
+            //Imposta il gioco a non finito
+            HandlerGUI.getGameGUI().setFinished(false);
+            HandlerGUI.getGameGUI().setScore(false);
+            HandlerGUI.getGameGUI().enableUserInputField();
         }
     }
 
     /**
-    * Metodo che definisce il comportamento del pulsante commands quando viene cliccato.
-    * Apre la finestra comandi chiamando il metodo getIstance di CommandsGUI.
-    * @param evt rappresenta l'evento del click sul pulsante.
-    */
+     * Metodo che definisce il comportamento del pulsante commands quando viene cliccato.
+     * Apre la finestra comandi chiamando il metodo getIstance di CommandsGUI.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void CommandsActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getInstance();
         help.setVisible(true);
     }
 
     /**
-    * Metodo che definisce il comportamento del pulsante credits quando viene cliccato.
-    * Passa alla schermata crediti selezionando la CreditsGUI attraverso il CardLayout.
-    * @param evt rappresenta l'evento del click sul pulsante.
+     * Metodo che definisce il comportamento del pulsante credits quando viene cliccato.
+     * Passa alla schermata crediti selezionando la CreditsGUI attraverso il CardLayout.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
      */
     private void CreditsActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
@@ -329,28 +339,30 @@ public class MenuGUI extends JPanel {
         Mixer.getInstance().changRoomMusic("Credits");
         Mixer.getInstance().startTrack();
     }
+
     /**
-    * Metodo che definisce il comportamento del pulsante audio quando viene cliccato.
-    * Attiva o disattiva l'audio di gioco.
-    * @param evt rappresenta l'evento del click sul pulsante.
-    */
+     * Metodo che definisce il comportamento del pulsante audio quando viene cliccato.
+     * Attiva o disattiva l'audio di gioco.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
     private void AudioActionPerformed(ActionEvent evt) {
-         if (audio.getIcon().toString().equals(audio_on.toString())) {
-             audio.setIcon(audio_off);
-             Mixer.getInstance().stopTrack();
-         } else {
-             audio.setIcon(audio_on);
-             Mixer.getInstance().startTrack();
-         }
+        if (audio.getIcon().toString().equals(audio_on.toString())) {
+            audio.setIcon(audio_off);
+            Mixer.getInstance().stopTrack();
+        } else {
+            audio.setIcon(audio_on);
+            Mixer.getInstance().startTrack();
+        }
     }
 
-     /**
-      * Metodo che accende l'audio se era stato spento in precedenza,
-      * usato per ripristinare l'audio quando si cambia schermata
-      */
-     public void resetAudio() {
-         if (audio.getIcon().toString().equals(audio_off.toString())) {
-             audio.setIcon(audio_on);
-         }
-     }
+    /**
+     * Metodo che accende l'audio se era stato spento in precedenza,
+     * usato per ripristinare l'audio quando si cambia schermata
+     */
+    public void resetAudio() {
+        if (audio.getIcon().toString().equals(audio_off.toString())) {
+            audio.setIcon(audio_on);
+        }
+    }
 }

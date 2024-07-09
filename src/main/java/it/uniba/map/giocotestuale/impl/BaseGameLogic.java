@@ -18,11 +18,12 @@ public class BaseGameLogic {
     /**
      * Metodo che restituisce tutte le interactions che compongono la
      * logica di gioco sulla base di ciò che è presente nel salvataggio.
+     *
      * @param objects La lista di items, colori e stanze disponibili.
      * @return ArrayList contenente tutte le interactions di gioco.
      */
     public ArrayList<Interaction> getGameLogic(ArrayList<GameObject> objects) {
-    	DialogDaoImpl dialog = new DialogDaoImpl();
+        DialogDaoImpl dialog = new DialogDaoImpl();
         ArrayList<Interaction> gameLogic = new ArrayList<>();
 
         //Sblocca il colore rosso
@@ -120,7 +121,7 @@ public class BaseGameLogic {
 
         //Spegni la torcia colorandola di blu
         gameLogic.add(InteractionFactory.buildInteraction(
-                getObjectByName("Torcia", objects), getObjectByName("Blu", objects), Command.COLORA,"Acceso", "Spento",
+                getObjectByName("Torcia", objects), getObjectByName("Blu", objects), Command.COLORA, "Acceso", "Spento",
                 (gameObjects, targetStates, gameEngine) -> {
                     gameObjects.getFirst().setStatus(targetStates.get(1));
 
@@ -518,7 +519,8 @@ public class BaseGameLogic {
 
     /**
      * Data una stringa come parametro, questo metodo restituisce l'oggetto di gioco che ha quella stringa come nome.
-     * @param name Nome da cercare.
+     *
+     * @param name             Nome da cercare.
      * @param availableObjects Lista degli oggetti di gioco in cui cercare.
      */
     public GameObject getObjectByName(final String name, ArrayList<GameObject> availableObjects) {

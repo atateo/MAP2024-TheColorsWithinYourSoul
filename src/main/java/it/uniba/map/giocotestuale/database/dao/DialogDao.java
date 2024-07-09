@@ -51,7 +51,7 @@ public interface DialogDao {
      * @throws SQLException se si verifica un errore durante l'operazione di aggiornamento.
      */
     public void update(Dialog dialog) throws SQLException;
-    
+
     /**
      * Recupera il testo dell'oggetto Dialog dal database in base al suo id.
      *

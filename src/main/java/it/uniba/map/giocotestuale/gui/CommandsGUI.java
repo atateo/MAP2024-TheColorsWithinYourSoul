@@ -24,20 +24,21 @@ public class CommandsGUI extends JFrame {
     private Image backgroundImage;
 
     /**
-    * Metodo getter per ottenere la singola istanza della classe.
-    * Se la classe non è stata ancora istanziata, la istanzia.
-    * @return istanza di CommandsGUI.
-    */
+     * Metodo getter per ottenere la singola istanza della classe.
+     * Se la classe non è stata ancora istanziata, la istanzia.
+     *
+     * @return istanza di CommandsGUI.
+     */
     public static CommandsGUI getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new CommandsGUI();
         }
         return instance;
     }
 
     /**
-    * Costruttore privato per l'impostazione del frame
-    */
+     * Costruttore privato per l'impostazione del frame
+     */
     private CommandsGUI() {
         // Imposta il titolo della finestra
         super("Comandi di gioco");
@@ -74,33 +75,35 @@ public class CommandsGUI extends JFrame {
 
         //JTextArea per il testo sopra l'immagine
         JTextArea textArea = new JTextArea("""
-                                
-                                Nord: Permette di muoversi in avanti
-                                
-                                Sud: Permette di muoversi indietro
-                                
-                                Ovest: Permette di muoversi a sinistra
-                                
-                                Est: Permette di muoversi a destra
-                                
-                                Osserva: Mostra la descrizione della stanza e degli oggetti che risaltano all'occhio
-                                
-                                Osserva [oggetto]: Mostra la descrizione dell'oggetto se presente nella stanza o nell'inventario
-                                
-                                Inventario: Mostra l'inventario
-                                
-                                Prendi [oggetto]: Prendi l'oggetto specificato, andrà nell'inventario
-                                
-                                Lascia [oggetto]: Lascia l'oggetto specificato, deve essere presente nell'inventario
-                                
-                                Usa [oggetto]: Utilizza l'oggetto specificato
-                                
-                                Usa [oggetto1] [oggetto2]: Utilizza l'oggetto 1 sull'oggetto 2
-                                
-                                Spingi [oggetto]: Spingi l'oggetto selezionato
-                                
-                                Colora [oggetto] [colore]: Colora l'oggetto selezionato del colore scelto, l'oggetto deve essere nell'inventario o nella stanza
-                                """);
+                                               \s
+                Nord: Permette di muoversi in avanti
+                                                        \s
+                Sud: Permette di muoversi indietro
+                                               \s
+                Ovest: Permette di muoversi a sinistra
+                                               \s
+                Est: Permette di muoversi a destra
+                                               \s
+                Back: Se sei in una stanza con una sola porta, esce da quella porta (se è aperta)
+                                               \s
+                Osserva: Mostra la descrizione della stanza e degli oggetti che risaltano all'occhio
+                                               \s
+                Osserva [oggetto]: Mostra la descrizione dell'oggetto se presente nella stanza o nell'inventario
+                                               \s
+                Inventario: Mostra l'inventario
+                                               \s
+                Prendi [oggetto]: Prendi l'oggetto specificato, andrà nell'inventario
+                                               \s
+                Lascia [oggetto]: Lascia l'oggetto specificato, deve essere presente nell'inventario
+                                               \s
+                Usa [oggetto]: Utilizza l'oggetto specificato
+                                               \s
+                Usa [oggetto1] [oggetto2]: Utilizza l'oggetto 1 sull'oggetto 2
+                                               \s
+                Spingi [oggetto]: Spingi l'oggetto selezionato
+                                               \s
+                Colora [oggetto] [colore]: Colora l'oggetto selezionato del colore scelto, l'oggetto deve essere nell'inventario o nella stanza
+               \s""");
 
         textArea.setOpaque(false);
         textArea.setEditable(false);

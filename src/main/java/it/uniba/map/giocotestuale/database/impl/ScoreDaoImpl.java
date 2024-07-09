@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Implementazione dell'interfaccia ScoreDao.
  * Fornisce i metodi per le operazioni CRUD sull'entità Score nel database.
- * 
+ *
  * @author tateo.antimo
  */
 public class ScoreDaoImpl implements ScoreDao {
@@ -36,15 +36,14 @@ public class ScoreDaoImpl implements ScoreDao {
      */
     @Override
     public int add(Score score) throws SQLException {
-    	int n=0;
+        int n = 0;
         String query = "INSERT INTO score (player, time) VALUES (?, ?)";
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, score.getPlayer());
         ps.setString(2, score.getTime());
         ps.executeUpdate();
         ResultSet rs = ps.getGeneratedKeys();
-        if(rs.next())
-        {
+        if (rs.next()) {
             n = rs.getInt(1);
         }
         return n;
@@ -73,10 +72,10 @@ public class ScoreDaoImpl implements ScoreDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	score = new Score();
-        	score.setId(rs.getInt("id"));
-        	score.setPlayer(rs.getString("player"));
-        	score.setTime(fromatTimeFromStringToInt(rs.getString("time")));
+            score = new Score();
+            score.setId(rs.getInt("id"));
+            score.setPlayer(rs.getString("player"));
+            score.setTime(fromatTimeFromStringToInt(rs.getString("time")));
         }
         return score;
     }
@@ -87,18 +86,18 @@ public class ScoreDaoImpl implements ScoreDao {
     @Override
     public List<Score> getScores(int limit) throws SQLException {
         String query = "SELECT * FROM score order by time asc";
-        if(limit>0){
-        	query=query + " limit "+limit;
+        if (limit > 0) {
+            query = query + " limit " + limit;
         }
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         List<Score> ls = new ArrayList<Score>();
 
         while (rs.next()) {
-        	Score score = new Score();
-        	score.setId(rs.getInt("id"));
-        	score.setPlayer(rs.getString("player"));
-        	score.setTime(fromatTimeFromStringToInt(rs.getString("time")));
+            Score score = new Score();
+            score.setId(rs.getInt("id"));
+            score.setPlayer(rs.getString("player"));
+            score.setTime(fromatTimeFromStringToInt(rs.getString("time")));
             ls.add(score);
         }
         return ls;
@@ -116,7 +115,7 @@ public class ScoreDaoImpl implements ScoreDao {
         ps.setInt(3, score.getId());
         ps.executeUpdate();
     }
-    
+
     /**
      * Converte il tempo in formato stringa (hh:mm:ss) in secondi.
      *
@@ -128,6 +127,6 @@ public class ScoreDaoImpl implements ScoreDao {
         int hh = Integer.parseInt(tokenized[0]);
         int mm = Integer.parseInt(tokenized[1]);
         int ss = Integer.parseInt(tokenized[2]);
-        return (hh * 3600) + (mm * 60) + ss;
+        return ((hh * 3600) + (mm * 60) + ss) * 1000;
     }
 }

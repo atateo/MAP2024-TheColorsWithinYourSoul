@@ -47,7 +47,7 @@ public class ClientRest {
      * @return l'opera d'arte come array di byte
      */
     public static ArtworkResponse getArtwork() {
-    	ArtworkResponse artworkResponse = new ArtworkResponse();
+        ArtworkResponse artworkResponse = new ArtworkResponse();
         byte[] operaDArte = null;
         String nameArtwork = null;
 
@@ -59,7 +59,7 @@ public class ClientRest {
         //esegue la chiamata in POST verso il servizio di autenticazione
         String jsonResponse = executePost(url + "?client_id=" + clientID + "&client_secret=" + secret);
 
-        if(jsonResponse!=null && !jsonResponse.isEmpty()){
+        if (jsonResponse != null && !jsonResponse.isEmpty()) {
             // Estrae il token che sarà utilizzato per il servizio GET
             JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
             String token = jsonObject.get(TOKEN).getAsString();
@@ -79,30 +79,25 @@ public class ClientRest {
                 Gson gson = new Gson();
                 Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
                 if (artwork != null) {
-                	
+
                     Links links = artwork.getLinks();
                     if (links != null) {
-                    	if(links.getImage() != null && links.getImage().getHref() != null)
-                    	{
-	                        String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
-	                        operaDArte = getImage(urlImmagine);
-	                        nameArtwork = artwork.getTitle();
-	                        artworkResponse.setArtwork(operaDArte);
-	                        artworkResponse.setNameArtwork(nameArtwork);
-                    	}
-                    	if(links.getArtists() != null && links.getArtists().getHref() != null)
-                    	{
-                    		String urlArtista = links.getArtists().getHref();
-                    		String jsonArtista = executeGet(urlArtista, token);
-                    		if(jsonArtista!=null && !jsonArtista.isEmpty())
-                    		{
-                    			artworkResponse.setNameArtist(getNameArtist(jsonArtista));
-                    		}
-                    	}
-                    }
-                    else
-                    {
-                    	nameArtwork = "Opera d'arte non più disponibile";
+                        if (links.getImage() != null && links.getImage().getHref() != null) {
+                            String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
+                            operaDArte = getImage(urlImmagine);
+                            nameArtwork = artwork.getTitle();
+                            artworkResponse.setArtwork(operaDArte);
+                            artworkResponse.setNameArtwork(nameArtwork);
+                        }
+                        if (links.getArtists() != null && links.getArtists().getHref() != null) {
+                            String urlArtista = links.getArtists().getHref();
+                            String jsonArtista = executeGet(urlArtista, token);
+                            if (jsonArtista != null && !jsonArtista.isEmpty()) {
+                                artworkResponse.setNameArtist(getNameArtist(jsonArtista));
+                            }
+                        }
+                    } else {
+                        nameArtwork = "Opera d'arte non più disponibile";
                     }
                 }
             }
@@ -242,28 +237,28 @@ public class ClientRest {
         }
         return image;
     }
-    
+
     /**
      * Recupera il nome dell'artista dal json ottenuto dalla chiamata.
-     * 
+     *
      * @param jsonString la stringa contenente i dati restituiti dall'api
      * @return il nome dell'artista
      */
     private static String getNameArtist(String jsonString) {
-    	/*questo metodo usa volutamente la logica di recupero dell'attributo mediante espressione lambda,
-    	 * avendo già utilizzato negli altri metodi la logica di binding attuata tramite Gson
-    	 */
-    	
+        /*questo metodo usa volutamente la logica di recupero dell'attributo mediante espressione lambda,
+         * avendo già utilizzato negli altri metodi la logica di binding attuata tramite Gson
+         */
+
         JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-        
+
         // Uso una lambda per recuperare il nome dell'artista dalla struttura del json fornito in input
         Optional<String> name = Optional.ofNullable(jsonObject)
-            .map(obj -> obj.getAsJsonObject("_embedded"))
-            .map(embedded -> embedded.getAsJsonArray("artists"))
-            .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
-            .map(artist -> artist.get("name").getAsString());
+                .map(obj -> obj.getAsJsonObject("_embedded"))
+                .map(embedded -> embedded.getAsJsonArray("artists"))
+                .flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+                .map(artist -> artist.get("name").getAsString());
 
         // Ritorna il nome dell'artista o null se non riesce a recuperarlo
         return name.orElse("Artista sconosciuto");
-    }    
+    }
 }

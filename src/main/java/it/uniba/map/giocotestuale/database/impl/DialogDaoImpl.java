@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * Implementazione dell'interfaccia DialogDao.
  * Fornisce i metodi per le operazioni CRUD sull'entità Dialog nel database.
- * 
  */
 public class DialogDaoImpl implements DialogDao {
 
@@ -35,12 +34,12 @@ public class DialogDaoImpl implements DialogDao {
      */
     @Override
     public int add(Dialog dialog) throws SQLException {
-    	
+
         String query = "INSERT INTO dialog (testo) VALUES (?)";
-        
+
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, dialog.getTesto());
-        
+
         int n = ps.executeUpdate();
         return n;
     }
@@ -68,9 +67,9 @@ public class DialogDaoImpl implements DialogDao {
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
-        	dialog = new Dialog();
-        	dialog.setId(rs.getInt("id"));
-        	dialog.setTesto(rs.getString("testo"));
+            dialog = new Dialog();
+            dialog.setId(rs.getInt("id"));
+            dialog.setTesto(rs.getString("testo"));
         }
 
         return dialog;
@@ -87,9 +86,9 @@ public class DialogDaoImpl implements DialogDao {
         List<Dialog> ls = new ArrayList<Dialog>();
 
         while (rs.next()) {
-        	Dialog item = new Dialog();
-        	item.setId(rs.getInt("id"));
-        	item.setTesto(rs.getString("testo"));
+            Dialog item = new Dialog();
+            item.setId(rs.getInt("id"));
+            item.setTesto(rs.getString("testo"));
             ls.add(item);
         }
         return ls;
@@ -107,30 +106,29 @@ public class DialogDaoImpl implements DialogDao {
         ps.setInt(2, dialog.getId());
         ps.executeUpdate();
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String getTestoById(int id) {
-    	
-    	String testo = null;
-    	try {
-	        String query = "SELECT testo FROM dialog WHERE id = ? ";
-	        PreparedStatement ps = conn.prepareStatement(query);
-	        ps.setInt(1, id);
-	
-	        ResultSet rs = ps.executeQuery();
-	
-	        while (rs.next()) {
-	        	testo=rs.getString("testo");
-	        }
-	        if(testo==null || testo.isEmpty())
-        		testo="Anche se sono il narratore non so cosa dirti...";
-    	}
-    	catch (SQLException e) {
-			testo="Anche se sono il narratore non so cosa dirti...";
-		}
+
+        String testo = null;
+        try {
+            String query = "SELECT testo FROM dialog WHERE id = ? ";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                testo = rs.getString("testo");
+            }
+            if (testo == null || testo.isEmpty())
+                testo = "Anche se sono il narratore non so cosa dirti...";
+        } catch (SQLException e) {
+            testo = "Anche se sono il narratore non so cosa dirti...";
+        }
 
         return testo;
     }

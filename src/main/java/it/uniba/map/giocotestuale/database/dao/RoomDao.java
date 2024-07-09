@@ -51,12 +51,12 @@ public interface RoomDao {
      * @throws SQLException se si verifica un errore durante l'operazione di aggiornamento.
      */
     public void update(RoomRecord room) throws SQLException;
-    
+
     /**
      * Recupera un oggetto Room dal database in base al suo idRoom (id nel game).
      *
      * @param idRoom l'idRoom della room da recuperare.
-     * @param stato lo stato della room da recuperare.
+     * @param stato  lo stato della room da recuperare.
      * @return la descrizione del record Room corrispondente all'idRoom e allo stato specificati.
      * @throws SQLException se si verifica un errore durante l'operazione di recupero.
      */

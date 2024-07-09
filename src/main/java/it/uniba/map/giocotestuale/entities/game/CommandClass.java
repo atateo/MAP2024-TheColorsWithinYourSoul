@@ -25,8 +25,9 @@ public class CommandClass {
 
     /**
      * Costruttore con parametri della classe CommandClass. Inizializza tutti gli attributi.
-     * @param commandName Nome dell'istanza di questo comando.
-     * @param commandType Tipo dell'istanza di questo comando.
+     *
+     * @param commandName    Nome dell'istanza di questo comando.
+     * @param commandType    Tipo dell'istanza di questo comando.
      * @param commandAliases Aliases dell'istanza di questo comando.
      */
     public CommandClass(final String commandName, final Command commandType, final List<String> commandAliases) {
@@ -37,6 +38,7 @@ public class CommandClass {
 
     /**
      * Metodo getter per il nome del comando.
+     *
      * @return Nome dell'istanza di questo comando.
      */
     public String getCommandName() {
@@ -45,6 +47,7 @@ public class CommandClass {
 
     /**
      * Metodo getter per il tipo del comando.
+     *
      * @return Tipo dell'istanza di questo comando.
      */
     public Command getCommandType() {
@@ -53,6 +56,7 @@ public class CommandClass {
 
     /**
      * Metodo getter per la lista di alias del comando.
+     *
      * @return Aliases dell'istanza di questo comando.
      */
     public List<String> getCommandAliases() {
