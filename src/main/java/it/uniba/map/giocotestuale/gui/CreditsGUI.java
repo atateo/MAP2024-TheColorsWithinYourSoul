@@ -71,7 +71,7 @@ public class CreditsGUI extends JPanel {
         back.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         back.addActionListener(this::backActionPerformed);
 
-        yuriImg = new JLabel(new ImageIcon("src/main/resources/img/pfpYuri.jpeg"));
+        yuriImg = new JLabel(new ImageIcon("src/main/resources/img/pfpYuri.png"));
         yuriImg.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -95,7 +95,7 @@ public class CreditsGUI extends JPanel {
                         .addGap(0, 150, Short.MAX_VALUE)
         );
 
-        antimoImg = new JLabel(new ImageIcon("src/main/resources/img/pfpAntimo.jpeg"));
+        antimoImg = new JLabel(new ImageIcon("src/main/resources/img/pfpAntimo.png"));
         antimoImg.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -120,7 +120,7 @@ public class CreditsGUI extends JPanel {
                         .addGap(0, 150, Short.MAX_VALUE)
         );
 
-        angeloImg = new JLabel(new ImageIcon("src/main/resources/img/pfpAngelo.jpg"));
+        angeloImg = new JLabel(new ImageIcon("src/main/resources/img/pfpAngelo.png"));
         angeloImg.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
