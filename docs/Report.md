@@ -717,7 +717,7 @@ int nRandom = random.nextInt(n + 1);
 La classe <code>ClientRest</code> implementa principalmente due metodi, uno che effettua le chiamate in <code>POST</code> e uno che effettua le chiamate in <code>GET</code>. Gli altri metodi <code>PUT</code> e <code>DELETE</code> non sono stati considerati poichè non sono utili nel nostro progetto.
 Il metodo <code>executePost</code> è stato utilizzato per recuperare il token di autenticazione fornendo in input l'<code>url</code> e le credenziali <code>client_id</code> e <code>client_secret</code> di accesso:
 ```java
-//esegue la chiamata in POST verso il servizio di autenticazione
+//Esegue la chiamata in POST verso il servizio di autenticazione
 String jsonResponse = executePost(url + "?client_id=" + clientID + "&client_secret=" + secret);
 
 if (jsonResponse != null && !jsonResponse.isEmpty()) {
@@ -755,7 +755,7 @@ if (jsonOpera != null && !jsonOpera.isEmpty()) {
 		} else {
 			nameArtwork = "Opera d'arte non più disponibile";
 		}
-    }
+    	}
 }
 ```
 
@@ -836,7 +836,7 @@ while (true) {
 					out.writeObject("Eccezione in fase di recupero della classifica: " + e);
 				}
 			}
-            //...
+            		//...
 			default -> {
 				out.writeObject("Operazione non valida");
 			}
@@ -929,7 +929,6 @@ private List<Score> getScores() {
 ```
 
 Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework <code>logj4</code>. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
-
 
 ### GUI
 
