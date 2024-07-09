@@ -538,7 +538,7 @@ Quando il metodo <code>update()</code> scorrerà la lista di <code>Interactions<
 
 Le lambda expressions sono state usate anche come supporto in altri punti del programma. Nello specifico, sono state utilizzate per compiere queste funzioni:
 - Supporto per la creazione e la gestione della GUI: In alcuni casi, abbiamo fatto uso delle lambda expressions per la gestione delle GUI. Ad esempio, abbiamo definito il comportamento dei listener di alcuni pulsanti mediante lambda expressions, oppure abbiamo ridefinito alcuni metodi come <code>paintComponent()</code> di <code>JPanel</code> per l'aggiornamento dinamico della GUI, oppure sono state usate per impostare delle task che la GUI doveva eseguire con un certo delay o con una certa cadenza con i metodi <code>SwingUtilities.invokeLater()</code> e <code>Timer.scheduleAtFixedRate()</code>, ad esempio per l'update delle immagini di gioco al cambio di stanza e per l'update del <code>JLabel</code> contenente il timer di gioco.
-- Supporto nella ricerca e nel filtraggio di elementi all'interno delle strutture dati: In alcuni casi, abbiamo fatto uso delle lambda expressions per ciclare delle strutture dati alla ricerca di un determinato elemento o applicando un filtro. Ad esempio, nella classe <code>ClientRest</code>, abbiamo fatto uso delle lambda expressions per ricavare il nome dell'artista dalla risposta ricevuta dall'API, oppure nella classe <code>Parser</code> ne abbiamo fatto uso per dividere la stringa di input in tokens, togliendo tutti i token inclusi nella lista di stopwords.
+- Supporto nella ricerca e nel filtraggio di elementi all'interno delle strutture dati: In alcuni casi, abbiamo fatto uso delle lambda expressions per ciclare delle strutture dati alla ricerca di un determinato elemento o applicando un filtro. Ad esempio, nella classe <code>ClientRest</code>, abbiamo fatto uso delle lambda expressions per ricavare il nome dell'artista dalla risposta ricevuta dall'API, oppure nella classe <code>Parser</code> ne abbiamo fatto uso per dividere la stringa di input in tokens, togliendo tutti i token inclusi nella lista di stopwords. Allo stesso modo è stato implementato anche il comando *BACK*, che permette al player, quando si trova in una stanza con una singola porta, di uscire da quella porta. Abbiamo utilizzato una lambda expression che ciclasse i vari attributi <code>RoomConnection</code> della stanza corrente, inserendo in una lista solo i collegamenti non nulli. Sulla base di quella lista, poi, esegue il comando.
 ```java
 //Classe ClientRest
 private static String getNameArtist(String jsonString) {
@@ -565,6 +565,22 @@ public ParserOutput parse(String input) {
             .filter(w -> !stopwords.contains(w))
             .toArray(String[]::new);
     
+    //...
+}
+
+//Classe ColorsWithinYourSoulGame
+public void update(ParserOutput output) {
+    //...
+    if (output.getCommandType() == Command.BACK) {
+        List<RoomConnection> destination;
+
+        destination = Arrays.stream(Command.values())
+                            .map(getCurrentRoom()::getRoomConnection)
+                            .filter(connection -> connection != null)
+                            .collect(Collectors.toList());
+
+        //...
+    }
     //...
 }
 ```
