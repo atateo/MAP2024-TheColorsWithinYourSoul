@@ -787,7 +787,7 @@ Optional<String> name = Optional.ofNullable(jsonObject)
 return name.orElse("Artista sconosciuto");
 ```
 
-Al termine del gioco, la classe <code>ClientRest</code> si occupa di recuperare l'opera d'arte e renderizzarla a video nel frame di gioco.
+Al termine del gioco, la classe <code>ClientRest</code> si occupa di recuperare l'opera d'arte fornendola alla classe <code>GameGUI</code> così che quest'ultima possa renderizzarla a video nel frame di gioco.
 
 La gestione della classifica è stata realizzata mediante utilizzo di apposita tabella, come già indicato nella sezione database.
 Per le operazioni di inserimento di un nuovo punteggio e il recupero della lista, sono stati implementati i <code>Socket</code>.
