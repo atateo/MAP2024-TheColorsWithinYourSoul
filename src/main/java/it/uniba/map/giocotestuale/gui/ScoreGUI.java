@@ -2,6 +2,7 @@ package it.uniba.map.giocotestuale.gui;
 
 import javax.swing.*;
 
+import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import it.uniba.map.giocotestuale.database.domain.Score;
@@ -129,6 +130,9 @@ public class ScoreGUI extends JFrame {
                     String riga = String.format("%-20s%-20s%-20s", "Posizione:  --", "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
                     textArea.append(riga + "\n");
                 }
+
+                GameToGUICommunication.getInstance().toGUI("Hai inviato il tuo tempo in classifica! " +
+                        "Puoi tornare al menù principale con la freccia in alto. C'è una sorpresa che ti aspetta!");
             }
         });
     }
