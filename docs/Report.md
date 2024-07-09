@@ -397,6 +397,129 @@ Notiamo che la classe che sta venendo serializzata è <code>GameToJson</code> e 
 
 Abbiamo usato i file anche per qualche altra parte dell'applicazione. Ad esempio, abbiamo un file <code>application.properties</code> che, come suggerisce il nome, contiene alcune proprietà generali dell'applicazione, ad esempio la versione, dati per la connessione al DB, dati per la connessione all'API, flag vari e path di file utili al programma. Inoltre, il parser legge le stopwords, cioè le parole che deve ignorare in fase di interpretazione del comando (preposizioni, articoli e così via), da un file di testo.
 ### Database
+Nel nostro programma abbiamo usato H2, un database open-source basato su SQL scritto in Java e, appunto, permette l'integrazione di un database SQL nelle applicazioni Java, sia in modalità server che in modalità embedded.
+
+Il database è stato utilizzato al lato Client per la memorizzazione di alcune informazioni di gioco che abbiamo ritenuto poco opportune da memorizzare su file, nello specifico le descrizioni degli oggetti di gioco e i dialoghi. Mediante il database, abbiamo quindi memorizzato le descrizioni di stanze, colori e oggetti, oltre che ai messaggi di gioco come i dialoghi dell'introduzione o i messaggi che vengono restituiti quando il player effettua una determinata azione. Sono state create quindi le tabelle <code>Room</code>, <code>Color</code>, <code>Item</code> e <code>Dialog</code>, ciascuna delle quali dedicata alla memorizzazione delle descrizioni del rispettivo elemento.
+
+A lato Server, invece, il database viene utilizzato per la memorizzazione dei tempi di completamento del gioco dei player che decidono di condividerlo a fine partita. Abbiamo quindi definito una tabella <code>Score</code> che contiene una serie di record definiti dal nome del player e il suo tempo di completamento. Sulla base di questa tabella, poi, viene creata una classifica dei player che hanno completato il gioco nel minor tempo tra tutti.
+
+```SQL
+CREATE TABLE IF NOT EXISTS room (id INT AUTO_INCREMENT PRIMARY KEY, stato VARCHAR(20), descrizione VARCHAR(600), id_room INT);
+CREATE TABLE IF NOT EXISTS item (id INT AUTO_INCREMENT PRIMARY KEY, stato VARCHAR(20), descrizione VARCHAR(200), id_item INT);
+CREATE TABLE IF NOT EXISTS color (id INT AUTO_INCREMENT PRIMARY KEY, descrizione VARCHAR(300));
+CREATE TABLE IF NOT EXISTS dialog (id INT AUTO_INCREMENT PRIMARY KEY, testo VARCHAR(500));
+CREATE TABLE IF NOT EXISTS score (id INT AUTO_INCREMENT PRIMARY KEY, player VARCHAR(100), time VARCHAR(10));
+```
+
+Il database necessita di una connessione per poter essere utilizzato. Per questo, abbiamo quindi deciso di implementare una classe che gestisse questa connessione, che abbiamo chiamato <code>DatabaseConnection</code>. Questa è una classe singleton che gestisce la singola istanza di connessione al database, rendendola lo stesso collegamento al database accessibile a tutto il programma. Si occupa anche di chiudere la connessione a fine programma. Dentro il file <code>application.properties</code> sono definite alcune costanti come URL del database e credenziali di accesso. Queste costanti vengono quindi lette dalla classe <code>DatabaseConnection</code> quando viene aperta la connessione al database, mentre i driver JDBC sono gestiti implicitamente attraverso la classe <code>DriverManager</code>.
+```java
+// Blocco statico per inizializzare la connessione al database all'avvio della classe.
+public class DatabaseConnection {
+    //...
+  
+    static {
+        ApplicationProperties appProps = ApplicationProperties.getInstance();
+
+        try {
+            conn = DriverManager.getConnection(appProps.getUrlDatabase(), appProps.getUser(), appProps.getPassword());
+            logger.info("Connessione aperta");
+        } catch (SQLException e) {
+            logger.error("Eccezione in fase di apertura della connessione al database: ", e);
+        }
+    }
+    //...
+  
+    public static void releaseConnection() {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            logger.error("Eccezione in fase di chiusura della connessione al database: ", e);
+        }
+    }
+    
+    //...
+}
+```
+Abbiano inoltre definito una classe <code>Setup</code> che definisce le operazioni preliminari che vanno fatte sul database all'avvio del gioco, come la creazione e il popolamento delle tabelle. Questa classe esegue uno script SQL con tutte le istruzioni del caso all'avvio dell'applicazione. Nel caso in cui l'esecuzione dello script non dovesse andare a buon fine, abbiamo anche implementato una classe <code>MockDatabase</code> che si occupa di eseguire comunque le stesse operazioni dello script, ma stavolta direttamente da codice.
+
+```SQL
+-- Script di avvio
+
+DROP TABLE Room IF EXIST;
+DROP TABLE Item IF EXIST;
+-- Altre DROP...
+
+CREATE TABLE Room (...);
+CREATE TABLE Item (...);
+-- Altre CREATE TABLE..
+
+INSERT INTO Room (0, 'Neutro', 'Ti trovi nell''attico centrale...'), ...;
+INSERT INTO Item (0, 'Spento', 'Una torcia semplice...'), ...;
+-- Altre INSERT INTO...
+```
+```java
+//Classe Setup
+public class Setup {
+    //...
+  
+    public static void setup() {
+        String setup = "RUNSCRIPT FROM '" + appProps.getPathSetupDb() + "'";
+        boolean eseguito = eseguiIstruzione(setup);
+      
+        if (!eseguito) {
+            //Errore nell'esecuzione, eseguo MockDatabase
+            for (String istruzione : MockDatabase.getIstruzioni()) {
+                boolean eseguitoMock = eseguiIstruzione(istruzione);
+            }
+        }
+    }
+    //...
+  
+    private static boolean eseguiIstruzione(String setup) {
+        Connection connection = DatabaseConnection.getConnection();
+        Statement statement;
+        
+        try {
+            statement = connection.createStatement();
+            statement.execute(setup);
+        } catch (SQLException e) {
+            logger.error("Eccezione in fase di esecuzione dell'istruzione: {} - ", setup, e);
+            return false;
+        }
+        
+        return true;
+    }
+    //...
+  
+}
+
+public class MockDatabase {
+    //...
+  
+    public List<String> getIstruzioni() {
+        List<String> istruzioni = new ArrayList<>();
+        
+        String dropRoom = "DROP TABLE Room IF EXIST;";
+        //...
+      
+        String createRoom = "CREATE TABLE Room (...);";
+        //...
+      
+        String populateRoom = "INSERT INTO Room (...), ...;";
+        //...
+        
+        istruzioni.add(dropRoom);
+        istruzioni.add(createRoom);
+        istruzioni.add(populateRoom);
+        //...
+      
+        return istruzioni;
+    }
+    //...
+  
+}
+```
+
 
 ### Thread
 Nel nostro progetto abbiamo utilizzato i Thread per compiere diverse task di supporto in tutto il programma. Sono stati usati per piccole operazioni, come la gestione della progress bar, oppure per implementare funzionalità più importanti come la riproduzione della musica.

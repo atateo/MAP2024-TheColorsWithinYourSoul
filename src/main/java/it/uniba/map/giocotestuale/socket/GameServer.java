@@ -94,18 +94,4 @@ public class GameServer {
         logger.info("Server arrestato");
         serverSocket.close();
     }
-
-    /**
-     * Metodo principale per avviare il server (non sarà più utilizzato quando il server sarà integrato nel sistema).
-     *
-     * @param args argomenti della riga di comando (non utilizzati).
-     */
-    public static void main(String[] args) {
-        GameServer server = new GameServer(3999);
-        try {
-            server.start();
-        } catch (IOException | ClassNotFoundException e) {
-            logger.error("Errore durante la creazione del server: ", e);
-        }
-    }
 }
