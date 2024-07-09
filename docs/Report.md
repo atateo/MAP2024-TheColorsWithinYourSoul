@@ -460,9 +460,9 @@ public class HandlerGUI {
     //...
   
     public void initComponents() {
-      //...
-      
-      Mixer.getInstance().start();
+        //...
+        
+        Mixer.getInstance().start();
     }
 }
 ```
