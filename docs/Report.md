@@ -1,13 +1,13 @@
 # The Colors Within Your Soul - Report
 
 ## Indice
-### [Caratteristiche del progetto](#Caratteristiche-del-progetto)
+### [Caratteristiche del progetto e del gioco](#Caratteristiche-del-progetto)
 > #### [1. Introduzione generale](#Introduzione-generale)
 > #### [2. Caratteristiche principali](#Caratteristiche-principali)
 > #### [3. Trama del gioco](#Trama-del-gioco)
 > #### [4. Walkthrough](#Walkthrough-del-gioco)
 > #### [5. Implementazione del progetto](#Implementazione-del-progetto)
-### [Utilizzo dei vari argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
+### [Utilizzo degli argomenti del corso](#Utilizzo-dei-vari-argomenti-del-corso)
 > #### [1. OOP, diagramma delle classi e specifiche algebriche](#Progettazione-OOP)
 > #### [2. File](#File)
 > #### [3. Database](#Database)
