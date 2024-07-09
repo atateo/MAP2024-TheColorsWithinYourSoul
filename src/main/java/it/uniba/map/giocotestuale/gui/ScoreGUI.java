@@ -218,15 +218,5 @@ public class ScoreGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Inserisci un nickname.", "Errore", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    /* utile solo per testare la gui alone
-     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new ScoreGUI().setVisible(true);
-            }
-        });
-    }*/
 }
 
