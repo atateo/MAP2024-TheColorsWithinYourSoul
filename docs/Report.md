@@ -84,7 +84,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         gameInteractions.add(InteractionFactory.buildInteraction(oggetto1, oggetto2, comando, "stato1", "stato2", () -> {
             //Definizione del comportamento dell'interazione
             //...
-        });
+        }));
     }
 }
 ```
@@ -95,7 +95,7 @@ Qui sotto riportiamo i diagrammi delle classi della porzione di programma che si
 ![Diagramma delle interactions](./img/UML_interaction.png)
 
 #### Specifiche Algebriche
-Nel nostro progetto, abbiamo spesso fatto uso delle strutture dati **Mappa** e **Lista**. Ad esempio, le stanze del gioco sono conservate in una lista e ogni stanza ha una lista con gli item in essa contenuta. La mappa, invece, è usata per conservare i comandi di gioco e le stopwords all'interno del parser. In questa sezione definiremo le specifiche algebriche per queste due strutture dati.
+Nel nostro progetto, abbiamo spesso fatto uso delle strutture dati **Mappa** e **Lista**. Ad esempio, le stanze del gioco sono conservate in una lista e ogni stanza ha una lista con gli item in essa contenuta. La mappa, invece, è usata per associare l'ID di una track del mixer al nome della stanza in cui va riprodotta. In questa sezione definiremo le specifiche algebriche per queste due strutture dati.
 
 #### Specifica algebrica della Lista
 La lista è una struttura dati che permette di memorizzare e recuperare informazioni sfruttando l'indice di posizione degli elementi contenuti.
@@ -399,7 +399,110 @@ Abbiamo usato i file anche per qualche altra parte dell'applicazione. Ad esempio
 ### Database
 
 ### Thread
+Nel nostro progetto abbiamo utilizzato i Thread per compiere diverse task di supporto in tutto il programma. Sono stati usati per piccole operazioni, come la gestione della progress bar, oppure per implementare funzionalità più importanti come la riproduzione della musica.
 
+Nello specifico, la musica di gioco è stata implementata utilizzando un Thread apposito, in modo che possa essere riprodotta indipendentemente dalle altre operazioni che stanno avvenendo nel resto del gioco. La classe che gestisce la musica è la classe <code>Mixer</code>. La sua particolarità è che estende la classe <code>Thread</code>, così da poter essere eseguita come un Thread apposito a tutti gli effetti.
+
+Il costruttore di questa classe si occupa di caricare i file musicali che abbiamo scelto per il nostro gioco inserendoli in un array di <code>Clip</code>. Viene inoltre inizializzata una <code>Map</code> che associ ogni track al nome della stanza in cui deve essere riprodotta (o al nome della schermata nel caso del menù principale e dei crediti). Si noti che <code>Mixer</code> è una classe singleton, in quanto si usa un'unica istanza di questa classe per tutto il programma.
+
+```java
+public class Mixer extends Thread {
+    public static Mixer instance;
+    private final Clip[] tracks;
+    private int currentTrack;
+    private boolean isRunning = false;
+    private final HashMap<String, Integer> roomNameToTrackIndex;
+    
+    private Mixer() {
+        final int numberOfTracks = 10;
+
+        this.tracks = new Clip[numberOfTracks];
+        roomNameToTrackIndex = new HashMap<>();
+
+        //Caricare qui la musica del gioco in tracks;
+        loadTrack(0, "src/main/resources/music/AA_AJ_DrewMishamStudio.wav");
+        //...
+
+        //Scrivere qui il codice che associa l'indice della musica alle stanze
+        roomNameToTrackIndex.put("Menu", 0);
+        //...
+    }
+
+    public static Mixer getInstance() {
+        if (instance == null) {
+          instance = new Mixer();
+        }
+        return instance;
+    }
+}
+```
+
+L'utilizzo dei Thread entra in gioco per la riproduzione della musica. Viene ridefinito il metodo <code>run()</code> che la classe <code>Mixer</code> eredita dalla classe <code>Thread</code>. Questo metodo si occupa di far partire la track iniziale permettendo la riproduzione della musica nell'intero programma. All'esterno della classe <code>Mixer</code>, ci sarà una chiamata del tipo <code>Mixer.getInstance().start()</code> che farà partire il Thread apposito e la riproduzione della musica per tutto il programma.
+
+```java
+//All'interno della classe Mixer
+@Override
+public void run() {
+    isRunning = true;
+    try {
+        if (tracks[0] != null) {
+            tracks[0].start();
+            tracks[0].loop(Clip.LOOP_CONTINUOUSLY);
+            currentTrack = 0;
+        }
+    } catch (Exception e) {
+        logger.error(e.getMessage());
+    }
+}
+
+//Altra classe
+public class HandlerGUI {
+    //...
+  
+    public void initComponents() {
+      //...
+      
+      Mixer.getInstance().start();
+    }
+}
+```
+Oltre a questo, ci sono altri metodi di supporto come <code>startTrack()</code>, <code>stopTrack()</code>, <code>changeRoomMusic()</code> e altri che aiutano nella gestione della musica.
+
+Oltre alla musica di gioco, facciamo uso dei Thread per altre task più piccole, come ad esempio la gestione della barra di caricamento. Specificatamente, viene istanziato un oggetto della classe <code>TimerTask</code> ridefinendone il metodo <code>run()</code> per scriverci il codice che fa avanzare la progress bar. Quest'istanza viene poi passata a un oggetto della classe <code>Timer</code> del package <code>java.util</code>, nello specifico al metodo <code>scheduleAtFixedRate()</code>. Questo metodo prenderà l'istanza di <code>TimerTask</code> che abbiamo istanziato sopra e la eseguirà a cadenza regolare, simulando quindi l'avanzamento di una progress bar sulla finestra di caricamento.
+
+```java
+public void startProgressBar() {
+    counter = 0;
+    Timer timer = new Timer();
+    TimerTask taskProgressBar = new TimerTask() {
+        @Override
+        public void run() {
+            if (counter < 100) {
+                counter++;
+                //Simula l'avanzamento della progress bar
+                //...
+            } else {
+                //Gestisce la fine del caricamento
+                Timer timerlw = new Timer();
+                TimerTask taskProgressBarLastWord = new TimerTask() {
+                    @Override
+                    public void run() {
+                        setFinished(true);
+                        timerlw.cancel();
+                    }
+                };
+                timerlw.schedule(taskProgressBarLastWord, 500);
+                timer.cancel();
+            }
+        }
+    };
+    
+    //Schedula l'esecuzione dell'update della progress bar ogni 20 ms
+    timer.scheduleAtFixedRate(taskProgressBar, 0, 20);
+}
+```
+
+Altre operazioni che abbiamo eseguito utilizzando i Thread includono aggiornamento di elementi di GUI utilizzando il metodo <code>scheduleAtFixedRate()</code> come spiegato sopra (l'aggiornamento del label del timer, per esempio). Abbiamo anche fatto un utilizzo indiretto dei Thread lavorando con l'<code>Event Dispatch Thread</code> che gestisce il flow della GUI, oppure utilizzando alcune classi che si appoggiano sui Thread come <code>System</code>, nello specifico utilizzando il metodo <code>currentTimeMillis()</code> sulla quale è basato l'intero funzionamento della classe <code>GameTimer</code>, che gestisce il timer di gioco.
 ### REST e Socket
 
 ### GUI
@@ -422,7 +525,6 @@ public void defineGameInteractions() {
                     gameEngine.removeItem((Item) getObjectByName("Orologio", objects));
     
                     GameToGUICommunication.getInstance().toGUI("Messaggio");
-                }
             }
     ));
 }
