@@ -45,6 +45,10 @@ public class MenuGUI extends JPanel {
      */
     private static JButton audio;
     /**
+     * Pulsante per mostrare la classifica
+     */
+    private static JButton score;
+    /**
      * Immagine audio spento
      */
     final ImageIcon audio_off = new ImageIcon("src/main/resources/img/audio_off.png");
@@ -123,6 +127,14 @@ public class MenuGUI extends JPanel {
         audio.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
         audio.addActionListener(this::audioActionPerformed);
 
+        // configurazione del pulsante score
+        score = new JButton(new ImageIcon("src/main/resources/img/tavolozza_bn.png"));
+        score.setForeground(Color.black);
+        score.setBackground(Color.lightGray);
+        score.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
+        score.addActionListener(this::scoreActionPerformed);
+
+
         setGroupLayout();
 
 
@@ -139,7 +151,8 @@ public class MenuGUI extends JPanel {
                         .addGroup(backgroundLayout.createSequentialGroup()
                                 .addGap(25)
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(audio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(audio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(score, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                         .addGroup(backgroundLayout.createSequentialGroup()
                                 .addGap(400)
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
@@ -156,7 +169,8 @@ public class MenuGUI extends JPanel {
                                 .addGroup(backgroundLayout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(backgroundLayout.createSequentialGroup()
                                                 .addComponent(audio, 64, 64, 64)
-                                                .addGap(12)))
+                                                .addGap(12)
+                                                .addComponent(score, 64,64,64)))
                                 .addPreferredGap(ComponentPlacement.RELATED, 450, Short.MAX_VALUE)
                                 .addComponent(start, 64, 64, 64)
                                 .addGap(32)
@@ -220,6 +234,12 @@ public class MenuGUI extends JPanel {
         // modifica del colore del pulsante audio
         audio.setBackground(colorePulsante);
         audio.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+
+        // modifica del colore e dell'immagine del pulsante score
+        score.setBackground(colorePulsante);
+        score.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
+        score.setIcon(new ImageIcon("src/main/resources/img/tavolozza_colorata.png"));
+
 
         setGroupLayout();
     }
@@ -348,6 +368,16 @@ public class MenuGUI extends JPanel {
             audio.setIcon(audio_on);
             Mixer.getInstance().startTrack();
         }
+    }
+    /**
+     * Metodo che definisce il comportamento del pulsante score quando viene cliccato.
+     * Attiva o disattiva l'audio di gioco.
+     *
+     * @param evt rappresenta l'evento del click sul pulsante.
+     */
+    private void scoreActionPerformed(ActionEvent evt)
+    {
+
     }
 
     /**

@@ -96,7 +96,6 @@ public class GameGUI extends JPanel {
      * Label per l'inventario
      */
     private JLabel inventoryLabel;
-
     /**
      * Pannello che mostra l'immagine di gioco corrente
      */
@@ -130,7 +129,6 @@ public class GameGUI extends JPanel {
      * CardLayout che consente di cambiare GUI
      */
     private static CardLayout cardLayout;
-
     /**
      * Immagine audio spento
      */

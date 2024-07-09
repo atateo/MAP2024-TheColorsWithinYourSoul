@@ -2,6 +2,7 @@ package it.uniba.map.giocotestuale.impl;
 
 import it.uniba.map.giocotestuale.database.impl.DialogDaoImpl;
 import it.uniba.map.giocotestuale.entities.game.*;
+import it.uniba.map.giocotestuale.gui.HandlerGUI;
 import it.uniba.map.giocotestuale.logic.GameEngine;
 import it.uniba.map.giocotestuale.logic.interaction.ChainInteraction;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
@@ -391,7 +392,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
         if (checkIfGameIsOver()) {
             GameToGUICommunication.getInstance().notifyGameOverToGUI();
-            GameToGUICommunication.getInstance().getGameGUI().updateMenu();
+            GameToGUICommunication.getInstance().getGameGUI().updateIcon();
+            HandlerGUI.updateMenuGUI();
             goodbyePlayer();
         }
     }

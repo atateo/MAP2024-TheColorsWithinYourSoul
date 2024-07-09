@@ -108,9 +108,9 @@ public class HandlerGUI extends JFrame {
     }
 
     /**
-     * Cambia il menu di gioco con la sua versione colorata dopo la fine del gioco.
+     * Cambia l'icona del gioco con la sua versione colorata
      */
-    public void updateMenu() {
+    public void updateIcon() {
         ImageIcon icon = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
         this.setIconImage(icon.getImage());
         updateMenuGUI();
