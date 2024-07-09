@@ -712,7 +712,7 @@ Queste opere d'arte sono state catalogate nel file application.properties; rando
             Random random = new Random();
             int n = appProps.getIdArtwork().length - 1;
             int nRandom = random.nextInt(n + 1);
-```java
+```
 
 La classe ClientRest implementa principalmente due metodi, uno che effettua le chiamate in POST e uno che effettua le chiamate in GET. Gli altri metodi PUT e DELETE non sono stati considerati poichè non sono utili nel nostro progetto.
 Il metodo executePost è stato utilizzato per recuperare il token di autenticazione fornendo in input l'url e le credenziali (client_id e client_secret) di accesso:
@@ -724,7 +724,7 @@ Il metodo executePost è stato utilizzato per recuperare il token di autenticazi
             // Estrae il token che sarà utilizzato per il servizio GET
             JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
             String token = jsonObject.get(TOKEN).getAsString();
-```java
+```
 
 
 Mentre il metodo executeGet è stato utilizzato per il recupero dell'opera d'arte e del relativo artista:
@@ -756,20 +756,20 @@ String urlOpere = appProps.getUrlEndpoint() + URL_ARTWORK + idArtwork;
                     } else {
                         nameArtwork = "Opera d'arte non più disponibile";
                     }
-```java
+```
 
 La deserializzazione della response è effettuata tramite la libreria Gson che estrae gli attributi dalla stringa e li associa agli attributi definiti nell'oggetto Artwork.
 
 ```java
 Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
-```java
+```
 
 Il tipo di ritorno del client è un bean "ArtworkResponse" che definisce gli attributi: nameArtist e nameArtwork di tipo String e artwork di tipo byte[]:
 ```java
 	private byte[] artwork;
     private String nameArtwork;
     private String nameArtist;
-```java
+```
 
 Per recuperare il nome dell'artista dalla relativa response, si è scelto di non effettuare una deserializzazione completa ma si è proceduto a recuperare l'attributo direttamente:
 
@@ -797,7 +797,7 @@ private static String getNameArtist(String jsonString) {
 	// Ritorna il nome dell'artista o null se non riesce a recuperarlo
 	return name.orElse("Artista sconosciuto");
 }
-```java
+```
 
 Al termine del gioco, la classe ClientRest si occupa di recuperare l'opera d'arte e renderizzarla a video nel frame di gioco.
 
@@ -819,7 +819,7 @@ public GameServer(int port) {
 	}
 	logger.info("Server creato");
 }
-```java
+```
 
 La classe server implementa il metodo start che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso:
 
@@ -829,7 +829,7 @@ while (true) {
 		 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
 		 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
 		 ...
-```java
+```
 
 Sulla nase dell'operazione definita dal client, effettua le due principali operazioni: POST e GET.
 Catturata la richiesta del client, il server esrgue il ramo di codice selezionato:
@@ -838,7 +838,7 @@ Catturata la richiesta del client, il server esrgue il ramo di codice selezionat
 String input = (String) in.readObject();
     switch (input) {
 ....
-```java
+```
 
 POST indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco:
 
@@ -854,7 +854,7 @@ case "POST" -> {
 		out.writeObject("Operazione di inserimento fallita");
 	}
 }
-```java
+```
 
 GET indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dicei:
 
@@ -868,7 +868,7 @@ case "GET" -> {
 		out.writeObject("Eccezione in fase di recupero della classifica: " + e);
 	}
 }
-```java
+```
 
 Anche se non sono è previsto che il client invii comandi differenti, è stato gestito il caso di default input errato:
 
@@ -876,7 +876,7 @@ Anche se non sono è previsto che il client invii comandi differenti, è stato g
 default -> {
 	out.writeObject("Operazione non valida");
 }
-```java
+```
 
 Il server, in linea teorica, dovrebbe essere eseguito come applicazione a se stante ma per comodità di gestione viene eseguito nel gioco.
 Il client è invece parte integrante del programma ed è utilizzato per alimentare la classe ScoreGui.
@@ -888,7 +888,7 @@ public void startConnection(String ip, int port) throws UnknownHostException, IO
 	out = new ObjectOutputStream(clientSocket.getOutputStream());
 	in = new ObjectInputStream(clientSocket.getInputStream());
 }
-```java
+```
 
 Sempre nalla classe GameClient sono definiti i metodi che si occupano di inviare il tempo di gioco al server e recuperare la lista dei primi dieci migliori tempi:
 
@@ -901,7 +901,7 @@ try {
 	resp = (String) in.readObject();
 	logger.info("Risposta del server: {}", resp);
 	.....
-```java
+```
 
 
 ```java
@@ -912,7 +912,7 @@ for (Iterator<?> iterator = response.iterator(); iterator.hasNext(); ) {
 	Score score = (Score) iterator.next();
 	punteggi.add(score);
 }
-```java
+```
 
 La classe "ScoreGui" utilizza "GameClient" per inviare il tempo di gioro del player e ricevere la lista aggiornata dal server. 
 Il metodo "addScore" avvia la connessione verso il server, richiama il metodo sendScore del client e chiude la connessione verso il server.
@@ -926,7 +926,8 @@ private void addScore(Score score) {
 			String resp = client.sendScore(score);
 			client.stopConnection();
 		...
-```java
+```
+
 Il metodo "getScores" avvia la connessione verso il server, richiama il metodo getScores del client e chiude la connessione verso il server.
 
 ```java
@@ -938,7 +939,7 @@ private List<Score> getScores() {
 		scores = client.getScores();
 		client.stopConnection();
 	...
-```java
+```
 
 Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework logj4. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
 
