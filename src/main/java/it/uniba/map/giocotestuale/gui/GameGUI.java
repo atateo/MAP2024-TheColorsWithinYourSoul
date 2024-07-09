@@ -1,6 +1,5 @@
 package it.uniba.map.giocotestuale.gui;
 
-import it.uniba.map.giocotestuale.database.domain.Score;
 import it.uniba.map.giocotestuale.database.impl.DialogDaoImpl;
 import it.uniba.map.giocotestuale.entities.artwork.ArtworkResponse;
 import it.uniba.map.giocotestuale.impl.GameToGUICommunication;
@@ -8,7 +7,6 @@ import it.uniba.map.giocotestuale.rest.ClientRest;
 import it.uniba.map.giocotestuale.type.ColorEnum;
 import it.uniba.map.giocotestuale.utility.Mixer;
 
-import javax.net.ssl.SNIHostName;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -152,15 +150,13 @@ public class GameGUI extends JPanel {
 
     /**
      * Costruttore pubblico che imposta la scrollbar a 0 e chiama i metodi initComponents e initCurrentImage.
-     * per settare i componenti a video e l'immagine di gioco corrente.
+     * Usato per settare i componenti a video e l'immagine di gioco corrente.
      */
     public GameGUI() {
-
         UIManager.put("ScrollBar.width", 0);
         SwingUtilities.updateComponentTreeUI(this);
         initComponents();
         initCurrentImage();
-
     }
 
     /**
@@ -194,7 +190,7 @@ public class GameGUI extends JPanel {
         back.setBackground(new Color(166, 15, 15));
         back.setForeground(Color.BLACK);
         back.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        back.addActionListener(this::BackActionPerformed);
+        back.addActionListener(this::backActionPerformed);
         toolBar.add(back);
 
         // aggiunta del gap per il posizionamento
@@ -206,7 +202,7 @@ public class GameGUI extends JPanel {
         save.setBackground(new Color(166, 15, 15));
         save.setForeground(Color.BLACK);
         save.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        save.addActionListener(this::SaveActionPerformed);
+        save.addActionListener(this::saveActionPerformed);
         toolBar.add(save);
 
         // aggiunta del gap per il posizionamento
@@ -218,7 +214,7 @@ public class GameGUI extends JPanel {
         help.setBackground(new Color(166, 15, 15));
         help.setForeground(Color.BLACK);
         help.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        help.addActionListener(this::HelpActionPerformed);
+        help.addActionListener(this::helpActionPerformed);
         toolBar.add(help);
 
         // aggiunta del gap per il posizionamento
@@ -230,7 +226,7 @@ public class GameGUI extends JPanel {
         audio.setBackground(new Color(166, 15, 15));
         audio.setForeground(Color.BLACK);
         audio.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-        audio.addActionListener(this::AudioActionPerformed);
+        audio.addActionListener(this::audioActionPerformed);
         toolBar.add(audio);
 
         // aggiunta del gap per il posizionamento
@@ -351,7 +347,7 @@ public class GameGUI extends JPanel {
         userInputField.setSize(400, 107);
         userInputField.setBounds(0, 0, 400, 107);
         userInputField.setBorder(BorderFactory.createLineBorder(new Color(168, 129, 50), 5));
-        userInputField.addActionListener(this::UserInputActionPerformed);
+        userInputField.addActionListener(this::userInputActionPerformed);
 
         // aggiunta dello sfondo per l'user input
         JPanel userInputFieldPanel = new JPanel() {
@@ -404,7 +400,6 @@ public class GameGUI extends JPanel {
      * Metodo che si occupa di aggiungere le immagini al layout
      */
     public void initCurrentImage() {
-
         cardLayout = new CardLayout();
         cardLayout.setVgap(0);
         cardLayout.setVgap(0);
@@ -457,7 +452,7 @@ public class GameGUI extends JPanel {
     /**
      * Metodo che aggiorna il timer nella label
      */
-    public static void UpdateTimerLabel() {
+    public static void updateTimerLabel() {
         Timer timer = new Timer();
         TimerTask updateTimerTask = new TimerTask() {
             @Override
@@ -471,11 +466,11 @@ public class GameGUI extends JPanel {
 
     /**
      * Metodo che definisce il comportamento del pulsante save quando viene cliccato.
-     * Apre la finesta per la selezione del file di salvataggio o la creazione di un nuovo file.
+     * Apre la finestra per la selezione del file di salvataggio o la creazione di un nuovo file.
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void SaveActionPerformed(ActionEvent evt) {
+    private void saveActionPerformed(ActionEvent evt) {
         JFileChooser j = new JFileChooser("saves");
 
         // Open the save dialog
@@ -492,7 +487,7 @@ public class GameGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void BackActionPerformed(ActionEvent evt) {
+    private void backActionPerformed(ActionEvent evt) {
         displayTextPane.setText("");
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "MenuGUI");
@@ -516,7 +511,7 @@ public class GameGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void HelpActionPerformed(ActionEvent evt) {
+    private void helpActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getInstance();
         help.setVisible(true);
     }
@@ -527,7 +522,7 @@ public class GameGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void AudioActionPerformed(ActionEvent evt) {
+    private void audioActionPerformed(ActionEvent evt) {
         if (audio.getIcon().toString().equals(audio_on.toString())) {
             audio.setIcon(audio_off);
             Mixer.getInstance().stopTrack();
@@ -543,7 +538,7 @@ public class GameGUI extends JPanel {
      *
      * @param color colore da sbloccare nella barra dei colori.
      */
-    public void UnlockColor(ColorEnum color) {
+    public void unlockColor(ColorEnum color) {
         switch (color) {
             case ColorEnum.RED:
                 redColorLabel.setIcon(new ImageIcon("src/main/resources/img/quadroRosso.png"));
@@ -573,7 +568,7 @@ public class GameGUI extends JPanel {
      *
      * @param evt rappresenta l'evento dell'input dell'utente.
      */
-    private void UserInputActionPerformed(ActionEvent evt) {
+    private void userInputActionPerformed(ActionEvent evt) {
         //istanzo la classe DAO
         DialogDaoImpl dialog = new DialogDaoImpl();
 

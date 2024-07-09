@@ -10,22 +10,22 @@ public class Dimension {
     private String text;
 
     /**
-     * altezza.
+     * Altezza.
      */
     private double height;
 
     /**
-     * larghezza.
+     * Larghezza.
      */
     private double width;
 
     /**
-     * profondità.
+     * Profondità.
      */
     private String depth;
 
     /**
-     * diametro.
+     * Diametro.
      */
     private String diameter;
 

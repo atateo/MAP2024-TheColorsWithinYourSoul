@@ -78,7 +78,7 @@ public class GameToGUICommunication {
      * @param filename Nome del file da cui caricare la partita.
      */
     public void setGameEngineFromFile(String filename) {
-        GameToJson game = null;
+        GameToJson game;
         File file = new File(filename);
 
         if (file.exists()) {
@@ -97,14 +97,6 @@ public class GameToGUICommunication {
         this.gameEngine = game.convertFromJsonObject();
         this.gameEngine.defineGameInteractions();
         this.parser = new Parser(this.gameEngine);
-    }
-
-    /**
-     * Metodo che cancella l'istanza di gioco e il parser ad essa associata.
-     */
-    public void killGame() {
-        this.gameEngine = null;
-        this.parser = null;
     }
 
     /**
@@ -224,7 +216,7 @@ public class GameToGUICommunication {
      * @param toUnlock Colore da sbloccare.
      */
     public void unlockColor(final ColorClass toUnlock) {
-        HandlerGUI.getGameGUI().UnlockColor(getColorEnumFromColorClass(toUnlock));
+        HandlerGUI.getGameGUI().unlockColor(getColorEnumFromColorClass(toUnlock));
     }
 
     /**
@@ -270,23 +262,6 @@ public class GameToGUICommunication {
      */
     public long getElapsedTime() {
         return gameEngine.getGameTimer().getElapsedTime();
-    }
-
-    /**
-     * Restituisce una stringa che rappresenta l'inventario del player.
-     *
-     * @return Stringa che rappresenta l'inventario del player.
-     */
-    public String inventoryToString() {
-        ArrayList<Item> inventory = gameEngine.getInventory();
-        StringBuilder stringInventory = new StringBuilder();
-
-        for (Item item : inventory) {
-            stringInventory.append(item.getName());
-            stringInventory.append(" ");
-        }
-
-        return stringInventory.toString();
     }
 
     /**

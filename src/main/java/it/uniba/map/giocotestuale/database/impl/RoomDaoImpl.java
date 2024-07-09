@@ -90,7 +90,7 @@ public class RoomDaoImpl implements RoomDao {
         String query = "SELECT * FROM room";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<RoomRecord> ls = new ArrayList<RoomRecord>();
+        List<RoomRecord> ls = new ArrayList<>();
 
         while (rs.next()) {
             RoomRecord room = new RoomRecord();

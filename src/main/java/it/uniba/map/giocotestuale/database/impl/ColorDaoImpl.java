@@ -86,7 +86,7 @@ public class ColorDaoImpl implements ColorDao {
         String query = "SELECT * FROM color";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<ColorRecord> ls = new ArrayList<ColorRecord>();
+        List<ColorRecord> ls = new ArrayList<>();
 
         while (rs.next()) {
             ColorRecord item = new ColorRecord();

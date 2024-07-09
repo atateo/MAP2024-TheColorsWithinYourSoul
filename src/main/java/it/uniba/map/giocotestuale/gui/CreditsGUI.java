@@ -239,7 +239,5 @@ public class CreditsGUI extends JPanel {
         cl.show(getParent(), "MenuGUI");
         Mixer.getInstance().changRoomMusic("Menu");
         Mixer.getInstance().startTrack();
-
     }
-
 }

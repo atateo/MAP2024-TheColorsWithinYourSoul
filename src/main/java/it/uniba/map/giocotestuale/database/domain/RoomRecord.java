@@ -11,12 +11,12 @@ public class RoomRecord {
     private int id;
 
     /**
-     * stato della stanza.
+     * Stato della stanza.
      */
     private String stato;
 
     /**
-     * descrizione della stanza.
+     * Descrizione della stanza.
      */
     private String descrizione;
 

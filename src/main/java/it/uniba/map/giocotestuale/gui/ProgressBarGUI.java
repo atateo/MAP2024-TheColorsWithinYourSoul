@@ -171,8 +171,8 @@ public class ProgressBarGUI extends JPanel {
     }
 
     /**
-     * Metodo che che si occupa del caricamento della progress bar.
-     * e del movimento sull'asse x dell'immagine.
+     * Metodo che si occupa del caricamento della progress bar.
+     * Gestisce il movimento sull'asse x dell'immagine.
      */
     public void startProgressBar() {
         counter = 0;

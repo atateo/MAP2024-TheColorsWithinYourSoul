@@ -23,11 +23,7 @@ public class HandlerGUI extends JFrame {
      * Logger per la registrazione degli eventi.
      */
     protected static final Logger logger = LogManager.getLogger();
-	
-    /**
-     * default long serialVersionUID
-     */
-    private static final long serialVersionUID = 1L;
+
     /**
      * La GUI del gioco
      */
@@ -48,7 +44,6 @@ public class HandlerGUI extends JFrame {
      * Il CardLayout usato per gestire i pannelli
      */
     private static CardLayout layout;
-
 
     /**
      * Costruttore pubblico che si occupa di definire le impostazioni del frame principale
@@ -71,7 +66,7 @@ public class HandlerGUI extends JFrame {
                 System.exit(0);
             }
         });
-        this.setTitle("The colors whitin your soul");
+        this.setTitle("The Colors Within Your Soul");
         this.setSize(1000, 700);
         this.setResizable(false);
         this.setLocationRelativeTo(null);

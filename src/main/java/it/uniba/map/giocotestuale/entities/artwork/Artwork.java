@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Artwork {
     /**
-     * identificativo dell'opera d'arte.
+     * Identificativo dell'opera d'arte.
      */
     private String id;
 
@@ -20,148 +20,148 @@ public class Artwork {
     private String slug;
 
     /**
-     * data registrazione nel sistema ArtSy.
+     * Data registrazione nel sistema ArtSy.
      */
     @SerializedName("created_at")
     private String createdAt;
 
     /**
-     * data ultimo aggiornamento nel sistema ArtSy.
+     * Data ultimo aggiornamento nel sistema ArtSy.
      */
     @SerializedName("updated_at")
     private String updatedAt;
 
     /**
-     * titolo dell'opera d'arte.
+     * Titolo dell'opera d'arte.
      */
     private String title;
 
     /**
-     * categoria dell'opera d'arte.
+     * Categoria dell'opera d'arte.
      */
     private String category;
 
     /**
-     * tipo opera d'arte.
+     * Tipo opera d'arte.
      */
     private String medium;
 
     /**
-     * anno realizzazione opera reale.
+     * Anno realizzazione opera reale.
      */
     private String date;
 
     /**
-     * oggetto che definisce le dimensioni dell'opera d'arte.
+     * Oggetto che definisce le dimensioni dell'opera d'arte.
      */
     private Dimensions dimensions;
 
     /**
-     * boolean che indica se l'opera d'arte è stata pubblicata.
+     * Boolean che indica se l'opera d'arte è stata pubblicata.
      */
     private boolean published;
 
     /**
-     * sito web di riferimento dell'opera d'arte.
+     * Sito web di riferimento dell'opera d'arte.
      */
     private String website;
 
     /**
-     * firma dell'opera d'arte.
+     * Firma dell'opera d'arte.
      */
     private String signature;
 
     /**
-     * serie dell'opera d'arte.
+     * Serie dell'opera d'arte.
      */
     private String series;
 
     /**
-     * provenienza dell'opera d'arte.
+     * Provenienza dell'opera d'arte.
      */
     private String provenance;
 
     /**
-     * genere dell'opera d'arte.
+     * Genere dell'opera d'arte.
      */
     private String literature;
 
     /**
-     * storia delle mostre inerenti all'opera d'arte.
+     * Storia delle mostre inerenti all'opera d'arte.
      */
     @SerializedName("exhibition_history")
     private String exhibitionHistory;
 
     /**
-     * struttura presso cui é esposta l'opera d'arte.
+     * Struttura presso cui é esposta l'opera d'arte.
      */
     @SerializedName("collecting_institution")
     private String collectingInstitution;
 
     /**
-     * informazioni addizionali sull'opera d'arte.
+     * Informazioni addizionali sull'opera d'arte.
      */
     @SerializedName("additional_information")
     private String additionalInformation;
 
     /**
-     * ente detentore dei diritti di immagine dell'opera d'arte.
+     * Ente detentore dei diritti di immagine dell'opera d'arte.
      */
     @SerializedName("image_rights")
     private String imageRights;
 
     /**
-     * recensione dell'opera d'arte.
+     * Recensione dell'opera d'arte.
      */
     private String blurb;
 
     /**
-     * boolean unique.
+     * Boolean unique.
      */
     private boolean unique;
 
     /**
-     * attributo cultural maker.
+     * Attributo cultural maker.
      */
     @SerializedName("cultural_maker")
     private String culturalMaker;
 
     /**
-     * attributo iconicity.
+     * Attributo iconicity.
      */
     private double iconicity;
 
     /**
-     * boolean can inquire.
+     * Boolean can inquire.
      */
     @SerializedName("can_inquire")
     private boolean canInquire;
 
     /**
-     * boolean can acquire.
+     * Boolean can acquire.
      */
     @SerializedName("can_acquire")
     private boolean canAcquire;
 
     /**
-     * boolean can share.
+     * Boolean can share.
      */
     @SerializedName("can_share")
     private boolean canShare;
 
     /**
-     * messaggio di vendita.
+     * Messaggio di vendita.
      */
     @SerializedName("sale_message")
     private String saleMessage;
 
     /**
-     * boolean sold.
+     * Boolean sold.
      */
     private boolean sold;
 
     /**
-     * livello di visibilità.
+     * Livello di visibilità.
      */
     @SerializedName("visibility_level")
     private String visibilityLevel;
@@ -173,13 +173,13 @@ public class Artwork {
     private List<String> imageVersions;
 
     /**
-     * oggetto Links che definisce un insieme di link di riferimento dell'opera d'arte.
+     * Oggetto Links che definisce un insieme di link di riferimento dell'opera d'arte.
      */
     @SerializedName("_links")
     private Links links;
 
     /**
-     * oggetto Embedded.
+     * Oggetto Embedded.
      */
     @SerializedName("_embedded")
     private Embedded embedded;
@@ -547,7 +547,7 @@ public class Artwork {
     /**
      * Metodo getter per il booleano isUnique
      *
-     * @return l'attributo booleano isUnique,  true se l'opera è unica, false altrimenti.
+     * @return l'attributo booleano isUnique, true se l'opera è unica, false altrimenti.
      */
     public boolean isUnique() {
         return unique;
@@ -556,7 +556,7 @@ public class Artwork {
     /**
      * Metodo setter per il booleano isUnique
      *
-     * @param unique l'attributo booleano isUnique,  true se l'opera è unica, false altrimenti.
+     * @param unique l'attributo booleano isUnique, true se l'opera è unica, false altrimenti.
      */
     public void setUnique(boolean unique) {
         this.unique = unique;

@@ -9,14 +9,14 @@ import java.util.List;
 public class MockDatabase {
 
     /**
-     * istruzioni da lanciare per creare il database
+     * Istruzioni da lanciare per creare il database.
      */
-    private static List<String> istruzioni = new ArrayList<String>();
+    private static List<String> istruzioni = new ArrayList<>();
 
     /**
-     * ritorna le istruzioni di creazione e popolamento del database
+     * Ritorna le istruzioni di creazione e popolamento del database.
      *
-     * @return la lista di istruzioni di creazione e popolamento del database
+     * @return la lista di istruzioni di creazione e popolamento del database.
      */
     public static List<String> getIstruzioni() {
         creaIstruzioni();
@@ -24,16 +24,16 @@ public class MockDatabase {
     }
 
     /**
-     * imposta la lista istruzioni
+     * Imposta la lista istruzioni.
      *
-     * @param istruzioni
+     * @param istruzioni Lista di istruzioni da impostare come attributo di classe.
      */
     public static void setIstruzioni(List<String> istruzioni) {
         MockDatabase.istruzioni = istruzioni;
     }
 
     /**
-     * metodo void che inserisce le singole istruzioni nella lista
+     * Metodo void che inserisce le singole istruzioni nella lista
      */
     private static void creaIstruzioni() {
         String dropRoom = "drop table room if exists";

@@ -21,7 +21,7 @@ public class CommandClass {
     /**
      * Lista contenente gli alias del comando.
      */
-    private List<String> commandAliases;
+    private final List<String> commandAliases;
 
     /**
      * Costruttore con parametri della classe CommandClass. Inizializza tutti gli attributi.

@@ -11,7 +11,7 @@ public class Dialog {
     private int id;
 
     /**
-     * testo del dialogo.
+     * Testo del dialogo.
      */
     private String testo;
 

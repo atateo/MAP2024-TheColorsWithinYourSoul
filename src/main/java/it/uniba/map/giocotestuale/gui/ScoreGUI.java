@@ -31,12 +31,30 @@ public class ScoreGUI extends JFrame {
      * Logger per la registrazione degli eventi.
      */
     protected static final Logger logger = LogManager.getLogger();
+    /**
+     * TextField che chiede il nickname del player.
+     */
     private JTextField nicknameField;
+    /**
+     * TextArea che stampa la classifica.
+     */
     private JTextArea textArea;
+    /**
+     * Bottone che prende il nome del player e invia il suo risultato.
+     */
     private JButton sendButton;
+    /**
+     * Immagine di background.
+     */
     private BufferedImage backgroundImage;
+    /**
+     * ID dell'entry score creata dalla GUI.
+     */
     private int myIdScore;
-    private long time;
+    /**
+     * Tempo di gioco del player espresso in ms.
+     */
+    private final long time;
 
     /**
      * Costruttore pubblico della ScoreGUI.
@@ -51,7 +69,7 @@ public class ScoreGUI extends JFrame {
         try {
             backgroundImage = ImageIO.read(new File("src/main/resources/img/Score.png"));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            logger.error(ex);
         }
         ImageIcon img = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
         setIconImage(img.getImage());
@@ -64,7 +82,7 @@ public class ScoreGUI extends JFrame {
     }
 
     /**
-     * metodo che formatta la view della ScoreGUI
+     * Metodo che formatta la view della ScoreGUI
      */
     private void createView() {
         JPanel panel = new BackgroundPanel();
@@ -139,7 +157,7 @@ public class ScoreGUI extends JFrame {
     }
 
     /**
-     * classe BackgroundPanel che estende Jpanel, utilizzata per impostare l'immagine di background
+     * Classe BackgroundPanel che estende JPanel, utilizzata per impostare l'immagine di background
      */
     private class BackgroundPanel extends JPanel {
         // Pannello personalizzato per disegnare l'immagine di sfondo
@@ -214,8 +232,7 @@ public class ScoreGUI extends JFrame {
                     logger.info("KEY non trovata");
                 }
             } catch (IOException e) {
-                logger.error("Eccezione di I/O in fase di invio del punteggio al server");
-                e.printStackTrace();
+                logger.error("Eccezione di I/O in fase di invio del punteggio al server: {}", e.getMessage());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Inserisci un nickname.", "Errore", JOptionPane.ERROR_MESSAGE);

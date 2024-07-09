@@ -53,13 +53,11 @@ public class MenuGUI extends JPanel {
      */
     final ImageIcon audio_on = new ImageIcon("src/main/resources/img/audio_icon.png");
 
-
     /**
-     * costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
+     * Costruttore pubblico che chiama il metodo per istanziare i componenti a schermo.
      */
     public MenuGUI() {
         initComponents();
-
     }
 
     /**
@@ -90,7 +88,7 @@ public class MenuGUI extends JPanel {
         start.setForeground(Color.black);
         start.setBackground(Color.lightGray);
         start.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
-        start.addActionListener(this::StartActionPerformed);
+        start.addActionListener(this::startActionPerformed);
 
         // configurazione del pulsante load
 
@@ -99,7 +97,7 @@ public class MenuGUI extends JPanel {
         load.setForeground(Color.black);
         load.setBackground(Color.lightGray);
         load.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
-        load.addActionListener(this::LoadActionPerformed);
+        load.addActionListener(this::loadActionPerformed);
 
         // configurazione del pulsante commands
         commands = new JButton("Comandi di Gioco");
@@ -107,7 +105,7 @@ public class MenuGUI extends JPanel {
         commands.setForeground(Color.black);
         commands.setBackground(Color.lightGray);
         commands.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
-        commands.addActionListener(this::CommandsActionPerformed);
+        commands.addActionListener(this::commandsActionPerformed);
 
         // confiurazione del pulsante credits
         credits = new JButton("Crediti");
@@ -115,7 +113,7 @@ public class MenuGUI extends JPanel {
         credits.setForeground(Color.black);
         credits.setBackground(Color.lightGray);
         credits.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
-        credits.addActionListener(this::CreditsActionPerformed);
+        credits.addActionListener(this::creditsActionPerformed);
 
         // configurazione del pulsante audio
         audio = new JButton(audio_on);
@@ -123,7 +121,7 @@ public class MenuGUI extends JPanel {
         audio.setForeground(Color.black);
         audio.setBackground(Color.lightGray);
         audio.setBorder(BorderFactory.createLineBorder(Color.gray, 5));
-        audio.addActionListener(this::AudioActionPerformed);
+        audio.addActionListener(this::audioActionPerformed);
 
         setGroupLayout();
 
@@ -189,7 +187,6 @@ public class MenuGUI extends JPanel {
      * Metodo che aggiorna il menu rendendolo colorato
      */
     public void updateMenu() {
-
         this.remove(background);
         background = new JPanel() {
             @Override
@@ -225,9 +222,7 @@ public class MenuGUI extends JPanel {
         audio.setBorder(BorderFactory.createLineBorder(coloreBordo, 5));
 
         setGroupLayout();
-
     }
-
 
     /**
      * Metodo che definisce il comportamento del pulsante start quando viene cliccato.
@@ -235,7 +230,7 @@ public class MenuGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void StartActionPerformed(ActionEvent evt) {
+    private void startActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         ProgressBarGUI progressBar = (ProgressBarGUI) this.getParent().getComponent(2);
         cl.show(getParent(), "ProgressBarGUI");
@@ -257,7 +252,7 @@ public class MenuGUI extends JPanel {
         GameGUI.setRoomImage(GameToGUICommunication.getInstance().getCurrentGameRoom());
 
         //Imposta l'aggiornamento del timer
-        GameGUI.UpdateTimerLabel();
+        GameGUI.updateTimerLabel();
 
         //Imposta il gioco a non finito
         HandlerGUI.getGameGUI().setFinished(false);
@@ -265,14 +260,13 @@ public class MenuGUI extends JPanel {
         HandlerGUI.getGameGUI().enableUserInputField();
     }
 
-
     /**
      * Metodo che definisce il comportamento del pulsante load quando viene cliccato.
      * Carica il salvataggio di una partita.
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void LoadActionPerformed(ActionEvent evt) {
+    private void loadActionPerformed(ActionEvent evt) {
         JFileChooser j = new JFileChooser("saves");
 
         // Open the save dialog
@@ -299,11 +293,11 @@ public class MenuGUI extends JPanel {
             GameGUI.setRoomImage(GameToGUICommunication.getInstance().getCurrentGameRoom());
 
             //Imposta il timer
-            GameGUI.UpdateTimerLabel();
+            GameGUI.updateTimerLabel();
 
             //Accende le immagini dei colori sbloccati
             for (ColorEnum color : GameToGUICommunication.getInstance().getUnlockedColors()) {
-                HandlerGUI.getGameGUI().UnlockColor(color);
+                HandlerGUI.getGameGUI().unlockColor(color);
             }
 
             //Imposta l'inventario
@@ -322,7 +316,7 @@ public class MenuGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void CommandsActionPerformed(ActionEvent evt) {
+    private void commandsActionPerformed(ActionEvent evt) {
         CommandsGUI help = CommandsGUI.getInstance();
         help.setVisible(true);
     }
@@ -333,7 +327,7 @@ public class MenuGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void CreditsActionPerformed(ActionEvent evt) {
+    private void creditsActionPerformed(ActionEvent evt) {
         CardLayout cl = (CardLayout) getParent().getLayout();
         cl.show(getParent(), "CreditsGUI");
         Mixer.getInstance().changRoomMusic("Credits");
@@ -346,7 +340,7 @@ public class MenuGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void AudioActionPerformed(ActionEvent evt) {
+    private void audioActionPerformed(ActionEvent evt) {
         if (audio.getIcon().toString().equals(audio_on.toString())) {
             audio.setIcon(audio_off);
             Mixer.getInstance().stopTrack();

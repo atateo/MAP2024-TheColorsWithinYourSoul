@@ -62,26 +62,25 @@ public class Setup {
      * Esegue l'istruzione SQL passata come parametro, sul database.
      *
      * @param setup la stringa dell'istruzione SQL da eseguire.
-     * @return true se l'istruzione è stata eseguita con successo, false in caso di
-     * errore.
+     * @return true se l'istruzione è stata eseguita con successo, false in caso di errore.
      */
     private static boolean eseguiIstruzione(String setup) {
-        boolean successo = false;
         Connection connection = DatabaseConnection.getConnection();
         Statement statement;
+
         try {
             statement = connection.createStatement();
             statement.execute(setup);
-            successo = true;
         } catch (SQLException e) {
             logger.error("Eccezione in fase di esecuzione dell'istruzione: {} - ", setup, e);
-            successo = false;
+            return false;
         }
-        return successo;
+
+        return true;
     }
 
     /**
-     * metodo che crea la directory "saves" dei salvataggi.
+     * Metodo che crea la directory "saves" dei salvataggi.
      */
     private static void getDir() throws IOException {
         File saves = new File("saves");

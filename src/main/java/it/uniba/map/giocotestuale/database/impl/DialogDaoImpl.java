@@ -86,7 +86,7 @@ public class DialogDaoImpl implements DialogDao {
         String query = "SELECT * FROM dialog";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<Dialog> ls = new ArrayList<Dialog>();
+        List<Dialog> ls = new ArrayList<>();
 
         while (rs.next()) {
             Dialog item = new Dialog();

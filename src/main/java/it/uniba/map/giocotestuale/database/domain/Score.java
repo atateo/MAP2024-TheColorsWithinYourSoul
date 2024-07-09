@@ -8,16 +8,11 @@ import java.io.Serializable;
 public class Score implements Serializable {
 
     /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    /**
      * Metodo costruttore della classe Score
      *
-     * @param id
-     * @param player
-     * @param time
+     * @param id ID da impostare.
+     * @param player Nome del player da impostare.
+     * @param time Tempo da impostare.
      */
     public Score(int id, String player, String time) {
         this.id = id;
@@ -36,7 +31,7 @@ public class Score implements Serializable {
     private String player;
 
     /**
-     * tempo impiegato per finire il gioco.
+     * Tempo impiegato per finire il gioco.
      */
     private String time;
 

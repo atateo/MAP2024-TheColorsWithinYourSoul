@@ -5,12 +5,12 @@ package it.uniba.map.giocotestuale.entities.artwork;
  */
 public class Dimensions {
     /**
-     * esprime le dimensioni in centimetri.
+     * Esprime le dimensioni in centimetri.
      */
     private Dimension in;
 
     /**
-     * esprime le dimensioni in pollici.
+     * Esprime le dimensioni in pollici.
      */
     private Dimension cm;
 

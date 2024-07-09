@@ -5,12 +5,12 @@ package it.uniba.map.giocotestuale.entities.artwork;
  */
 public class Link {
     /**
-     * link dell'immagine .
+     * Link dell'immagine.
      */
     private String href;
 
     /**
-     * boolean che indica se l'immagine è provvista di template.
+     * Boolean che indica se l'immagine è provvista di template.
      */
     private boolean templated;
 

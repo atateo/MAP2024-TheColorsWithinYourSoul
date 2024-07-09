@@ -11,7 +11,7 @@ public class ColorRecord {
     private int id;
 
     /**
-     * descrizione dell'item.
+     * Descrizione dell'item.
      */
     private String descrizione;
 

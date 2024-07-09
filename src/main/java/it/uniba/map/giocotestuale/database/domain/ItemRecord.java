@@ -11,12 +11,12 @@ public class ItemRecord {
     private int id;
 
     /**
-     * stato dell'item.
+     * Stato dell'item.
      */
     private String stato;
 
     /**
-     * descrizione dell'item.
+     * Descrizione dell'item.
      */
     private String descrizione;
 

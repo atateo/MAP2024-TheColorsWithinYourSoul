@@ -54,14 +54,10 @@ public abstract class GameEngine {
      * Metodo setter per la stanza corrente. Verifica che la stanza non sia nulla e che sia presente nel gioco.
      *
      * @param room Nuova stanza corrente.
-     * @return Booleano che indica se il cambio di stanza è andato a buon fine.
      */
-    public boolean setCurrentRoom(Room room) {
+    public void setCurrentRoom(Room room) {
         if (room != null && rooms.contains(room)) {
             this.currentRoom = room;
-            return true;
-        } else {
-            return false;
         }
     }
 

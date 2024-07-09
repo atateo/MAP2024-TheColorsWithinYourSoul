@@ -1,11 +1,9 @@
 package it.uniba.map.giocotestuale.entities.game;
 
 import it.uniba.map.giocotestuale.database.impl.ColorDaoImpl;
-import it.uniba.map.giocotestuale.type.ColorEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;

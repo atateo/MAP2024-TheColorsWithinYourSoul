@@ -48,8 +48,8 @@ public class ClientRest {
      */
     public static ArtworkResponse getArtwork() {
         ArtworkResponse artworkResponse = new ArtworkResponse();
-        byte[] operaDArte = null;
-        String nameArtwork = null;
+        byte[] operaDArte;
+        String nameArtwork;
 
         // Predispone l'endPoint per l'api di autenticazione
         String url = appProps.getUrlEndpoint() + URL_TOKEN;

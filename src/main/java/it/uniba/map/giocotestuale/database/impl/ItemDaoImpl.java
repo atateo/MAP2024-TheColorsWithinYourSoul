@@ -90,7 +90,7 @@ public class ItemDaoImpl implements ItemDao {
         String query = "SELECT * FROM item";
         PreparedStatement ps = conn.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        List<ItemRecord> ls = new ArrayList<ItemRecord>();
+        List<ItemRecord> ls = new ArrayList<>();
 
         while (rs.next()) {
             ItemRecord item = new ItemRecord();

@@ -37,13 +37,13 @@ public class ApplicationProperties {
     private String password;
 
     /**
-     * indica se é necessario costruire il  database (solo la prima volta deve
+     * Booleano che indica se é necessario costruire il database (solo la prima volta deve
      * valere true anche se è presente il controllo di esistenza sulla tabella).
      */
     private boolean setup;
 
     /**
-     * url delle api del servizio Artsy.
+     * URL delle api del servizio Artsy.
      */
     private String urlEndpoint;
 
@@ -53,17 +53,17 @@ public class ApplicationProperties {
     private String clientId;
 
     /**
-     * secret utile all'autenticazione in OAuth2 all'api Artsy.
+     * Secret utile all'autenticazione in OAuth2 all'api Artsy.
      */
     private String secret;
 
     /**
-     * array degli id delle opere d'arte gestie dal servizo rest ArtSy.
+     * Array degli id delle opere d'arte gestite dal servizio rest ArtSy.
      */
     private String[] idArtwork;
 
     /**
-     * path del file script contenente il setup del db.
+     * Path del file script contenente il setup del db.
      */
     private String pathSetupDb;
 
@@ -253,7 +253,7 @@ public class ApplicationProperties {
     private static ApplicationProperties instance = null;
 
     /**
-     * Costruttorre privato che carica le proprietà dell'applicazione da file.
+     * Costruttore privato che carica le proprietà dell'applicazione da file.
      */
     private ApplicationProperties() {
         String appConfigPath = "application.properties";
@@ -272,9 +272,8 @@ public class ApplicationProperties {
             setSecret(appProps.getProperty("secret"));
             setPathSetupDb(appProps.getProperty("pathSetupDb"));
             
-            /*inserisco nell'array gli id delle opere d'arte mediante lambda function 
-            che divide la proprietà letta dal file e usando il carattere ':' come delimitatore
-            */
+            //Inserisco nell'array gli ID delle opere d'arte mediante lambda function
+            //che divide la proprietà letta dal file e usando il carattere ':' come delimitatore
             setIdArtwork(Arrays.stream(appProps.getProperty("artworks").split(":"))
                     .toArray(String[]::new));
         } catch (IOException e) {
@@ -284,7 +283,7 @@ public class ApplicationProperties {
 
     /**
      * Ritorna l'istanza Singleton di ApplicationProperties.
-     * Se l'istanza non esiste la crea
+     * Se l'istanza non esiste, la crea.
      *
      * @return singleton instance di ApplicationProperties.
      */
