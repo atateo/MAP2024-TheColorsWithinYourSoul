@@ -38,6 +38,7 @@ public class ScoreDaoImpl implements ScoreDao {
     public int add(Score score) throws SQLException {
         int n = 0;
         String query = "INSERT INTO score (player, time) VALUES (?, ?)";
+        
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, score.getPlayer());
         ps.setString(2, score.getTime());

@@ -34,15 +34,18 @@ public class ItemDaoImpl implements ItemDao {
      */
     @Override
     public int add(ItemRecord item) throws SQLException {
-
+    	int n = 0;
         String query = "INSERT INTO item (stato, descrizione, id_item) VALUES (?, ?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, item.getStato());
         ps.setString(2, item.getDescrizione());
         ps.setInt(3, item.getIdItem());
-
-        int n = ps.executeUpdate();
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            n = rs.getInt(1);
+        }
         return n;
     }
 

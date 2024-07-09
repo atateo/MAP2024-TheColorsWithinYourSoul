@@ -34,15 +34,18 @@ public class RoomDaoImpl implements RoomDao {
      */
     @Override
     public int add(RoomRecord room) throws SQLException {
-
+    	int n = 0;
         String query = "INSERT INTO room (stato, descrizione, id_room) VALUES (?, ?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, room.getStato());
         ps.setString(2, room.getDescrizione());
         ps.setInt(3, room.getIdRoom());
-
-        int n = ps.executeUpdate();
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            n = rs.getInt(1);
+        }
         return n;
     }
 

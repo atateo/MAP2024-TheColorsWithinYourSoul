@@ -34,13 +34,16 @@ public class ColorDaoImpl implements ColorDao {
      */
     @Override
     public int add(ColorRecord color) throws SQLException {
-
+    	int n = 0;
         String query = "INSERT INTO color (descrizione) VALUES (?)";
 
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, color.getDescrizione());
-
-        int n = ps.executeUpdate();
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            n = rs.getInt(1);
+        }
         return n;
     }
 

@@ -34,13 +34,16 @@ public class DialogDaoImpl implements DialogDao {
      */
     @Override
     public int add(Dialog dialog) throws SQLException {
-
+    	int n = 0;
         String query = "INSERT INTO dialog (testo) VALUES (?)";
 
         PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, dialog.getTesto());
-
-        int n = ps.executeUpdate();
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            n = rs.getInt(1);
+        }
         return n;
     }
 
