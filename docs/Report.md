@@ -767,8 +767,8 @@ Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
 Il tipo di ritorno del client è un bean "ArtworkResponse" che definisce gli attributi: nameArtist e nameArtwork di tipo String e artwork di tipo byte[]:
 ```java
 	private byte[] artwork;
-    private String nameArtwork;
-    private String nameArtist;
+	private String nameArtwork;
+	private String nameArtist;
 ```
 
 Per recuperare il nome dell'artista dalla relativa response, si è scelto di non effettuare una deserializzazione completa ma si è proceduto a recuperare l'attributo direttamente:
