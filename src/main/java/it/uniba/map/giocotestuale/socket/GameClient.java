@@ -91,6 +91,7 @@ public class GameClient {
             out.writeObject("END");
             String resp = (String) in.readObject();
             System.out.println("Risposta del server: " + resp);
+            stopConnection();
         } catch (IOException | ClassNotFoundException e) {
             logger.error("Eccezione nel metodo end (chiusura della comunicazione con il server): ", e);
         }

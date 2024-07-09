@@ -165,6 +165,7 @@ public class ScoreGUI extends JFrame {
         try {
             client.startConnection("localhost", 3999);
             scores = client.getScores();
+            client.stopConnection();
         } catch (IOException e) {
             logger.error("Eccezione di I/O in fase di recupero dei punteggi dal server");
         }
@@ -203,6 +204,7 @@ public class ScoreGUI extends JFrame {
             try {
                 client.startConnection("localhost", 3999);
                 String resp = client.sendScore(score);
+                client.stopConnection();
                 Pattern pattern = Pattern.compile("KEY=(.*)");
                 Matcher matcher = pattern.matcher(resp);
                 if (matcher.find()) {

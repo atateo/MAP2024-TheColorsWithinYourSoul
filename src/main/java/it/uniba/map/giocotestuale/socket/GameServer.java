@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
  * permettendo di inserire e recuperare punteggi dal database.
  */
 public class GameServer {
-    private ServerSocket serverSocket;
+    private static ServerSocket serverSocket;
     /**
      * Logger per la registrazione degli eventi.
      */
@@ -72,8 +72,7 @@ public class GameServer {
                     }
                     case "END" -> {
                         out.writeObject("Disconnessione in corso...");
-                        stop();
-                        break;
+                        //stop();
                     }
                     default -> {
                         out.writeObject("Operazione non valida");
@@ -91,7 +90,7 @@ public class GameServer {
      *
      * @throws IOException eccezione sollevata se si dovesse verificare un errore di I/O durante la chiusura del ServerSocket.
      */
-    public void stop() throws IOException {
+    public static void stop() throws IOException {
         logger.info("Server arrestato");
         serverSocket.close();
     }

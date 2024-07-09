@@ -6,6 +6,10 @@ import it.uniba.map.giocotestuale.utility.Mixer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
 import java.awt.event.WindowAdapter;
@@ -15,7 +19,11 @@ import java.awt.event.WindowEvent;
  * Classe che si occupa di coordinare tutte le GUI del gioco.
  */
 public class HandlerGUI extends JFrame {
-
+	/**
+     * Logger per la registrazione degli eventi.
+     */
+    protected static final Logger logger = LogManager.getLogger();
+	
     /**
      * default long serialVersionUID
      */
@@ -58,6 +66,7 @@ public class HandlerGUI extends JFrame {
             public void windowClosing(WindowEvent e) {
                 // Invoca il metodo releaseConnection prima della chiusura
                 DatabaseConnection.releaseConnection();
+                                
                 dispose();
                 System.exit(0);
             }
