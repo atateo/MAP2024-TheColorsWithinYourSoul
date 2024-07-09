@@ -706,7 +706,7 @@ Per implementare un sistema di comunicazione client/server abbiamo realizzato un
 Il client <code>REST</code> si interfaccia con il <code>WebService</code> pubblico <code>ArtSy</code>, un sistema molto complesso che condivide migliaia di opere d'arte di artisti di ogni genere ed epoca.
 <code>ArtSy</code> prevede l'utilizzo delle proprie <code>API</code> previa iscrizione al servizio e l'ottenimento di un token applicativo <code>X-XAPP-Token</code> che viene utilizzato in tutte le chiamate di ogni operazione.
 Per semplificare le operazioni di recupero delle opere d'arte, abbiamo effettuato un'attività di scouting che partendo dal nome dell'artista, ci ha portato a definire un set di undici opere d'arte predefinite.
-Queste opere d'arte sono state catalogate nel file <code>application.properties</code>; randomicamente viene estratto un <code>id</code> utilizzato per recuperare tramite opportuna <code>API</code> la specifica opera d'arte. Questo rende ancora più interessante l'esperienza di gioco, permettendo ad un player che termini il gioco più volte, di ottenere un'opera d'arte sempre diversa.
+Queste opere d'arte sono state catalogate nel file <code>application.properties</code>. Quando viene effettuata una richiesta all'API, viene estratto casualmente un ID utilizzato per recuperare tramite opportuna <code>API</code> la specifica opera d'arte. Questo rende ancora più interessante l'esperienza di gioco, permettendo ad un player che termini il gioco più volte di ottenere opere d'arte potenzialmente diverse ogni volta.
 ```java
 // Estrae randomicamente l'id dell'opera d'arte da un elenco predefinito
 Random random = new Random();
@@ -721,12 +721,11 @@ Il metodo <code>executePost</code> è stato utilizzato per recuperare il token d
 String jsonResponse = executePost(url + "?client_id=" + clientID + "&client_secret=" + secret);
 
 if (jsonResponse != null && !jsonResponse.isEmpty()) {
-	// Estrae il token che sarà utilizzato per il servizio GET
-	JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-	String token = jsonObject.get(TOKEN).getAsString();
+    // Estrae il token che sarà utilizzato per il servizio GET
+    JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+    String token = jsonObject.get(TOKEN).getAsString();
+}
 ```
-
-
 Mentre il metodo <code>executeGet</code> è stato utilizzato per il recupero dell'opera d'arte e del relativo artista:
 ```java
 String urlOpere = appProps.getUrlEndpoint() + URL_ARTWORK + idArtwork;
@@ -756,6 +755,8 @@ if (jsonOpera != null && !jsonOpera.isEmpty()) {
 		} else {
 			nameArtwork = "Opera d'arte non più disponibile";
 		}
+    }
+}
 ```
 
 La deserializzazione della response è effettuata tramite la libreria <code>Gson</code> che estrae gli attributi dalla stringa e li associa agli attributi definiti nell'oggetto <code>Artwork</code>. Il tipo di ritorno del client è un bean <code>ArtworkResponse</code> che definisce gli attributi <code>nameArtist</code> e <code>nameArtwork</code> di tipo <code>String</code> e <code>byte[]</code>, rispettivamente. Viene anche salvato il nome dell'artista come stringa.
@@ -770,7 +771,7 @@ private String nameArtwork;
 private String nameArtist;
 ```
 
-Per recuperare il nome dell'artista dalla relativa response, si è scelto di non effettuare una deserializzazione completa ma si è proceduto a recuperare l'attributo direttamente:
+Per recuperare il nome dell'artista dalla relativa response, si è scelto di non effettuare una deserializzazione completa ma si è proceduto a recuperare l'attributo direttamente, in quanto venivano forniti molti attributi non necessari allo scopo del nostro programma.
 
 ```java
 JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
@@ -784,7 +785,6 @@ Optional<String> name = Optional.ofNullable(jsonObject)
 
 // Ritorna il nome dell'artista o null se non riesce a recuperarlo
 return name.orElse("Artista sconosciuto");
-}
 ```
 
 Al termine del gioco, la classe <code>ClientRest</code> si occupa di recuperare l'opera d'arte e renderizzarla a video nel frame di gioco.
@@ -794,7 +794,6 @@ Per le operazioni di inserimento di un nuovo punteggio e il recupero della lista
 All'avvio del gioco, la main class si occupa di inizializzare il <code>GameServer</code> sulla porta indicata nel costruttore:
 
 ```java
-
 public GameServer(int port) {
 	try {
 		serverSocket = new ServerSocket(port);
@@ -804,10 +803,10 @@ public GameServer(int port) {
 	logger.info("Server creato");
 }
 ```
-
 La classe server implementa il metodo <code>start</code> che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso. Sulla base dell'operazione definita dal client, effettua le due principali operazioni.
 - <code>POST</code> indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco.
 - <code>GET</code> indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dieci.
+
 Catturata la richiesta del client, il server esegue il ramo di codice selezionato. Anche se non sono è previsto che il client invii comandi differenti, è stato gestito il caso di default input errato.
 
 ```java
@@ -837,6 +836,7 @@ while (true) {
 					out.writeObject("Eccezione in fase di recupero della classifica: " + e);
 				}
 			}
+            //...
 			default -> {
 				out.writeObject("Operazione non valida");
 			}
@@ -844,9 +844,8 @@ while (true) {
 	}
 }
 ```
-
-Il <code>server</code>, in linea teorica, dovrebbe essere eseguito come applicazione a se stante ma per comodità di gestione viene eseguito nel gioco.
-Il <code>client</code> è invece parte integrante del programma ed è utilizzato per alimentare la classe <code>ScoreGui</code>.
+Il server, in linea teorica, dovrebbe essere eseguito come applicazione a se stante ma per comodità di gestione viene eseguito nel gioco.
+Il client è invece parte integrante del programma ed è utilizzato per alimentare la classe <code>ScoreGUI</code>.
 La classe <code>GameClient</code> definisce il metodo <code>startConnection</code> che si occupa di istanziare un socket sull'indirizzo e porta passati come parametro, inizializzando gli oggetti che si occupano di gestire l'input e l'output nella comunicazione:
 
 ```java
@@ -860,39 +859,57 @@ public void startConnection(String ip, int port) throws UnknownHostException, IO
 Sempre nalla classe <code>GameClient</code> sono definiti i metodi che si occupano di inviare il tempo di gioco al server e recuperare la lista dei primi dieci migliori tempi:
 
 ```java
+//Invia Score
 public String sendScore(Score score) {
-String resp = null;
-try {
-	out.writeObject("POST");
-	out.writeObject(score);
-	resp = (String) in.readObject();
-	logger.info("Risposta del server: {}", resp);
-	.....
-```
+    String resp = null;
+    try {
+        out.writeObject("POST");
+        out.writeObject(score);
+        resp = (String) in.readObject();
+        logger.info("Risposta del server: {}", resp);
+        //...
+    } catch (Exception e) {
+        //...
+    }
+}
 
-
-```java
-out.writeObject("GET");
-
-List<?> response = (List<?>) in.readObject();
-for (Iterator<?> iterator = response.iterator(); iterator.hasNext(); ) {
-	Score score = (Score) iterator.next();
-	punteggi.add(score);
+//Ricevi top 10 Score
+public List<Score> getScores() {
+    List<Score> punteggi = new ArrayList<>();
+    
+    try {
+        out.writeObject("GET");
+      
+        List<?> response = (List<?>) in.readObject();
+        for (Object o : response) {
+            Score score = (Score) o;
+            punteggi.add(score);
+        }
+    } catch (IOException | ClassNotFoundException e) {
+        //...
+    }
+    punteggi.sort(Comparator.comparingInt(a -> formatTimeFromStringToInt(a.getTime())));
+    return punteggi;
 }
 ```
 
-La classe <code>ScoreGui</code> utilizza <code>GameClient</code> per inviare il tempo di gioco del player e ricevere la lista aggiornata dal server. 
+La classe <code>ScoreGUI</code> utilizza <code>GameClient</code> per inviare il tempo di gioco del player e ricevere la lista aggiornata dal server. 
 Il metodo <code>addScore</code> avvia la connessione verso il server, richiama il metodo <code>sendScore</code> del client e chiude la connessione verso il server.
 
 ```java
 private void addScore(Score score) {
-	if (score != null) {
-		GameClient client = new GameClient();
-		try {
-			client.startConnection("localhost", 3999);
-			String resp = client.sendScore(score);
-			client.stopConnection();
-		...
+    if (score != null) {
+        GameClient client = new GameClient();
+        try {
+            client.startConnection("localhost", 3999);
+            String resp = client.sendScore(score);
+            client.stopConnection();
+            //...
+        } catch (...){
+            //..
+        }
+    }
+}
 ```
 
 Il metodo <code>getScores</code> avvia la connessione verso il server, richiama il metodo <code>getScores</code> del client e chiude la connessione verso il server.
@@ -905,10 +922,13 @@ private List<Score> getScores() {
 		client.startConnection("localhost", 3999);
 		scores = client.getScores();
 		client.stopConnection();
-	...
+    } catch (...){
+        //...
+    }
+}
 ```
 
-Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework logj4. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
+Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework <code>logj4</code>. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
 
 
 ### GUI
