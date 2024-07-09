@@ -382,7 +382,6 @@ public static void writeJsonToFile(String filePath, Object obj) {
 
 public static GameToJson readJsonFromFile(String filePath) {
     Gson gson = new Gson();
-    GameToJson game = null;
 
     try (FileReader fileReader = new FileReader(filePath)) {
         game = gson.fromJson(fileReader, GameToJson.class);
@@ -519,8 +518,83 @@ public class MockDatabase {
   
 }
 ```
+Nel nostro progetto, abbiamo deciso di applicare il pattern architetturale DAO (Data Access Object), che definisce una serie di norme da seguire per l'utilizzo dei database nelle applicazioni Java, nello specifico per la gestione della persistenza. Si tratta di definire una classe per ogni entità tabellare definita nel database, per stratificare e isolare l'accesso alla tabella tramite query (*data layer*) dalla logica operativa dell'applicazione, creando quindi un maggiore livello di astrazione.
 
+Questo significa che nel nostro programma abbiamo definito due classi e un'interfaccia per ogni tabella che abbiamo rappresentato nel database. Ad esempio, per la tabella <code>Item</code>, abbiamo creato una classe <code>ItemRecord</code>, che rappresenta l'entità nel database, quindi possiede attributi che corrispondono ai campi del record, un'interfaccia <code>ItemDao</code>, che contiene i metodi astratti per le operazioni base sulla tabella e infine la classe <code>ItemDaoImpl</code> che implementa e quindi definisce i metodi dell'interfaccia <code>ItemDao</code>. Nel nostro programma, molte delle operazioni di base definite da queste classi non vengono utilizzate ma, per una questione di integrità ed estensibilità, del codice si è preferito implementarle comunque.
 
+```java
+import java.sql.SQLException;
+
+public class ItemRecord {
+  private int id;
+  private String stato;
+  private String descrizione;
+  private int idItem;
+
+  //Metodi getter e setter per i vari attributi
+  //...
+}
+
+public interface ItemDao {
+  //Aggiunta record
+  int add(ItemRecord item) throws SQLException;
+
+  //Cancellazione record dato l'ID
+  void delete(int id) throws SQLException;
+
+  //Ottieni un record dato l'ID
+  ItemRecord getItem(int id) throws SQLException;
+
+  //Ottieni tutti i record
+  List<ItemRecord> getItems() throws SQLException;
+
+  //Aggiornamento di un record
+  void update(ItemRecord room) throws SQLException;
+
+  //Ottieni la descrizione di un Item dato il suo ID e il suo Stato
+  String getDescrizioneByIdItemAndStato(int idItem, String stato) throws SQLException;
+}
+
+public class ItemDaoImpl implements ItemDao {
+  //Aggiunta record
+  public int add(ItemRecord item) throws SQLException {
+    String query = "INSERT INTO item (stato, descrizione, id_item) VALUES (?, ?, ?)";
+
+    PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+    ps.setString(1, item.getStato());
+    //...
+
+    ps.executeUpdate();
+    return rs.getInt(1);
+  }
+  
+  //Definizione degli altri metodi dell'interfaccia
+  //...
+}
+```
+Di queste classi, usiamo principalmente il metodo <code>getDescriptionFromDB()</code> della classe <code>GameObject</code> e tutte le sue sottoclassi (<code>Item</code>, <code>ColorClass</code> e <code>Room</code>) per ricavare la descrizione di un oggetto di gioco dal database. Ad esempio, la classe <code>Item</code>, nella sua definizione del metodo, istanzia un oggetto della classe <code>ItemDaoImpl</code> e ne richiama il metodo <code>getDescrizioneByIdAndStato()</code> passando come parametri l'ID dell'oggetto e il suo stato corrente, così da ricavarne la descrizione dal database. Ad esempio, il comando *OSSERVA [oggetto]* stampa sulla GUI la descrizione dell'oggetto richiesto dopo averla recuperata in questo modo.
+```java
+public class Item extends GameObject {
+    //...
+  
+    @Override
+    public String getDescriptionFromDB() {
+        ItemDaoImpl itemDao = new ItemDaoImpl();
+    
+        try {
+            return itemDao.getDescrizioneByIdItemAndStato(super.getId(), super.getStatus());
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+            return "Strano, neanche io che sono il narratore riesco a descrivere questo oggetto...";
+        }
+    }
+    //...
+  
+}
+```
+I dialoghi e i messaggi delle interazioni utilizzano un approccio simile, quindi dichiarando un oggetto di tipo <code>DialogDaoImpl</code> e ricavando il testo dal database usando il metodo apposito passando l'ID fornito come parametro. La differenza è che i dialoghi hanno un ID predefinito, scritto direttamente nel codice, anziché essere salvato come attributo di classe.
+
+Infine, per la gestione degli <code>Score</code> nel server si utilizzano invece molte delle operazioni di base come inserimento e interrogazioni di diverso tipo, in quanto la gestione della classifica richiede l'utilizzo operazioni più variegate.
 ### Thread
 Nel nostro progetto abbiamo utilizzato i Thread per compiere diverse task di supporto in tutto il programma. Sono stati usati per piccole operazioni, come la gestione della progress bar, oppure per implementare funzionalità più importanti come la riproduzione della musica.
 
