@@ -662,4 +662,12 @@ public class GameGUI extends JPanel {
         //Se il gioco è finito, blocca il tasto save, altrimenti sbloccalo
         save.setEnabled(!isFinished);
     }
+
+    /**
+     * Metodo setter per l'attributo startScore.
+     * @param startScore Nuovo valore booleano dell'attributo startScore.
+     */
+    public void setScore(final boolean startScore) {
+        this.startScore = startScore;
+    }
 }

@@ -261,6 +261,7 @@ public class MenuGUI extends JPanel {
 
         //Imposta il gioco a non finito
         HandlerGUI.getGameGUI().setFinished(false);
+        HandlerGUI.getGameGUI().setScore(false);
     }
 
 
@@ -311,6 +312,7 @@ public class MenuGUI extends JPanel {
 
             //Imposta il gioco a non finito
             HandlerGUI.getGameGUI().setFinished(false);
+            HandlerGUI.getGameGUI().setScore(false);
         }
     }
 
