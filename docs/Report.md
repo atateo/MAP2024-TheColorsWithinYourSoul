@@ -702,6 +702,247 @@ public void startProgressBar() {
 Altre operazioni che abbiamo eseguito utilizzando i Thread includono aggiornamento di elementi di GUI utilizzando il metodo <code>scheduleAtFixedRate()</code> come spiegato sopra (l'aggiornamento del label del timer, per esempio). Abbiamo anche fatto un utilizzo indiretto dei Thread lavorando con l'<code>Event Dispatch Thread</code> che gestisce il flow della GUI, oppure utilizzando alcune classi che si appoggiano sui Thread come <code>System</code>, nello specifico utilizzando il metodo <code>currentTimeMillis()</code> sulla quale è basato l'intero funzionamento della classe <code>GameTimer</code>, che gestisce il timer di gioco.
 ### REST e Socket
 
+Per implementare un sistema di comunicazione client/server abbiamo realizzato un client REST e utilizzato i Socket per gestire la classifica con i migliori tempi ottenuti per la soluzione del gioco.
+Il client REST si interfaccia con il webService pubblico ArtSy, un sistema molto complesso che condivide migliaia di opere d'arte di artisti di ogni genere ed epoca.
+ArtSy prevede l'utilizzo delle proprie API previa iscrizione al servizio e l'ottenimento di un token applicativo "X-XAPP-Token" che viene utilizzato in tutte le chiamate di ogni operazione.
+Per semplificare le operazioni di recupero delle opere d'arte, abbiamo effettuato un'attività di scouting che partendo dal nome dell'artista, ci ha portato a definire un set di undici opere d'arte predefinite.
+Queste opere d'arte sono state catalogate nel file application.properties; randomicamente viene estratto un id utilizzato per recuperare tramite opportuna API la specifica opera d'arte. Questo rende ancora più interessante l'esperienza di gioco, permettendo ad un player che termini il gioco più volte, di ottenere un'opera d'arte sempre diversa.
+```java
+// Estrae randomicamente l'id dell'opera d'arte da un elenco predefinito
+            Random random = new Random();
+            int n = appProps.getIdArtwork().length - 1;
+            int nRandom = random.nextInt(n + 1);
+```java
+
+La classe ClientRest implementa principalmente due metodi, uno che effettua le chiamate in POST e uno che effettua le chiamate in GET. Gli altri metodi PUT e DELETE non sono stati considerati poichè non sono utili nel nostro progetto.
+Il metodo executePost è stato utilizzato per recuperare il token di autenticazione fornendo in input l'url e le credenziali (client_id e client_secret) di accesso:
+```java
+//esegue la chiamata in POST verso il servizio di autenticazione
+        String jsonResponse = executePost(url + "?client_id=" + clientID + "&client_secret=" + secret);
+
+        if (jsonResponse != null && !jsonResponse.isEmpty()) {
+            // Estrae il token che sarà utilizzato per il servizio GET
+            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+            String token = jsonObject.get(TOKEN).getAsString();
+```java
+
+
+Mentre il metodo executeGet è stato utilizzato per il recupero dell'opera d'arte e del relativo artista:
+```java
+String urlOpere = appProps.getUrlEndpoint() + URL_ARTWORK + idArtwork;
+            String jsonOpera = executeGet(urlOpere, token);
+
+            if (jsonOpera != null && !jsonOpera.isEmpty()) {
+                Gson gson = new Gson();
+                Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
+                if (artwork != null) {
+
+                    Links links = artwork.getLinks();
+                    if (links != null) {
+                        if (links.getImage() != null && links.getImage().getHref() != null) {
+                            String urlImmagine = links.getImage().getHref().replace("{image_version}", "large");
+                            operaDArte = getImage(urlImmagine);
+                            nameArtwork = artwork.getTitle();
+                            artworkResponse.setArtwork(operaDArte);
+                            artworkResponse.setNameArtwork(nameArtwork);
+                        }
+                        if (links.getArtists() != null && links.getArtists().getHref() != null) {
+                            String urlArtista = links.getArtists().getHref();
+                            String jsonArtista = executeGet(urlArtista, token);
+                            if (jsonArtista != null && !jsonArtista.isEmpty()) {
+                                artworkResponse.setNameArtist(getNameArtist(jsonArtista));
+                            }
+                        }
+                    } else {
+                        nameArtwork = "Opera d'arte non più disponibile";
+                    }
+```java
+
+La deserializzazione della response è effettuata tramite la libreria Gson che estrae gli attributi dalla stringa e li associa agli attributi definiti nell'oggetto Artwork.
+
+```java
+Artwork artwork = gson.fromJson(jsonOpera, Artwork.class);
+```java
+
+Il tipo di ritorno del client è un bean "ArtworkResponse" che definisce gli attributi: nameArtist e nameArtwork di tipo String e artwork di tipo byte[]:
+```java
+	private byte[] artwork;
+    private String nameArtwork;
+    private String nameArtist;
+```java
+
+Per recuperare il nome dell'artista dalla relativa response, si è scelto di non effettuare una deserializzazione completa ma si è proceduto a recuperare l'attributo direttamente:
+
+```java
+/**
+ * Recupera il nome dell'artista dal json ottenuto dalla chiamata.
+ *
+ * @param jsonString la stringa contenente i dati restituiti dall'api
+ * @return il nome dell'artista
+ */
+private static String getNameArtist(String jsonString) {
+	/*questo metodo usa volutamente la logica di recupero dell'attributo mediante espressione lambda,
+	 * avendo già utilizzato negli altri metodi la logica di binding attuata tramite Gson
+	 */
+
+	JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+
+	// Uso una lambda per recuperare il nome dell'artista dalla struttura del json fornito in input
+	Optional<String> name = Optional.ofNullable(jsonObject)
+			.map(obj -> obj.getAsJsonObject("_embedded"))
+			.map(embedded -> embedded.getAsJsonArray("artists"))
+			.flatMap(artists -> !artists.isEmpty() ? Optional.of(artists.get(0).getAsJsonObject()) : Optional.empty())
+			.map(artist -> artist.get("name").getAsString());
+
+	// Ritorna il nome dell'artista o null se non riesce a recuperarlo
+	return name.orElse("Artista sconosciuto");
+}
+```java
+
+Al termine del gioco, la classe ClientRest si occupa di recuperare l'opera d'arte e renderizzarla a video nel frame di gioco.
+
+La gestione della classifica è stata realizzata mediante utilizzo di apposita tabella, come già indicato nella sezione database.
+Per le operazioni di inserimento di un nuovo punteggio e il recupero della lista, sono stati implementati i Socket.
+All'avvio del gioco, la main class si occupa di inizializzare il GameServer sulla porta indicata nel costruttore:
+
+```java
+/**
+ * Costruttore per la creazione del server sulla porta specificata.
+ *
+ * @param port la porta su cui il server si mette in ascolto.
+ */
+public GameServer(int port) {
+	try {
+		serverSocket = new ServerSocket(port);
+	} catch (IOException e) {
+		logger.error("Errore durante la creazione del server: ", e);
+	}
+	logger.info("Server creato");
+}
+```java
+
+La classe server implementa il metodo start che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso:
+
+```java
+while (true) {
+	try (Socket clientSocket = serverSocket.accept();
+		 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+		 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream())) {
+		 ...
+```java
+
+Sulla nase dell'operazione definita dal client, effettua le due principali operazioni: POST e GET.
+Catturata la richiesta del client, il server esrgue il ramo di codice selezionato:
+
+```java
+String input = (String) in.readObject();
+    switch (input) {
+....
+```java
+
+POST indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco:
+
+```java
+case "POST" -> {
+	ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
+	Score score = (Score) in.readObject();
+	try {
+		int keyGenerated = scoreDaoImpl.add(score);
+		out.writeObject("Operazione di inserimento eseguita correttamente. KEY=" + keyGenerated);
+	} catch (SQLException e) {
+		logger.error("Operazione di inserimento fallita", e);
+		out.writeObject("Operazione di inserimento fallita");
+	}
+}
+```java
+
+GET indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dicei:
+
+```java
+case "GET" -> {
+	ScoreDaoImpl scoreDaoImpl = new ScoreDaoImpl();
+	try {
+		out.writeObject(scoreDaoImpl.getScores(10));
+	} catch (SQLException e) {
+		logger.error("Eccezione in fase di recupero della classifica: ", e);
+		out.writeObject("Eccezione in fase di recupero della classifica: " + e);
+	}
+}
+```java
+
+Anche se non sono è previsto che il client invii comandi differenti, è stato gestito il caso di default input errato:
+
+```java
+default -> {
+	out.writeObject("Operazione non valida");
+}
+```java
+
+Il server, in linea teorica, dovrebbe essere eseguito come applicazione a se stante ma per comodità di gestione viene eseguito nel gioco.
+Il client è invece parte integrante del programma ed è utilizzato per alimentare la classe ScoreGui.
+La classe GameClient definisce il metodo startConnection che si occupa di istanziare un socket sull'indirizzo e porta passati come parametro, inizializzando gli oggetti che si occupano di gestire l'input e l'output nella comunicazione:
+
+```java
+public void startConnection(String ip, int port) throws UnknownHostException, IOException {
+	clientSocket = new Socket(ip, port);
+	out = new ObjectOutputStream(clientSocket.getOutputStream());
+	in = new ObjectInputStream(clientSocket.getInputStream());
+}
+```java
+
+Sempre nalla classe GameClient sono definiti i metodi che si occupano di inviare il tempo di gioco al server e recuperare la lista dei primi dieci migliori tempi:
+
+```java
+public String sendScore(Score score) {
+String resp = null;
+try {
+	out.writeObject("POST");
+	out.writeObject(score);
+	resp = (String) in.readObject();
+	logger.info("Risposta del server: {}", resp);
+	.....
+```java
+
+
+```java
+out.writeObject("GET");
+
+List<?> response = (List<?>) in.readObject();
+for (Iterator<?> iterator = response.iterator(); iterator.hasNext(); ) {
+	Score score = (Score) iterator.next();
+	punteggi.add(score);
+}
+```java
+
+La classe "ScoreGui" utilizza "GameClient" per inviare il tempo di gioro del player e ricevere la lista aggiornata dal server. 
+Il metodo "addScore" avvia la connessione verso il server, richiama il metodo sendScore del client e chiude la connessione verso il server.
+
+```java
+private void addScore(Score score) {
+	if (score != null) {
+		GameClient client = new GameClient();
+		try {
+			client.startConnection("localhost", 3999);
+			String resp = client.sendScore(score);
+			client.stopConnection();
+		...
+```java
+Il metodo "getScores" avvia la connessione verso il server, richiama il metodo getScores del client e chiude la connessione verso il server.
+
+```java
+private List<Score> getScores() {
+	GameClient client = new GameClient();
+	List<Score> scores = new ArrayList<>();
+	try {
+		client.startConnection("localhost", 3999);
+		scores = client.getScores();
+		client.stopConnection();
+	...
+```java
+
+Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework logj4. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
+
+
 ### GUI
 
 ### Lambda expressions e functions
