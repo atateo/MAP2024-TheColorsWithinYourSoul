@@ -8,6 +8,7 @@ public enum Command {
     NORD,
     SUD,
     OVEST,
+    BACK,
     EST,
     OSSERVA,
     INVENTARIO,

@@ -12,20 +12,19 @@ import it.uniba.map.giocotestuale.utility.Mixer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Classe contenente l'implementazione del gioco The Colors Within Your Soul.
+ *
  * @author Yuri Tateo
  * @author Antimo Tateo
  * @author Angelo Vincenti
  */
 public class ColorsWithinYourSoulGame extends GameEngine {
-	private DialogDaoImpl dialog;
-    
+    private DialogDaoImpl dialog;
+
     /**
      * Costruttore di classe. Non ha parametri. Richiama il costruttore della superclasse per
      * l'inizializzazione e successivamente crea la logica di gioco con defineGameInteraction.
@@ -34,6 +33,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         super();
         dialog = new DialogDaoImpl();
     }
+
     /**
      * Logger per la registrazione degli eventi.
      */
@@ -73,6 +73,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         commands.add(new CommandClass("Sud", Command.SUD, List.of("s", "south", "indietro", "vaiIndietro")));
         commands.add(new CommandClass("Ovest", Command.OVEST, List.of("o", "west", "sinistra", "vaiSinistra", "vaiASinistra")));
         commands.add(new CommandClass("Est", Command.EST, List.of("e", "east", "destra", "vaiDestra", "vaiADestra")));
+        commands.add(new CommandClass("Back", Command.BACK, List.of("b", "indietro", "esciStanza")));
         commands.add(new CommandClass("Osserva", Command.OSSERVA, List.of("g", "l", "look", "vedi", "esamina", "osserva", "ammira", "ispeziona")));
         commands.add(new CommandClass("Inventario", Command.INVENTARIO, List.of("i", "inventory", "borsa", "zaino", "inv")));
         commands.add(new CommandClass("Prendi", Command.PRENDI, List.of("p", "t", "take", "raccogli", "recupera", "intasca")));
@@ -109,6 +110,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
     /**
      * Metodo che si occuperà di aggiornare il gioco quando l'utente inserisce un comando.
      * A tutti gli effetti è il metodo che esegue i comandi del gioco. Definizione del metodo in GameEngine.
+     *
      * @param output Oggetto di tipo ParserOutput costruito sull'input dell'utente dalla classe Parser.
      */
     @Override
@@ -131,7 +133,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //OSSERVA è trattato come un'interaction sulla stanza corrente, così da poter definire
         //comportamenti diversi del comando sulla base dello stato della stanza.
 
-        List<Command> movementCommands = List.of(Command.NORD, Command.SUD, Command.OVEST, Command.EST);
+        List<Command> movementCommands = List.of(Command.NORD, Command.SUD, Command.OVEST, Command.EST, Command.BACK);
         boolean didSomething = false;
 
         if (output == null) {
@@ -183,7 +185,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                 }
 
                 //Se l'oggetto è un colore sbloccato, stampane la descrizione a video
-                if(output.getFirstObject() instanceof ColorClass && ((ColorClass) output.getFirstObject()).isUnlocked()){
+                if (output.getFirstObject() instanceof ColorClass && ((ColorClass) output.getFirstObject()).isUnlocked()) {
                     GameToGUICommunication.getInstance().toGUI(output.getFirstObject().getDescriptionFromDB());
                     return;
                 }
@@ -196,7 +198,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         //Verifica che per il comando spingi e prendi l'oggetto sia nella stanza e che
         //l'oggetto ammetta quell'azione su di esso, inoltre, implementa il comando PRENDI
         if (command == Command.SPINGI || command == Command.PRENDI) {
-            if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject())){
+            if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject())) {
                 invalidCommandOutput();
                 return;
             }
@@ -205,7 +207,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
                 GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(57));//57
                 return;
             } else if (output.getCommandType() == Command.PRENDI) {
-                if ( !((Item) output.getFirstObject()).getPickable()) {
+                if (!((Item) output.getFirstObject()).getPickable()) {
                     GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(58));//58
                     return;
                 } else if (!output.getFirstObject().getName().contains("Pennello")) {
@@ -259,7 +261,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             }
 
             if (!getCurrentRoom().getItemsInRoom().contains((Item) output.getFirstObject()) &&
-            !super.getInventory().contains((Item) output.getFirstObject())) {
+                    !super.getInventory().contains((Item) output.getFirstObject())) {
                 invalidCommandOutput();
                 return;
             }
@@ -284,17 +286,43 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             } else {
                 output.setFirstObject(this.getCurrentRoom());
 
-                RoomConnection destination = super.getCurrentRoom().getRoomConnection(command);
+                if (output.getCommandType() == Command.BACK) {
+                    //Il comando back permette di uscire da una stanza con una sola porta, tornando quindi da dove si è entati
+                    //Viene eseguito solo se la stanza
+                    List<RoomConnection> destination;
 
-                //Verifica ed esegue il comando di movimento
-                if (destination == null) {
-                    GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(62));//62
-                } else if (destination.isLocked()) {
-                    GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(63));//63
+                    //Lambda expression che prende tutti i collegamenti non nulli della stanza corrente
+                    destination = Arrays.stream(Command.values())
+                            .map(getCurrentRoom()::getRoomConnection)
+                            .filter(connection -> connection != null)
+                            .collect(Collectors.toList());
+
+                    if (destination.size() != 1) {
+                        invalidCommandOutput();
+                        return;
+                    } else if (destination.getFirst().isLocked()) {
+                        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(63));//63
+                        return;
+                    } else {
+                        setCurrentRoom(destination.getFirst().getReachableRoom(this));
+                        GameToGUICommunication.getInstance().notifyRoomUpdateToGUI();
+                        Mixer.getInstance().changRoomMusic(getCurrentRoom().getName());
+                    }
                 } else {
-                    setCurrentRoom(destination.getReachableRoom(this));
-                    GameToGUICommunication.getInstance().notifyRoomUpdateToGUI();
-                    Mixer.getInstance().changRoomMusic(getCurrentRoom().getName());
+                    RoomConnection destination = super.getCurrentRoom().getRoomConnection(command);
+
+                    //Verifica ed esegue il comando di movimento
+                    if (destination == null) {
+                        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(62));//62
+                        return;
+                    } else if (destination.isLocked()) {
+                        GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(63));//63
+                        return;
+                    } else {
+                        setCurrentRoom(destination.getReachableRoom(this));
+                        GameToGUICommunication.getInstance().notifyRoomUpdateToGUI();
+                        Mixer.getInstance().changRoomMusic(getCurrentRoom().getName());
+                    }
                 }
             }
         }
@@ -379,6 +407,7 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 
     /**
      * Metodo che verifica se il gioco è terminato o meno. Definizione del metodo di GameEngine.
+     *
      * @return Booleano che indica se il gioco è terminato o meno.
      */
     @Override

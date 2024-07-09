@@ -83,6 +83,8 @@ public class CommandsGUI extends JFrame {
                                 
                                 Est: Permette di muoversi a destra
                                 
+                                Back: Se sei in una stanza con una sola porta, esce da quella porta (se è aperta)
+                                
                                 Osserva: Mostra la descrizione della stanza e degli oggetti che risaltano all'occhio
                                 
                                 Osserva [oggetto]: Mostra la descrizione dell'oggetto se presente nella stanza o nell'inventario
