@@ -574,6 +574,7 @@ public void update(ParserOutput output) {
     if (output.getCommandType() == Command.BACK) {
         List<RoomConnection> destination;
 
+        //Lambda expression che travasa in una lista i collegamenti non nulli della stanza corrente
         destination = Arrays.stream(Command.values())
                             .map(getCurrentRoom()::getRoomConnection)
                             .filter(connection -> connection != null)
