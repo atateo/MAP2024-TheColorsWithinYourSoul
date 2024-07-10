@@ -89,6 +89,8 @@ public class ColorsWithinYourSoulGame extends GameEngine {
 }
 ```
 
+Riportiamo qui anche il link alla documentazione [javadoc](javadoc/index.html) di questo progetto.
+
 #### Diagramma delle classi
 Qui sotto riportiamo i diagrammi delle classi della porzione di programma che si è deciso di rappresentare, nello specifico la parte di programma che si occupa della definizione del gioco vero e proprio e della gestione della logica di gioco.
 ![Diagramma delle classi](./img/UML_completo.png)
