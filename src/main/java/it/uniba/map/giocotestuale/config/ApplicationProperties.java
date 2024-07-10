@@ -1,6 +1,8 @@
 package it.uniba.map.giocotestuale.config;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -256,11 +258,12 @@ public class ApplicationProperties {
      * Costruttore privato che carica le proprietà dell'applicazione da file.
      */
     private ApplicationProperties() {
-        String appConfigPath = "application.properties";
+        String appConfigPath = "src/main/resources/application.properties";
 
         Properties appProps = new Properties();
         try {
-            appProps.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(appConfigPath));
+        	InputStream input = new FileInputStream(appConfigPath);
+            appProps.load(input);
             logger.info("Proprietà dell'applicazione caricate correttamente.");
             setVersion(appProps.getProperty("version"));
             setSetup(Boolean.parseBoolean(appProps.getProperty("setup")));
