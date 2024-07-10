@@ -1031,7 +1031,7 @@ private void setGroupLayout() {
 ```
 Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo aver completato il gioco diventerà a colori. Mostriamo qui i due menù uno accanto all'altro per mostrare la differenza.
 
-<img src="./img/Thumbnail.png" width="400" height="300"><img src="./img/Menu.png" width="400" height="300">
+<img src="./img/Thumbnail.png" width="600" height="450"><img src="./img/Menu.png" width="600" height="450">
 
 
 Questo avviene utilizzando il metodo <code>updateMenu</code>, a fine gioco, il quale cambia i colori dei pulsanti e cambia lo sfondo.
