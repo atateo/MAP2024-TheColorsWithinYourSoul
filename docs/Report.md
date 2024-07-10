@@ -805,7 +805,7 @@ public GameServer(int port) {
 	logger.info("Server creato");
 }
 ```
-La classe server implementa il metodo <code>start</code> che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso. Sulla base dell'operazione definita dal client, effettua le due principali operazioni.
+La classe server implementa il metodo <code>start()</code> che pone in ascolto il <code>ServerSocket</code> e si predispone per accettare le chiamate in ingresso. Sulla base dell'operazione definita dal client, effettua le due principali operazioni.
 - <code>POST</code> indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco.
 - <code>GET</code> indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dieci.
 
@@ -914,7 +914,7 @@ private void addScore(Score score) {
 }
 ```
 
-Il metodo <code>getScores</code> avvia la connessione verso il server, richiama il metodo <code>getScores</code> del client e chiude la connessione verso il server.
+Il metodo <code>getScores()</code> avvia la connessione verso il server, richiama il metodo <code>getScores</code> del client e chiude la connessione verso il server.
 
 ```java
 private List<Score> getScores() {
@@ -1029,10 +1029,9 @@ private void setGroupLayout() {
         );
     }
 ```
-Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo aver completato il gioco diventerà a colori. Passando da così:
-<img src="./img/Thumbnail.png">
-A così
-<img src="./img/Menu.png">
+Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo aver completato il gioco diventerà a colori. Mostriamo qui i due menù uno accanto all'altro per mostrare la differenza.
+<img src="./img/Thumbnail.png" width="400" height="300"><img src="./img/Menu.png" width="400" height="300">
+
 
 Questo avviene utilizzando il metodo <code>updateMenu</code>, a fine gioco, il quale cambia i colori dei pulsanti e cambia lo sfondo.
 La classe <code>CreditsGUI</code> mostra i crediti di gioco:
