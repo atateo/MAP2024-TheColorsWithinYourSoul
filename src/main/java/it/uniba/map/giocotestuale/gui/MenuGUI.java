@@ -375,9 +375,9 @@ public class MenuGUI extends JPanel {
      *
      * @param evt rappresenta l'evento del click sul pulsante.
      */
-    private void scoreActionPerformed(ActionEvent evt)
-    {
-
+    private void scoreActionPerformed(ActionEvent evt) {
+        ScoreGUI scoreGUI = new ScoreGUI();
+        scoreGUI.setVisible(true);
     }
 
     /**

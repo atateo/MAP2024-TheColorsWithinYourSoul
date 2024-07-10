@@ -57,7 +57,8 @@ public class ScoreGUI extends JFrame {
     private final long time;
 
     /**
-     * Costruttore pubblico della ScoreGUI.
+     * Costruttore pubblico della ScoreGUI. Ha un parametro e viene richiamato a fine gioco per creare
+     * una GUI che possa inviare lo score al server.
      *
      * @param time Tempo impiegato dal player a completare il gioco, espresso in ms.
      */
@@ -73,7 +74,7 @@ public class ScoreGUI extends JFrame {
         }
         ImageIcon img = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
         setIconImage(img.getImage());
-        createView();
+        createView(true);
 
         setTitle("The Colors within your Soul - Classifica");
         setSize(650, 400);
@@ -82,9 +83,34 @@ public class ScoreGUI extends JFrame {
     }
 
     /**
-     * Metodo che formatta la view della ScoreGUI
+     * Costruttore pubblico della ScoreGUI. Non ha parametri. Crea la GUI per la visualizzazione della classifica.
      */
-    private void createView() {
+    public ScoreGUI() {
+        //Imposta il tempo a 0, in quanto non necessario in questo caso
+        this.time = 0;
+
+        // Carica l'immagine di sfondo
+        try {
+            backgroundImage = ImageIO.read(new File("src/main/resources/img/Score.png"));
+        } catch (IOException ex) {
+            logger.error(ex);
+        }
+        ImageIcon img = new ImageIcon("src/main/resources/img/icona_pennello.jpg");
+        setIconImage(img.getImage());
+        createView(false);
+
+        setTitle("The Colors within your Soul - Classifica");
+        setSize(650, 400);
+        setLocationRelativeTo(null);
+        setResizable(false);
+    }
+
+    /**
+     * Metodo che formatta la view della ScoreGUI.
+     *
+     * @param showInputField Booleano che determina se va inserito il pulsante di invio dello score o meno.
+     */
+    private void createView(final boolean showInputField) {
         JPanel panel = new BackgroundPanel();
         panel.setLayout(new GridBagLayout());
         getContentPane().add(panel);
@@ -95,22 +121,48 @@ public class ScoreGUI extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        JPanel inputPanel = new JPanel(new FlowLayout());
-        inputPanel.setOpaque(false); // Rendi il pannello trasparente
-        panel.add(inputPanel, gbc);
+        if (showInputField) {
+            JPanel inputPanel = new JPanel(new FlowLayout());
+            inputPanel.setOpaque(false); // Rendi il pannello trasparente
+            panel.add(inputPanel, gbc);
 
-        JLabel nicknameLabel = new JLabel("Player:");
-        nicknameLabel.setForeground(Color.BLACK); // Cambia il colore del testo a nero
-        nicknameLabel.setFont(nicknameLabel.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
-        inputPanel.add(nicknameLabel);
+            JLabel nicknameLabel = new JLabel("Player:");
+            nicknameLabel.setForeground(Color.BLACK); // Cambia il colore del testo a nero
+            nicknameLabel.setFont(nicknameLabel.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
+            inputPanel.add(nicknameLabel);
 
-        nicknameField = new JTextField(20);
-        nicknameField.setFont(nicknameField.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
-        inputPanel.add(nicknameField);
+            nicknameField = new JTextField(20);
+            nicknameField.setFont(nicknameField.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
+            inputPanel.add(nicknameField);
 
-        sendButton = new JButton("Invia");
-        sendButton.setFont(sendButton.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
-        inputPanel.add(sendButton);
+            sendButton = new JButton("Invia");
+            sendButton.setFont(sendButton.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
+            inputPanel.add(sendButton);
+
+            sendButton.addActionListener(new ActionListener() {
+                DialogDaoImpl impl = new DialogDaoImpl();
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String nickname = nicknameField.getText();
+
+                    Score score = new Score();
+                    score.setPlayer(nickname);
+                    // prendere il tempo
+                    score.setTime(time);
+                    addScore(score);
+                    textArea.append(" \n");
+                    // spengo i campi che non mi occorrono più
+                    inputPanel.setVisible(false);
+                    boolean inFirstTen = updateScoreList(getScores());
+                    if (!inFirstTen) {
+                        String riga = String.format("%-20s%-20s%-20s", "Posizione:  --", "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
+                        textArea.append(riga + "\n");
+                    }
+
+                    GameToGUICommunication.getInstance().toGUI(impl.getTestoById(66));//66
+                }
+            });
+        }
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;
@@ -130,30 +182,6 @@ public class ScoreGUI extends JFrame {
         panel.add(scrollPane, gbc);
 
         updateScoreList(getScores());
-
-        sendButton.addActionListener(new ActionListener() {
-        	DialogDaoImpl impl = new DialogDaoImpl(); 
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nickname = nicknameField.getText();
-
-                Score score = new Score();
-                score.setPlayer(nickname);
-                // prendere il tempo
-                score.setTime(time);
-                addScore(score);
-                textArea.append(" \n");
-                // spengo i campi che non mi occorrono più
-                inputPanel.setVisible(false);
-                boolean inFirstTen = updateScoreList(getScores());
-                if (!inFirstTen) {
-                    String riga = String.format("%-20s%-20s%-20s", "Posizione:  --", "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
-                    textArea.append(riga + "\n");
-                }
-
-                GameToGUICommunication.getInstance().toGUI(impl.getTestoById(66));//66
-            }
-        });
     }
 
     /**
