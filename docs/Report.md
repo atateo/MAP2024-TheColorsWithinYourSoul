@@ -1031,12 +1031,16 @@ Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo av
 <img src="./img/Thumbnail.png">
 A così
 <img src="./img/Menu.png">
+
 Questo avviene utilizzando il metodo <code>updateMenu</code>, a fine gioco, il quale cambia i colori dei pulsanti e cambia lo sfondo.
 La classe <code>CreditsGUI</code> mostra i crediti di gioco:
+
 <img src="./img/Crediti.png">
+
 La classe  <code>ProgressBarGUI</code> si occupa di inizializzare e far muovere la ProgressBar.
 La classe  <code>GameGUI</code> si occupa della GUI dove si svolge l'intero gioco:
 <img src="./img/Game.png">
+
 In questa classe è presente una <code>toolBar</code> che racchiude tutti i pulsanti consultabili in game, una barra dei colori che all'inizio
 è grigia ma quando l'utente sbloccherà man mano i colori durante gli enigmi verrà colorata del colore corrispondente a quello ottenuto.
 Questo viene fatto grazie al metodo <code>unlockColor</code>.
