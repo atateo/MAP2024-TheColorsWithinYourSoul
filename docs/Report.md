@@ -984,7 +984,6 @@ public class HandlerGUI extends JFrame {
 ```
 <code>MenuGUI</code> si occupa di gestire le componenti del menu iniziale, come lo sfondo e i pulsanti per avviare o 
 caricare la partita. Per cambiare schermata a seguito del click su un pulsante utilizza sempre <code>CardLayout</code>.
-Struttura della classe:
 ```java
 public class MenuGUI extends JPanel {
 
@@ -1035,19 +1034,18 @@ Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo av
 
 
 Questo avviene utilizzando il metodo <code>updateMenu</code>, a fine gioco, il quale cambia i colori dei pulsanti e cambia lo sfondo.
-La classe <code>CreditsGUI</code> mostra i crediti di gioco:
+Abbiamo inoltre la classe <code>CreditsGUI</code>, che mostra i crediti di gioco.
 
 <img src="./img/Crediti.png">
 
-La classe  <code>ProgressBarGUI</code> si occupa di inizializzare e far muovere la ProgressBar.
-La classe  <code>GameGUI</code> si occupa della GUI dove si svolge l'intero gioco:
+La classe  <code>ProgressBarGUI</code> si occupa di inizializzare e far muovere la ProgressBar, mentre la classe  <code>GameGUI</code> si occupa della GUI dove si svolge l'intero gioco.
 <img src="./img/Game.png">
 
 In questa classe è presente una <code>toolBar</code> che racchiude tutti i pulsanti consultabili in game, una barra dei colori che all'inizio
 è grigia ma quando l'utente sbloccherà man mano i colori durante gli enigmi verrà colorata del colore corrispondente a quello ottenuto.
-Questo viene fatto grazie al metodo <code>unlockColor</code>.
+Questo viene fatto grazie al metodo <code>unlockColor()</code>.
 Inoltre vi è la <code>TextPane</code> che mostra le scritte del gioco, la <code>TextArea</code> per l'inventario e il <code>JPanel</code> per l'immagine di gioco corrente(attributo <code>imagePanel</code>). Sempre grazie a <code>CardLayout</code> è possibile
-passare da un immagine di gioco ad un'altra. Metodi per l'aggiunta dei <code>JPanel</code> e il cambio di immagine:
+passare da un immagine di gioco ad un'altra.
 ```java
 public void initCurrentImage() {
      cardLayout = new CardLayout(); //istanzia il cardLayout 
