@@ -66,9 +66,9 @@ public class CreditsGUI extends JPanel {
 
         back = new JButton(new ImageIcon("src/main/resources/img/backButton.png"));
         back.setFocusPainted(false);
-        back.setBackground(new Color(166, 15, 15));
+        back.setBackground(new Color(50, 168, 156));
         back.setForeground(Color.BLACK);
-        back.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        back.setBorder(BorderFactory.createLineBorder(new Color(168,129,50),3));
         back.addActionListener(this::backActionPerformed);
 
         yuriImg = new JLabel(new ImageIcon("src/main/resources/img/pfpYuri.png"));
