@@ -931,6 +931,178 @@ private List<Score> getScores() {
 Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework <code>logj4</code>. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
 
 ### GUI
+La GUI del gioco è stata realizzata sfruttando i package Java <code>Swing</code> e <code>AWT</code>, per ogni GUI che compone il gioco è stata implementata un'apposita classe(Menu,Game...).
+Una classe <code>HandlerGUI</code> è stata pensata per coordinare fra loro le varie GUI, essa è una sottoclasse della classe <code>JFrame</code> e rappresenta il frame principale del gioco,
+sul quale verranno visualizzate le altre GUI. Per poter passare da una schermata all'altra le classi <code>MenuGUI</code>,<code>GameGUI</code>,<code>CreditsGUI</code> e <ProgressBarGUI</code> sono state realizzate come
+sottoclassi di <code>JPanel</code>. In questo modo  <code>HandlerGUI</code> ha utilizzato la classe di AWT <code>CardLayout</code> per gestire la selezione dei vari
+pannelli sullo schermo (CardLayout organizza i JPanel in una struttura a stack e permette lo scorrimento di quest'ultimi). Comunica con il gioco vero e proprio grazie alla classe <code>GameToGUICommunication</code>.
+```java
+public class HandlerGUI extends JFrame {
+    private static GameGUI game;
+
+    private static MenuGUI menu;
+
+    private static CreditsGUI credits;
+
+    private static ProgressBarGUI bar;
+
+    private static CardLayout layout;
+
+    /**
+     * Costruttore pubblico che si occupa di definire le impostazioni del frame principale
+     * e della creazione del CardLayout per gestire i vari pannelli.
+     */
+    public HandlerGUI() {
+        //...
+
+        // inizializzazione delle GUI
+        menu = new MenuGUI();
+        game = new GameGUI();
+        bar = new ProgressBarGUI();
+        credits = new CreditsGUI();
+
+        // creazione del CardLayout e del Panel per il passaggio fra le varie GUI
+        layout = new CardLayout();
+        JPanel cards = new JPanel(layout);
+
+        // aggiunta delle carte al pannello
+        cards.add(menu, "MenuGUI");
+        cards.add(game, "GameGUI");
+        cards.add(bar, "ProgressBarGUI");
+        cards.add(credits, "CreditsGUI");
+
+        // aggiunta delle carte al frame
+        this.add(cards);
+        this.setVisible(true); //  imposta il frame come visibile
+
+        GameToGUICommunication.getInstance().setHandlerGUI(this);
+        Mixer.getInstance().start();
+    }
+}
+```
+<code>MenuGUI</code> si occupa di gestire le componenti del menu iniziale, come lo sfondo e i pulsanti per avviare o 
+caricare la partita. Per cambiare schermata a seguito del click su un pulsante utilizza sempre <code>CardLayout</code>.
+Struttura della classe:
+```java
+public class MenuGUI extends JPanel {
+
+    private JPanel background;
+
+    private JButton start;
+    // ... gli altri pulsanti
+
+    public MenuGUI() {
+        initComponents();
+    }
+
+    /**
+     * Metodo che istanzia e setta i componenti sullo schermo.
+     */
+    private void initComponents() {
+        setGroupLayout(); // configurazione dei pulsanti
+    }
+    // ... metodi ActionPerformed dell'interfaccia ActionListener per il funzionamento dei pulsanti
+}
+```
+Il metodo <code>setGroupLayout</code> utilizza la classe di AWT <code>GroupLayout</code> per posizionare correttamente tutti gli elementi sull'asse orizzontale e verticale.
+```java
+private void setGroupLayout() {
+       // impostazione del Group Layout per il posizionamento dei vari componenti sullo sfondo
+       GroupLayout backgroundLayout = new GroupLayout(background);
+       backgroundLayout.setHorizontalGroup(
+       // posizionamento orizozontale
+       );
+       backgroundLayout.setVerticalGroup(
+               // posizionamento verticale dei pulsanti
+       );
+        background.setLayout(backgroundLayout);
+        // impostazione del Group Layout per il posizionamento dello sfondo
+        GroupLayout layout = new GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                //...
+        );
+        layout.setVerticalGroup(
+                //...
+        );
+    }
+```
+Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo aver completato il gioco diventerà a colori. Passando da così:
+<img src="./img/Thumbnail.png">
+A così
+<img src="./img/Menu.png">
+Questo avviene utilizzando il metodo <code>updateMenu</code>, a fine gioco, il quale cambia i colori dei pulsanti e cambia lo sfondo.
+La classe <code>CreditsGUI</code> mostra i crediti di gioco:
+<img src="./img/Crediti.png">
+La classe  <code>ProgressBarGUI</code> si occupa di inizializzare e far muovere la ProgressBar.
+La classe  <code>GameGUI</code> si occupa della GUI dove si svolge l'intero gioco:
+<img src="./img/Game.png">
+In questa classe è presente una <code>toolBar</code> che racchiude tutti i pulsanti consultabili in game, una barra dei colori che all'inizio
+è grigia ma quando l'utente sbloccherà man mano i colori durante gli enigmi verrà colorata del colore corrispondente a quello ottenuto.
+Questo viene fatto grazie al metodo <code>unlockColor</code>.
+Inoltre vi è la <code>TextPane</code> che mostra le scritte del gioco, la <code>TextArea</code> per l'inventario e il <code>JPanel</code> per l'immagine di gioco corrente(attributo <code>imagePanel</code>). Sempre grazie a <code>CardLayout</code> è possibile
+passare da un immagine di gioco ad un'altra. Metodi per l'aggiunta dei <code>JPanel</code> e il cambio di immagine:
+```java
+public void initCurrentImage() {
+     cardLayout = new CardLayout(); //istanzia il cardLayout 
+     //...
+     cardLayout.preferredLayoutSize(imagePanel);
+     imagePanel.setLayout(cardLayout);
+    }
+public static void addImage(String RoomName) {
+    imagePanel.add(new JPanel() {
+    @Override
+    public void paintComponent(Graphics g) {
+      super.paintComponent(g);
+      ImageIcon image = new ImageIcon("src/main/resources/img/" + RoomName + ".png");
+      g.drawImage(image.getImage(), 0, 0, getWidth(), getHeight(), this);
+    }
+  }, RoomName);
+}
+public static void setRoomImage(String roomName) {
+    imagePanel.removeAll();
+    addImage(roomName);
+    cardLayout.show(imagePanel, roomName);
+    imagePanel.revalidate();
+    imagePanel.repaint();
+}
+```
+Il metodo <code>setRoomImage</code> usa <code>addImage</code> per aggiungere l'immagine col nome specificato nell'imagePanel e sfrutta il metodo repaint e cardLayot
+per cambiare l'immagine.
+Per la <code>CommandsGUI</code> abbiamo creato una classe <code>Singleton</code> che è sottoclasse di <code>JFrame</code> e mostra la lista dei comandi.
+Si può accedere ad essa tramite il pulsante "Comandi di gioco" del menu oppure nel gioco attraverso il pulsante "?".
+
+<img src="./img/Comandi.png">
+
+Infine abbiamo la classe <code>ScoreGUI</code> che si occupa di visualizzare la Top 10 dei migliori tempi di gioco fatte dai giocatori, è una sottoclasse di  <code>JFrame</code>
+```java
+public class ScoreGUI extends JFrame {
+    //...
+    /**
+     * Costruttore pubblico della ScoreGUI. Ha un parametro e viene richiamato a fine gioco per creare
+     * una GUI che possa inviare lo score al server.
+     *
+     * @param time Tempo impiegato dal player a completare il gioco, espresso in ms.
+     */
+    public ScoreGUI(final long time) {
+        //...
+    }
+
+    /**
+     * Costruttore pubblico della ScoreGUI. Non ha parametri. Crea la GUI per la visualizzazione della classifica.
+     */
+    public ScoreGUI() {
+      //...
+    }
+  }
+```
+Immagini di esempio del funzionamento della classifica. Inizio del gioco:
+<img src="./img/Classifica1.jpg">
+
+A fine gioco, aggiunta del punteggio del giocatore tramite pulsante:
+
+<img src="./img/Classifica2.jpg">
+<img src="./img/Classifica3.jpg">
 
 ### Lambda expressions e functions
 In questo progetto, abbiamo utilizzato le lambda functions per una serie di funzioni chiave al funzionamento del programma. Come già anticipato nella sezione OOP, la logica di gioco è composta da una serie di interazioni che determinano cosa accade quando si esegue un'azione su un singolo oggetto (<code>SingleObjectInteraction</code>), cosa accade quando si esegue un'azione che include due oggetti (<code>DirectInteraction</code>) e cosa accade a un oggetto quando un altro oggetto riceve un cambiamento di stato (<code>ChainInteraction</code>). In ognuno di questi casi, le azioni che il gioco deve eseguire quando viene ricevuto un determinato comando su determinati oggetti vengono definite mediante una lambda function. Nello specifico, la classe <code>Interaction</code> ha come attributo un oggetto di tipo <code>Interactable</code>, che è un'interfaccia funzionale che include solo il metodo <code>executeInteraction</code>. Questo metodo è quello che effettivamente esegue l'interazione sugli oggetti interessati prendendo in input l'istanza di <code>GameEngine</code> che rappresenta l'istanza di gioco. Per definire un'interazione, bisogna quindi istanziare un oggetto della categoria di classi <code>Interaction</code> istanziando l'interfaccia funzionale <code>Interactable</code> mediante una lambda function che verrà passata come parametro. Qui sotto riportato un esempio pratico che definisce cosa succede col comando "USA Orologio SU Incavo" quando l'orologio è nello stato "Aggiustato":
