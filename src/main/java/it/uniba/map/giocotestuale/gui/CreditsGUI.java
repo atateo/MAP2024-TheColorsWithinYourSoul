@@ -63,7 +63,6 @@ public class CreditsGUI extends JPanel {
 
         background.setSize(1000, 700);
 
-
         back = new JButton(new ImageIcon("src/main/resources/img/backButton.png"));
         back.setFocusPainted(false);
         back.setBackground(new Color(50, 168, 156));
@@ -71,7 +70,7 @@ public class CreditsGUI extends JPanel {
         back.setBorder(BorderFactory.createLineBorder(new Color(168,129,50),3));
         back.addActionListener(this::backActionPerformed);
 
-        yuriImg = new JLabel(new ImageIcon("src/main/resources/img/pfpYuri.png"));
+        yuriImg = new JLabel(new ImageIcon(new ImageIcon("src/main/resources/img/pfpYuri.png").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
         yuriImg.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -95,7 +94,7 @@ public class CreditsGUI extends JPanel {
                         .addGap(0, 150, Short.MAX_VALUE)
         );
 
-        antimoImg = new JLabel(new ImageIcon("src/main/resources/img/pfpAntimo.png"));
+        antimoImg = new JLabel(new ImageIcon(new ImageIcon("src/main/resources/img/pfpAntimo.png").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
         antimoImg.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -120,7 +119,7 @@ public class CreditsGUI extends JPanel {
                         .addGap(0, 150, Short.MAX_VALUE)
         );
 
-        angeloImg = new JLabel(new ImageIcon("src/main/resources/img/pfpAngelo.png"));
+        angeloImg = new JLabel(new ImageIcon(new ImageIcon("src/main/resources/img/pfpAngelo.png").getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT)));
         angeloImg.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
