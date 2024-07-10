@@ -933,7 +933,7 @@ private List<Score> getScores() {
 Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework <code>logj4</code>. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
 
 ### GUI
-La GUI del gioco è stata realizzata sfruttando i package Java <code>Swing</code> e <code>AWT</code>, per ogni GUI che compone il gioco è stata implementata un'apposita classe(Menu,Game...).
+La GUI del gioco è stata realizzata sfruttando i package Java <code>Swing</code> e <code>AWT</code>, per ogni pannello/finestra che compone il gioco è stata implementata un'apposita classe (Menu, Game e così via).
 Una classe <code>HandlerGUI</code> è stata pensata per coordinare fra loro le varie GUI, essa è una sottoclasse della classe <code>JFrame</code> e rappresenta il frame principale del gioco,
 sul quale verranno visualizzate le altre GUI. Per poter passare da una schermata all'altra le classi <code>MenuGUI</code>,<code>GameGUI</code>,<code>CreditsGUI</code> e <ProgressBarGUI</code> sono state realizzate come
 sottoclassi di <code>JPanel</code>. In questo modo  <code>HandlerGUI</code> ha utilizzato la classe di AWT <code>CardLayout</code> per gestire la selezione dei vari
