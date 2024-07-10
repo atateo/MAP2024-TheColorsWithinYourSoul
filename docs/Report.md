@@ -1054,7 +1054,8 @@ public void initCurrentImage() {
      //...
      cardLayout.preferredLayoutSize(imagePanel);
      imagePanel.setLayout(cardLayout);
-    }
+}
+
 public static void addImage(String RoomName) {
     imagePanel.add(new JPanel() {
     @Override
@@ -1065,6 +1066,7 @@ public static void addImage(String RoomName) {
     }
   }, RoomName);
 }
+
 public static void setRoomImage(String roomName) {
     imagePanel.removeAll();
     addImage(roomName);
