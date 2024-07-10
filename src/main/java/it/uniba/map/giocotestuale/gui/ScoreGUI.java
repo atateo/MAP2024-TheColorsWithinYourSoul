@@ -120,13 +120,45 @@ public class ScoreGUI extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridwidth = 2;
+
+        // Aggiungi il JLabel in alto al centro
+        JLabel titleLabel = new JLabel("Top 10 tempi migliori", JLabel.CENTER);
+        titleLabel.setForeground(Color.BLACK);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        panel.add(titleLabel, gbc);
+
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridwidth = 2;
+
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setOpaque(false); // Rendi trasparente la JTextArea
+        textArea.setForeground(Color.BLACK); // Cambia il colore del testo a nero
+        textArea.setFont(new Font("Monospaced", Font.PLAIN, 16)); // Imposta un font monospaziato
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setOpaque(false); // Rendi trasparente lo JScrollPane
+        scrollPane.getViewport().setOpaque(false); // Rendi trasparente la viewport dello JScrollPane
+        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Rimuovi il bordo dello JScrollPane
+        panel.add(scrollPane, gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.gridwidth = 2;
 
         if (showInputField) {
             JPanel inputPanel = new JPanel(new FlowLayout());
             inputPanel.setOpaque(false); // Rendi il pannello trasparente
             panel.add(inputPanel, gbc);
 
-            JLabel nicknameLabel = new JLabel("Player:");
+            JLabel nicknameLabel = new JLabel("Inserisci il tuo nickname qui: ");
             nicknameLabel.setForeground(Color.BLACK); // Cambia il colore del testo a nero
             nicknameLabel.setFont(nicknameLabel.getFont().deriveFont(16f)); // Imposta il testo leggermente più grande
             inputPanel.add(nicknameLabel);
@@ -145,41 +177,29 @@ public class ScoreGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String nickname = nicknameField.getText();
 
-                    Score score = new Score();
-                    score.setPlayer(nickname);
-                    // prendere il tempo
-                    score.setTime(time);
-                    addScore(score);
-                    textArea.append(" \n");
-                    // spengo i campi che non mi occorrono più
-                    inputPanel.setVisible(false);
-                    boolean inFirstTen = updateScoreList(getScores());
-                    if (!inFirstTen) {
-                        String riga = String.format("%-20s%-20s%-20s", "Posizione:  --", "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
-                        textArea.append(riga + "\n");
-                    }
+                    if (nickname.length() > 20) {
+                        JOptionPane.showMessageDialog(null, "Inserisci un nickname più corto di 20 caratteri.", "Errore", JOptionPane.ERROR_MESSAGE);
+                        nicknameField.setText("");
+                    } else {
+                        Score score = new Score();
+                        score.setPlayer(nickname);
+                        // prendere il tempo
+                        score.setTime(time);
+                        addScore(score);
+                        textArea.append(" \n");
+                        // spengo i campi che non mi occorrono più
+                        inputPanel.setVisible(false);
+                        boolean inFirstTen = updateScoreList(getScores());
+                        if (!inFirstTen) {
+                            String riga = String.format("%-4s%-30s%-20s", "--)", score.getPlayer(), "Tempo: " + score.getTime());
+                            textArea.append(riga + "\n");
+                        }
 
-                    GameToGUICommunication.getInstance().toGUI(impl.getTestoById(66));//66
+                        GameToGUICommunication.getInstance().toGUI(impl.getTestoById(66));//66
+                    }
                 }
             });
         }
-
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-
-        textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setOpaque(false); // Rendi trasparente la JTextArea
-        textArea.setForeground(Color.BLACK); // Cambia il colore del testo a nero
-        textArea.setFont(new Font("Monospaced", Font.PLAIN, 16)); // Imposta un font monospaziato
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setOpaque(false); // Rendi trasparente lo JScrollPane
-        scrollPane.getViewport().setOpaque(false); // Rendi trasparente la viewport dello JScrollPane
-        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Rimuovi il bordo dello JScrollPane
-        panel.add(scrollPane, gbc);
 
         updateScoreList(getScores());
     }
@@ -232,7 +252,7 @@ public class ScoreGUI extends JFrame {
             if (score.getId() == myIdScore || scores.size() < 10)
                 firstTen = true;
 
-            String riga = String.format("%-20s%-20s%-20s", "Posizione:  " + positionOnBoard, "Player:  " + score.getPlayer(), "Tempo:  " + score.getTime());
+            String riga = String.format("%-4s%-30s%-20s", positionOnBoard + ")", score.getPlayer(), "Tempo: " + score.getTime());
             textArea.append(riga + "\n");
             positionOnBoard++;
         }
@@ -267,4 +287,3 @@ public class ScoreGUI extends JFrame {
         }
     }
 }
-
