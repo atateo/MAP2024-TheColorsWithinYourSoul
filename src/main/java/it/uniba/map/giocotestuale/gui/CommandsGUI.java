@@ -20,7 +20,9 @@ public class CommandsGUI extends JFrame {
      * Istanza della
      */
     private static CommandsGUI instance;
-
+    /**
+     * Immagine di background della finestra dei comandi.
+     */
     private Image backgroundImage;
 
     /**

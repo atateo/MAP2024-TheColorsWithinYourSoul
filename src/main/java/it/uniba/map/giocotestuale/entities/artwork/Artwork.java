@@ -185,6 +185,10 @@ public class Artwork {
     private Embedded embedded;
 
     /**
+     * Costruttore di default di Artwork.
+     */
+    public Artwork() {}
+    /**
      * Restituisce l'ID dell'opera d'arte.
      *
      * @return l'ID dell'opera d'arte.

@@ -7,6 +7,7 @@ import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
 import it.uniba.map.giocotestuale.type.Command;
+import org.glassfish.grizzly.compression.lzma.impl.Base;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,11 @@ import java.util.ArrayList;
  * Classe contenente il metodo che definisce la logica (tutte le interazioni) di The Colors Within Your Soul.
  */
 public class BaseGameLogic {
+
+    /**
+     * Costruttore di default di BaseGameLogic.
+     */
+    public BaseGameLogic() {}
 
     /**
      * Metodo che restituisce tutte le interactions che compongono la
@@ -522,6 +528,7 @@ public class BaseGameLogic {
      *
      * @param name             Nome da cercare.
      * @param availableObjects Lista degli oggetti di gioco in cui cercare.
+     * @return Oggetto col nome cercato. Se non esiste, restituisce null.
      */
     public GameObject getObjectByName(final String name, ArrayList<GameObject> availableObjects) {
         for (GameObject gameObject : availableObjects) {

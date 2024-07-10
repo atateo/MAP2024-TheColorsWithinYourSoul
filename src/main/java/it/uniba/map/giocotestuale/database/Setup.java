@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +26,11 @@ public class Setup {
      * getIstance per il recupero delle properties.
      */
     static ApplicationProperties appProps = ApplicationProperties.getInstance();
+
+    /**
+     * Costruttore di default di Setup. Essendo una classe di utility, è privato.
+     */
+    private Setup() {}
 
     /**
      * Metodo per creare le tabelle necessarie nel database. Viene utilizzata una

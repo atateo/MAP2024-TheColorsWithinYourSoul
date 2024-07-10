@@ -119,6 +119,9 @@ public class GameToGUICommunication {
 
     /**
      * Metodo che salverà su file l'istanza di gioco corrente.
+     *
+     * @param nomeFile Nome del file in cui verrà salvato il gioco.
+     * @return Percorso del file in cui è stato salvato il gioco.
      */
     public String saveGame(String nomeFile) {
         if (nomeFile == null || nomeFile.isEmpty()) {

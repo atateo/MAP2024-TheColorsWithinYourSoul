@@ -41,6 +41,7 @@ public class GameServer {
      * Avvia il server e attende le connessioni dei client.
      *
      * @throws IOException eccezione sollevata se si dovesse verificare un errore di I/O durante la comunicazione client/server.
+     * @throws ClassNotFoundException eccezione sollevata se non dovesse essere riconosciuta la classe dell'oggetto letto.
      */
     public void start() throws IOException, ClassNotFoundException {
         while (true) {

@@ -20,6 +20,11 @@ public class JsonUtil {
     protected static final Logger logger = LogManager.getLogger();
 
     /**
+     * Costruttore della classe JsonUtil. Essendo una classe di utility, è privato.
+     */
+    private JsonUtil() {}
+
+    /**
      * Scrive un oggetto in formato JSON su un file specificato.
      *
      * @param filePath il percorso del file in cui scrivere il JSON

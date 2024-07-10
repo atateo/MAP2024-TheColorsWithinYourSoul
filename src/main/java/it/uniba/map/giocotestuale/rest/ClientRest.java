@@ -35,11 +35,27 @@ public class ClientRest {
      * Logger per la registrazione degli eventi.
      */
     protected static final Logger logger = LogManager.getLogger();
-
+    /**
+     *
+     */
     private static final String USER_AGENT = "Mozilla/5.0";
+    /**
+     *
+     */
     private static final String URL_TOKEN = "tokens/xapp_token";
+    /**
+     *
+     */
     private static final String URL_ARTWORK = "artworks/";
+    /**
+     *
+     */
     private static final String TOKEN = "token";
+
+    /**
+     * Costruttore di default di ClientRest.
+     */
+    public ClientRest() {}
 
     /**
      * Recupera un'opera d'arte come array di byte.

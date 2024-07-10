@@ -112,6 +112,7 @@ public class Score implements Serializable {
     /**
      * Metodo che restituisce il tempo formattato (hh:mm:ss)
      *
+     * @param timeTaken Tempo da formattare, espresso in millisecondi.
      * @return Tempo espresso in una stringa formattata.
      */
     public static String timeFormatted(long timeTaken) {

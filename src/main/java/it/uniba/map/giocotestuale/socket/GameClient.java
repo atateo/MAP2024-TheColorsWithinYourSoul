@@ -18,13 +18,27 @@ import org.apache.logging.log4j.Logger;
  * permettendo di inviare e ricevere punteggi.
  */
 public class GameClient {
+    /**
+     * Istanza di Socket utilizzata dal client.
+     */
     private Socket clientSocket;
+    /**
+     * Stream per l'output dal socket.
+     */
     private ObjectOutputStream out;
+    /**
+     * Stream per l'input sul socket.
+     */
     private ObjectInputStream in;
     /**
      * Logger per la registrazione degli eventi.
      */
     protected static final Logger logger = LogManager.getLogger();
+
+    /**
+     * Costruttore di default di GameClient.
+     */
+    public GameClient() {}
 
     /**
      * Avvia la connessione al server specificato.
@@ -44,6 +58,7 @@ public class GameClient {
      * Invia un oggetto Score (punteggio) al server.
      *
      * @param score il punteggio da inviare
+     * @return Stringa contenente la risposta del server.
      */
     public String sendScore(Score score) {
         String resp = null;

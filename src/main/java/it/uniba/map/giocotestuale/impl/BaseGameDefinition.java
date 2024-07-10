@@ -15,6 +15,11 @@ import it.uniba.map.giocotestuale.utility.jsonutil.JsonUtil;
 public class BaseGameDefinition {
 
     /**
+     * Costruttore di default di BaseGameDefinition.
+     */
+    public BaseGameDefinition() {}
+
+    /**
      * Crea un file Json corrispondente allo stato iniziale del gioco.
      */
     public void createJsonBackup() {

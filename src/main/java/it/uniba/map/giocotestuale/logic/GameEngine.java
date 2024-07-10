@@ -237,6 +237,8 @@ public abstract class GameEngine {
 
     /**
      * Metodo astratto che restituirà tutti i comandi di gioco.
+     *
+     * @return Set contenente tutti i comandi del gioco.
      */
     public abstract Set<CommandClass> getAllCommands();
 

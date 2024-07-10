@@ -30,6 +30,11 @@ public class Dimension {
     private String diameter;
 
     /**
+     * Costruttore di default di Dimension.
+     */
+    public Dimension() {}
+
+    /**
      * Metodo getter per il testo.
      *
      * @return testo.

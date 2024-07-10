@@ -14,6 +14,11 @@ public class MockDatabase {
     private static List<String> istruzioni = new ArrayList<>();
 
     /**
+     * Costruttore di default di MockDatabase.
+     */
+    public MockDatabase() {}
+
+    /**
      * Ritorna le istruzioni di creazione e popolamento del database.
      *
      * @return la lista di istruzioni di creazione e popolamento del database.

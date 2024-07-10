@@ -1,0 +1,17 @@
+it.uniba.map.giocotestuale
+it.uniba.map.giocotestuale.config
+it.uniba.map.giocotestuale.database
+it.uniba.map.giocotestuale.database.dao
+it.uniba.map.giocotestuale.database.domain
+it.uniba.map.giocotestuale.database.impl
+it.uniba.map.giocotestuale.entities.artwork
+it.uniba.map.giocotestuale.entities.game
+it.uniba.map.giocotestuale.gui
+it.uniba.map.giocotestuale.impl
+it.uniba.map.giocotestuale.logic
+it.uniba.map.giocotestuale.logic.interaction
+it.uniba.map.giocotestuale.rest
+it.uniba.map.giocotestuale.socket
+it.uniba.map.giocotestuale.type
+it.uniba.map.giocotestuale.utility
+it.uniba.map.giocotestuale.utility.jsonutil

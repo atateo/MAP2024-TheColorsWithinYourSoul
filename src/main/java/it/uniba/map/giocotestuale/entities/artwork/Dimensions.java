@@ -15,6 +15,11 @@ public class Dimensions {
     private Dimension cm;
 
     /**
+     * Costruttore di default di Dimensions.
+     */
+    public Dimensions() {}
+    
+    /**
      * Metodo getter per l'oggetto dimensioni espresse in pollici.
      *
      * @return l'oggetto dimensioni espresse in pollici.

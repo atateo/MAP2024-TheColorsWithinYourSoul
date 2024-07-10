@@ -4,9 +4,23 @@ package it.uniba.map.giocotestuale.entities.artwork;
  * Classe che rappresenta il ritorno del servizio di recupero delle opere d'arte.
  */
 public class ArtworkResponse {
+    /**
+     * Array di bytes corrispondente all'immagine.
+     */
     private byte[] artwork;
+    /**
+     * Nome dell'artwork.
+     */
     private String nameArtwork;
+    /**
+     * Nome dell'artista dell'opera.
+     */
     private String nameArtist;
+
+    /**
+     * Costruttore di default di ArtworkResponse.
+     */
+    public ArtworkResponse() {}
 
     /**
      * Restituisce l'opera d'arte come array di byte.

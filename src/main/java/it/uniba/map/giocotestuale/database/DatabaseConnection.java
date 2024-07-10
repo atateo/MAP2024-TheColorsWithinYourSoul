@@ -6,18 +6,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import it.uniba.map.giocotestuale.config.ApplicationProperties;
+import org.h2.engine.Database;
 
 /**
  * Gestisce la connessione al database utilizzando le proprietà dell'applicazione.
  * La connessione viene aperta una volta e riutilizzata fino a quando non viene rilasciata.
  */
 public class DatabaseConnection {
-
     /**
      * Logger per la registrazione degli eventi.
      */
     protected static final Logger logger = LogManager.getLogger();
-
     /**
      * Oggetto Connection utilizzato per connettersi al database.
      */
@@ -34,6 +33,11 @@ public class DatabaseConnection {
             logger.error("Eccezione in fase di apertura della connessione al database: ", e);
         }
     }
+
+    /**
+     * Costruttore di default di DatabaseConnection.
+     */
+    public DatabaseConnection() {}
 
     /**
      * Restituisce la connessione al database.

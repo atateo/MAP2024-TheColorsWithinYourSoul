@@ -35,6 +35,7 @@ public class RoomConnection implements Serializable {
     /**
      * Metodo getter per la stanza raggiungibile. Prende l'istanza di gioco e restituisce la stanza con l'ID cercato.
      *
+     * @param gameEngine Istanza del gioco in cui va cercata la stanza.
      * @return Stanza raggiungibile. Se non esiste, restituisce null.
      */
     public Room getReachableRoom(final GameEngine gameEngine) {

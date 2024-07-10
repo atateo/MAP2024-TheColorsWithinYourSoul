@@ -15,6 +15,11 @@ public class Link {
     private boolean templated;
 
     /**
+     * Costruttore di default di Link.
+     */
+    public Link() {}
+
+    /**
      * Metodo getter per il link dell'immagine.
      *
      * @return il link dell'immagine.

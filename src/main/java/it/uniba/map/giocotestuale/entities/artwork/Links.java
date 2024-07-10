@@ -61,6 +61,11 @@ public class Links {
     private Link saleArtworks;
 
     /**
+     * Costruttore di default di Links.
+     */
+    public Links() {}
+
+    /**
      * Metodo getter per Link di tipo thumbnail.
      *
      * @return Link di tipo thumbnail.

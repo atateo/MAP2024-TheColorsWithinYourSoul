@@ -27,6 +27,11 @@ public class GiocoTestuale {
     protected static final Logger logger = LogManager.getLogger();
 
     /**
+     * Costruttore di default di GiocoTestuale.
+     */
+    public GiocoTestuale() {}
+
+    /**
      * Main dell'applicazione. Il metodo che verrà eseguito e darà inizio al gioco.
      * @param args Argomenti.
      */

@@ -16,14 +16,24 @@ import it.uniba.map.giocotestuale.utility.GameTimer;
  */
 public class GameToJson implements Serializable {
     /**
-     *
+     * Istanza del timer di gioco,
      */
-    @Serial
-    private static final long serialVersionUID = 1L;
     private GameTimer timer;
+    /**
+     * Lista dei colori del gioco.
+     */
     private List<ColorClass> colors;
+    /**
+     * Lista delle stanze del gioco.
+     */
     private List<Room> rooms;
+    /**
+     * Stanza corrente del player nel gioco.
+     */
     private Room room;
+    /**
+     * Lista che rappresenta l'inventario del player.
+     */
     private List<Item> inventario;
 
     /**
