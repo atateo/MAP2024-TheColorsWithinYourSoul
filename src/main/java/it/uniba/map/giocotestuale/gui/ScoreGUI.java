@@ -99,7 +99,7 @@ public class ScoreGUI extends JFrame {
         setIconImage(img.getImage());
         createView(false);
 
-        setTitle("The Colors within your Soul - Classifica");
+        setTitle("The Colors Within Your Soul - Classifica");
         setSize(650, 400);
         setLocationRelativeTo(null);
         setResizable(false);
