@@ -1073,14 +1073,14 @@ public static void setRoomImage(String roomName) {
     imagePanel.repaint();
 }
 ```
-Il metodo <code>setRoomImage</code> usa <code>addImage</code> per aggiungere l'immagine col nome specificato nell'imagePanel e sfrutta il metodo repaint e cardLayot
+Il metodo <code>setRoomImage</code> usa <code>addImage</code> per aggiungere l'immagine col nome specificato nell'<code>imagePanel</code> e sfrutta il metodo <code>repaint()</code> e cardLayot
 per cambiare l'immagine.
 Per la <code>CommandsGUI</code> abbiamo creato una classe <code>Singleton</code> che è sottoclasse di <code>JFrame</code> e mostra la lista dei comandi.
 Si può accedere ad essa tramite il pulsante "Comandi di gioco" del menu oppure nel gioco attraverso il pulsante "?".
 
 <img src="./img/Comandi.png">
 
-Infine abbiamo la classe <code>ScoreGUI</code> che si occupa di visualizzare la Top 10 dei migliori tempi di gioco fatte dai giocatori, è una sottoclasse di  <code>JFrame</code>
+Infine abbiamo la classe <code>ScoreGUI</code> che si occupa di visualizzare la Top 10 dei migliori tempi di gioco fatte dai giocatori, è una sottoclasse di <code>JFrame</code>.
 ```java
 public class ScoreGUI extends JFrame {
     //...
