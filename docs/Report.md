@@ -805,7 +805,7 @@ public GameServer(int port) {
 	logger.info("Server creato");
 }
 ```
-La classe server implementa il metodo <code>start</code> che pone in ascolto il server socket e si predispone per accettare le chiamate in ingresso. Sulla base dell'operazione definita dal client, effettua le due principali operazioni.
+La classe server implementa il metodo <code>start()</code> che pone in ascolto il <code>ServerSocket</code> e si predispone per accettare le chiamate in ingresso. Sulla base dell'operazione definita dal client, effettua le due principali operazioni.
 - <code>POST</code> indica che si sta chiedendo al server di effettuare l'inserimento del tempo impiegato dal player per completare il gioco.
 - <code>GET</code> indica che si sta chiedendo al server di restituire la lista dei primi dieci migliori tempi se presenti o dei primi "n" se il numero di tempi è minore di dieci.
 
@@ -914,7 +914,7 @@ private void addScore(Score score) {
 }
 ```
 
-Il metodo <code>getScores</code> avvia la connessione verso il server, richiama il metodo <code>getScores</code> del client e chiude la connessione verso il server.
+Il metodo <code>getScores()</code> avvia la connessione verso il server, richiama il metodo <code>getScores</code> del client e chiude la connessione verso il server.
 
 ```java
 private List<Score> getScores() {
@@ -933,7 +933,7 @@ private List<Score> getScores() {
 Tutte le operazioni salienti e le eventuali eccezioni sono gestite dal framework <code>logj4</code>. I messaggi di errore sono comunque gestiti nella comunicazione client/server.
 
 ### GUI
-La GUI del gioco è stata realizzata sfruttando i package Java <code>Swing</code> e <code>AWT</code>, per ogni GUI che compone il gioco è stata implementata un'apposita classe(Menu,Game...).
+La GUI del gioco è stata realizzata sfruttando i package Java <code>Swing</code> e <code>AWT</code>, per ogni pannello/finestra che compone il gioco è stata implementata un'apposita classe (Menu, Game e così via).
 Una classe <code>HandlerGUI</code> è stata pensata per coordinare fra loro le varie GUI, essa è una sottoclasse della classe <code>JFrame</code> e rappresenta il frame principale del gioco,
 sul quale verranno visualizzate le altre GUI. Per poter passare da una schermata all'altra le classi <code>MenuGUI</code>,<code>GameGUI</code>,<code>CreditsGUI</code> e <ProgressBarGUI</code> sono state realizzate come
 sottoclassi di <code>JPanel</code>. In questo modo  <code>HandlerGUI</code> ha utilizzato la classe di AWT <code>CardLayout</code> per gestire la selezione dei vari
@@ -984,7 +984,6 @@ public class HandlerGUI extends JFrame {
 ```
 <code>MenuGUI</code> si occupa di gestire le componenti del menu iniziale, come lo sfondo e i pulsanti per avviare o 
 caricare la partita. Per cambiare schermata a seguito del click su un pulsante utilizza sempre <code>CardLayout</code>.
-Struttura della classe:
 ```java
 public class MenuGUI extends JPanel {
 
@@ -1029,32 +1028,32 @@ private void setGroupLayout() {
         );
     }
 ```
-Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo aver completato il gioco diventerà a colori. Passando da così:
-<img src="./img/Thumbnail.png">
-A così
-<img src="./img/Menu.png">
+Il menu ha una particolarità, all'inizio del gioco è in bianco e nero, dopo aver completato il gioco diventerà a colori. Mostriamo qui i due menù uno accanto all'altro per mostrare la differenza.
+
+<img src="./img/Thumbnail.png" width="500" height="375"><img src="./img/Menu.png" width="500" height="375">
+
 
 Questo avviene utilizzando il metodo <code>updateMenu</code>, a fine gioco, il quale cambia i colori dei pulsanti e cambia lo sfondo.
-La classe <code>CreditsGUI</code> mostra i crediti di gioco:
+Abbiamo inoltre la classe <code>CreditsGUI</code>, che mostra i crediti di gioco.
 
 <img src="./img/Crediti.png">
 
-La classe  <code>ProgressBarGUI</code> si occupa di inizializzare e far muovere la ProgressBar.
-La classe  <code>GameGUI</code> si occupa della GUI dove si svolge l'intero gioco:
+La classe  <code>ProgressBarGUI</code> si occupa di inizializzare e far muovere la ProgressBar, mentre la classe  <code>GameGUI</code> si occupa della GUI dove si svolge l'intero gioco.
 <img src="./img/Game.png">
 
 In questa classe è presente una <code>toolBar</code> che racchiude tutti i pulsanti consultabili in game, una barra dei colori che all'inizio
 è grigia ma quando l'utente sbloccherà man mano i colori durante gli enigmi verrà colorata del colore corrispondente a quello ottenuto.
-Questo viene fatto grazie al metodo <code>unlockColor</code>.
+Questo viene fatto grazie al metodo <code>unlockColor()</code>.
 Inoltre vi è la <code>TextPane</code> che mostra le scritte del gioco, la <code>TextArea</code> per l'inventario e il <code>JPanel</code> per l'immagine di gioco corrente(attributo <code>imagePanel</code>). Sempre grazie a <code>CardLayout</code> è possibile
-passare da un immagine di gioco ad un'altra. Metodi per l'aggiunta dei <code>JPanel</code> e il cambio di immagine:
+passare da un immagine di gioco ad un'altra.
 ```java
 public void initCurrentImage() {
      cardLayout = new CardLayout(); //istanzia il cardLayout 
      //...
      cardLayout.preferredLayoutSize(imagePanel);
      imagePanel.setLayout(cardLayout);
-    }
+}
+
 public static void addImage(String RoomName) {
     imagePanel.add(new JPanel() {
     @Override
@@ -1065,6 +1064,7 @@ public static void addImage(String RoomName) {
     }
   }, RoomName);
 }
+
 public static void setRoomImage(String roomName) {
     imagePanel.removeAll();
     addImage(roomName);
@@ -1073,14 +1073,14 @@ public static void setRoomImage(String roomName) {
     imagePanel.repaint();
 }
 ```
-Il metodo <code>setRoomImage</code> usa <code>addImage</code> per aggiungere l'immagine col nome specificato nell'imagePanel e sfrutta il metodo repaint e cardLayot
+Il metodo <code>setRoomImage</code> usa <code>addImage</code> per aggiungere l'immagine col nome specificato nell'<code>imagePanel</code> e sfrutta il metodo <code>repaint()</code> e cardLayot
 per cambiare l'immagine.
 Per la <code>CommandsGUI</code> abbiamo creato una classe <code>Singleton</code> che è sottoclasse di <code>JFrame</code> e mostra la lista dei comandi.
 Si può accedere ad essa tramite il pulsante "Comandi di gioco" del menu oppure nel gioco attraverso il pulsante "?".
 
 <img src="./img/Comandi.png">
 
-Infine abbiamo la classe <code>ScoreGUI</code> che si occupa di visualizzare la Top 10 dei migliori tempi di gioco fatte dai giocatori, è una sottoclasse di  <code>JFrame</code>
+Infine abbiamo la classe <code>ScoreGUI</code> che si occupa di visualizzare la Top 10 dei migliori tempi di gioco fatte dai giocatori, è una sottoclasse di <code>JFrame</code>.
 ```java
 public class ScoreGUI extends JFrame {
     //...
