@@ -34,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: The_Colors_Within_Your_Soul
-        path: target/the_colors_within_your_soul-1.0-SNAPSHOT-jar-with-dependencies.jar
+        path: target/the_colors_within_your_soul-1.0-jar-with-dependencies.jar
