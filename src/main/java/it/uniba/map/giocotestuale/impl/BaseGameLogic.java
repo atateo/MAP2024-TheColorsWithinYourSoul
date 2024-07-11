@@ -7,7 +7,6 @@ import it.uniba.map.giocotestuale.entities.game.Item;
 import it.uniba.map.giocotestuale.logic.interaction.Interaction;
 import it.uniba.map.giocotestuale.logic.interaction.InteractionFactory;
 import it.uniba.map.giocotestuale.type.Command;
-import org.glassfish.grizzly.compression.lzma.impl.Base;
 
 import java.util.ArrayList;
 
