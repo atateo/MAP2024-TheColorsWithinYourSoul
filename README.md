@@ -2,9 +2,9 @@
 
 
 ## Requisiti
-Prima di procedere all'installazione, vi consigliamo di dare un'occhiata alla [documentazione](docs/Report.md) del nostro progetto.
+Prima di procedere all'installazione, vi consigliamo di dare un'occhiata alla [documentazione](docs/Report.md) del progetto.
 
-Per poter eseguire il nostro progetto è necessario:
+Per poter eseguire il nostro gioco è necessario:
 
 - **Java 22**: per poter eseguire il nostro progetto è necessario avere installato Java 22.<br>
   Per controllare la versione di Java installata sul proprio computer è possibile eseguire il comando `java -version` da terminale.
