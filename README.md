@@ -2,8 +2,7 @@
 
 
 ## Requisiti
-Prima di procedere all'installazione, vi consigliamo di dare un'occhiata alla [documentazione](docs/Report.md) del nostro progetto.
-
+Prima di procedere all'installazione, vi consigliamo di dare un'occhiata alla [documentazione](docs/Report.md) del nostro progetto.<br>
 Per poter eseguire il nostro progetto è necessario:
 
 - **Java 22**: per poter eseguire il nostro progetto è necessario avere installato Java 22.<br>
