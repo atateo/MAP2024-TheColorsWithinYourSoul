@@ -17,20 +17,21 @@ A questo punto sarete già sulla sezione della JDK 22, quindi non dovrete fare a
 ## Come eseguire il progetto
 È necessario scaricare la cartella contenente il codice sorgente e il file `the_colors_within_your_soul-1.0-jar-with-dependencies.jar` nel seguente modo:
 
-- Per scaricare il codice sorgente, sarà sufficiente cliccare sulla <code>Release</code> che si trova a destra della schermata principale della repository. Basterà poi scaricare la cartella <code>Source code (zip)</code> e decomprimerla a download terminato. ![DownloadSourceCode1](docs/img/DownloadSourceCode1.png)![DownloadSourceCode2](docs/img/DownloadSourceCode2.png)
+- Per scaricare il codice sorgente, sarà sufficiente cliccare sulla <code>Release</code> che si trova a destra della schermata principale della repository. Basterà poi scaricare la cartella <code>Source code (zip)</code> e decomprimerla a download terminato. ![DownloadSourceCode1](docs/img/DownloadSourceCode1.png)![DownloadSourceCode2](docs/img/DownloadSourceCode2.png)<br>
 - Dal momento che il progetto utilizza il framework Maven, la gestione del JAR è stata gestita automaticamente usando il `pom.xml` con i suoi plugin e l'utilizzo delle `GitHub Actions`.
   Dunque è sufficiente scaricare il JAR associato all'ultima versione del progetto.<br>
   Per prima cosa bisogna andare nella sezione `Actions` del repository GitHub del progetto.
-  ![Actions](docs/img/Actions.png)
+  ![Actions](docs/img/Actions.png)<br>
 
 - Nella sezione `All Workflows` cliccare sulla  `Build` più recente. In questa foto è `Update maven.yml`, ma potrebbe essere diversa per voi. In ogni caso, l'importante è cliccare sulla prima riga, corrispondente all'ultima build eseguita.
-  ![Build](docs/img/Build.png)
+  ![Build](docs/img/Build.png)<br>
 
 - A questo punto basta vedere la sezione `Artifacts` e cliccare sul file `the_colors_within_your_soul-1.0-jar-with-dependencies.jar` per scaricarlo.
-  ![Artifacts](docs/img/Artifacts.png)
+  ![Artifacts](docs/img/Artifacts.png)<br>
 
 - Nella sezione `Downloads` vi sarà apparso il download del file JAR in un file zip, che dovrete semplicemente spostare sul vostro desktop e spostare il file JAR all'interno della `cartella del progetto`, in questo modo:
-  ![Downloads](docs/img/FinalResult.png)
+  ![Downloads](docs/img/FinalResult.png)<br>
+  
 - Arrivati a questo punto, sarà sufficiente fare doppio click sul file JAR e divertirsi col nostro gioco!
 
 
