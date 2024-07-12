@@ -8,9 +8,7 @@ Per poter eseguire il nostro gioco è necessario:
 
 - **Una connessione a internet**: Ad un certo punto del gioco viene fatta una richiesta `REST` a un' `API` per una particolare funzionalità di gameplay che non vogliamo spoilerare. Di conseguenza, è richiesto che il gioco venga eseguito mentre si è connessi ad una connessione internet, altrimenti il gioco si bloccherà.
 - **Un account GitHub**: Per poter scaricare il file JAR, è necessario essere registrati con un account [GitHub](https://github.com), in quanto è richiesto per accedere al link contenente il download del JAR nella sezione `Artifacts`.
-- **Java 22**: Per poter eseguire il nostro progetto è necessario avere installato Java 22.<br>
-  Per controllare la versione di Java installata sul proprio computer è possibile eseguire il comando `java -version` da terminale.
-  Nel caso in cui non fosse installato è possibile scaricarlo dal sito ufficiale di [Oracle](https://www.oracle.com/it/java/technologies/downloads/). Appena aperto il link, vi si presenterà la seguente schermata:
+- **Java 22**: Per poter eseguire il nostro progetto è necessario avere installato Java 22. Per controllare la versione di Java installata sul proprio computer è possibile eseguire il comando `java -version` da terminale. Nel caso in cui non fosse installato è possibile scaricarlo dal sito ufficiale di [Oracle](https://www.oracle.com/it/java/technologies/downloads/). Appena aperto il link, vi si presenterà la seguente schermata:
 
 ![Java](docs/img/DownloadJava.png)
 
@@ -38,7 +36,7 @@ A questo punto sarete già sulla sezione della JDK 22, quindi non dovrete fare a
 
 ### Esecuzione del JAR tramite IDE
 
-Alternativamente al metodo proposto sopra, si può eseguire il nostro programma semplicemente usando un'IDE. Per eseguire il JAR tramite IDE è necessario aprire il progetto in un IDE, come ad esempio IntelliJ IDEA, Eclipse, NetBeans, ecc.<br>
+Alternativamente al metodo proposto sopra, si può eseguire il nostro programma semplicemente usando un IDE. Per eseguire il JAR tramite IDE è necessario aprire il progetto in un IDE, come ad esempio IntelliJ IDEA, Eclipse, NetBeans, ecc.<br>
 
 Una volta aperto l'IDE, è possibile eseguire il JAR cliccando sul file JAR e selezionando l'opzione `Run` o `Esegui`, oppure basta semplicemente eseguire la classe contenente il metodo <code>main()</code> del progetto, ossia la classe `GiocoTestuale.java`, nella cartella `src/main/java/org/it/uniba/giocotestuale`.
 
