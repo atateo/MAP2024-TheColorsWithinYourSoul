@@ -77,7 +77,6 @@ public class CommandsGUI extends JFrame {
 
         //JTextArea per il testo sopra l'immagine
         JTextArea textArea = new JTextArea("""
-                                               \s
                 Nord: Permette di muoversi in avanti
                                                         \s
                 Sud: Permette di muoversi indietro
@@ -111,7 +110,7 @@ public class CommandsGUI extends JFrame {
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 13));
+        textArea.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 12));
         textArea.setForeground(Color.BLACK);
 
         // Pannello con layout trasparente per il testo

@@ -230,6 +230,10 @@ public class ColorsWithinYourSoulGame extends GameEngine {
         if (command == Command.LASCIA) {
             if (output.getFirstObject() == null) {
                 GameToGUICommunication.getInstance().toGUI(dialog.getTestoById(59));//59
+                return;
+            } else if (!(output.getFirstObject() instanceof Item)) {
+                invalidCommandOutput();
+                return;
             } else {
                 //Rimuove l'oggetto nell'inventario e lo aggiunge dalla stanza
                 removeItem((Item) output.getFirstObject());
@@ -240,8 +244,13 @@ public class ColorsWithinYourSoulGame extends GameEngine {
             }
         }
 
-        //Verifica che per il comando usa l'oggetto sia nell'inventario
+        //Verifica che per il comando usa l'oggetto non sia nullo, sia un item e che sia nell'inventario
         if (command == Command.USA) {
+            if (output.getFirstObject() == null || !(output.getFirstObject() instanceof Item)) {
+                invalidCommandOutput();
+                return;
+            }
+
             if (!getInventory().contains((Item) output.getFirstObject())) {
                 invalidCommandOutput();
                 return;
