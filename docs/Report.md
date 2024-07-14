@@ -342,7 +342,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
   - <code>get(put(m, k, v), k')</code> = if <code>k = k'</code> then <code>v</code> else <code>get(m, k')</code>
   - <code>remove(put(m, k, v), k')</code> = if <code>k = k'</code> then <code>m</code> else <code>put(remove(m, k'), k, v)</code>
   - <code>size(newMap)</code> = <code>0</code>
-  - <code>size(put(m, k, v))</code> = <code>size(m) + 1</code>
+  - <code>size(put(m, k, v))</code> = if <code>containsKey(m, k) then <code>size(m)</code> else <code>size(m) + 1</code>
 
 
 #### Specifica di restrizione
