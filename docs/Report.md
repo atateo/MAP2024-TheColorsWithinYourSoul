@@ -130,7 +130,7 @@ La lista è una struttura dati che permette di memorizzare e recuperare informaz
           </tr>
             <tr>
                 <td><code>getSize(List) -> Integer</code></td>
-                <td>Restituisce l'ultima posizione occupata da un elemento</td>
+                <td>Restituisce il numero di elementi contenuti nella lista</td>
             </tr> 
             <tr>
                 <td><code>getIndex(List, Item) -> Integer</code></td>
@@ -174,7 +174,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
     </tr>
     <tr>
       <td><code>getSize(l')</code></td>
-      <td><code>error</code></td>
+      <td><code>0</code></td>
       <td>if <code>isEmpty(l)</code> then <code>1</code> else <code>getSize(l) + 1</code></td>
     </tr>
     <tr>
@@ -210,6 +210,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
 - **OPERATIONS**
   - <code>isEmpty(newList)</code> = <code>true</code>
   - <code>isEmpty(add(l, it, id))</code> = <code>false</code>
+  - <code>getSize(newList())</code> = <code>0</code>
   - <code>getSize(add(l, it, id))</code> = if <code>isEmpty(l)</code> then <code>1</code> else <code>getSize(l) + 1</code>
   - <code>getIndex(add(l, it, id), it')</code> = if <code>it = it'</code> then <code>id</code> else <code>getIndex(l, it')</code>
   - <code>getItem(add(l, it, id), id')</code> = if <code>id = id'</code> then <code>it</code> else <code>getItem(l, id')</code>
@@ -219,7 +220,6 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
 
 #### Specifica di restrizione
 - **RESTRICTIONS**
-  - <code>getSize(newList)</code> = <code>error</code>
   - <code>getIndex(newList, it')</code> = <code>error</code>
   - <code>getItem(newList, id')</code> = <code>error</code>
   - <code>remove(newList, id')</code> = <code>error</code>
@@ -320,7 +320,7 @@ Alcuni appunti: <code>Item</code> è un tipo generico usato come placeholder. Pu
     <tr>
       <td><code>size(m')</code></td>
       <td><code>0</code></td>
-      <td>if <code>isEmpty(m)</code> then <code>1</code> else <code>size(m) + 1</code></td>
+      <td>if <code>containsKey(m, k) then <code>size(m)</code> else <code>size(m) + 1</code></td>
     </tr>
   </tbody>
 </table>
